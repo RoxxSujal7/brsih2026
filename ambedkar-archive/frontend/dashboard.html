@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Your personal dashboard on the Ambedkar Digital Heritage Archive — continue reading, manage bookmarks, and track your research progress." />
+  <title>My Dashboard — Ambedkar Digital Heritage Archive</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="css/style.css" />
+  <script>(function(){const t=localStorage.getItem('site_theme')||localStorage.getItem('reader_theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+
+  <link rel="stylesheet" href="css/auth.css" />
+</head>
+<body>
+
+<!-- ─── Floating Island Navigation ─────────────────── -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="Ambedkar Archive Home">
+      <div class="nav-logo-icon" aria-hidden="true">⚜️</div>
+      <div class="nav-logo-text">
+        <span>AMBEDKAR ARCHIVE</span>
+        <span class="nav-logo-sub">Digital Heritage Platform</span>
+      </div>
+    </a>
+
+    <div class="nav-links" role="list">
+      <a href="index.html" class="nav-link" role="listitem">Home</a>
+      <a href="archive.html" class="nav-link" role="listitem">Complete Works (60 Vol)</a>
+      <a href="media.html" class="nav-link" role="listitem">Speeches &amp; Media</a>
+      <a href="timeline.html" class="nav-link" role="listitem">Timeline</a>
+      <a href="assistant.html" class="nav-link" role="listitem">AI Assistant</a>
+    </div>
+
+    <div class="nav-actions">
+            <!-- Reading Atmosphere Switcher -->
+      <div class="nav-theme" role="group" aria-label="Atmosphere selection">
+        <button class="theme-toggle-btn active" data-theme="dark" title="Dark Slate Atmosphere">🌙</button>
+        <button class="theme-toggle-btn" data-theme="paper" title="Ivory Paper Sanctuary">📜</button>
+        <button class="theme-toggle-btn" data-theme="sepia" title="Historical Sepia Sanctuary">🏺</button>
+      </div>
+      <div class="nav-lang" role="group" aria-label="Language selection">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="hi">हिन्दी</button>
+        <button class="lang-btn" data-lang="mr">मराठी</button>
+      </div>
+
+      <a id="nav-login-btn" href="login.html" class="btn btn-primary btn-sm">Sign In</a>
+
+      <div id="nav-user-menu" style="display:none;" class="flex gap-2 items-center">
+        <a href="dashboard.html" class="btn btn-secondary btn-sm">
+          <span>👤</span> <span id="nav-user-name">User</span>
+        </a>
+        <button data-action="logout" class="btn btn-ghost btn-sm">Logout</button>
+      </div>
+
+      <button id="hamburger" class="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Drawer -->
+<div id="mobile-menu" class="mobile-menu">
+  <div class="mobile-theme-row flex-between items-center" style="padding:var(--space-2) var(--space-3);margin-bottom:var(--space-2);border-bottom:1px solid var(--border);">
+    <span style="font-size:0.8rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Atmosphere</span>
+    <div class="nav-theme" role="group" aria-label="Atmosphere selection">
+      <button class="theme-toggle-btn active" data-theme="dark" title="Dark Slate">🌙</button>
+      <button class="theme-toggle-btn" data-theme="paper" title="Ivory Paper">📜</button>
+      <button class="theme-toggle-btn" data-theme="sepia" title="Historical Sepia">🏺</button>
+    </div>
+  </div>
+
+  <a href="index.html" class="nav-link">🏠 Home</a>
+  <a href="archive.html" class="nav-link">📚 Complete Works (60 Volumes)</a>
+  <a href="constitution.html" class="nav-link">⚖️ Constitution</a>
+  <a href="ideas.html" class="nav-link">💡 Thematic Ideas</a>
+  <a href="learning.html" class="nav-link">🎓 Learning Center</a>
+  <a href="quotes.html" class="nav-link">💬 Verified Quotes</a>
+  <a href="media.html" class="nav-link">🎬 Speeches &amp; Audio-Visual</a>
+  <a href="timeline.html" class="nav-link">📅 Chronological Timeline</a>
+  <a href="slides.html" class="nav-link">📽️ Visual Exhibition Deck <span class="badge-16-9">16:9</span></a>
+  <a href="assistant.html" class="nav-link">🤖 AI Assistant</a>
+  <a href="ocr.html" class="nav-link">📜 Manuscript OCR</a>
+  <a href="dashboard.html" class="nav-link active">👤 My Research Dashboard</a>
+  <button data-action="logout" class="nav-link" style="border:none;background:none;color:var(--danger);text-align:left;width:100%;margin-top:var(--space-2);">🚪 Logout</button>
+</div>
+
+<!-- ─── Vertical Left Dock: Curated Exploration Hubs ─── -->
+<aside class="side-dock" role="navigation" aria-label="Curated exploration hubs">
+  <div class="side-dock-inner">
+    <div class="side-dock-header">
+      <span class="side-dock-badge">Curated Hubs</span>
+    </div>
+    <div class="side-dock-links">
+      <a href="slides.html" class="side-dock-link" title="Visual Exhibition Deck (16:9)">
+        <span class="side-dock-icon">📽️</span>
+        <span class="side-dock-label">Exhibition <span class="badge-16-9">16:9</span></span>
+      </a>
+      <a href="constitution.html" class="side-dock-link" title="Constitution of India">
+        <span class="side-dock-icon">⚖️</span>
+        <span class="side-dock-label">Constitution</span>
+      </a>
+      <a href="ideas.html" class="side-dock-link" title="Thematic Ideas &amp; Philosophy">
+        <span class="side-dock-icon">💡</span>
+        <span class="side-dock-label">Ideas</span>
+      </a>
+      <a href="learning.html" class="side-dock-link" title="Interactive Learning Center">
+        <span class="side-dock-icon">🎓</span>
+        <span class="side-dock-label">Learning</span>
+      </a>
+      <a href="quotes.html" class="side-dock-link" title="Verified Historical Quotes">
+        <span class="side-dock-icon">💬</span>
+        <span class="side-dock-label">Quotes</span>
+      </a>
+      <a href="ocr.html" class="side-dock-link" title="Manuscript OCR Visualizer">
+        <span class="side-dock-icon">📜</span>
+        <span class="side-dock-label">OCR</span>
+      </a>
+    </div>
+  </div>
+</aside>
+
+<!-- Page content -->
+<main class="page-content" role="main">
+  <div class="container section">
+
+    <!-- Header -->
+    <div class="dashboard-header">
+      <div class="flex-between items-center" style="flex-wrap:wrap;gap:var(--space-4);">
+        <div>
+          <div class="section-eyebrow" style="margin-bottom:var(--space-2);">RESEARCH WORKSPACE</div>
+          <h1 class="dashboard-welcome" id="welcome-heading">Welcome back, <span id="user-name-display" class="text-gold">Researcher</span> 👋</h1>
+          <div class="dashboard-meta">
+            <span id="user-role-badge" class="badge badge-gold">visitor</span>
+            <span id="user-institution" style="font-size:.85rem;color:var(--text-faint);"></span>
+            <span id="user-since" style="font-size:.85rem;color:var(--text-faint);"></span>
+          </div>
+        </div>
+        <div class="flex gap-2">
+          <a href="archive.html" class="btn btn-primary btn-sm">
+            <span>Browse Archive</span>
+            <span class="btn-icon-bubble">📚</span>
+          </a>
+          <button data-action="logout" class="btn btn-secondary btn-sm">Logout</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Grid (Double-Bezel) -->
+    <div class="stats-grid" id="stats-grid">
+      <div class="stat-card">
+        <div class="stat-card-number num-tabular" id="stat-read">0</div>
+        <div class="stat-card-label">Documents Read</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-number num-tabular" id="stat-completed">0</div>
+        <div class="stat-card-label">Completed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-number num-tabular" id="stat-bookmarks">0</div>
+        <div class="stat-card-label">Bookmarks Saved</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-number num-tabular" id="stat-time">0m</div>
+        <div class="stat-card-label">Research Time</div>
+      </div>
+    </div>
+
+    <!-- Main dashboard grid -->
+    <div class="dashboard-grid">
+
+      <!-- Left: Reading progress + Bookmarks -->
+      <div>
+        <!-- Continue reading -->
+        <div style="margin-bottom:var(--space-8);">
+          <div class="dash-section-title">
+            <h2 style="font-size:1.25rem;font-family:var(--font-display);">📖 Continue Reading</h2>
+            <a href="archive.html" class="btn btn-ghost btn-sm">Browse Archive →</a>
+          </div>
+          <div id="continue-reading-list" style="display:flex;flex-direction:column;gap:var(--space-4);">
+            <div class="card card-body" style="text-align:center;padding:var(--space-8);"><span style="color:var(--text-muted);">Loading your progress…</span></div>
+          </div>
+        </div>
+
+        <!-- Bookmarks -->
+        <div>
+          <div class="dash-section-title">
+            <h2 style="font-size:1.25rem;font-family:var(--font-display);">🔖 Saved Bookmarks</h2>
+            <span id="bookmark-count" style="font-size:.875rem;color:var(--gold-light);font-weight:600;"></span>
+          </div>
+          <div id="bookmarks-list" style="display:flex;flex-direction:column;gap:var(--space-3);">
+            <div class="card card-body" style="text-align:center;padding:var(--space-6);"><span style="color:var(--text-muted);">Loading bookmarks…</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Quick links + Profile -->
+      <div>
+        <!-- Quick access (Double-Bezel Cards) -->
+        <div style="margin-bottom:var(--space-6);">
+          <h2 style="font-size:1.15rem;margin-bottom:var(--space-4);font-family:var(--font-display);">⚡ Quick Access</h2>
+          <div style="display:flex;flex-direction:column;gap:var(--space-3);">
+            <a href="archive.html" class="card" style="text-decoration:none;">
+              <div class="card-inner" style="padding:var(--space-4);display:flex;align-items:center;gap:var(--space-4);">
+                <span style="font-size:1.6rem;" aria-hidden="true">📚</span>
+                <div>
+                  <div style="font-weight:600;color:var(--text);font-size:0.95rem;">60-Volume Catalog</div>
+                  <div style="font-size:.78rem;color:var(--text-muted);">English &amp; Hindi BAWS volumes</div>
+                </div>
+              </div>
+            </a>
+            <a href="assistant.html" class="card" style="text-decoration:none;">
+              <div class="card-inner" style="padding:var(--space-4);display:flex;align-items:center;gap:var(--space-4);">
+                <span style="font-size:1.6rem;" aria-hidden="true">🤖</span>
+                <div>
+                  <div style="font-weight:600;color:var(--text);font-size:0.95rem;">AI Research Assistant</div>
+                  <div style="font-size:.78rem;color:var(--text-muted);">Semantic questions with volume citations</div>
+                </div>
+              </div>
+            </a>
+            <a href="timeline.html" class="card" style="text-decoration:none;">
+              <div class="card-inner" style="padding:var(--space-4);display:flex;align-items:center;gap:var(--space-4);">
+                <span style="font-size:1.6rem;" aria-hidden="true">📅</span>
+                <div>
+                  <div style="font-weight:600;color:var(--text);font-size:0.95rem;">Life Timeline</div>
+                  <div style="font-size:.78rem;color:var(--text-muted);">1891 — 1956 historical milestones</div>
+                </div>
+              </div>
+            </a>
+            <a href="media.html" class="card" style="text-decoration:none;">
+              <div class="card-inner" style="padding:var(--space-4);display:flex;align-items:center;gap:var(--space-4);">
+                <span style="font-size:1.6rem;" aria-hidden="true">🎬</span>
+                <div>
+                  <div style="font-weight:600;color:var(--text);font-size:0.95rem;">Audio-Visual Gallery</div>
+                  <div style="font-size:.78rem;color:var(--text-muted);">Speeches, interviews, radio broadcasts</div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Profile card (Double-Bezel) -->
+        <div class="card">
+          <div class="card-inner" style="padding:var(--space-5);">
+            <h2 style="font-size:1.15rem;margin-bottom:var(--space-4);font-family:var(--font-display);">👤 Researcher Profile</h2>
+            <div style="display:flex;flex-direction:column;gap:var(--space-3);">
+              <div>
+                <div style="font-size:0.72rem;color:var(--text-faint);text-transform:uppercase;letter-spacing:0.06em;font-weight:600;">Name</div>
+                <div id="profile-name" style="color:var(--text);font-size:.92rem;font-weight:500;">—</div>
+              </div>
+              <div>
+                <div style="font-size:0.72rem;color:var(--text-faint);text-transform:uppercase;letter-spacing:0.06em;font-weight:600;">Email</div>
+                <div id="profile-email" style="color:var(--text);font-size:.92rem;font-weight:500;">—</div>
+              </div>
+              <div>
+                <div style="font-size:0.72rem;color:var(--text-faint);text-transform:uppercase;letter-spacing:0.06em;font-weight:600;margin-bottom:2px;">Role</div>
+                <span id="profile-role-badge" class="badge badge-gold">visitor</span>
+              </div>
+              <div>
+                <div style="font-size:0.72rem;color:var(--text-faint);text-transform:uppercase;letter-spacing:0.06em;font-weight:600;">Preferred Language</div>
+                <div id="profile-lang" style="color:var(--text);font-size:.92rem;font-weight:500;">English</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- Bottom tab bar -->
+<nav class="bottom-bar" role="navigation" aria-label="Mobile navigation">
+  <a href="index.html" class="tab-item"><span class="tab-icon">🏠</span><span>Home</span></a>
+  <a href="archive.html" class="tab-item"><span class="tab-icon">📚</span><span>Archive</span></a>
+  <a href="timeline.html" class="tab-item"><span class="tab-icon">📅</span><span>Timeline</span></a>
+  <a href="assistant.html" class="tab-item"><span class="tab-icon">🤖</span><span>AI</span></a>
+  <a href="dashboard.html" class="tab-item active"><span class="tab-icon">👤</span><span>Me</span></a>
+</nav>
+
+<div id="toast-container" class="toast-container"></div>
+
+<script src="js/api.js"></script>
+<script src="js/toast.js"></script>
+<script src="js/app.js"></script>
+  <script src="js/command-palette.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  // Require auth
+  if (!AppState.requireAuth()) return;
+
+  const user = AppState.getStoredUser();
+
+  // Update profile display
+  if (user) {
+    document.getElementById('user-name-display').textContent = user.name ? user.name.split(' ')[0] : 'Researcher';
+    document.getElementById('user-role-badge').textContent = user.role || 'researcher';
+    document.getElementById('profile-name').textContent = user.name || 'Researcher';
+    document.getElementById('profile-email').textContent = user.email || '—';
+    document.getElementById('profile-role-badge').textContent = user.role || 'researcher';
+    if (user.institution) document.getElementById('user-institution').textContent = `· ${user.institution}`;
+
+    const langMap = { en: 'English', hi: 'हिंदी', mr: 'मराठी' };
+    document.getElementById('profile-lang').textContent = langMap[user.language] || 'English';
+  }
+
+  // Load progress and bookmarks in parallel
+  try {
+    const [progressRes, bookmarksRes] = await Promise.all([
+      api.progress.getAll(),
+      api.bookmarks.getAll(),
+    ]);
+
+    const progress = progressRes.progress || [];
+    const bookmarks = bookmarksRes.bookmarks || [];
+
+    // Stats
+    const completed = progress.filter(p => p.completed).length;
+    const totalTime = progress.reduce((s, p) => s + (p.timeSpentSeconds || 0), 0);
+    document.getElementById('stat-read').textContent = progress.length;
+    document.getElementById('stat-completed').textContent = completed;
+    document.getElementById('stat-bookmarks').textContent = bookmarks.length;
+    document.getElementById('stat-time').textContent = totalTime > 3600
+      ? `${Math.floor(totalTime/3600)}h`
+      : `${Math.floor(totalTime/60)}m`;
+
+    // Continue reading
+    const list = document.getElementById('continue-reading-list');
+    if (!progress.length) {
+      list.innerHTML = `<div class="card"><div class="card-inner" style="padding:var(--space-8);text-align:center;"><span style="font-size:2rem;display:block;margin-bottom:var(--space-2);">📖</span><p style="color:var(--text-muted);margin-bottom:var(--space-4);">No reading history yet.</p><a href="archive.html" class="btn btn-primary btn-sm">Start Reading</a></div></div>`;
+    } else {
+      list.innerHTML = '';
+      progress.slice(0, 5).forEach(p => {
+        const doc = p.documentId;
+        if (!doc) return;
+        const pct = Math.round(p.percentComplete || 0);
+        list.innerHTML += `
+          <a href="reader.html?id=${doc._id}" class="reading-card">
+            <div class="reading-thumb" aria-hidden="true">${AppState.getCategoryEmoji(doc.category)}</div>
+            <div class="reading-info">
+              <div class="reading-title">${doc.title}</div>
+              <div class="reading-meta">${doc.category} · ${doc.year || ''}</div>
+              <div class="reading-progress-label"><span>${pct}% complete</span><span class="btn btn-primary btn-sm" style="padding:2px 10px;font-size:.75rem;">${p.completed ? '✅ Completed' : '▶ Resume'}</span></div>
+              <div class="progress-bar" style="height:4px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden;"><div class="progress-fill ${p.completed ? 'complete' : ''}" style="width:${pct}%;height:100%;background:linear-gradient(90deg, var(--gold), #38bdf8);"></div></div>
+            </div>
+          </a>`;
+      });
+    }
+
+    // Bookmarks
+    const bList = document.getElementById('bookmarks-list');
+    document.getElementById('bookmark-count').textContent = bookmarks.length ? `${bookmarks.length} saved` : '';
+    if (!bookmarks.length) {
+      bList.innerHTML = `<div class="card"><div class="card-inner" style="padding:var(--space-8);text-align:center;"><span style="font-size:2rem;display:block;margin-bottom:var(--space-2);">🔖</span><p style="color:var(--text-muted);">No bookmarks yet. Add bookmarks while reading in the reader.</p></div></div>`;
+    } else {
+      bList.innerHTML = '';
+      bookmarks.slice(0, 8).forEach(b => {
+        const doc = b.documentId;
+        bList.innerHTML += `
+          <div class="bookmark-item">
+            <div class="bookmark-color ${b.color || 'yellow'}"></div>
+            <div style="flex:1;min-width:0;">
+              <a href="reader.html?id=${doc?._id}" class="bookmark-doc">${doc?.title || 'Volume Document'}</a>
+              ${b.note ? `<p class="bookmark-note">"${AppState.truncate(b.note, 80)}"</p>` : ''}
+              <div class="bookmark-date num-tabular">${AppState.formatDate(b.createdAt)}</div>
+            </div>
+            <button class="btn btn-ghost btn-sm" data-bookmark-id="${b._id}" aria-label="Remove bookmark" style="color:var(--danger);font-size:0.9rem;">✕</button>
+          </div>`;
+      });
+
+      // Delete bookmark
+      bList.querySelectorAll('[data-bookmark-id]').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          try {
+            await api.bookmarks.remove(btn.dataset.bookmarkId);
+            btn.closest('.bookmark-item').remove();
+            AppState.showToast('Bookmark removed', 'success');
+          } catch (err) {
+            AppState.showToast(err.message, 'error');
+          }
+        });
+      });
+    }
+
+  } catch (err) {
+    AppState.showToast('Could not connect to backend server for sync.', 'warning');
+    document.getElementById('continue-reading-list').innerHTML = `<div class="card"><div class="card-inner" style="padding:var(--space-6);text-align:center;"><p style="color:var(--text-muted);">Start reading any volume to record local offline history.</p><a href="archive.html" class="btn btn-primary btn-sm" style="margin-top:var(--space-3);">Explore 60 Volumes</a></div></div>`;
+    document.getElementById('bookmarks-list').innerHTML = '';
+  }
+});
+</script>
+</body>
+</html>

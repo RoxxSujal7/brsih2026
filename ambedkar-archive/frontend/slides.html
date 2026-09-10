@@ -1,0 +1,1944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exhibition Deck: Dr. B. R. Ambedkar — Digital Heritage Archive</title>
+  <meta name="description" content="An interactive 16:9 visual exhibition and presentation slide deck on Dr. B. R. Ambedkar's monumental life, philosophy, constitutional architecture, and complete works." />
+
+  <!-- Typography: Curated High-Grade Font Stack (Frontend Design Toolkit & Frontend Slides) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script>(function(){const t=localStorage.getItem('site_theme')||localStorage.getItem('reader_theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+
+  <style>
+    /* ===========================================
+       CSS CUSTOM PROPERTIES & DESIGN TOKENS
+       (Frontend Design Toolkit: Dark OLED Luxury & Antique Gold)
+       =========================================== */
+    :root, html[data-theme="dark"] {
+      --stage-bg: #05070a;
+      --slide-bg: #070a10;
+      --slide-bg-alt: #0c101a;
+      
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      
+      --gold: #d4af37;
+      --gold-light: #f3e5ab;
+      --gold-dim: #997824;
+      --gold-glow: rgba(212, 175, 55, 0.22);
+      
+      --accent-blue: #3b82f6;
+      --accent-cyan: #06b6d4;
+      --accent-purple: #6366f1;
+
+      --card-bg: rgba(14, 20, 32, 0.85);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-border-gold: rgba(212, 175, 55, 0.35);
+
+      --font-display: 'Cinzel', serif;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
+      --duration-normal: 0.5s;
+      --duration-fast: 0.2s;
+    }
+
+    /* Paper Atmosphere Theme in Slides */
+    html[data-theme="paper"] {
+      --stage-bg: #e8e3d5;
+      --slide-bg: #f7f5ef;
+      --slide-bg-alt: #eeeae0;
+      --text-primary: #1a1714;
+      --text-secondary: #5e564b;
+      --text-muted: #887d6e;
+      --gold: #b38b22;
+      --gold-light: #8f6e17;
+      --gold-dim: #7a5c10;
+      --card-bg: rgba(247, 243, 235, 0.95);
+      --card-border: rgba(43, 39, 35, 0.14);
+      --card-border-gold: rgba(179, 139, 34, 0.4);
+    }
+    html[data-theme="paper"] .slide-title,
+    html[data-theme="paper"] .title-main {
+      color: #0f0d0b !important;
+    }
+    html[data-theme="paper"] .slide-text,
+    html[data-theme="paper"] .key-fact-item {
+      color: #1a1714 !important;
+    }
+    html[data-theme="paper"] .slide-quote {
+      background: rgba(179, 139, 34, 0.08);
+      color: #7a5c10 !important;
+    }
+    html[data-theme="paper"] .deck-viewport {
+      background: radial-gradient(circle at 50% 20%, #eadecb 0%, #d8caa9 80%) !important;
+    }
+
+    /* Sepia Atmosphere Theme in Slides */
+    html[data-theme="sepia"] {
+      --stage-bg: #dfd2b7;
+      --slide-bg: #f2ebd9;
+      --slide-bg-alt: #e7ddc7;
+      --text-primary: #261b11;
+      --text-secondary: #66503b;
+      --text-muted: #8a6e53;
+      --gold: #9d6f1a;
+      --gold-light: #7a5410;
+      --gold-dim: #604008;
+      --card-bg: rgba(239, 230, 212, 0.95);
+      --card-border: rgba(59, 44, 30, 0.16);
+      --card-border-gold: rgba(157, 111, 26, 0.4);
+    }
+    html[data-theme="sepia"] .slide-title,
+    html[data-theme="sepia"] .title-main {
+      color: #1c130b !important;
+    }
+    html[data-theme="sepia"] .slide-text,
+    html[data-theme="sepia"] .key-fact-item {
+      color: #261b11 !important;
+    }
+    html[data-theme="sepia"] .slide-quote {
+      background: rgba(157, 111, 26, 0.08);
+      color: #604008 !important;
+    }
+    html[data-theme="sepia"] .deck-viewport {
+      background: radial-gradient(circle at 50% 20%, #e0ceab 0%, #cfbb91 80%) !important;
+    }
+
+    /* ===========================================
+       FIXED 16:9 STAGE: MANDATORY BASE STYLES
+       =========================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: var(--stage-bg);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .deck-viewport {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 20%, #101626 0%, #05070a 80%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Subtle Architectural Background Grid */
+    .deck-viewport::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    /* Fixed 1920x1080 Stage Canvas */
+    .deck-stage {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      transform-origin: 0 0;
+      background: var(--slide-bg);
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.08);
+    }
+
+    /* Slides Stack */
+    .slide {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      display: block;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      background: var(--slide-bg);
+      padding: 80px 100px;
+      transition: opacity 0.4s var(--ease-out-expo), visibility 0.4s;
+    }
+
+    .slide.active,
+    .slide.visible {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 2;
+    }
+
+    /* ===========================================
+       REVEAL ANIMATIONS (STAGGERED TRANSITIONS)
+       =========================================== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s var(--ease-out-expo),
+                  transform 0.6s var(--ease-out-expo);
+    }
+
+    .slide.visible .reveal {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+
+    /* ===========================================
+       SLIDE COMPONENT SYSTEM
+       =========================================== */
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 48px;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 24px;
+    }
+
+    .slide-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--gold-light);
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid var(--card-border-gold);
+      padding: 8px 18px;
+      border-radius: 9999px;
+    }
+
+    .slide-volume-tag {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      color: var(--text-secondary);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      padding: 8px 18px;
+      border-radius: 9999px;
+    }
+
+    .slide-title {
+      font-family: var(--font-display);
+      font-size: 58px;
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: #ffffff;
+      margin-bottom: 14px;
+    }
+
+    .slide-subtitle {
+      font-family: var(--font-serif);
+      font-size: 26px;
+      font-weight: 400;
+      color: var(--gold-light);
+      font-style: italic;
+    }
+
+    .slide-body-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 50px;
+      height: calc(1080px - 260px);
+      align-items: stretch;
+    }
+
+    .slide-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 40px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .slide-card.gold-rim {
+      border-color: var(--card-border-gold);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(212, 175, 55, 0.08), inset 0 1px 0 rgba(212, 175, 55, 0.2);
+    }
+
+    .slide-text {
+      font-size: 21px;
+      line-height: 1.68;
+      color: #e2e8f0;
+      font-weight: 400;
+      margin-bottom: 24px;
+    }
+
+    .slide-quote {
+      position: relative;
+      font-family: var(--font-serif);
+      font-size: 27px;
+      font-style: italic;
+      line-height: 1.5;
+      color: var(--gold-light);
+      padding: 24px 30px;
+      border-left: 4px solid var(--gold);
+      background: rgba(212, 175, 55, 0.06);
+      border-radius: 0 16px 16px 0;
+      margin: 20px 0;
+    }
+
+    .key-facts-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .key-fact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      font-size: 19px;
+      color: #cbd5e1;
+      line-height: 1.5;
+    }
+
+    .key-fact-icon {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid var(--card-border-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: var(--gold-light);
+    }
+
+    /* Archival Slide Photo Components */
+    .slide-photo-frame {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 2px solid var(--card-border-gold);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), 0 0 25px rgba(212, 175, 55, 0.15);
+      margin-bottom: 20px;
+      background: #000000;
+      flex-shrink: 0;
+    }
+    .slide-photo-frame img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      object-position: center 20%;
+      display: block;
+      transition: transform 0.5s var(--ease-spring);
+    }
+    .slide-photo-frame:hover img {
+      transform: scale(1.03);
+    }
+    .slide-photo-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 10px 18px;
+      background: linear-gradient(0deg, rgba(7, 10, 16, 0.95) 0%, rgba(7, 10, 16, 0.7) 60%, transparent 100%);
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--gold-light);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      letter-spacing: 0.03em;
+    }
+
+    /* Slide 1 Portrait Hero Showcase */
+    .slide-portrait-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 60px;
+      max-width: 1560px;
+      margin: 0 auto;
+      text-align: left;
+      width: 100%;
+    }
+    .slide-portrait-col-text {
+      flex: 1.15;
+    }
+    .slide-portrait-col-img {
+      flex: 0.85;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .portrait-bezel-frame {
+      position: relative;
+      padding: 10px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.4) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(212, 175, 55, 0.3) 100%);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 50px rgba(212, 175, 55, 0.25);
+    }
+    .portrait-bezel-frame img {
+      width: 440px;
+      height: 520px;
+      object-fit: cover;
+      object-position: center 15%;
+      border-radius: 20px;
+      display: block;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .portrait-caption-plaque {
+      margin-top: 16px;
+      text-align: center;
+      background: rgba(14, 20, 32, 0.9);
+      border: 1px solid var(--card-border-gold);
+      border-radius: 9999px;
+      padding: 8px 24px;
+      font-family: var(--font-display);
+      font-size: 15px;
+      color: var(--gold-light);
+      letter-spacing: 0.08em;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    }
+
+    /* Theme adaptations for photo frames */
+    html[data-theme="paper"] .slide-photo-caption {
+      background: linear-gradient(0deg, rgba(247, 243, 235, 0.98) 0%, rgba(247, 243, 235, 0.8) 70%, transparent 100%);
+      color: #7a5c10 !important;
+    }
+    html[data-theme="paper"] .portrait-caption-plaque {
+      background: rgba(247, 243, 235, 0.95);
+      color: #0f0d0b !important;
+      border-color: rgba(179, 139, 34, 0.5);
+    }
+    html[data-theme="sepia"] .slide-photo-caption {
+      background: linear-gradient(0deg, rgba(239, 230, 212, 0.98) 0%, rgba(239, 230, 212, 0.8) 70%, transparent 100%);
+      color: #604008 !important;
+    }
+    html[data-theme="sepia"] .portrait-caption-plaque {
+      background: rgba(239, 230, 212, 0.95);
+      color: #1c130b !important;
+      border-color: rgba(157, 111, 26, 0.5);
+    }
+
+    .slide-action-row {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-top: 24px;
+    }
+
+    .slide-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-family: var(--font-body);
+      font-size: 17px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s var(--ease-spring);
+      border: none;
+    }
+
+    .slide-btn-primary {
+      background: linear-gradient(135deg, #d4af37, #997824);
+      color: #05070a;
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.35);
+    }
+
+    .slide-btn-primary:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+    }
+
+    .slide-btn-primary:active {
+      transform: scale(0.98);
+    }
+
+    .slide-btn-ghost {
+      background: rgba(255, 255, 255, 0.06);
+      color: #f8fafc;
+      border: 1px solid var(--card-border);
+    }
+
+    .slide-btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Title Slide Specifics */
+    .title-slide-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      height: 100%;
+      position: relative;
+    }
+
+    .title-emblem {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, rgba(212, 175, 55, 0.02) 70%);
+      border: 2px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 50px;
+      margin-bottom: 36px;
+      box-shadow: 0 0 50px rgba(212, 175, 55, 0.25);
+    }
+
+    .title-main {
+      font-family: var(--font-display);
+      font-size: 82px;
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      margin-bottom: 22px;
+      text-shadow: 0 4px 30px rgba(0,0,0,0.8);
+    }
+
+    .title-tagline {
+      font-family: var(--font-serif);
+      font-size: 34px;
+      font-style: italic;
+      color: var(--gold-light);
+      margin-bottom: 40px;
+      max-width: 1200px;
+    }
+
+    .title-meta-grid {
+      display: flex;
+      gap: 32px;
+      margin-top: 30px;
+    }
+
+    .title-meta-pill {
+      padding: 12px 28px;
+      background: rgba(14, 20, 32, 0.8);
+      border: 1px solid var(--card-border-gold);
+      border-radius: 9999px;
+      font-size: 17px;
+      font-family: var(--font-mono);
+      color: #e2e8f0;
+      backdrop-filter: blur(10px);
+    }
+
+    /* ===========================================
+       PRESENTATION CHROME (DECK CONTROLS)
+       =========================================== */
+    .deck-chrome-top {
+      position: fixed;
+      top: 24px;
+      left: 32px;
+      right: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      pointer-events: none;
+    }
+
+    .deck-brand {
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(7, 10, 16, 0.85);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(16px);
+      padding: 8px 18px;
+      border-radius: 9999px;
+      text-decoration: none;
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      transition: all 0.2s;
+    }
+
+    .deck-brand:hover {
+      border-color: var(--gold);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+    }
+
+    .deck-top-actions {
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .top-action-btn {
+      background: rgba(7, 10, 16, 0.85);
+      border: 1px solid var(--card-border);
+      color: #e2e8f0;
+      padding: 8px 16px;
+      border-radius: 9999px;
+      font-size: 14px;
+      font-family: var(--font-mono);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      backdrop-filter: blur(16px);
+      transition: all 0.2s;
+    }
+
+    .top-action-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    /* Floating Bottom Deck Controller */
+    .deck-controls {
+      position: fixed;
+      bottom: 26px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(10, 15, 26, 0.92);
+      border: 1px solid var(--card-border-gold);
+      border-radius: 9999px;
+      padding: 8px 20px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7), 0 0 30px rgba(212, 175, 55, 0.15);
+      backdrop-filter: blur(20px);
+    }
+
+    .deck-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--card-border);
+      color: #ffffff;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s var(--ease-spring);
+    }
+
+    .deck-btn:hover {
+      background: var(--gold);
+      color: #05070a;
+      transform: scale(1.1);
+    }
+
+    .deck-btn:active {
+      transform: scale(0.95);
+    }
+
+    .deck-counter {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gold-light);
+      padding: 0 12px;
+      min-width: 90px;
+      text-align: center;
+    }
+
+    .deck-progress-container {
+      width: 140px;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .deck-progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #d4af37, #f3e5ab);
+      width: 10%;
+      border-radius: 3px;
+      transition: width 0.3s ease;
+    }
+
+    /* Presenter Notes Drawer */
+    .notes-drawer {
+      position: fixed;
+      right: -420px;
+      top: 0;
+      bottom: 0;
+      width: 420px;
+      background: rgba(10, 15, 26, 0.98);
+      border-left: 1px solid var(--card-border-gold);
+      z-index: 2000;
+      box-shadow: -10px 0 40px rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(25px);
+      padding: 36px 30px;
+      display: flex;
+      flex-direction: column;
+      transition: right 0.35s var(--ease-out-expo);
+      overflow-y: auto;
+    }
+
+    .notes-drawer.open {
+      right: 0;
+    }
+
+    .notes-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 16px;
+    }
+
+    .notes-title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      color: var(--gold-light);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .notes-close {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .notes-content {
+      font-size: 16px;
+      line-height: 1.65;
+      color: #cbd5e1;
+    }
+
+    /* Narration Indicator Pill */
+    .narration-pill {
+      display: none;
+      position: fixed;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(14, 20, 32, 0.94);
+      border: 1px solid var(--card-border-gold);
+      border-radius: 9999px;
+      padding: 10px 24px;
+      font-size: 15px;
+      color: var(--gold-light);
+      z-index: 1500;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      align-items: center;
+      gap: 12px;
+      backdrop-filter: blur(16px);
+    }
+
+    .narration-pill.active {
+      display: flex;
+      animation: pulseGlow 2s infinite ease-in-out;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); }
+      50% { box-shadow: 0 0 35px rgba(212, 175, 55, 0.45); }
+    }
+
+    /* ───────────────────────────────────────────────────────────────
+       SIDE DOCK IN EXHIBITION DECK (Curated Hubs Navigation)
+       ─────────────────────────────────────────────────────────────── */
+    .side-dock {
+      position: fixed;
+      left: 20px;
+      top: 52%;
+      transform: translateY(-50%);
+      z-index: 1200;
+      pointer-events: none; /* Never intercept clicks outside inner dock */
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    }
+
+    .side-dock.collapsed {
+      transform: translateY(-50%) translateX(-230px);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .side-dock-inner {
+      pointer-events: auto;
+      background: rgba(10, 15, 26, 0.94);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--card-border-gold);
+      border-radius: 20px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(212, 175, 55, 0.15);
+      padding: 10px 8px;
+      width: 172px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .side-dock-header {
+      padding: 4px 8px 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .side-dock-badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gold-light);
+      display: block;
+      font-family: var(--font-display);
+    }
+
+    .side-dock-links {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .side-dock-link {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      transition: background 140ms ease, color 140ms ease, transform 140ms cubic-bezier(0.32, 0.72, 0, 1);
+    }
+
+    .side-dock-link:hover {
+      background: rgba(255, 255, 255, 0.09);
+      color: #ffffff;
+      transform: translateX(3px);
+    }
+
+    .side-dock-link:active {
+      transform: scale(0.96) !important;
+    }
+
+    .side-dock-link.active {
+      background: rgba(212, 175, 55, 0.18) !important;
+      color: var(--gold-light) !important;
+      border: 1px solid rgba(212, 175, 55, 0.35) !important;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35) !important;
+    }
+
+    .side-dock-icon {
+      font-size: 0.95rem;
+      width: 20px;
+      display: inline-flex;
+      justify-content: center;
+    }
+
+    .side-dock-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
+    .badge-16-9 {
+      font-size: 0.6rem;
+      padding: 1px 4px;
+      border-radius: 4px;
+      background: rgba(212, 175, 55, 0.2);
+      color: var(--gold-light);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      margin-left: 2px;
+    }
+
+    /* Atmosphere variants for side dock in slides */
+    html[data-theme="paper"] .side-dock-inner {
+      background: rgba(247, 243, 235, 0.96);
+      border-color: rgba(179, 139, 34, 0.45);
+      box-shadow: 0 16px 40px rgba(43, 39, 35, 0.18);
+    }
+    html[data-theme="paper"] .side-dock-badge {
+      color: #7a5c10 !important;
+    }
+    html[data-theme="paper"] .side-dock-link {
+      color: #5e564b;
+    }
+    html[data-theme="paper"] .side-dock-link:hover {
+      background: rgba(43, 39, 35, 0.08);
+      color: #1a1714;
+    }
+    html[data-theme="paper"] .side-dock-link.active {
+      background: rgba(179, 139, 34, 0.15) !important;
+      color: #7a5c10 !important;
+      border-color: rgba(179, 139, 34, 0.5) !important;
+    }
+
+    html[data-theme="sepia"] .side-dock-inner {
+      background: rgba(239, 230, 212, 0.96);
+      border-color: rgba(157, 111, 26, 0.45);
+      box-shadow: 0 16px 40px rgba(59, 44, 30, 0.18);
+    }
+    html[data-theme="sepia"] .side-dock-badge {
+      color: #604008 !important;
+    }
+    html[data-theme="sepia"] .side-dock-link {
+      color: #66503b;
+    }
+    html[data-theme="sepia"] .side-dock-link:hover {
+      background: rgba(59, 44, 30, 0.08);
+      color: #261b11;
+    }
+    html[data-theme="sepia"] .side-dock-link.active {
+      background: rgba(157, 111, 26, 0.15) !important;
+      color: #604008 !important;
+      border-color: rgba(157, 111, 26, 0.5) !important;
+    }
+
+    @media (max-width: 1180px) {
+      .side-dock {
+        display: none !important;
+      }
+    }
+
+    /* Print Invariants */
+    @media print {
+      .side-dock {
+        display: none !important;
+      }
+      html, body {
+        width: 1920px;
+        height: auto;
+        overflow: visible;
+        background: #070a10 !important;
+      }
+      .deck-viewport {
+        position: static;
+        overflow: visible;
+      }
+      .deck-stage {
+        position: static;
+        width: auto;
+        height: auto;
+        transform: none !important;
+      }
+      .slide {
+        position: relative;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        width: 1920px;
+        height: 1080px;
+        break-after: page;
+        page-break-after: always;
+      }
+      .deck-controls, .deck-chrome-top, .notes-drawer {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Full-Window Deck Viewport -->
+  <div class="deck-viewport" id="deckViewport">
+
+    <!-- Top Floating Chrome Navigation -->
+    <header class="deck-chrome-top">
+      <a href="index.html" class="deck-brand">
+        <span style="color:var(--gold);">⚜️</span>
+        <span>AMBEDKAR ARCHIVE &bull; EXHIBITION</span>
+      </a>
+
+      <div class="deck-top-actions">
+        <!-- Curated Hubs Dock Toggle -->
+        <button class="top-action-btn" id="hubsToggleBtn" title="Toggle Curated Hubs Dock (H)">
+          <span>🧭</span> <span>Hubs</span>
+        </button>
+
+        <!-- Atmosphere Selector in Deck -->
+        <div class="deck-theme-selector" role="group" aria-label="Deck atmosphere" style="display:flex;gap:4px;background:rgba(7,10,16,0.85);border:1px solid var(--card-border-gold);border-radius:9999px;padding:3px 6px;">
+          <button class="theme-deck-btn" data-theme="dark" title="Dark Slate Atmosphere" style="background:none;border:none;cursor:pointer;font-size:15px;padding:3px 6px;border-radius:9999px;">🌙</button>
+          <button class="theme-deck-btn" data-theme="paper" title="Ivory Paper Sanctuary" style="background:none;border:none;cursor:pointer;font-size:15px;padding:3px 6px;border-radius:9999px;">📜</button>
+          <button class="theme-deck-btn" data-theme="sepia" title="Historical Sepia Sanctuary" style="background:none;border:none;cursor:pointer;font-size:15px;padding:3px 6px;border-radius:9999px;">🏺</button>
+        </div>
+
+        <button class="top-action-btn" id="audioNarrationBtn" title="Listen to slide narration (A)">
+          <span id="audioIcon">🔊</span> <span>Narrate</span>
+        </button>
+        <button class="top-action-btn" id="notesToggleBtn" title="Toggle Presenter Notes (N)">
+          <span>📝</span> <span>Notes</span>
+        </button>
+        <button class="top-action-btn" id="fullscreenBtn" title="Toggle Fullscreen (F)">
+          <span>⛶</span> <span>Fullscreen</span>
+        </button>
+        <a href="archive.html" class="top-action-btn">
+          <span>📚</span> <span>Archive</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- ─── Vertical Left Dock: Curated Exploration Hubs ─── -->
+    <aside class="side-dock collapsed" id="deckSideDock" role="navigation" aria-label="Curated exploration hubs">
+      <div class="side-dock-inner">
+        <div class="side-dock-header">
+          <span class="side-dock-badge">Curated Hubs</span>
+        </div>
+        <div class="side-dock-links">
+          <a href="slides.html" class="side-dock-link active" title="Visual Exhibition Deck (16:9)">
+            <span class="side-dock-icon">📽️</span>
+            <span class="side-dock-label">Exhibition <span class="badge-16-9">16:9</span></span>
+          </a>
+          <a href="constitution.html" class="side-dock-link" title="Constitution of India">
+            <span class="side-dock-icon">⚖️</span>
+            <span class="side-dock-label">Constitution</span>
+          </a>
+          <a href="ideas.html" class="side-dock-link" title="Thematic Ideas &amp; Philosophy">
+            <span class="side-dock-icon">💡</span>
+            <span class="side-dock-label">Ideas</span>
+          </a>
+          <a href="learning.html" class="side-dock-link" title="Interactive Learning Center">
+            <span class="side-dock-icon">🎓</span>
+            <span class="side-dock-label">Learning</span>
+          </a>
+          <a href="quotes.html" class="side-dock-link" title="Verified Historical Quotes">
+            <span class="side-dock-icon">💬</span>
+            <span class="side-dock-label">Quotes</span>
+          </a>
+          <a href="ocr.html" class="side-dock-link" title="Manuscript OCR Visualizer">
+            <span class="side-dock-icon">📜</span>
+            <span class="side-dock-label">OCR</span>
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Narration Active Indicator -->
+    <div class="narration-pill" id="narrationPill">
+      <span style="animation: pulse 1s infinite;">🎙️</span>
+      <span id="narrationText">Reading historical narration...</span>
+    </div>
+
+    <!-- Fixed 1920x1080 Canvas Stage -->
+    <main class="deck-stage" id="deckStage">
+
+      <!-- ══════════════════════════════════════════════
+           SLIDE 1: TITLE & PROLOGUE
+           ══════════════════════════════════════════════ -->
+      <section class="slide title-slide active" data-title="Prologue & Overview" data-notes="Welcome to this visual archival presentation. Dr. B.R. Ambedkar was a jurist, economist, social reformer, and the Chief Architect of the Constitution of India. This 10-slide visual exhibition captures his seminal philosophical, social, and constitutional contributions with direct links to primary source archival volumes.">
+        <div class="slide-portrait-wrapper">
+          <div class="slide-portrait-col-text">
+            <div class="title-emblem reveal" style="margin-bottom:20px;">⚜️</div>
+            <div class="slide-badge reveal reveal-delay-1" style="margin-bottom:20px;">National Heritage Archival Exhibition</div>
+            <h1 class="title-main reveal reveal-delay-2" style="font-size:72px;text-align:left;margin-bottom:18px;">
+              DR. BABASAHEB AMBEDKAR
+            </h1>
+            <p class="title-tagline reveal reveal-delay-3" style="text-align:left;font-size:28px;margin-bottom:28px;max-width:850px;">
+              "The Architect of Modern India: Constitutionalism, Emancipation &amp; Philosophy"
+            </p>
+
+            <div class="title-meta-grid reveal reveal-delay-4" style="margin-top:0;flex-wrap:wrap;gap:16px;">
+              <div class="title-meta-pill">🏛️ 60 BAWS Volumes</div>
+              <div class="title-meta-pill">📜 25,000+ Archival Pages</div>
+              <div class="title-meta-pill">⚖️ Chief Architect of Constitution</div>
+              <div class="title-meta-pill">🎓 Columbia &amp; LSE Scholar</div>
+            </div>
+
+            <div class="slide-action-row reveal reveal-delay-5" style="margin-top:36px;">
+              <button class="slide-btn slide-btn-primary" onclick="deck.nextSlide()">
+                <span>Begin Visual Journey</span>
+                <span>→</span>
+              </button>
+              <a href="reader.html?id=doc-en-1" class="slide-btn slide-btn-ghost">
+                <span>📖 Open Complete Works Volume 1</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="slide-portrait-col-img reveal reveal-delay-2">
+            <div class="portrait-bezel-frame">
+              <img src="assets/images/ambedkar_portrait.jpg" alt="Dr. Bhimrao Ramji Ambedkar archival portrait" />
+            </div>
+            <div class="portrait-caption-plaque">
+              Dr. B. R. Ambedkar (1891–1956) &bull; National Archival Portrait
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════
+           SLIDE 2: INTELLECTUAL CRUCIBLE (COLUMBIA & LSE)
+           ══════════════════════════════════════════════ -->
+      <section class="slide" data-title="Columbia & LSE Years" data-notes="Ambedkar earned doctorates from Columbia University under John Dewey and Edwin Seligman, and from the London School of Economics. His seminal economic treatise 'The Problem of the Rupee' was instrumental in providing the conceptual framework that later inspired the creation of the Reserve Bank of India in 1935.">
+        <div class="slide-header">
+          <div>
+            <div class="slide-badge">Chapter 01 &bull; 1913–1923</div>
+            <h2 class="slide-title">The Intellectual Crucible: Columbia &amp; LSE</h2>
+            <p class="slide-subtitle">Rigorous Empirical Economics &amp; Social Anthropology</p>
+          </div>
+          <div class="slide-volume-tag">BAWS Vol. 6 &amp; Vol. 12</div>
+        </div>
+
+        <div class="slide-body-grid">
+          <div class="slide-card gold-rim reveal reveal-delay-1">
+            <div>
+              <p class="slide-text">
+                Ambedkar arrived at Columbia University in New York in 1913 on a scholarship from Sayajirao Gaekwad III of Baroda. Mentored by philosopher <strong>John Dewey</strong> and economist <strong>Edwin Seligman</strong>, he pioneered sociological analysis of caste and empirical monetary economics.
+              </p>
+              <div class="slide-quote">
+                "Caste is an artificial chopping up of the population into fixed and definite units, each one prevented from fusing into another through the mechanism of Endogamy."
+                <div style="font-size:16px;margin-top:10px;color:var(--text-secondary);font-family:var(--font-mono);">&mdash; Castes in India: Their Mechanism, Genesis and Development (1916)</div>
+              </div>
+            </div>
+            <div class="slide-action-row">
+              <a href="reader.html?id=doc-en-6" class="slide-btn slide-btn-primary">
+                <span>📖 Read 'The Problem of the Rupee' (Vol 6)</span>
+                <span>↗</span>
+              </a>
+              <a href="reader.html?id=doc-en-1" class="slide-btn slide-btn-ghost">
+                <span>Castes in India (Vol 1)</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="slide-card reveal reveal-delay-2">
+            <h3 style="font-family:var(--font-display);font-size:24px;color:var(--gold-light);margin-bottom:20px;">Intellectual Milestones</h3>
+            <ul class="key-facts-list">
+              <li class="key-fact-item">
+                <div class="key-fact-icon">🎓</div>
+                <div><strong>M.A. &amp; Ph.D., Columbia University (1915–1927):</strong> Dissertation on 'The Evolution of Provincial Finance in British India'.</div>
+              </li>
+              <li class="key-fact-item">
+                <div class="key-fact-icon">🏛️</div>
+                <div><strong>D.Sc. in Economics, London School of Economics (1923):</strong> Treatise on 'The Problem of the Rupee: Its Origin and Solution'.</div>
+              </li>
+              <li class="key-fact-item">
+                <div class="key-fact-icon">⚖️</div>
+                <div><strong>Barrister-at-Law, Gray's Inn, London (1923):</strong> Admitted to the English Bar to wage legal battles for social justice.</div>
+              </li>
+              <li class="key-fact-item">
+                <div class="key-fact-icon">🏦</div>
+                <div><strong>Foundation of the RBI:</strong> Hilton Young Commission (Royal Commission on Indian Currency) relied extensively on Ambedkar's testimony and treatise.</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════
+           SLIDE 3: MAHAD WATER SATYAGRAHA (1927)
+           ══════════════════════════════════════════════ -->
+      <section class="slide" data-title="Mahad Water Satyagraha" data-notes="March 20, 1927 at Mahad's Chavdar Tale. This was not merely a fight for drinking water; Ambedkar proclaimed it was a struggle for human dignity and universal equality, comparing it to the French Revolution and the storming of the Bastille. Today, March 20 is observed as Social Empowerment Day across India.">
+        <div class="slide-header">
+          <div>
+            <div class="slide-badge">Chapter 02 &bull; March 20, 1927</div>
+            <h2 class="slide-title">The Mahad Water Satyagraha</h2>
+            <p class="slide-subtitle">Water as a Fundamental Human Right &amp; Social Empowerment</p>
+          </div>
+          <div class="slide-volume-tag">BAWS Vol. 17 &amp; Vol. 18</div>
+        </div>
+
+        <div class="slide-body-grid">
+          <div class="slide-card gold-rim reveal reveal-delay-1">
+            <div>
+              <p class="slide-text">
+                At the municipal tank of <em>Chavdar Tale</em> in Mahad, Maharashtra, thousands of Untouchables gathered under Ambedkar's leadership. Even though local animals had access to the pond, Dalits were forbidden from touching its waters. Ambedkar drank from the tank, initiating the first civil rights water movement in modern history.
+              </p>
+              <div class="slide-quote">
+                "We are not going to the Chhadar Tank merely to drink water. We are going to the tank to assert that we too are human beings like others. It is a struggle for human rights and human dignity."
+                <div style="font-size:16px;margin-top:10px;color:var(--text-secondary);font-family:var(--font-mono);">&mdash; Presidential Address, Mahad Conference (1927)</div>
+              </div>
+            </div>
+            <div class="slide-action-row">
+              <a href="reader.html?id=doc-en-17" class="slide-btn slide-btn-primary">
+                <span>📖 Read Mahad Speeches in Vol 17</span>
+                <span>↗</span>
+              </a>
+              <a href="timeline.html" class="slide-btn slide-btn-ghost">
+                <span>View Timeline Event</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="slide-card reveal reveal-delay-2">
+            <div class="slide-photo-frame">
+              <img src="assets/images/ambedkar_mahad.jpg" alt="Dr. B. R. Ambedkar leading the historic Mahad Water Satyagraha at Chavdar Tale (1927)" />
+              <div class="slide-photo-caption">
+                <span>📍 Chavdar Tale, Mahad</span>
+                <span>March 20, 1927</span>
+              </div>
+            </div>
+            <h3 style="font-family:var(--font-display);font-size:22px;color:var(--gold-light);margin-bottom:16px;">Historic Signposts</h3>
+            <ul class="key-facts-list">
+              <li class="key-fact-item">
+                <div class="key-fact-icon">💧</div>
+                <div><strong>Universal Water Access:</strong> Transformed water from an instrument of purity-pollution into an inviolable public commons.</div>
+              </li>
+              <li class="key-fact-item">
+                <div class="key-fact-icon">🔥</div>
+                <div><strong>Manusmriti Dahan (Dec 25, 1927):</strong> Public burning of the ancient legal code that codified graded inequality and subjection.</div>
+              </li>
+              <li class="key-fact-item">
+                <div class="key-fact-icon">✊</div>
+                <div><strong>Women's Mobilization:</strong> Over 3,000 women participated, following Ambedkar's call to cast off badges of servitude.</div>
+              </li>
+              <li class="key-fact-item">
+                <div class="key-fact-icon">📅</div>
+                <div><strong>National Legacy:</strong> March 20 is officially commemorated nationwide as 'Social Empowerment Day' (Samajik Sadbhavna Diwas).</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════
+           SLIDE 4: ROUND TABLE & POONA PACT (1930–1932)
+           ══════════════════════════════════════════════ -->
+      <section class="slide" data-title="Round Table & Poona Pact" data-notes="At the London Round Table Conferences, Ambedkar secured separate electorates in the Communal Award of 1932. Mahatma Gandhi's fast unto death at Yerwada Central Jail led to the Poona Pact on September 24, 1932, which doubled reserved legislative seats for the Depressed Classes from 71 to 148 under joint electorates.">
+        <div class="slide-header">
+          <div>
+            <div class="slide-badge">Chapter 03 &bull; 1930–1932</div>
+            <h2 class="slide-title">Round Table Conferences &amp; The Poona Pact</h2>
+            <p class="slide-subtitle">Representation, Franchise &amp; The Constitutional Bargain</p>
+          </div>
+          <div class="slide-volume-tag">BAWS Vol. 2 &amp; Vol. 9</div>
+        </div>
+
+        <div class="slide-body-grid">
+          <div class="slide-card gold-rim reveal reveal-delay-1">
+            <div>
+              <p class="slide-text">
+                At the London Round Table Conferences (1930–1932), Ambedkar eloquently advocated for the constitutional safeguards of India's 60 million Depressed Classes, refusing to accept independence without guaranteed equality and political representation.
+              </p>
+              <div class="slide-quote">
+                "The Depressed Classes are not a sub-section of the Hindus. They are a distinct element in the national life of India, entitled to equal civic and political rights."
+                <div style="font-size:16px;margin-top:10px;color:var(--text-secondary);font-family:var(--font-mono);">&mdash; Speech at First Round Table Conference, London (1930)</div>
+              </div>
+            </div>
+            <div class="slide-action-row">
+              <a href="reader.html?id=doc-en-2" class="slide-btn slide-btn-primary">
+                <span>📖 Read Round Table Speeches (Vol 2)</span>
+                <span>↗</span>
+              </a>
+              <a href="reader.html?id=doc-en-9" class="slide-btn slide-btn-ghost">
+                <span>What Congress &amp; Gandhi Have Done (Vol 9)</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="slide-card reveal reveal-delay-2">
+            <h3 style="font-family:var(--font-display);font-size:24px;color:var(--gold-light);margin-bottom:20px;">Poona Pact Outcomes</h3>
+            <ul class="key-facts-list">
+              <li class="key-fact-item">
+                <div class="key-fact-icon">🤝</div>
+                <div><strong>Yerwada Jail Negotiations (Sept 1932):</strong> Signed between Dr. Ambedkar, Madan Mohan Malaviya, and M.C. Rajah to end Gandhi's fast.</div>
+              </li>
+              <li class="key-fact-item">
+                <div class="key-fact-icon">📈</div>
+                <div><strong>Doubling of Reserved Seats:</strong> Increased reserved provincial legislative seats from 71 to 148 across all British Indian provinces.</div>
+              </li>
+              <li class="key-fact-item">
+                <div class="key-fact-icon">🏛️</div>
+                <div><strong>Central Assembly Quota:</strong> 18% of general seats in the Central Legislature reserved for Depressed Classes.</div>
+              </li>
+              <li class="key-fact-item">
+                <div class="key-fact-icon">⚖️</div>
+                <div><strong>Birth of Affirmative Action:</strong> Laid the constitutional bedrock for Articles 15, 16, 330, and 332 in independent India.</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════
+           SLIDE 5: ANNIHILATION OF CASTE (1936)
+           ══════════════════════════════════════════════ -->
+      <section class="slide" data-title="Annihilation of Caste" data-notes="Annihilation of Caste is Ambedkar's undelivered speech prepared for the 1936 session of Jat-Pat-Todak Mandal in Lahore. When the organizers demanded edits to soften his critique of Hindu scriptures, Ambedkar refused to change a single comma and published it independently. It remains one of the world's greatest treatises on liberty and equality.">
+        <div class="slide-header">
+          <div>
+            <div class="slide-badge">Chapter 04 &bull; May 1936</div>
+            <h2 class="slide-title">Annihilation of Caste</h2>
+            <p class="slide-subtitle">The Seminal Philosophical Masterpiece on Liberty, Equality &amp; Fraternity</p>
+          </div>
+          <div class="slide-volume-tag">BAWS Vol. 1 &bull; Complete Treatise</div>
+        </div>
+
+        <div class="slide-body-grid">
+          <div class="slide-card gold-rim reveal reveal-delay-1">
+            <div>
+              <p class="slide-text">
+                Prepared as an address for the Jat-Pat-Todak Mandal of Lahore, this text dismantled the economic, sociological, and moral defenses of caste. Ambedkar demonstrated that caste is not merely a division of labour, but a <em>division of labourers</em> based on hereditary hierarchy.
+              </p>
+              <div class="slide-quote">
+                "Caste is not a physical object like a wall of bricks or a line of barbed wire... Caste is a notion; it is a state of the mind. The destruction of Caste does not therefore mean the destruction of a physical barrier. It means a notional change."
+                <div style="font-size:16px;margin-top:10px;color:var(--text-secondary);font-family:var(--font-mono);">&mdash; Annihilation of Caste, Section XIV (1936)</div>
+              </div>
+            </div>
+            <div class="slide-action-row">
+              <a href="reader.html?id=doc-en-1" class="slide-btn slide-btn-primary">
+                <span>📖 Read Complete Text in Volume 1</span>
+                <span>↗</span>
+              </a>
+              <a href="media.html" class="slide-btn slide-btn-ghost">
+                <span>🎬 Listen to Recitation</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="slide-card reveal reveal-delay-2">
+            <h3 style="font-family:var(--font-display);font-size:24px;color:var(--gold-light);margin-bottom:20px;">Core Philosophical Pillars</h3>
+            <ul class="key-facts-list">
+              <li class="key-fact-item">
+                <div class="key-fact-icon">🕊️</div>
+                <div><strong>Fraternity as Social Endosmosis:</strong> Democracy is not merely a form of government, but primarily a mode of associated living and communicated experience.</div>
+              </li>
+              <li class="key-fact-item">
+                <div class="key-fact-icon">📚</div>
+                <div><strong>Critique of Shastras:</strong> True reform requires destroying the sanctity of texts that sanctify graded inequality.</div>
+              </li>
+              <li class="key-fact-item">
+                <div class="key-fact-icon">⚖️</div>
+                <div><strong>Individual as the Unit:</strong> Society must treat the individual human being, not the caste group, as the foundational moral unit.</div>
+              </li>
+              <li class="key-fact-item">
+                <div class="key-fact-icon">🌍</div>
+                <div><strong>Global Resonance:</strong> Translated into dozens of languages, studied across global philosophy and sociology departments.</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════
+           SLIDE 6: CHIEF ARCHITECT OF CONSTITUTION (1947–50)
+           ══════════════════════════════════════════════ -->
+      <section class="slide" data-title="Drafting the Constitution" data-notes="As Chairman of the Drafting Committee from August 29, 1947 to November 26, 1949, Dr. Ambedkar piloted the Constitution of India through 114 days of rigorous debate. He famously referred to Article 32 (Right to Constitutional Remedies) as the 'very soul of the Constitution and the very heart of it'.">
+        <div class="slide-header">
+          <div>
+            <div class="slide-badge">Chapter 05 &bull; 1947–1950</div>
+            <h2 class="slide-title">Chief Architect of the Constitution</h2>
+            <p class="slide-subtitle">2 Years, 11 Months, 18 Days of Democratic Craftsmanship</p>
+          </div>
+          <div class="slide-volume-tag">BAWS Vol. 13 &amp; Vol. 15</div>
+        </div>
+
+        <div class="slide-body-grid">
+          <div class="slide-card gold-rim reveal reveal-delay-1">
+            <div>
+              <p class="slide-text">
+                Appointed Chairman of the Drafting Committee on August 29, 1947, Ambedkar synthesized republican liberty with socioeconomic justice. He steered 7,635 tabled amendments, passionately defending universal adult franchise, fundamental rights, and an independent judiciary.
+              </p>
+              <div class="slide-quote">
+                "On the 26th of January 1950, we are going to enter into a life of contradictions. In politics we will have equality and in social and economic life we will have inequality... We must remove this contradiction at the earliest possible moment or else those who suffer will blow up the structure of political democracy."
+                <div style="font-size:16px;margin-top:10px;color:var(--text-secondary);font-family:var(--font-mono);">&mdash; Final Address to the Constituent Assembly (Nov 25, 1949)</div>
+              </div>
+            </div>
+            <div class="slide-action-row">
+              <a href="reader.html?id=doc-en-13" class="slide-btn slide-btn-primary">
+                <span>📖 Read Constituent Assembly Debates (Vol 13)</span>
+                <span>↗</span>
+              </a>
+              <a href="media.html" class="slide-btn slide-btn-ghost">
+                <span>🎙️ Listen to Nov 1948 Speech</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="slide-card reveal reveal-delay-2">
+            <div class="slide-photo-frame">
+              <img src="assets/images/ambedkar_constitution.jpg" alt="Dr. B. R. Ambedkar presenting the Constitution of India to President Dr. Rajendra Prasad (1950)" />
+              <div class="slide-photo-caption">
+                <span>📜 Constituent Assembly, New Delhi</span>
+                <span>November 26, 1949</span>
+              </div>
+            </div>
+            <h3 style="font-family:var(--font-display);font-size:20px;color:var(--gold-light);margin-bottom:14px;margin-top:16px;">Constitutional Landmarks</h3>
+            <ul class="key-facts-list">
+              <li class="key-fact-item">
+                <div class="key-fact-icon">📜</div>
+                <div><strong>Preamble:</strong> Inscribed Sovereign, Democratic, Justice (Social, Economic, Political), Liberty, Equality, and Fraternity.</div>
+              </li>
+              <li class="key-fact-item">
+                <div class="key-fact-icon">💖</div>
+                <div><strong>Article 32 &bull; 'The Heart and Soul':</strong> Direct writ access to the Supreme Court to enforce fundamental rights.</div>
+              </li>
+              <li class="key-fact-item">
+                <div class="key-fact-icon">🚫</div>
+                <div><strong>Article 17 &bull; Abolition of Untouchability:</strong> Banned untouchability in any form — a punishable penal offense.</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════
+           SLIDE 7: HINDU CODE BILL & WOMEN'S RIGHTS
+           ══════════════════════════════════════════════ -->
+      <section class="slide" data-title="The Hindu Code Bill" data-notes="As India's first Law Minister in Jawaharlal Nehru's cabinet, Ambedkar drafted the Hindu Code Bill to reform family law, guaranteeing women rights to inheritance, maintenance, and divorce, while banning polygamy. When conservative resistance stalled the bill, he resigned on principle in September 1951.">
+        <div class="slide-header">
+          <div>
+            <div class="slide-badge">Chapter 06 &bull; 1947–1951</div>
+            <h2 class="slide-title">The Hindu Code Bill &amp; Women's Emancipation</h2>
+            <p class="slide-subtitle">Codifying Gender Equality in Property, Marriage &amp; Succession</p>
+          </div>
+          <div class="slide-volume-tag">BAWS Vol. 14 (Parts 1 &amp; 2)</div>
+        </div>
+
+        <div class="slide-body-grid">
+          <div class="slide-card gold-rim reveal reveal-delay-1">
+            <div>
+              <p class="slide-text">
+                Serving as India's First Law Minister, Ambedkar championed the <strong>Hindu Code Bill</strong> to dismantle patriarchal personal laws. The bill sought to grant women equal shares in ancestral property, absolute ownership rights, legal monogamy, and the right to seek divorce.
+              </p>
+              <div class="slide-quote">
+                "I measure the progress of a community by the degree of progress which women have achieved."
+                <div style="font-size:16px;margin-top:10px;color:var(--text-secondary);font-family:var(--font-mono);">&mdash; Address to the All-India Depressed Classes Women's Conference, Nagpur (1942)</div>
+              </div>
+            </div>
+            <div class="slide-action-row">
+              <a href="reader.html?id=doc-en-14" class="slide-btn slide-btn-primary">
+                <span>📖 Read Hindu Code Bill Debates (Vol 14)</span>
+                <span>↗</span>
+              </a>
+              <a href="assistant.html?q=Explain+Ambedkar+Hindu+Code+Bill" class="slide-btn slide-btn-ghost">
+                <span>Ask AI Assistant</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="slide-card reveal reveal-delay-2">
+            <h3 style="font-family:var(--font-display);font-size:24px;color:var(--gold-light);margin-bottom:20px;">Reforms &amp; Principles</h3>
+            <ul class="key-facts-list">
+              <li class="key-fact-item">
+                <div class="key-fact-icon">👩‍⚖️</div>
+                <div><strong>Equal Inheritance:</strong> Daughters given equal status with sons in property succession and intestate inheritance.</div>
+              </li>
+              <li class="key-fact-item">
+                <div class="key-fact-icon">💍</div>
+                <div><strong>Enforced Monogamy:</strong> Banned polygamous unions and recognized civil divorce on grounds of cruelty or abandonment.</div>
+              </li>
+              <li class="key-fact-item">
+                <div class="key-fact-icon">🚪</div>
+                <div><strong>Resignation on Principle (Sept 1951):</strong> Resigned from the Union Cabinet when parliamentary factions diluted and delayed the Bill.</div>
+              </li>
+              <li class="key-fact-item">
+                <div class="key-fact-icon">🏛️</div>
+                <div><strong>Posthumous Vindications:</strong> Later enacted in separate statutes: Hindu Marriage Act (1955), Hindu Succession Act (1956).</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════
+           SLIDE 8: NAGPUR DHAMMA DEEKSHA (OCT 14, 1956)
+           ══════════════════════════════════════════════ -->
+      <section class="slide" data-title="Nagpur Dhamma Deeksha" data-notes="October 14, 1956 at Deekshabhoomi, Nagpur. Fulfilling his 1935 pledge at Yeola ('Though I was born a Hindu, I solemnly assure you I will not die a Hindu'), Ambedkar and over 500,000 followers embraced Buddhism. He formulated 22 Vows to ensure total intellectual and spiritual emancipation.">
+        <div class="slide-header">
+          <div>
+            <div class="slide-badge">Chapter 07 &bull; October 14, 1956</div>
+            <h2 class="slide-title">The Historic Nagpur Dhamma Deeksha</h2>
+            <p class="slide-subtitle">Navayana Buddhism &amp; The 22 Vows of Spiritual Emancipation</p>
+          </div>
+          <div class="slide-volume-tag">BAWS Vol. 11 &bull; The Buddha and His Dhamma</div>
+        </div>
+
+        <div class="slide-body-grid">
+          <div class="slide-card gold-rim reveal reveal-delay-1">
+            <div>
+              <p class="slide-text">
+                At Deekshabhoomi in Nagpur on Vijaya Dashami, Dr. Ambedkar fulfilled his historic 1935 Yeola declaration: <em>"I will not die a Hindu."</em> Alongside half a million men, women, and children, he took refuge in the Triple Gem and administered the <strong>22 Vows</strong> of ethical transformation.
+              </p>
+              <div class="slide-quote">
+                "Buddhism is a religion based on Morality. It teaches Pradnya (wisdom against superstition), Karuna (love for all beings), and Samata (equality among all humans). This is not just a change of religion, but a rebirth of freedom."
+                <div style="font-size:16px;margin-top:10px;color:var(--text-secondary);font-family:var(--font-mono);">&mdash; Historic Address at Nagpur, Oct 15, 1956</div>
+              </div>
+            </div>
+            <div class="slide-action-row">
+              <a href="reader.html?id=doc-en-11" class="slide-btn slide-btn-primary">
+                <span>📖 Read 'The Buddha and His Dhamma' (Vol 11)</span>
+                <span>↗</span>
+              </a>
+              <a href="media.html" class="slide-btn slide-btn-ghost">
+                <span>🎙️ Listen to 22 Vows Audio</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="slide-card reveal reveal-delay-2">
+            <h3 style="font-family:var(--font-display);font-size:24px;color:var(--gold-light);margin-bottom:20px;">The 22 Vows &amp; Navayana</h3>
+            <ul class="key-facts-list">
+              <li class="key-fact-item">
+                <div class="key-fact-icon">☸️</div>
+                <div><strong>Navayana ('New Vehicle'):</strong> Reinterpreted Buddhist Dhamma as a rational, social gospel centered on universal human dignity and compassion.</div>
+              </li>
+              <li class="key-fact-item">
+                <div class="key-fact-icon">🪓</div>
+                <div><strong>Renunciation of Superstition:</strong> Vows 1 to 8 solemnly renounced worship of discriminatory deities, shraddhas, and Brahminical rituals.</div>
+              </li>
+              <li class="key-fact-item">
+                <div class="key-fact-icon">⚖️</div>
+                <div><strong>Commitment to Equality:</strong> Vow 11: <em>"I shall believe that all human beings are equal."</em></div>
+              </li>
+              <li class="key-fact-item">
+                <div class="key-fact-icon">🌱</div>
+                <div><strong>Noble Eightfold Path:</strong> Vow 13 &amp; 14: Daily practice of the Arya Ashtanga Marga and compassion for all living beings.</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════
+           SLIDE 9: THE 60 VOLUMES OF COMPLETE WORKS
+           ══════════════════════════════════════════════ -->
+      <section class="slide" data-title="The 60 BAWS Volumes" data-notes="The Government of Maharashtra and the Dr. Ambedkar Foundation have published 20 English volumes and 40 Hindi volumes of the Babasaheb Ambedkar Writings and Speeches (BAWS). This Digital Heritage Archive houses every single volume in full text with multilingual search and OCR digitization.">
+        <div class="slide-header">
+          <div>
+            <div class="slide-badge">Chapter 08 &bull; Living Heritage</div>
+            <h2 class="slide-title">The Complete Works: 60 Official Volumes</h2>
+            <p class="slide-subtitle">20 English Volumes + 40 Hindi Volumes (Dr. Ambedkar Foundation &amp; MEA)</p>
+          </div>
+          <div class="slide-volume-tag">All 60 Volumes Digitized</div>
+        </div>
+
+        <div class="slide-body-grid">
+          <div class="slide-card gold-rim reveal reveal-delay-1">
+            <div>
+              <p class="slide-text">
+                The Dr. Babasaheb Ambedkar Writings and Speeches (BAWS) collection represents one of the most comprehensive archives of political, social, and economic philosophy in human history, spanning over 25,000 pages of original writings, speeches, memos, and parliamentary debates.
+              </p>
+              <div class="slide-quote">
+                "Cultivation of mind should be the ultimate aim of human existence."
+                <div style="font-size:16px;margin-top:10px;color:var(--text-secondary);font-family:var(--font-mono);">&mdash; Dr. B.R. Ambedkar</div>
+              </div>
+            </div>
+            <div class="slide-action-row">
+              <a href="archive.html" class="slide-btn slide-btn-primary">
+                <span>📚 Explore All 60 Volumes in Catalog</span>
+                <span>↗</span>
+              </a>
+              <a href="ocr.html" class="slide-btn slide-btn-ghost">
+                <span>Scan New Manuscripts via OCR</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="slide-card reveal reveal-delay-2">
+            <h3 style="font-family:var(--font-display);font-size:24px;color:var(--gold-light);margin-bottom:20px;">Archival Catalog Scope</h3>
+            <ul class="key-facts-list">
+              <li class="key-fact-item">
+                <div class="key-fact-icon">📖</div>
+                <div><strong>Volumes 1–5:</strong> Castes in India, Annihilation of Caste, Maharashtra as a Linguistic Province, Philosophy of Hinduism.</div>
+              </li>
+              <li class="key-fact-item">
+                <div class="key-fact-icon">💰</div>
+                <div><strong>Volumes 6–10:</strong> Problem of the Rupee, Untouchables: Who Were They?, Pakistan or Partition of India, What Congress and Gandhi Have Done.</div>
+              </li>
+              <li class="key-fact-item">
+                <div class="key-fact-icon">☸️</div>
+                <div><strong>Volumes 11–15:</strong> The Buddha and His Dhamma, Ancient Indian Commerce, Constituent Assembly Debates, Hindu Code Bill.</div>
+              </li>
+              <li class="key-fact-item">
+                <div class="key-fact-icon">🌐</div>
+                <div><strong>Volumes 16–20 &amp; Hindi 1–40:</strong> Pali Dictionary, Rare Correspondence, Photographic Archive, and Full Hindi Canonical Translations.</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════
+           SLIDE 10: EPILOGUE & ARCHIVAL RESEARCH PORTAL
+           ══════════════════════════════════════════════ -->
+      <section class="slide" data-title="Epilogue &amp; Interactive Tools" data-notes="Thank you for viewing this visual exhibition. Use the Ambedkar Digital Heritage Archive to search 60 volumes, ask questions to our AI Research Assistant, listen to historic speeches, and inspect manuscripts.">
+        <!-- Subtle archival portrait watermark for Slide 10 -->
+        <div style="position:absolute;right:80px;top:50%;transform:translateY(-50%);width:320px;height:420px;border-radius:4px;overflow:hidden;opacity:0.12;pointer-events:none;z-index:0;">
+          <img src="assets/images/ambedkar_portrait.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover;object-position:top;" />
+        </div>
+        <div class="title-slide-container" style="position:relative;z-index:1;">
+          <div class="title-emblem reveal">☸️</div>
+          <div class="slide-badge reveal reveal-delay-1" style="margin-bottom:24px;">National Heritage Archive &bull; Public Domain</div>
+          <h2 class="title-main reveal reveal-delay-2" style="font-size:68px;">
+            Continue Your Research
+          </h2>
+          <p class="title-tagline reveal reveal-delay-3" style="max-width:1000px;font-size:28px;">
+            "Lost rights are never regained by begging, and yet by an appeal to the conscience of the usurpers, but by relentless struggle."
+          </p>
+
+          <div class="title-meta-grid reveal reveal-delay-4" style="flex-wrap:wrap;justify-content:center;">
+            <a href="archive.html" class="slide-btn slide-btn-primary" style="font-size:18px;">
+              <span>📚 Search 60 Volumes</span>
+            </a>
+            <a href="media.html" class="slide-btn slide-btn-ghost" style="font-size:18px;">
+              <span>🎙️ Historical Audio Archive</span>
+            </a>
+            <a href="timeline.html" class="slide-btn slide-btn-ghost" style="font-size:18px;">
+              <span>📅 Chronological Timeline</span>
+            </a>
+            <a href="assistant.html" class="slide-btn slide-btn-ghost" style="font-size:18px;">
+              <span>🤖 AI Research Assistant</span>
+            </a>
+            <a href="ocr.html" class="slide-btn slide-btn-ghost" style="font-size:18px;">
+              <span>📜 Manuscript OCR</span>
+            </a>
+          </div>
+
+          <div style="margin-top:50px;font-family:var(--font-mono);font-size:15px;color:var(--text-muted);" class="reveal reveal-delay-5">
+            Use Arrow Keys &bull; F for Fullscreen &bull; A for Narration &bull; N for Presenter Notes
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Floating Bottom Deck Controller -->
+    <footer class="deck-controls" role="region" aria-label="Slide controls">
+      <button class="deck-btn" id="prevSlideBtn" title="Previous Slide (← or Space)">‹</button>
+      
+      <div class="deck-counter" id="deckCounter">01 / 10</div>
+      
+      <div class="deck-progress-container" title="Slide Progress">
+        <div class="deck-progress-bar" id="deckProgressBar"></div>
+      </div>
+      
+      <button class="deck-btn" id="nextSlideBtn" title="Next Slide (→ or Enter)">›</button>
+      
+      <div style="width:1px;height:24px;background:var(--card-border-gold);margin:0 4px;"></div>
+      
+      <button class="deck-btn" id="autoPlayBtn" title="Toggle Auto Advance (P)" style="font-size:14px;">▶</button>
+    </footer>
+
+    <!-- Presenter Notes Drawer -->
+    <aside class="notes-drawer" id="notesDrawer" role="complementary" aria-label="Presenter notes">
+      <div class="notes-header">
+        <span class="notes-title">Presenter Notes</span>
+        <button class="notes-close" id="notesCloseBtn" aria-label="Close notes">&times;</button>
+      </div>
+      <div class="notes-content" id="notesContent">
+        Welcome to the visual exhibition.
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- ===========================================
+       SLIDE DECK ENGINE JAVASCRIPT
+       =========================================== -->
+  <script>
+    class DeckPresentation {
+      constructor() {
+        this.viewport = document.getElementById('deckViewport');
+        this.stage = document.getElementById('deckStage');
+        this.slides = Array.from(document.querySelectorAll('.slide'));
+        this.counterEl = document.getElementById('deckCounter');
+        this.progressBar = document.getElementById('deckProgressBar');
+        this.notesDrawer = document.getElementById('notesDrawer');
+        this.notesContent = document.getElementById('notesContent');
+        this.narrationPill = document.getElementById('narrationPill');
+        this.narrationText = document.getElementById('narrationText');
+        this.sideDock = document.getElementById('deckSideDock');
+
+        this.currentSlide = 0;
+        this.autoPlayInterval = null;
+        this.isNarrating = false;
+
+        this.setupScale();
+        this.setupTheme();
+        this.setupNav();
+        this.setupKeyboard();
+        this.setupTouch();
+        this.setupNotes();
+        this.setupNarration();
+        this.showSlide(0);
+      }
+
+      toggleHubs(force) {
+        if (!this.sideDock) return;
+        const willCollapse = force !== undefined ? !force : !this.sideDock.classList.contains('collapsed');
+        this.sideDock.classList.toggle('collapsed', willCollapse);
+        const hubsBtn = document.getElementById('hubsToggleBtn');
+        if (hubsBtn) {
+          hubsBtn.classList.toggle('active', !willCollapse);
+        }
+      }
+
+      setupTheme() {
+        const btns = document.querySelectorAll('.theme-deck-btn');
+        btns.forEach(btn => {
+          btn.addEventListener('click', () => {
+            const theme = btn.getAttribute('data-theme');
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('site_theme', theme);
+            localStorage.setItem('reader_theme', theme);
+          });
+        });
+      }
+
+      setupScale() {
+        const update = () => {
+          const vw = window.innerWidth;
+          const vh = window.innerHeight;
+          const factor = Math.min(vw / 1920, vh / 1080);
+          const x = (vw - 1920 * factor) / 2;
+          const y = (vh - 1080 * factor) / 2;
+          this.stage.style.transform = `translate(${x}px, ${y}px) scale(${factor})`;
+        };
+        update();
+        window.addEventListener('resize', update);
+      }
+
+      setupNav() {
+        document.getElementById('prevSlideBtn').addEventListener('click', () => this.prevSlide());
+        document.getElementById('nextSlideBtn').addEventListener('click', () => this.nextSlide());
+
+        const hubsBtn = document.getElementById('hubsToggleBtn');
+        if (hubsBtn) {
+          hubsBtn.addEventListener('click', () => this.toggleHubs());
+        }
+
+        const autoBtn = document.getElementById('autoPlayBtn');
+        autoBtn.addEventListener('click', () => {
+          if (this.autoPlayInterval) {
+            clearInterval(this.autoPlayInterval);
+            this.autoPlayInterval = null;
+            autoBtn.textContent = '▶';
+            autoBtn.title = 'Start Auto Advance';
+          } else {
+            this.autoPlayInterval = setInterval(() => this.nextSlide(true), 12000);
+            autoBtn.textContent = '⏸';
+            autoBtn.title = 'Pause Auto Advance';
+          }
+        });
+
+        const fullBtn = document.getElementById('fullscreenBtn');
+        fullBtn.addEventListener('click', () => this.toggleFullscreen());
+      }
+
+      setupKeyboard() {
+        document.addEventListener('keydown', (e) => {
+          if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+          switch (e.key) {
+            case 'ArrowRight':
+            case ' ':
+            case 'PageDown':
+              e.preventDefault();
+              this.nextSlide();
+              break;
+            case 'ArrowLeft':
+            case 'PageUp':
+              e.preventDefault();
+              this.prevSlide();
+              break;
+            case 'Home':
+              e.preventDefault();
+              this.showSlide(0);
+              break;
+            case 'End':
+              e.preventDefault();
+              this.showSlide(this.slides.length - 1);
+              break;
+            case 'h':
+            case 'H':
+              this.toggleHubs();
+              break;
+            case 'f':
+            case 'F':
+              this.toggleFullscreen();
+              break;
+            case 'n':
+            case 'N':
+              this.toggleNotes();
+              break;
+            case 'a':
+            case 'A':
+              this.toggleNarration();
+              break;
+            case 'Escape':
+              if (this.notesDrawer.classList.contains('open')) {
+                this.toggleNotes(false);
+              }
+              break;
+          }
+        });
+      }
+
+      setupTouch() {
+        let startX = 0;
+        let startY = 0;
+        this.viewport.addEventListener('touchstart', (e) => {
+          startX = e.touches[0].clientX;
+          startY = e.touches[0].clientY;
+        }, { passive: true });
+
+        this.viewport.addEventListener('touchend', (e) => {
+          const deltaX = e.changedTouches[0].clientX - startX;
+          const deltaY = e.changedTouches[0].clientY - startY;
+          if (Math.abs(deltaX) > 50 && Math.abs(deltaX) > Math.abs(deltaY)) {
+            if (deltaX < 0) this.nextSlide();
+            else this.prevSlide();
+          }
+        }, { passive: true });
+      }
+
+      setupNotes() {
+        document.getElementById('notesToggleBtn').addEventListener('click', () => this.toggleNotes());
+        document.getElementById('notesCloseBtn').addEventListener('click', () => this.toggleNotes(false));
+      }
+
+      toggleNotes(forceState) {
+        const isOpen = forceState !== undefined ? forceState : !this.notesDrawer.classList.contains('open');
+        this.notesDrawer.classList.toggle('open', isOpen);
+      }
+
+      toggleFullscreen() {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        } else {
+          document.exitFullscreen().catch(() => {});
+        }
+      }
+
+      setupNarration() {
+        document.getElementById('audioNarrationBtn').addEventListener('click', () => this.toggleNarration());
+      }
+
+      toggleNarration() {
+        if (!('speechSynthesis' in window)) {
+          alert('Speech Synthesis not supported in this browser.');
+          return;
+        }
+
+        if (this.isNarrating) {
+          window.speechSynthesis.cancel();
+          this.isNarrating = false;
+          this.narrationPill.classList.remove('active');
+          document.getElementById('audioIcon').textContent = '🔊';
+        } else {
+          this.isNarrating = true;
+          this.narrationPill.classList.add('active');
+          document.getElementById('audioIcon').textContent = '⏹';
+          this.narrateCurrentSlide();
+        }
+      }
+
+      narrateCurrentSlide() {
+        if (!this.isNarrating || !('speechSynthesis' in window)) return;
+        window.speechSynthesis.cancel();
+
+        const slide = this.slides[this.currentSlide];
+        const notes = slide.getAttribute('data-notes') || slide.querySelector('.slide-title')?.textContent || '';
+        const quote = slide.querySelector('.slide-quote')?.textContent || '';
+        const fullText = (quote ? quote + ". " : "") + notes;
+
+        this.narrationText.textContent = `Narrating: ${slide.getAttribute('data-title') || 'Slide'}`;
+
+        const utterance = new SpeechSynthesisUtterance(fullText);
+        utterance.rate = 0.95;
+        utterance.pitch = 1.0;
+
+        utterance.onend = () => {
+          if (this.isNarrating && this.autoPlayInterval) {
+            this.nextSlide(true);
+          }
+        };
+
+        window.speechSynthesis.speak(utterance);
+      }
+
+      showSlide(index, loop = false) {
+        if (index < 0) {
+          if (loop) index = this.slides.length - 1;
+          else index = 0;
+        } else if (index >= this.slides.length) {
+          if (loop) index = 0;
+          else index = this.slides.length - 1;
+        }
+
+        this.currentSlide = index;
+
+        this.slides.forEach((slide, i) => {
+          const isActive = (i === this.currentSlide);
+          slide.classList.toggle('active', isActive);
+          slide.classList.toggle('visible', isActive);
+        });
+
+        // Update Chrome
+        const currentPad = String(this.currentSlide + 1).padStart(2, '0');
+        const totalPad = String(this.slides.length).padStart(2, '0');
+        this.counterEl.textContent = `${currentPad} / ${totalPad}`;
+
+        const percent = ((this.currentSlide + 1) / this.slides.length) * 100;
+        this.progressBar.style.width = `${percent}%`;
+
+        // Update Notes
+        const activeSlide = this.slides[this.currentSlide];
+        const notes = activeSlide.getAttribute('data-notes') || 'No speaker notes for this slide.';
+        const title = activeSlide.getAttribute('data-title') || `Slide ${this.currentSlide + 1}`;
+        this.notesContent.innerHTML = `
+          <h4 style="font-family:var(--font-display);color:var(--gold);margin-bottom:12px;">${title}</h4>
+          <p>${notes}</p>
+        `;
+
+        if (this.isNarrating) {
+          this.narrateCurrentSlide();
+        }
+      }
+
+      nextSlide(loop = false) {
+        this.showSlide(this.currentSlide + 1, loop);
+      }
+
+      prevSlide(loop = false) {
+        this.showSlide(this.currentSlide - 1, loop);
+      }
+    }
+
+    // Initialize Deck Controller
+    const deck = new DeckPresentation();
+  </script>
+</body>
+</html>

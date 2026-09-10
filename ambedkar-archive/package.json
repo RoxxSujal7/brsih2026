@@ -1,0 +1,35 @@
+{
+  "name": "ambedkar-digital-heritage-archive",
+  "version": "1.0.0",
+  "description": "AI-Powered Digital Heritage Archive for Dr. B. R. Ambedkar — SIH 2024",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js",
+    "seed": "node backend/seed/seedData.js",
+    "seed:media": "node backend/scripts/seedMediaData.js",
+    "download:hindi": "node backend/scripts/downloadHindiPDFs.js",
+    "test": "echo \"No test runner configured yet\""
+  },
+  "keywords": ["ambedkar", "heritage", "archive", "SIH", "digital"],
+  "author": "SIH Team",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.1.5",
+    "express-validator": "^7.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.0.3",
+    "morgan": "^1.10.0",
+    "helmet": "^7.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

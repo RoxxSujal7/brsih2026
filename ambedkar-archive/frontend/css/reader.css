@@ -1,0 +1,506 @@
+/* ═══════════════════════════════════════════════════
+   PREMIUM DOCUMENT READER STYLESHEET
+   Supports Mozilla PDF.js Canvas Rendering & Native Embed
+   Aesthetics: Museum Scholarly Sanctuary & Apple Books Fluidity
+   Skills: apple-design, emil-design-eng, redesign-existing-projects
+═══════════════════════════════════════════════════ */
+
+/* ── Global Selection Visibility Fix ── */
+::selection {
+  background: rgba(212, 175, 55, 0.45) !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  text-shadow: none !important;
+}
+
+.reader-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  min-height: 100dvh;
+  padding-top: calc(var(--nav-height) + 16px);
+  background: var(--bg);
+  transition: background 0.25s var(--ease-out), color 0.25s var(--ease-out);
+}
+@media (min-width: 1024px) {
+  .reader-layout { grid-template-columns: 320px 1fr; }
+}
+
+/* ── Archival Sidebar with Double-Bezel Enclosure ── */
+.reader-sidebar {
+  background: rgba(13, 17, 26, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-right: 1px solid var(--border);
+  padding: var(--space-6);
+  display: none;
+  flex-direction: column;
+  gap: var(--space-5);
+  position: sticky;
+  top: calc(var(--nav-height) + 16px);
+  height: calc(100dvh - var(--nav-height) - 16px);
+  overflow-y: auto;
+  z-index: 20;
+  transition: background 0.25s var(--ease-out), border-color 0.25s var(--ease-out);
+}
+@media (min-width: 1024px) { .reader-sidebar { display: flex; } }
+
+.reader-doc-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+  color: var(--text);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  transition: color 0.2s ease;
+}
+.reader-doc-meta {
+  font-size: 0.8rem;
+  color: var(--gold-light);
+  font-weight: 500;
+}
+
+.reader-controls { display: flex; flex-direction: column; gap: var(--space-3); }
+.reader-control-label {
+  font-size: 0.7rem;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  transition: color 0.2s ease;
+}
+
+/* Mode & Theme Buttons */
+.mode-btn, .theme-btn, .layout-btn {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 6px 12px;
+  font-size: 0.825rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-spring);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+}
+.mode-btn:hover, .theme-btn:hover, .layout-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-color: var(--border-light);
+}
+.mode-btn.active, .layout-btn.active {
+  background: var(--primary) !important;
+  color: #fff !important;
+  border-color: transparent !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 8px rgba(67, 56, 202, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.25) !important;
+}
+.theme-btn.active {
+  background: rgba(212, 175, 55, 0.18) !important;
+  color: var(--gold-light) !important;
+  border-color: var(--gold) !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Select Dropdown Fix */
+select.input {
+  cursor: pointer;
+  appearance: auto;
+  -webkit-appearance: auto;
+}
+select.input option {
+  background: var(--surface-1);
+  color: var(--text);
+  padding: 8px 12px;
+}
+
+/* ── Main Reading Workspace ── */
+.reader-main {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  transition: background 0.25s var(--ease-out), color 0.25s var(--ease-out);
+}
+
+.reader-top-bar {
+  position: sticky;
+  top: calc(var(--nav-height) + 14px);
+  background: rgba(13, 17, 26, 0.82);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-full);
+  margin: 0 var(--space-5) var(--space-4);
+  padding: var(--space-2) var(--space-5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  z-index: 50;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  transition: background 0.25s var(--ease-out), border-color 0.25s var(--ease-out);
+}
+
+.reader-breadcrumb {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.reader-breadcrumb a { color: var(--gold-light); font-weight: 500; }
+.reader-breadcrumb a:hover { color: #fff; }
+
+.reader-progress-strip {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.05);
+  z-index: 2000;
+}
+.reader-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), #38bdf8);
+  transition: width 0.2s var(--ease-out);
+}
+
+.reader-article {
+  flex: 1;
+  max-width: 960px;
+  margin: 0 auto;
+  width: 100%;
+  padding: var(--space-6) var(--space-6) var(--space-12);
+  display: flex;
+  flex-direction: column;
+}
+
+.reader-article-header {
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--border);
+  transition: border-color 0.25s ease;
+}
+.reader-article-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--text);
+  transition: color 0.2s ease;
+  user-select: text;
+  -webkit-user-select: text;
+}
+.reader-article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: 0.825rem;
+  color: var(--text-muted);
+  transition: color 0.2s ease;
+}
+
+/* ── Real PDF Canvas Stage (Single & Two-Page Spreads) ── */
+.pdf-book-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: var(--space-2) 0;
+  position: relative;
+}
+
+.pdf-book-container {
+  position: relative;
+  width: 100%;
+  min-height: 520px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.canvas-loading-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(7, 9, 14, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  z-index: 15;
+  border-radius: var(--radius-lg);
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.pdf-pages-spread {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0;
+  width: 100%;
+  position: relative;
+  transition: transform 0.24s var(--ease-spring), opacity 0.2s var(--ease-out);
+}
+
+.pdf-page-wrapper {
+  background: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transition: box-shadow 0.3s ease;
+}
+
+.pdf-canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.pdf-spine-shadow {
+  width: 18px;
+  background: linear-gradient(90deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.35) 100%);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Scrubber & Page Navigation Dock */
+.reader-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 780px;
+  margin: var(--space-6) auto 0;
+  padding: var(--space-3) var(--space-5);
+  background: rgba(13, 17, 26, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  gap: var(--space-3);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.page-input-jump {
+  width: 58px;
+  height: 32px;
+  text-align: center;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  outline: none;
+}
+
+/* Native Viewer Frame */
+#native-embed-container {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  height: 80vh;
+}
+#native-pdf-frame {
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: #222;
+}
+
+/* ═══════════════════════════════════════════════════
+   ATMOSPHERE THEMES (Dark Slate, Ivory Paper, Sepia)
+   Flawless contrast & persistent visible typography
+═══════════════════════════════════════════════════ */
+
+/* 1. Dark Slate (Default) */
+body.mode-dark,
+body:not(.mode-paper):not(.mode-sepia) {
+  --reader-bg: #07090e;
+  --reader-surface: #0d111a;
+  --reader-surface-2: #141a29;
+  --reader-text: #f8fafc;
+  --reader-text-muted: #94a3b8;
+  --reader-heading: #ffffff;
+  --reader-border: rgba(255, 255, 255, 0.08);
+}
+
+/* 2. Ivory Paper Sanctuary */
+body.mode-paper {
+  background: #f7f5ef !important;
+  color: #2b2723 !important;
+}
+body.mode-paper ::selection {
+  background: rgba(180, 130, 40, 0.35) !important;
+  color: #1a1714 !important;
+  -webkit-text-fill-color: #1a1714 !important;
+}
+body.mode-paper .reader-layout,
+body.mode-paper .reader-main {
+  background: #f7f5ef !important;
+  color: #2b2723 !important;
+}
+body.mode-paper .reader-sidebar {
+  background: #eeeae0 !important;
+  border-color: rgba(43, 39, 35, 0.12) !important;
+  color: #2b2723 !important;
+}
+body.mode-paper .reader-top-bar {
+  background: rgba(238, 234, 224, 0.92) !important;
+  border-color: rgba(43, 39, 35, 0.12) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08) !important;
+}
+body.mode-paper .reader-article-title,
+body.mode-paper #doc-title,
+body.mode-paper .reader-doc-title,
+body.mode-paper #sidebar-doc-title,
+body.mode-paper #breadcrumb-title,
+body.mode-paper h1, body.mode-paper h2, body.mode-paper h3, body.mode-paper h4 {
+  color: #1a1714 !important;
+}
+body.mode-paper .reader-article-meta,
+body.mode-paper .reader-control-label,
+body.mode-paper .text-muted,
+body.mode-paper .reader-breadcrumb {
+  color: #6b6359 !important;
+}
+body.mode-paper .reader-article-header {
+  border-color: rgba(43, 39, 35, 0.12) !important;
+}
+body.mode-paper .reader-toolbar {
+  background: #eeeae0 !important;
+  border-color: rgba(43, 39, 35, 0.12) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08) !important;
+  color: #2b2723 !important;
+}
+body.mode-paper .page-input-jump {
+  background: #ffffff !important;
+  border-color: rgba(43, 39, 35, 0.18) !important;
+  color: #1a1714 !important;
+}
+body.mode-paper select.input {
+  background: #ffffff !important;
+  border-color: rgba(43, 39, 35, 0.18) !important;
+  color: #1a1714 !important;
+}
+body.mode-paper select.input option {
+  background: #ffffff !important;
+  color: #1a1714 !important;
+}
+body.mode-paper .mode-btn,
+body.mode-paper .theme-btn,
+body.mode-paper .layout-btn {
+  background: #e2ddd0 !important;
+  border-color: rgba(43, 39, 35, 0.15) !important;
+  color: #4a443b !important;
+}
+body.mode-paper .theme-btn.active {
+  background: #d8d1c1 !important;
+  border-color: #8c7853 !important;
+  color: #1a1714 !important;
+}
+body.mode-paper .pdf-page-wrapper {
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* 3. Historical Sepia Sanctuary */
+body.mode-sepia {
+  background: #f2ebd9 !important;
+  color: #3b2c1e !important;
+}
+body.mode-sepia ::selection {
+  background: rgba(160, 110, 40, 0.35) !important;
+  color: #261b11 !important;
+  -webkit-text-fill-color: #261b11 !important;
+}
+body.mode-sepia .reader-layout,
+body.mode-sepia .reader-main {
+  background: #f2ebd9 !important;
+  color: #3b2c1e !important;
+}
+body.mode-sepia .reader-sidebar {
+  background: #e7ddc7 !important;
+  border-color: rgba(59, 44, 30, 0.14) !important;
+  color: #3b2c1e !important;
+}
+body.mode-sepia .reader-top-bar {
+  background: rgba(231, 221, 199, 0.92) !important;
+  border-color: rgba(59, 44, 30, 0.14) !important;
+  box-shadow: 0 8px 24px rgba(59, 44, 30, 0.1) !important;
+}
+body.mode-sepia .reader-article-title,
+body.mode-sepia #doc-title,
+body.mode-sepia .reader-doc-title,
+body.mode-sepia #sidebar-doc-title,
+body.mode-sepia #breadcrumb-title,
+body.mode-sepia h1, body.mode-sepia h2, body.mode-sepia h3, body.mode-sepia h4 {
+  color: #261b11 !important;
+}
+body.mode-sepia .reader-article-meta,
+body.mode-sepia .reader-control-label,
+body.mode-sepia .text-muted,
+body.mode-sepia .reader-breadcrumb {
+  color: #705842 !important;
+}
+body.mode-sepia .reader-article-header {
+  border-color: rgba(59, 44, 30, 0.14) !important;
+}
+body.mode-sepia .reader-toolbar {
+  background: #e7ddc7 !important;
+  border-color: rgba(59, 44, 30, 0.14) !important;
+  box-shadow: 0 8px 24px rgba(59, 44, 30, 0.1) !important;
+  color: #3b2c1e !important;
+}
+body.mode-sepia .page-input-jump {
+  background: #faf6ed !important;
+  border-color: rgba(59, 44, 30, 0.2) !important;
+  color: #261b11 !important;
+}
+body.mode-sepia select.input {
+  background: #faf6ed !important;
+  border-color: rgba(59, 44, 30, 0.2) !important;
+  color: #261b11 !important;
+}
+body.mode-sepia select.input option {
+  background: #faf6ed !important;
+  color: #261b11 !important;
+}
+body.mode-sepia .mode-btn,
+body.mode-sepia .theme-btn,
+body.mode-sepia .layout-btn {
+  background: #dcceb3 !important;
+  border-color: rgba(59, 44, 30, 0.16) !important;
+  color: #55412e !important;
+}
+body.mode-sepia .theme-btn.active {
+  background: #d0c0a0 !important;
+  border-color: #8c6a40 !important;
+  color: #261b11 !important;
+}
+body.mode-sepia .pdf-page-wrapper {
+  box-shadow: 0 16px 40px rgba(59, 44, 30, 0.18), 0 0 0 1px rgba(59, 44, 30, 0.1) !important;
+}

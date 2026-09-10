@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Constitution Explorer — Dr. B. R. Ambedkar Digital Heritage Archive</title>
+  <meta name="description" content="Explore Dr. B. R. Ambedkar's constitutional legacy — Articles 14, 15, 17, 21, 32, the Preamble, and the drafting journey of India's Constitution." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script>(function(){const t=localStorage.getItem('site_theme')||localStorage.getItem('reader_theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+
+  <style>
+    /* ── Constitution Explorer — Premium Double-Bezel Architecture ── */
+
+    /* Hero */
+    .const-hero {
+      min-height: 520px;
+      background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(212,175,55,0.12) 0%, transparent 70%),
+                  linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+      padding: calc(var(--nav-height) + var(--space-20)) var(--space-6) var(--space-16);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .const-hero-emblem {
+      font-size: 3.5rem;
+      margin-bottom: var(--space-4);
+      animation: float 4s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .const-hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: var(--space-4);
+    }
+    .const-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5.5vw, 4rem);
+      color: var(--text);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: var(--space-5);
+      max-width: 900px;
+    }
+    .const-hero-sub {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 680px;
+      line-height: 1.75;
+      margin-bottom: var(--space-8);
+    }
+    .const-hero-stats {
+      display: flex;
+      gap: var(--space-6);
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .const-stat {
+      text-align: center;
+    }
+    .const-stat-num {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--gold-light);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .const-stat-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── Drafting Timeline (Horizontal Scroll-Snap) ── */
+    .drafting-section {
+      padding: var(--space-16) 0 var(--space-12);
+      background: var(--bg-2);
+      border-bottom: 1px solid var(--border);
+    }
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+      margin-bottom: var(--space-3);
+      padding: 0 var(--space-6);
+      max-width: var(--container);
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .section-heading {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      color: var(--text);
+      margin-bottom: var(--space-8);
+      padding: 0 var(--space-6);
+      max-width: var(--container);
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .drafting-scroll {
+      display: flex;
+      gap: var(--space-4);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: var(--space-2) var(--space-6) var(--space-6);
+      scrollbar-width: thin;
+      scrollbar-color: var(--border-gold) transparent;
+    }
+    .drafting-scroll::-webkit-scrollbar { height: 4px; }
+    .drafting-scroll::-webkit-scrollbar-thumb { background: var(--border-gold); border-radius: 9999px; }
+
+    .draft-milestone {
+      flex-shrink: 0;
+      scroll-snap-align: start;
+      width: 300px;
+      /* Double-Bezel outer shell */
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 2px;
+      transition: border-color 0.28s cubic-bezier(0.32,0.72,0,1),
+                  transform 0.28s cubic-bezier(0.32,0.72,0,1);
+    }
+    .draft-milestone:hover {
+      border-color: var(--border-gold);
+      transform: translateY(-4px);
+    }
+    .draft-milestone-inner {
+      /* Double-Bezel inner core */
+      background: var(--surface);
+      border-radius: calc(var(--radius-xl) - 2px);
+      padding: var(--space-6);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+      height: 100%;
+    }
+    .draft-date {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--space-3);
+    }
+    .draft-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--text);
+      margin-bottom: var(--space-3);
+      line-height: 1.3;
+    }
+    .draft-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+    .draft-icon {
+      font-size: 1.8rem;
+      margin-bottom: var(--space-3);
+    }
+
+    /* ── Article Explorer Grid ── */
+    .articles-section {
+      padding: var(--space-16) var(--space-6);
+      max-width: var(--container);
+      margin: 0 auto;
+    }
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: var(--space-5);
+      margin-top: var(--space-8);
+    }
+
+    /* Double-Bezel article cards */
+    .article-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-2xl);
+      padding: 2px;
+      transition: border-color 0.28s cubic-bezier(0.32,0.72,0,1),
+                  box-shadow 0.28s cubic-bezier(0.32,0.72,0,1),
+                  transform 0.28s cubic-bezier(0.32,0.72,0,1);
+      cursor: pointer;
+    }
+    .article-card:hover, .article-card:focus-within {
+      border-color: var(--border-gold);
+      box-shadow: 0 0 32px rgba(212,175,55,0.1), var(--shadow-lg);
+      transform: translateY(-4px);
+    }
+    .article-card.featured {
+      border-color: rgba(212,175,55,0.25);
+      background: linear-gradient(135deg, rgba(212,175,55,0.04) 0%, rgba(255,255,255,0.02) 100%);
+    }
+    .article-card-inner {
+      background: var(--surface);
+      border-radius: calc(var(--radius-2xl) - 2px);
+      padding: var(--space-6);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+    .article-number-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .article-number {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--gold-light);
+      letter-spacing: -0.01em;
+    }
+    .article-tag {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+      background: var(--gold-subtle);
+      border: 1px solid var(--border-gold);
+      color: var(--gold-light);
+    }
+    .article-title {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.35;
+    }
+    .article-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      flex: 1;
+    }
+    .article-ambedkar-note {
+      background: var(--gold-subtle);
+      border-left: 3px solid var(--gold-dim);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: var(--space-3) var(--space-4);
+      font-size: 0.8rem;
+      color: var(--gold-light);
+      font-style: italic;
+      line-height: 1.55;
+    }
+    .article-links {
+      display: flex;
+      gap: var(--space-2);
+      margin-top: auto;
+      flex-wrap: wrap;
+    }
+    .article-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 0.74rem;
+      font-family: var(--font-body);
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s cubic-bezier(0.32,0.72,0,1);
+    }
+    .article-link-primary {
+      background: var(--gold-subtle);
+      border: 1px solid var(--border-gold);
+      color: var(--gold-light);
+    }
+    .article-link-primary:hover {
+      background: var(--gold);
+      color: var(--bg);
+    }
+    .article-link-ghost {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .article-link-ghost:hover {
+      border-color: var(--border-gold);
+      color: var(--gold-light);
+    }
+
+    /* ── Preamble Feature ── */
+    .preamble-section {
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: var(--space-16) var(--space-6);
+    }
+    .preamble-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .preamble-box {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-2xl);
+      padding: 2px;
+    }
+    .preamble-box-inner {
+      background: var(--surface);
+      border-radius: calc(var(--radius-2xl) - 2px);
+      padding: var(--space-10) var(--space-12);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+    .preamble-heading {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: var(--space-6);
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    .preamble-heading::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-gold);
+      opacity: 0.4;
+    }
+    .preamble-text {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      line-height: 2;
+      color: var(--text);
+      text-align: justify;
+      hyphens: auto;
+    }
+    .preamble-text .preamble-key {
+      color: var(--gold-light);
+      font-weight: 700;
+    }
+    .preamble-citation {
+      margin-top: var(--space-6);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    /* ── Scroll-reveal animation ── */
+    .reveal-up {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+    .reveal-up.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 640px) {
+      .const-hero-stats { gap: var(--space-4); }
+      .articles-grid { grid-template-columns: 1fr; }
+      .preamble-box-inner { padding: var(--space-6); }
+      .preamble-text { font-size: 0.95rem; line-height: 1.85; }
+      .const-hero h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── Navigation ─── -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="Ambedkar Archive Home">
+      <div class="nav-logo-icon" aria-hidden="true">⚜️</div>
+      <div class="nav-logo-text">
+        <span>AMBEDKAR ARCHIVE</span>
+        <span class="nav-logo-sub">Digital Heritage Platform</span>
+      </div>
+    </a>
+    <div class="nav-links" role="list">
+      <a href="index.html" class="nav-link" role="listitem">Home</a>
+      <a href="archive.html" class="nav-link" role="listitem">Complete Works (60 Vol)</a>
+      <a href="media.html" class="nav-link" role="listitem">Speeches &amp; Media</a>
+      <a href="timeline.html" class="nav-link" role="listitem">Timeline</a>
+      <a href="assistant.html" class="nav-link" role="listitem">AI Assistant</a>
+    </div>
+    <div class="nav-actions">
+      <div class="nav-theme" role="group" aria-label="Atmosphere selection">
+        <button class="theme-toggle-btn active" data-theme="dark" title="Dark">🌙</button>
+        <button class="theme-toggle-btn" data-theme="paper" title="Paper">📜</button>
+        <button class="theme-toggle-btn" data-theme="sepia" title="Sepia">🏺</button>
+      </div>
+      <div class="nav-lang" role="group" aria-label="Language selection">
+        <button class="lang-btn active" data-lang="en" aria-pressed="true">EN</button>
+        <button class="lang-btn" data-lang="hi" aria-pressed="false">हिन्दी</button>
+        <button class="lang-btn" data-lang="mr" aria-pressed="false">मराठी</button>
+      </div>
+      <a id="nav-login-btn" href="login.html" class="btn btn-primary btn-sm">Sign In</a>
+      <div id="nav-user-menu" style="display:none;" class="flex gap-2 items-center">
+        <a href="dashboard.html" class="btn btn-secondary btn-sm"><span>👤</span> <span id="nav-user-name">User</span></a>
+        <button data-action="logout" class="btn btn-ghost btn-sm">Logout</button>
+      </div>
+      <button id="hamburger" class="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Navigation Drawer -->
+<div id="mobile-menu" class="mobile-menu" role="dialog" aria-label="Mobile navigation">
+  <div class="mobile-theme-row flex-between items-center" style="padding:var(--space-2) var(--space-3);margin-bottom:var(--space-2);border-bottom:1px solid var(--border);">
+    <span style="font-size:0.8rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Atmosphere</span>
+    <div class="nav-theme" role="group" aria-label="Atmosphere selection">
+      <button class="theme-toggle-btn active" data-theme="dark" title="Dark Slate">🌙</button>
+      <button class="theme-toggle-btn" data-theme="paper" title="Ivory Paper">📜</button>
+      <button class="theme-toggle-btn" data-theme="sepia" title="Historical Sepia">🏺</button>
+    </div>
+  </div>
+
+  <a href="index.html" class="nav-link">🏠 Home</a>
+  <a href="archive.html" class="nav-link">📚 Complete Works (60 Volumes)</a>
+  <a href="constitution.html" class="nav-link active">⚖️ Constitution</a>
+  <a href="ideas.html" class="nav-link">💡 Thematic Ideas</a>
+  <a href="learning.html" class="nav-link">🎓 Learning Center</a>
+  <a href="quotes.html" class="nav-link">💬 Verified Quotes</a>
+  <a href="media.html" class="nav-link">🎬 Speeches &amp; Audio-Visual</a>
+  <a href="timeline.html" class="nav-link">📅 Chronological Timeline</a>
+  <a href="slides.html" class="nav-link">📽️ Visual Exhibition Deck <span class="badge-16-9">16:9</span></a>
+  <a href="assistant.html" class="nav-link">🤖 AI Research Assistant</a>
+  <a href="ocr.html" class="nav-link">📜 Manuscript OCR</a>
+  <a href="dashboard.html" class="nav-link">👤 My Research Dashboard</a>
+  <div style="height:1px;background:rgba(255,255,255,0.08);margin:var(--space-4) 0;"></div>
+  <a href="login.html" class="btn btn-primary btn-full">Sign In</a>
+</div>
+
+<!-- ─── Vertical Left Dock: Curated Exploration Hubs ─── -->
+<aside class="side-dock" role="navigation" aria-label="Curated exploration hubs">
+  <div class="side-dock-inner">
+    <div class="side-dock-header">
+      <span class="side-dock-badge">Curated Hubs</span>
+    </div>
+    <div class="side-dock-links">
+      <a href="slides.html" class="side-dock-link" title="Visual Exhibition Deck (16:9)">
+        <span class="side-dock-icon">📽️</span>
+        <span class="side-dock-label">Exhibition <span class="badge-16-9">16:9</span></span>
+      </a>
+      <a href="constitution.html" class="side-dock-link active" title="Constitution of India">
+        <span class="side-dock-icon">⚖️</span>
+        <span class="side-dock-label">Constitution</span>
+      </a>
+      <a href="ideas.html" class="side-dock-link" title="Thematic Ideas &amp; Philosophy">
+        <span class="side-dock-icon">💡</span>
+        <span class="side-dock-label">Ideas</span>
+      </a>
+      <a href="learning.html" class="side-dock-link" title="Interactive Learning Center">
+        <span class="side-dock-icon">🎓</span>
+        <span class="side-dock-label">Learning</span>
+      </a>
+      <a href="quotes.html" class="side-dock-link" title="Verified Historical Quotes">
+        <span class="side-dock-icon">💬</span>
+        <span class="side-dock-label">Quotes</span>
+      </a>
+      <a href="ocr.html" class="side-dock-link" title="Manuscript OCR Visualizer">
+        <span class="side-dock-icon">📜</span>
+        <span class="side-dock-label">OCR</span>
+      </a>
+    </div>
+  </div>
+</aside>
+
+<!-- ─── Hero ─── -->
+<section class="const-hero" aria-labelledby="const-heading">
+  <div class="const-hero-emblem" aria-hidden="true">⚖️</div>
+  <div class="const-hero-eyebrow">BAWS Vol. 13 &amp; 15 · Constituent Assembly Debates</div>
+  <h1 id="const-heading">Ambedkar &amp; the<br/>Constitution of India</h1>
+  <p class="const-hero-sub">
+    As Chairman of the Drafting Committee, Dr. Ambedkar piloted the Constitution through 2 years, 11 months, and 18 days of rigorous debate — producing a charter of fundamental rights, equality, and justice.
+  </p>
+  <div class="const-hero-stats" role="list">
+    <div class="const-stat" role="listitem">
+      <div class="const-stat-num">114</div>
+      <div class="const-stat-label">Drafting Days</div>
+    </div>
+    <div class="const-stat" role="listitem">
+      <div class="const-stat-num">7,635</div>
+      <div class="const-stat-label">Amendments Tabled</div>
+    </div>
+    <div class="const-stat" role="listitem">
+      <div class="const-stat-num">395</div>
+      <div class="const-stat-label">Original Articles</div>
+    </div>
+    <div class="const-stat" role="listitem">
+      <div class="const-stat-num">8</div>
+      <div class="const-stat-label">Schedules</div>
+    </div>
+    <div class="const-stat" role="listitem">
+      <div class="const-stat-num">1,250</div>
+      <div class="const-stat-label">BAWS Vol. 13 Pages</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Preamble Feature ─── -->
+<section class="preamble-section" aria-labelledby="preamble-heading">
+  <div class="preamble-inner">
+    <div class="section-label" style="padding:0;margin-bottom:var(--space-3);">The Preamble</div>
+    <h2 class="section-heading" id="preamble-heading" style="padding:0;margin-bottom:var(--space-8);font-size:clamp(1.5rem,2.5vw,2rem);">The Soul of the Constitution</h2>
+    <div class="preamble-box reveal-up">
+      <div class="preamble-box-inner">
+        <div class="preamble-heading">📜 Preamble to the Constitution of India (1949)</div>
+        <p class="preamble-text">
+          WE, THE PEOPLE OF INDIA, having solemnly resolved to constitute India into a
+          <span class="preamble-key">SOVEREIGN, SOCIALIST, SECULAR, DEMOCRATIC REPUBLIC</span>
+          and to secure to all its citizens: <br/><br/>
+          <span class="preamble-key">JUSTICE</span>, Social, Economic and Political;<br/>
+          <span class="preamble-key">LIBERTY</span> of thought, expression, belief, faith and worship;<br/>
+          <span class="preamble-key">EQUALITY</span> of status and of opportunity;<br/>
+          and to promote among them all <span class="preamble-key">FRATERNITY</span> assuring the dignity of the individual and the unity and integrity of the Nation.<br/><br/>
+          IN OUR CONSTITUENT ASSEMBLY this twenty-sixth day of November, 1949, do HEREBY ADOPT, ENACT AND GIVE TO OURSELVES THIS CONSTITUTION.
+        </p>
+        <div class="preamble-citation">
+          <span>📌</span>
+          <span>Adopted by the Constituent Assembly on November 26, 1949. Source: BAWS Vol. 13 · Dr. Ambedkar as Principal Architect of the Constitution of India.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Drafting Timeline ─── -->
+<section class="drafting-section" aria-labelledby="draft-heading">
+  <div class="section-label">Chronological Journey</div>
+  <h2 class="section-heading" id="draft-heading">The Drafting Process: 1947–1950</h2>
+  <div class="drafting-scroll" role="list" aria-label="Drafting timeline">
+
+    <div class="draft-milestone reveal-up" role="listitem">
+      <div class="draft-milestone-inner">
+        <div class="draft-icon">🏛️</div>
+        <div class="draft-date">August 29, 1947</div>
+        <div class="draft-title">Drafting Committee Constituted</div>
+        <p class="draft-desc">Dr. Ambedkar appointed Chairman of the seven-member Drafting Committee by the Constituent Assembly. He immediately began synthesizing 60+ constitutions and legal traditions.</p>
+      </div>
+    </div>
+
+    <div class="draft-milestone reveal-up" role="listitem">
+      <div class="draft-milestone-inner">
+        <div class="draft-icon">📝</div>
+        <div class="draft-date">October–November 1947</div>
+        <div class="draft-title">First Constitutional Draft</div>
+        <p class="draft-desc">Ambedkar and his team produced the first complete draft with Fundamental Rights, Directive Principles, federal structure, and an independent judiciary.</p>
+      </div>
+    </div>
+
+    <div class="draft-milestone reveal-up" role="listitem">
+      <div class="draft-milestone-inner">
+        <div class="draft-icon">⚖️</div>
+        <div class="draft-date">November 4, 1948</div>
+        <div class="draft-title">Draft Presented to Assembly</div>
+        <p class="draft-desc">Ambedkar introduced the Draft Constitution with a landmark speech defending Parliamentary democracy and universal adult franchise for a newly independent nation.</p>
+      </div>
+    </div>
+
+    <div class="draft-milestone reveal-up" role="listitem">
+      <div class="draft-milestone-inner">
+        <div class="draft-icon">🗳️</div>
+        <div class="draft-date">1948–1949</div>
+        <div class="draft-title">114 Days of Clause-by-Clause Debate</div>
+        <p class="draft-desc">7,635 amendments were tabled; 2,473 were accepted. Ambedkar personally answered nearly every objection, defending Article 32, Article 17, and the Preamble with constitutional precision.</p>
+      </div>
+    </div>
+
+    <div class="draft-milestone reveal-up" role="listitem">
+      <div class="draft-milestone-inner">
+        <div class="draft-icon">🎤</div>
+        <div class="draft-date">November 25, 1949</div>
+        <div class="draft-title">Final Address to the Assembly</div>
+        <p class="draft-desc">Ambedkar delivered his historic final address warning of the "contradiction" between political equality and social-economic inequality, urging India to resolve it or face democratic collapse.</p>
+      </div>
+    </div>
+
+    <div class="draft-milestone reveal-up" role="listitem">
+      <div class="draft-milestone-inner">
+        <div class="draft-icon">📜</div>
+        <div class="draft-date">November 26, 1949</div>
+        <div class="draft-title">Constitution Adopted</div>
+        <p class="draft-desc">The Constitution of India was formally adopted by the Constituent Assembly. November 26 is now observed as Constitution Day (Samvidhan Diwas) across India.</p>
+      </div>
+    </div>
+
+    <div class="draft-milestone reveal-up" role="listitem">
+      <div class="draft-milestone-inner">
+        <div class="draft-icon">🇮🇳</div>
+        <div class="draft-date">January 26, 1950</div>
+        <div class="draft-title">Constitution Enacted — Republic Day</div>
+        <p class="draft-desc">India became a Republic. The Constitution, the world's longest democratic written constitution, came into force. Ambedkar's vision of a casteless, egalitarian legal order was now fundamental law.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── Article Explorer ─── -->
+<section class="articles-section" aria-labelledby="articles-heading">
+  <div class="section-label">Fundamental Rights &amp; Key Provisions</div>
+  <h2 class="section-heading" id="articles-heading" style="padding:0;margin-bottom:0;">Articles Championed by Ambedkar</h2>
+
+  <div class="articles-grid" role="list">
+
+    <!-- Article 14 -->
+    <article class="article-card featured reveal-up" role="listitem" tabindex="0">
+      <div class="article-card-inner">
+        <div class="article-number-row">
+          <div class="article-number">Art. 14</div>
+          <span class="article-tag">Equality</span>
+        </div>
+        <h3 class="article-title">Right to Equality Before Law</h3>
+        <p class="article-desc">The State shall not deny to any person equality before the law or equal protection of the laws within the territory of India. Ambedkar derived this from the 14th Amendment to the U.S. Constitution.</p>
+        <div class="article-ambedkar-note">
+          "Equality before law is not merely political — it means equality of social opportunity."
+          <div style="margin-top:6px;font-size:0.7rem;opacity:0.75;">— Constituent Assembly Debates, BAWS Vol. 13</div>
+        </div>
+        <div class="article-links">
+          <a href="reader.html?id=doc-en-13" class="article-link article-link-primary">📖 Read in Vol. 13</a>
+          <a href="assistant.html" class="article-link article-link-ghost">Ask AI Assistant</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Article 15 -->
+    <article class="article-card reveal-up" role="listitem" tabindex="0">
+      <div class="article-card-inner">
+        <div class="article-number-row">
+          <div class="article-number">Art. 15</div>
+          <span class="article-tag">Non-Discrimination</span>
+        </div>
+        <h3 class="article-title">Prohibition of Discrimination</h3>
+        <p class="article-desc">The State shall not discriminate against any citizen on grounds only of religion, race, caste, sex, or place of birth. Ambedkar insisted this article be non-derogable.</p>
+        <div class="article-ambedkar-note">
+          Ambedkar added Clause 4 to permit the State to make special provisions for SCs, STs, and women — the constitutional basis for reservation.
+          <div style="margin-top:6px;font-size:0.7rem;opacity:0.75;">— BAWS Vol. 13, Constituent Assembly</div>
+        </div>
+        <div class="article-links">
+          <a href="reader.html?id=doc-en-13" class="article-link article-link-primary">📖 Read in Vol. 13</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Article 17 -->
+    <article class="article-card featured reveal-up" role="listitem" tabindex="0">
+      <div class="article-card-inner">
+        <div class="article-number-row">
+          <div class="article-number">Art. 17</div>
+          <span class="article-tag">Core Ambedkar Article</span>
+        </div>
+        <h3 class="article-title">Abolition of Untouchability</h3>
+        <p class="article-desc">"Untouchability" is abolished and its practice in any form is forbidden. The enforcement of any disability arising out of Untouchability shall be an offence punishable in accordance with law.</p>
+        <div class="article-ambedkar-note">
+          "Untouchability is a crime against humanity — not merely against society. It must be abolished not just in law but in practice."
+          <div style="margin-top:6px;font-size:0.7rem;opacity:0.75;">— BAWS Vol. 13, Constituent Assembly Debate on Art. 17</div>
+        </div>
+        <div class="article-links">
+          <a href="reader.html?id=doc-en-13" class="article-link article-link-primary">📖 Read in Vol. 13</a>
+          <a href="reader.html?id=doc-en-5" class="article-link article-link-ghost">Vol. 5: Untouchability</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Article 21 -->
+    <article class="article-card reveal-up" role="listitem" tabindex="0">
+      <div class="article-card-inner">
+        <div class="article-number-row">
+          <div class="article-number">Art. 21</div>
+          <span class="article-tag">Liberty</span>
+        </div>
+        <h3 class="article-title">Protection of Life &amp; Personal Liberty</h3>
+        <p class="article-desc">No person shall be deprived of his life or personal liberty except according to procedure established by law. Ambedkar ensured this was a substantive, not merely procedural, right.</p>
+        <div class="article-ambedkar-note">
+          Ambedkar advocated for "due process" (American model) before settling on "procedure established by law" as a necessary compromise with the Assembly.
+          <div style="margin-top:6px;font-size:0.7rem;opacity:0.75;">— BAWS Vol. 13</div>
+        </div>
+        <div class="article-links">
+          <a href="reader.html?id=doc-en-13" class="article-link article-link-primary">📖 Read in Vol. 13</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Article 25 -->
+    <article class="article-card reveal-up" role="listitem" tabindex="0">
+      <div class="article-card-inner">
+        <div class="article-number-row">
+          <div class="article-number">Art. 25–28</div>
+          <span class="article-tag">Religion</span>
+        </div>
+        <h3 class="article-title">Freedom of Religion</h3>
+        <p class="article-desc">Freedom of conscience and free profession, practice and propagation of religion. Ambedkar was alert to ensure this freedom could never be used to perpetuate caste-based discrimination inside religion.</p>
+        <div class="article-ambedkar-note">
+          Ambedkar ensured that religious freedom does not protect religiously-sanctioned social disabilities — the anti-untouchability reading.
+          <div style="margin-top:6px;font-size:0.7rem;opacity:0.75;">— BAWS Vol. 13</div>
+        </div>
+        <div class="article-links">
+          <a href="reader.html?id=doc-en-13" class="article-link article-link-primary">📖 Read in Vol. 13</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Article 32 -->
+    <article class="article-card featured reveal-up" role="listitem" tabindex="0">
+      <div class="article-card-inner">
+        <div class="article-number-row">
+          <div class="article-number">Art. 32</div>
+          <span class="article-tag">Heart &amp; Soul</span>
+        </div>
+        <h3 class="article-title">Right to Constitutional Remedies</h3>
+        <p class="article-desc">The right to move the Supreme Court for enforcement of fundamental rights. Ambedkar called this "the very soul of the Constitution and the very heart of it" — making rights meaningless without a remedy.</p>
+        <div class="article-ambedkar-note">
+          "If I was asked to name any particular article in this Constitution as the most important — an article without which this Constitution would be a nullity — I could not refer to any other article except this one. It is the very soul of the Constitution."
+          <div style="margin-top:6px;font-size:0.7rem;opacity:0.75;">— BAWS Vol. 13, Constituent Assembly, December 1948</div>
+        </div>
+        <div class="article-links">
+          <a href="reader.html?id=doc-en-13" class="article-link article-link-primary">📖 Read in Vol. 13</a>
+          <a href="assistant.html" class="article-link article-link-ghost">Ask AI Assistant</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Article 44 -->
+    <article class="article-card reveal-up" role="listitem" tabindex="0">
+      <div class="article-card-inner">
+        <div class="article-number-row">
+          <div class="article-number">Art. 44</div>
+          <span class="article-tag">Directive Principle</span>
+        </div>
+        <h3 class="article-title">Uniform Civil Code</h3>
+        <p class="article-desc">The State shall endeavour to secure for the citizens a Uniform Civil Code throughout the territory of India. Ambedkar saw this as necessary for gender justice across personal laws.</p>
+        <div class="article-ambedkar-note">
+          Linked to his resignation over the Hindu Code Bill — Ambedkar believed codified family law was essential for women's equal rights.
+          <div style="margin-top:6px;font-size:0.7rem;opacity:0.75;">— BAWS Vol. 14: The Hindu Code Bill</div>
+        </div>
+        <div class="article-links">
+          <a href="reader.html?id=doc-en-14" class="article-link article-link-primary">📖 Hindu Code Bill (Vol. 14)</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Universal Adult Suffrage -->
+    <article class="article-card reveal-up" role="listitem" tabindex="0">
+      <div class="article-card-inner">
+        <div class="article-number-row">
+          <div class="article-number">Art. 326</div>
+          <span class="article-tag">Universal Franchise</span>
+        </div>
+        <h3 class="article-title">Universal Adult Suffrage</h3>
+        <p class="article-desc">Elections to Lok Sabha and all State Assemblies shall be on the basis of adult suffrage — every citizen 21+ years (later 18+) has an equal vote regardless of caste, religion, or literacy.</p>
+        <div class="article-ambedkar-note">
+          Ambedkar strongly opposed any literacy or property qualifications for voting — he insisted universal suffrage was the only democratic foundation for a newly free nation.
+          <div style="margin-top:6px;font-size:0.7rem;opacity:0.75;">— BAWS Vol. 13</div>
+        </div>
+        <div class="article-links">
+          <a href="reader.html?id=doc-en-13" class="article-link article-link-primary">📖 Read in Vol. 13</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ─── Read More CTA ─── -->
+<section style="padding:var(--space-16) var(--space-6);text-align:center;background:var(--bg-2);border-top:1px solid var(--border);">
+  <div style="max-width:600px;margin:0 auto;">
+    <div style="font-family:var(--font-display);font-size:0.72rem;letter-spacing:0.14em;color:var(--gold);text-transform:uppercase;margin-bottom:var(--space-4);">Deep Research</div>
+    <h2 style="font-family:var(--font-display);font-size:2rem;color:var(--text);margin-bottom:var(--space-4);">Explore the Primary Sources</h2>
+    <p style="color:var(--text-muted);font-size:0.95rem;line-height:1.7;margin-bottom:var(--space-8);">The complete Constituent Assembly Debates, Ambedkar's written speeches, and correspondence are available in BAWS Volume 13 (1,250 pages) — fully digitized in our archive.</p>
+    <div style="display:flex;gap:var(--space-3);justify-content:center;flex-wrap:wrap;">
+      <a href="reader.html?id=doc-en-13" class="btn btn-primary">📖 Read BAWS Vol. 13</a>
+      <a href="assistant.html" class="btn btn-secondary">🤖 Ask AI Assistant</a>
+      <a href="timeline.html" class="btn btn-ghost">📅 Constitutional Timeline</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Footer ─── -->
+<footer class="footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">⚜️ Ambedkar Digital Heritage Archive</div>
+      <div class="footer-tagline">Preserving the constitutional legacy of Dr. Babasaheb Ambedkar.</div>
+    </div>
+    <div class="footer-bottom">
+      <p>Primary Source: BAWS Vol. 13 — <em>Dr. Ambedkar: The Principal Architect of the Constitution of India</em> (1994). Published by the Ministry of External Affairs / Dr. Ambedkar Foundation.</p>
+    </div>
+  </div>
+</footer>
+
+<div id="toast-container" class="toast-container" role="status" aria-live="polite"></div>
+
+<script src="js/toast.js"></script>
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+<script src="js/command-palette.js"></script>
+
+<script>
+  // Scroll-reveal observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal-up').forEach((el, i) => {
+    el.style.transitionDelay = Math.min(i * 30, 200) + 'ms';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>

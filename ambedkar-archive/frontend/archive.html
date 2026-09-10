@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Complete Writings and Speeches of Dr. B. R. Ambedkar (BAWS) — Explore all 60 official volumes in English and Hindi with direct local PDF downloads and interactive reader." />
+  <title>Complete Works (60 Volumes) — Ambedkar Digital Heritage Archive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script>(function(){const t=localStorage.getItem('site_theme')||localStorage.getItem('reader_theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+
+</head>
+<body>
+
+<!-- ─── Floating Island Navigation ─────────────────── -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="Ambedkar Archive Home">
+      <div class="nav-logo-icon" aria-hidden="true">⚜️</div>
+      <div class="nav-logo-text">
+        <span>AMBEDKAR ARCHIVE</span>
+        <span class="nav-logo-sub">Digital Heritage Platform</span>
+      </div>
+    </a>
+
+    <div class="nav-links" role="list">
+      <a href="index.html" class="nav-link" role="listitem">Home</a>
+      <a href="archive.html" class="nav-link active" role="listitem">Complete Works (60 Vol)</a>
+      <a href="media.html" class="nav-link" role="listitem">Speeches &amp; Media</a>
+      <a href="timeline.html" class="nav-link" role="listitem">Timeline</a>
+      <a href="assistant.html" class="nav-link" role="listitem">AI Assistant</a>
+    </div>
+
+    <div class="nav-actions">
+            <!-- Reading Atmosphere Switcher -->
+      <div class="nav-theme" role="group" aria-label="Atmosphere selection">
+        <button class="theme-toggle-btn active" data-theme="dark" title="Dark Slate Atmosphere">🌙</button>
+        <button class="theme-toggle-btn" data-theme="paper" title="Ivory Paper Sanctuary">📜</button>
+        <button class="theme-toggle-btn" data-theme="sepia" title="Historical Sepia Sanctuary">🏺</button>
+      </div>
+      <div class="nav-lang" role="group" aria-label="Language selection">
+        <button class="lang-btn active" data-lang="en" aria-pressed="true">EN</button>
+        <button class="lang-btn" data-lang="hi" aria-pressed="false">हिन्दी</button>
+        <button class="lang-btn" data-lang="mr" aria-pressed="false">मराठी</button>
+      </div>
+
+      <!-- Logged-out state -->
+      <a id="nav-login-btn" href="login.html" class="btn btn-primary btn-sm">Sign In</a>
+
+      <!-- Logged-in state (hidden by default) -->
+      <div id="nav-user-menu" style="display:none;" class="flex gap-2 items-center">
+        <a href="dashboard.html" class="btn btn-secondary btn-sm">
+          <span>👤</span> <span id="nav-user-name">User</span>
+        </a>
+        <button data-action="logout" class="btn btn-ghost btn-sm">Logout</button>
+      </div>
+
+      <button id="hamburger" class="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Navigation Drawer -->
+<div id="mobile-menu" class="mobile-menu" role="dialog" aria-label="Mobile navigation">
+  <div class="mobile-theme-row flex-between items-center" style="padding:var(--space-2) var(--space-3);margin-bottom:var(--space-2);border-bottom:1px solid var(--border);">
+    <span style="font-size:0.8rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Atmosphere</span>
+    <div class="nav-theme" role="group" aria-label="Atmosphere selection">
+      <button class="theme-toggle-btn active" data-theme="dark" title="Dark Slate">🌙</button>
+      <button class="theme-toggle-btn" data-theme="paper" title="Ivory Paper">📜</button>
+      <button class="theme-toggle-btn" data-theme="sepia" title="Historical Sepia">🏺</button>
+    </div>
+  </div>
+
+  <a href="index.html" class="nav-link">🏠 Home</a>
+  <a href="archive.html" class="nav-link active">📚 Complete Works (60 Volumes)</a>
+  <a href="constitution.html" class="nav-link">⚖️ Constitution</a>
+  <a href="ideas.html" class="nav-link">💡 Thematic Ideas</a>
+  <a href="learning.html" class="nav-link">🎓 Learning Center</a>
+  <a href="quotes.html" class="nav-link">💬 Verified Quotes</a>
+  <a href="media.html" class="nav-link">🎬 Speeches &amp; Audio-Visual</a>
+  <a href="timeline.html" class="nav-link">📅 Chronological Timeline</a>
+  <a href="slides.html" class="nav-link">📽️ Visual Exhibition Deck <span class="badge-16-9">16:9</span></a>
+  <a href="assistant.html" class="nav-link">🤖 AI Research Assistant</a>
+  <a href="ocr.html" class="nav-link">📜 Manuscript OCR</a>
+  <a href="dashboard.html" class="nav-link">👤 My Research Dashboard</a>
+  <div style="height:1px;background:rgba(255,255,255,0.08);margin:var(--space-4) 0;"></div>
+  <a href="login.html" class="btn btn-primary btn-full">Sign In</a>
+</div>
+
+<!-- ─── Vertical Left Dock: Curated Exploration Hubs ─── -->
+<aside class="side-dock" role="navigation" aria-label="Curated exploration hubs">
+  <div class="side-dock-inner">
+    <div class="side-dock-header">
+      <span class="side-dock-badge">Curated Hubs</span>
+    </div>
+    <div class="side-dock-links">
+      <a href="slides.html" class="side-dock-link" title="Visual Exhibition Deck (16:9)">
+        <span class="side-dock-icon">📽️</span>
+        <span class="side-dock-label">Exhibition <span class="badge-16-9">16:9</span></span>
+      </a>
+      <a href="constitution.html" class="side-dock-link" title="Constitution of India">
+        <span class="side-dock-icon">⚖️</span>
+        <span class="side-dock-label">Constitution</span>
+      </a>
+      <a href="ideas.html" class="side-dock-link" title="Thematic Ideas &amp; Philosophy">
+        <span class="side-dock-icon">💡</span>
+        <span class="side-dock-label">Ideas</span>
+      </a>
+      <a href="learning.html" class="side-dock-link" title="Interactive Learning Center">
+        <span class="side-dock-icon">🎓</span>
+        <span class="side-dock-label">Learning</span>
+      </a>
+      <a href="quotes.html" class="side-dock-link" title="Verified Historical Quotes">
+        <span class="side-dock-icon">💬</span>
+        <span class="side-dock-label">Quotes</span>
+      </a>
+      <a href="ocr.html" class="side-dock-link" title="Manuscript OCR Visualizer">
+        <span class="side-dock-icon">📜</span>
+        <span class="side-dock-label">OCR</span>
+      </a>
+    </div>
+  </div>
+</aside>
+
+<main class="page-content" role="main">
+  <div class="container section">
+    
+    <!-- Header -->
+    <div class="section-header">
+      <div class="section-eyebrow">National Heritage Repository</div>
+      <h1 class="section-title">Dr. Babasaheb Ambedkar: Complete Works</h1>
+      <p class="section-desc">
+        Explore 60 official volumes published by the Ministry of External Affairs and Dr. Ambedkar Foundation. Download complete, unabridged official PDFs directly from local high-speed storage or read interactively online.
+      </p>
+    </div>
+
+    <!-- Search & Filter Hub (Glass Enclosure) -->
+    <div id="search" style="margin-bottom:var(--space-8);">
+      
+      <!-- Search Input -->
+      <div class="search-wrap" style="margin-bottom:var(--space-5);">
+        <span class="search-icon" aria-hidden="true">🔍</span>
+        <input 
+          id="search-input" 
+          type="search" 
+          class="input" 
+          placeholder="Search by title, topic, or volume number (e.g. 'caste', 'buddhism', 'Volume 1', 'हिंदू कोड बिल')..." 
+          aria-label="Search library" 
+          style="padding-left:3rem;height:54px;font-size:1.025rem;border-radius:var(--radius-xl);" 
+        />
+        <div class="search-shortcut-badge">
+          <span class="kbd">/</span>
+        </div>
+      </div>
+
+      <!-- Edition Selector Tabs (English vs Hindi vs All) -->
+      <div class="flex gap-3 items-center flex-wrap" style="margin-bottom:var(--space-4);">
+        <span style="font-size:0.75rem;color:var(--gold-light);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">Collection:</span>
+        <div class="filter-tabs" id="edition-tabs" role="tablist" aria-label="Filter by edition">
+          <button class="filter-tab active" data-edition="all" role="tab" aria-selected="true">
+            🌟 All Collections (60+ Vol)
+          </button>
+          <button class="filter-tab" data-edition="english" role="tab" aria-selected="false">
+            🇬🇧 English BAWS (Vol 1–21)
+          </button>
+          <button class="filter-tab" data-edition="hindi" role="tab" aria-selected="false">
+            🇮🇳 हिन्दी वाङ्मय (खंड १–४०)
+          </button>
+        </div>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div class="flex gap-3 items-center flex-wrap" style="margin-bottom:var(--space-4);">
+        <span style="font-size:0.75rem;color:var(--gold-light);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">Genre:</span>
+        <div class="filter-tabs" id="category-tabs" role="tablist" aria-label="Filter by category">
+          <button class="filter-tab active" data-filter="all" role="tab" aria-selected="true">All Genres</button>
+          <button class="filter-tab" data-filter="book" role="tab">📖 Books &amp; Treatises</button>
+          <button class="filter-tab" data-filter="speech" role="tab">🎤 Speeches &amp; Addresses</button>
+          <button class="filter-tab" data-filter="debate" role="tab">🏛️ Parliament Debates</button>
+          <button class="filter-tab" data-filter="manuscript" role="tab">📜 Manuscripts &amp; Essays</button>
+          <button class="filter-tab" data-filter="report" role="tab">📋 Official Reports</button>
+          <button class="filter-tab" data-filter="periodical" role="tab">📰 Journalism</button>
+        </div>
+      </div>
+
+      <!-- Thematic Topic Filter Tabs -->
+      <div class="flex gap-3 items-center flex-wrap">
+        <span style="font-size:0.75rem;color:var(--gold-light);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">Topic:</span>
+        <div class="filter-tabs" id="topic-tabs" role="tablist" aria-label="Filter by thematic topic">
+          <button class="filter-tab active" data-topic="all" role="tab" aria-selected="true">All Topics</button>
+          <button class="filter-tab" data-topic="caste" role="tab">⚡ Caste &amp; Untouchability</button>
+          <button class="filter-tab" data-topic="constitution" role="tab">⚖️ Constitution &amp; Law</button>
+          <button class="filter-tab" data-topic="economics" role="tab">📈 Economics &amp; Rupee</button>
+          <button class="filter-tab" data-topic="buddhism" role="tab">☸️ Buddhism &amp; Dhamma</button>
+          <button class="filter-tab" data-topic="women" role="tab">👩 Women's Rights &amp; Code Bill</button>
+          <button class="filter-tab" data-topic="labour" role="tab">🏭 Labour &amp; Water Planning</button>
+          <button class="filter-tab" data-topic="journalism" role="tab">📰 Journalism &amp; Mooknayak</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Results Meta -->
+    <div class="flex-between items-center" style="margin-bottom:var(--space-6);flex-wrap:wrap;gap:var(--space-2);">
+      <div id="results-meta" style="color:var(--text-muted);font-size:0.9rem;font-weight:500;">
+        Loading 60 archival volumes...
+      </div>
+      <div class="flex gap-2 items-center">
+        <span class="badge badge-local">⚡ 60 Local PDFs Ready</span>
+      </div>
+    </div>
+
+    <!-- Documents Grid -->
+    <div class="grid grid-3 gap-6" id="docs-grid">
+      <!-- Loading Skeletons with Double-Bezel Enclosure -->
+      <div class="card" style="height:280px;"><div class="card-inner"><div class="skeleton" style="height:100%;"></div></div></div>
+      <div class="card" style="height:280px;"><div class="card-inner"><div class="skeleton" style="height:100%;"></div></div></div>
+      <div class="card" style="height:280px;"><div class="card-inner"><div class="skeleton" style="height:100%;"></div></div></div>
+      <div class="card" style="height:280px;"><div class="card-inner"><div class="skeleton" style="height:100%;"></div></div></div>
+      <div class="card" style="height:280px;"><div class="card-inner"><div class="skeleton" style="height:100%;"></div></div></div>
+      <div class="card" style="height:280px;"><div class="card-inner"><div class="skeleton" style="height:100%;"></div></div></div>
+    </div>
+
+    <!-- Load More Button -->
+    <div style="text-align:center;margin-top:var(--space-12);">
+      <button id="load-more-btn" class="btn btn-secondary btn-lg" style="display:none;">
+        <span>Load More Volumes</span>
+        <span class="btn-icon-bubble">↓</span>
+      </button>
+    </div>
+
+  </div>
+</main>
+
+<!-- Bottom Tab Bar (Mobile) -->
+<nav class="bottom-bar" role="navigation" aria-label="Mobile navigation">
+  <a href="index.html" class="tab-item" aria-label="Home">
+    <span class="tab-icon" aria-hidden="true">🏠</span>
+    <span>Home</span>
+  </a>
+  <a href="archive.html" class="tab-item active" aria-label="Archive">
+    <span class="tab-icon" aria-hidden="true">📚</span>
+    <span>Volumes</span>
+  </a>
+  <a href="media.html" class="tab-item" aria-label="Speeches">
+    <span class="tab-icon" aria-hidden="true">🎬</span>
+    <span>Speeches</span>
+  </a>
+  <a href="timeline.html" class="tab-item" aria-label="Timeline">
+    <span class="tab-icon" aria-hidden="true">📅</span>
+    <span>Timeline</span>
+  </a>
+  <a href="assistant.html" class="tab-item" aria-label="AI Assistant">
+    <span class="tab-icon" aria-hidden="true">🤖</span>
+    <span>AI</span>
+  </a>
+</nav>
+
+<div id="toast-container" class="toast-container"></div>
+
+<script src="js/api.js"></script>
+<script src="js/toast.js"></script>
+<script src="js/app.js"></script>
+  <script src="js/command-palette.js"></script>
+<script src="js/archive.js"></script>
+</body>
+</html>

@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thematic Ideas Explorer — Dr. B. R. Ambedkar Digital Heritage Archive</title>
+  <meta name="description" content="Explore Dr. B. R. Ambedkar's seminal ideas, philosophy, and intellectual treatises through an interactive thematic matrix and knowledge graph." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script>(function(){const t=localStorage.getItem('site_theme')||localStorage.getItem('reader_theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+
+  <style>
+    /* ── Thematic Ideas Explorer Styles ── */
+    .ideas-hero {
+      background: radial-gradient(ellipse 70% 50% at 50% -10%, rgba(212,175,55,0.1) 0%, transparent 70%),
+                  linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+      padding: calc(var(--nav-height) + var(--space-16)) var(--space-6) var(--space-12);
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .ideas-hero-emblem {
+      font-size: 3rem;
+      margin-bottom: var(--space-3);
+      display: inline-block;
+      animation: float 4s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+    .ideas-hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: var(--space-3);
+    }
+    .ideas-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      color: var(--text);
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: var(--space-4);
+      max-width: 860px;
+      margin-inline: auto;
+    }
+    .ideas-hero-sub {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 680px;
+      margin: 0 auto var(--space-6);
+      line-height: 1.7;
+    }
+    .hero-meta-strip {
+      display: flex;
+      gap: var(--space-6);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .hero-meta-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--gold-light);
+      background: var(--surface-glass);
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-gold);
+    }
+
+    /* ── Controls Bar (Sticky Glass) ── */
+    .ideas-controls {
+      position: sticky;
+      top: var(--nav-height);
+      z-index: 40;
+      background: var(--surface-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: var(--space-3) var(--space-6);
+    }
+    .ideas-controls-inner {
+      max-width: var(--container);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+    }
+    .view-toggle {
+      display: flex;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-full);
+      padding: 3px;
+      gap: 3px;
+    }
+    .view-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .view-btn.active {
+      background: var(--gold);
+      color: #0b0f19;
+      box-shadow: var(--shadow-sm);
+    }
+    .search-mini {
+      position: relative;
+      min-width: 240px;
+    }
+    .search-mini input {
+      width: 100%;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-full);
+      padding: 7px 14px 7px 32px;
+      color: var(--text);
+      font-size: 0.82rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-mini input:focus {
+      border-color: var(--gold);
+    }
+    .search-mini-icon {
+      position: absolute;
+      left: 11px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    /* ── Domain Filter Chips ── */
+    .filter-deck {
+      max-width: var(--container);
+      margin: var(--space-6) auto 0;
+      padding: 0 var(--space-6);
+      display: flex;
+      gap: var(--space-2);
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: var(--space-2);
+    }
+    .filter-deck::-webkit-scrollbar { display: none; }
+    .domain-chip {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 7px 16px;
+      border-radius: var(--radius-full);
+      font-size: 0.8rem;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .domain-chip:hover {
+      border-color: var(--border-gold);
+      color: var(--text);
+    }
+    .domain-chip.active {
+      background: var(--gold-subtle);
+      border-color: var(--gold);
+      color: var(--gold-light);
+    }
+
+    /* ── Knowledge Graph View (Canvas Container) ── */
+    #graph-view-wrap {
+      display: none;
+      max-width: var(--container);
+      margin: var(--space-6) auto;
+      padding: 0 var(--space-6);
+    }
+    .graph-container {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-2xl);
+      padding: var(--space-4);
+      position: relative;
+      height: 600px;
+      overflow: hidden;
+      box-shadow: inset 0 0 60px rgba(0,0,0,0.3);
+    }
+    .graph-instructions {
+      position: absolute;
+      top: var(--space-4);
+      left: var(--space-4);
+      background: rgba(11,15,25,0.75);
+      backdrop-filter: blur(8px);
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 0.72rem;
+      color: var(--gold-light);
+      font-family: var(--font-mono);
+      border: 1px solid var(--border-gold);
+      pointer-events: none;
+      z-index: 10;
+    }
+    #graph-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      cursor: grab;
+    }
+    #graph-canvas:active {
+      cursor: grabbing;
+    }
+
+    /* ── Cards View ── */
+    #cards-view-wrap {
+      max-width: var(--container);
+      margin: var(--space-6) auto var(--space-20);
+      padding: 0 var(--space-6);
+    }
+    .ideas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: var(--space-6);
+    }
+    @media (max-width: 640px) {
+      .ideas-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Double-Bezel Idea Card */
+    .idea-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-2xl);
+      padding: 2px;
+      transition: all 0.28s cubic-bezier(0.32,0.72,0,1);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+    .idea-card:hover {
+      border-color: var(--border-gold);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px rgba(0,0,0,0.35), 0 0 24px rgba(212,175,55,0.08);
+    }
+    .idea-card-inner {
+      background: var(--surface);
+      border-radius: calc(var(--radius-2xl) - 2px);
+      padding: var(--space-6);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-4);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+    }
+    .idea-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-3);
+    }
+    .idea-domain-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--gold-light);
+      background: var(--gold-subtle);
+      padding: 3px 9px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-gold);
+    }
+    .idea-vol-tag {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-muted);
+    }
+    .idea-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+      margin-top: var(--space-2);
+    }
+    .idea-thesis {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: var(--text-muted);
+    }
+    .idea-key-quote {
+      border-left: 2px solid var(--gold);
+      padding-left: var(--space-3);
+      font-style: italic;
+      font-size: 0.82rem;
+      color: var(--text);
+      line-height: 1.5;
+      background: rgba(212,175,55,0.03);
+      padding-block: var(--space-2);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    }
+    .idea-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+      padding-top: var(--space-3);
+      margin-top: auto;
+    }
+    .idea-relations {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+    .relation-pill {
+      font-size: 0.65rem;
+      font-family: var(--font-mono);
+      background: rgba(255,255,255,0.04);
+      color: var(--text-muted);
+      padding: 2px 7px;
+      border-radius: var(--radius-sm);
+    }
+    .explore-cta {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--gold-light);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ── Deep Dive Modal ── */
+    .idea-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(7,10,18,0.78);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-4);
+    }
+    .idea-modal-backdrop.open {
+      display: flex;
+    }
+    .idea-modal-box {
+      background: var(--bg-2);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-2xl);
+      max-width: 720px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: var(--space-8);
+      position: relative;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.6), 0 0 40px rgba(212,175,55,0.12);
+    }
+    .modal-close-btn {
+      position: absolute;
+      top: var(--space-5);
+      right: var(--space-5);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .modal-close-btn:hover {
+      background: rgba(255,255,255,0.1);
+      color: var(--text);
+    }
+    .modal-section-title {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: var(--space-2);
+      margin-top: var(--space-5);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── Navigation ─── -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="Ambedkar Archive Home">
+      <div class="nav-logo-icon" aria-hidden="true">⚜️</div>
+      <div class="nav-logo-text">
+        <span>AMBEDKAR ARCHIVE</span>
+        <span class="nav-logo-sub">Digital Heritage Platform</span>
+      </div>
+    </a>
+    <div class="nav-links" role="list">
+      <a href="index.html" class="nav-link" role="listitem">Home</a>
+      <a href="archive.html" class="nav-link" role="listitem">Complete Works (60 Vol)</a>
+      <a href="media.html" class="nav-link" role="listitem">Speeches &amp; Media</a>
+      <a href="timeline.html" class="nav-link" role="listitem">Timeline</a>
+      <a href="assistant.html" class="nav-link" role="listitem">AI Assistant</a>
+    </div>
+    <div class="nav-actions">
+      <div class="nav-theme" role="group" aria-label="Atmosphere selection">
+        <button class="theme-toggle-btn active" data-theme="dark" title="Dark Slate Atmosphere">🌙</button>
+        <button class="theme-toggle-btn" data-theme="paper" title="Ivory Paper Sanctuary">📜</button>
+        <button class="theme-toggle-btn" data-theme="sepia" title="Historical Sepia Sanctuary">🏺</button>
+      </div>
+      <div class="nav-lang" role="group" aria-label="Language selection">
+        <button class="lang-btn active" data-lang="en" aria-pressed="true">EN</button>
+        <button class="lang-btn" data-lang="hi" aria-pressed="false">हिन्दी</button>
+        <button class="lang-btn" data-lang="mr" aria-pressed="false">मराठी</button>
+      </div>
+      <a id="nav-login-btn" href="login.html" class="btn btn-primary btn-sm">Sign In</a>
+      <div id="nav-user-menu" style="display:none;" class="flex gap-2 items-center">
+        <a href="dashboard.html" class="btn btn-secondary btn-sm"><span>👤</span> <span id="nav-user-name">User</span></a>
+        <button data-action="logout" class="btn btn-ghost btn-sm">Logout</button>
+      </div>
+      <button id="hamburger" class="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Navigation Drawer -->
+<div id="mobile-menu" class="mobile-menu" role="dialog" aria-label="Mobile navigation">
+  <div class="mobile-theme-row flex-between items-center" style="padding:var(--space-2) var(--space-3);margin-bottom:var(--space-2);border-bottom:1px solid var(--border);">
+    <span style="font-size:0.8rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Atmosphere</span>
+    <div class="nav-theme" role="group" aria-label="Atmosphere selection">
+      <button class="theme-toggle-btn active" data-theme="dark" title="Dark Slate">🌙</button>
+      <button class="theme-toggle-btn" data-theme="paper" title="Ivory Paper">📜</button>
+      <button class="theme-toggle-btn" data-theme="sepia" title="Historical Sepia">🏺</button>
+    </div>
+  </div>
+  <a href="index.html" class="nav-link">🏠 Home</a>
+  <a href="archive.html" class="nav-link">📚 Complete Works (60 Vol)</a>
+  <a href="constitution.html" class="nav-link">⚖️ Constitution</a>
+  <a href="ideas.html" class="nav-link active">💡 Thematic Ideas</a>
+  <a href="learning.html" class="nav-link">🎓 Learning Center</a>
+  <a href="quotes.html" class="nav-link">💬 Quotes</a>
+  <a href="timeline.html" class="nav-link">📅 Timeline</a>
+  <a href="assistant.html" class="nav-link">🤖 AI Assistant</a>
+  <a href="dashboard.html" class="nav-link">👤 My Research</a>
+  <div style="height:1px;background:rgba(255,255,255,0.08);margin:var(--space-4) 0;"></div>
+  <a href="login.html" class="btn btn-primary btn-full">Sign In</a>
+</div>
+
+<!-- ─── Vertical Left Dock: Curated Exploration Hubs ─── -->
+<aside class="side-dock" role="navigation" aria-label="Curated exploration hubs">
+  <div class="side-dock-inner">
+    <div class="side-dock-header">
+      <span class="side-dock-badge">Curated Hubs</span>
+    </div>
+    <div class="side-dock-links">
+      <a href="slides.html" class="side-dock-link" title="Visual Exhibition Deck (16:9)">
+        <span class="side-dock-icon">📽️</span>
+        <span class="side-dock-label">Exhibition <span class="badge-16-9">16:9</span></span>
+      </a>
+      <a href="constitution.html" class="side-dock-link" title="Constitution of India">
+        <span class="side-dock-icon">⚖️</span>
+        <span class="side-dock-label">Constitution</span>
+      </a>
+      <a href="ideas.html" class="side-dock-link active" title="Thematic Ideas &amp; Philosophy">
+        <span class="side-dock-icon">💡</span>
+        <span class="side-dock-label">Ideas</span>
+      </a>
+      <a href="learning.html" class="side-dock-link" title="Interactive Learning Center">
+        <span class="side-dock-icon">🎓</span>
+        <span class="side-dock-label">Learning</span>
+      </a>
+      <a href="quotes.html" class="side-dock-link" title="Verified Historical Quotes">
+        <span class="side-dock-icon">💬</span>
+        <span class="side-dock-label">Quotes</span>
+      </a>
+      <a href="ocr.html" class="side-dock-link" title="Manuscript OCR Visualizer">
+        <span class="side-dock-icon">📜</span>
+        <span class="side-dock-label">OCR</span>
+      </a>
+    </div>
+  </div>
+</aside>
+
+<!-- ─── Hero Section ─── -->
+<section class="ideas-hero">
+  <div class="ideas-hero-emblem" aria-hidden="true">💡</div>
+  <div class="ideas-hero-eyebrow">Philosophical Matrix &amp; Intellectual Heritage</div>
+  <h1>The Architecture of<br/>Dr. Ambedkar's Thought</h1>
+  <p class="ideas-hero-sub">
+    Navigate the interconnected worldview of Babasaheb — from the sociological genesis of caste to constitutional morality, state socialism, monetary theory, and Buddhist humanism.
+  </p>
+  <div class="hero-meta-strip">
+    <div class="hero-meta-item"><span>🏛️</span> 8 Thematic Domains</div>
+    <div class="hero-meta-item"><span>🔗</span> 16 Core Treatises</div>
+    <div class="hero-meta-item"><span>📖</span> Complete BAWS Citations</div>
+  </div>
+</section>
+
+<!-- ─── Sticky Controls ─── -->
+<div class="ideas-controls">
+  <div class="ideas-controls-inner">
+    <!-- View Switcher -->
+    <div class="view-toggle" role="group" aria-label="View Mode">
+      <button id="view-cards-btn" class="view-btn active" title="Switch to Cards View">
+        <span>🗂️</span> Cards View
+      </button>
+      <button id="view-graph-btn" class="view-btn" title="Switch to Knowledge Graph View">
+        <span>🕸️</span> Knowledge Graph
+      </button>
+    </div>
+
+    <!-- Live Search -->
+    <div class="search-mini">
+      <span class="search-mini-icon">🔍</span>
+      <input type="text" id="ideas-search" placeholder="Search ideas, treatises, concepts..." aria-label="Search ideas" />
+    </div>
+  </div>
+</div>
+
+<!-- ─── Domain Filter Deck ─── -->
+<div class="filter-deck" id="domain-filters" role="tablist">
+  <button class="domain-chip active" data-domain="all">🌟 All Domains</button>
+  <button class="domain-chip" data-domain="caste">⚡ Caste &amp; Social Order</button>
+  <button class="domain-chip" data-domain="constitution">⚖️ Constitution &amp; Rights</button>
+  <button class="domain-chip" data-domain="economics">📈 Economics &amp; Finance</button>
+  <button class="domain-chip" data-domain="buddhism">☸️ Buddhism &amp; Ethics</button>
+  <button class="domain-chip" data-domain="gender">👩 Gender Emancipation</button>
+  <button class="domain-chip" data-domain="labour">🏭 Labour &amp; Welfare</button>
+  <button class="domain-chip" data-domain="education">🎓 Education &amp; Journalism</button>
+</div>
+
+<!-- ─── Knowledge Graph View (Interactive HTML5 Canvas) ─── -->
+<div id="graph-view-wrap">
+  <div class="graph-container">
+    <div class="graph-instructions">💡 Drag nodes to reposition · Click node to open deep-dive</div>
+    <canvas id="graph-canvas"></canvas>
+  </div>
+</div>
+
+<!-- ─── Cards Grid View ─── -->
+<main id="cards-view-wrap">
+  <div class="ideas-grid" id="ideas-grid">
+    <!-- Populated by JavaScript -->
+  </div>
+</main>
+
+<!-- ─── Deep Dive Modal ─── -->
+<div id="idea-modal" class="idea-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="idea-modal-box">
+    <button class="modal-close-btn" id="modal-close-btn" aria-label="Close modal">&times;</button>
+    
+    <div class="flex gap-2 items-center" style="margin-bottom:var(--space-2);">
+      <span id="modal-domain-badge" class="idea-domain-badge">Domain</span>
+      <span id="modal-vol-tag" class="idea-vol-tag">BAWS Vol</span>
+    </div>
+
+    <h2 id="modal-title" style="font-family:var(--font-display);font-size:1.8rem;color:var(--text);margin-bottom:var(--space-3);line-height:1.25;"></h2>
+
+    <div class="modal-section-title">Core Philosophical Thesis</div>
+    <p id="modal-thesis" style="font-size:0.95rem;line-height:1.75;color:var(--text-muted);margin-bottom:var(--space-4);"></p>
+
+    <div class="modal-section-title">Seminal Extract &amp; Quote</div>
+    <blockquote id="modal-quote" style="border-left:3px solid var(--gold);padding:var(--space-3) var(--space-4);background:rgba(212,175,55,0.04);border-radius:0 var(--radius-md) var(--radius-md) 0;font-style:italic;color:var(--text);font-size:0.92rem;line-height:1.65;margin-bottom:var(--space-4);"></blockquote>
+
+    <div class="modal-section-title">Historical Treatise &amp; Citation</div>
+    <div id="modal-citation" style="font-family:var(--font-mono);font-size:0.8rem;color:var(--gold-light);background:var(--surface);padding:8px 14px;border-radius:var(--radius-md);border:1px solid var(--border);margin-bottom:var(--space-4);"></div>
+
+    <div class="modal-section-title">Related Concepts in Matrix</div>
+    <div id="modal-relations" style="display:flex;gap:var(--space-2);flex-wrap:wrap;margin-bottom:var(--space-6);"></div>
+
+    <div class="flex gap-3 items-center">
+      <a id="modal-read-btn" href="archive.html" class="btn btn-primary" style="flex:1;">
+        <span>📖 Read Volume in Archive</span>
+        <span class="btn-icon-bubble">→</span>
+      </a>
+      <a id="modal-ask-btn" href="assistant.html" class="btn btn-secondary" style="flex:1;">
+        <span>🤖 Ask AI Assistant</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container" class="toast-container"></div>
+
+<script src="js/api.js"></script>
+<script src="js/toast.js"></script>
+<script src="js/app.js"></script>
+<script src="js/command-palette.js"></script>
+
+<script>
+// ── Complete Thematic Ideas Data Set ──
+const IDEAS_DATA = [
+  {
+    id: 'annihilation-of-caste',
+    domain: 'caste',
+    domainLabel: 'Caste & Social Order',
+    icon: '⚡',
+    title: 'Annihilation of Caste',
+    vol: 1,
+    year: 1936,
+    thesis: 'Caste is not merely a division of labour, but a hierarchical division of labourers based on pre-ordained birth. Caste cannot be eliminated through palliatives like inter-dining; its theological roots in the sacred Shastras and Smritis must be dismantled.',
+    quote: '"You cannot build anything on the foundations of caste. You cannot build up a nation, you cannot build up a morality. Anything that you will build on the foundations of caste will crack and will never be a whole."',
+    citation: 'BAWS Vol. 1, pp. 23–96 · Annihilation of Caste (1936)',
+    related: ['endogamy-genesis', 'social-democracy', 'buddhist-navayana']
+  },
+  {
+    id: 'endogamy-genesis',
+    domain: 'caste',
+    domainLabel: 'Caste & Social Order',
+    icon: '🧬',
+    title: 'Endogamy as Genesis of Caste',
+    vol: 1,
+    year: 1916,
+    thesis: 'Demonstrated in his Columbia University anthropology paper that Indian society originally possessed clan exogamy. Caste emerged when a single priestly class enclosed itself through strict endogamy, prompting other classes to mechanically imitate this closure.',
+    quote: '"Endogamy is the only characteristic that is peculiar to caste, and if we succeed in showing how endogamy is maintained, we shall practically have proved the genesis and mechanism of Caste."',
+    citation: 'BAWS Vol. 1, pp. 3–22 · Castes in India (1916)',
+    related: ['annihilation-of-caste', 'who-were-the-shudras', 'gender-emancipation']
+  },
+  {
+    id: 'who-were-the-shudras',
+    domain: 'caste',
+    domainLabel: 'Caste & Social Order',
+    icon: '📜',
+    title: 'Origins of the Shudras',
+    vol: 7,
+    year: 1948,
+    thesis: 'Exhaustive textual investigation into ancient Sanskrit literature proving that Shudras were originally Aryan Kshatriyas of the Solar Dynasty who were degraded to the fourth varna by Brahmins following bitter ecclesiastical feuds and denial of the Upanayana sacrament.',
+    quote: '"The Shudras were not a separate non-Aryan class. They were an integral part of the Aryan community, belonging to the Kshatriya varna."',
+    citation: 'BAWS Vol. 7, pp. 11–228 · Who Were the Shudras? (1948)',
+    related: ['broken-men-theory', 'annihilation-of-caste']
+  },
+  {
+    id: 'broken-men-theory',
+    domain: 'caste',
+    domainLabel: 'Caste & Social Order',
+    icon: '🛡️',
+    title: 'The Broken Men Hypothesis',
+    vol: 7,
+    year: 1948,
+    thesis: 'Untouchables were originally "Broken Men" — defeated pastoral clans forced to dwell outside village borders. They clung to Buddhism and retained beef-eating customs when Brahmins adopted vegetarianism to regain supremacy, creating perpetual ritual pollution distinctions.',
+    quote: '"Untouchability was born out of the struggle between Buddhism and Brahmanism, accompanied by the practice of beef-eating among the Broken Men."',
+    citation: 'BAWS Vol. 7, pp. 239–382 · The Untouchables (1948)',
+    related: ['who-were-the-shudras', 'buddhist-navayana']
+  },
+  {
+    id: 'constitutional-morality',
+    domain: 'constitution',
+    domainLabel: 'Constitution & Rights',
+    icon: '⚖️',
+    title: 'Constitutional Morality',
+    vol: 13,
+    year: 1948,
+    thesis: 'Argued that constitutional morality is not a natural sentiment but must be consciously cultivated. Without strict adherence to constitutional methods and restraint of personality cults (Bhakti in politics), democratic forms inevitably collapse into autocracy.',
+    quote: '"Constitutional morality is not a natural sentiment. It has to be cultivated. We must realize that our people have yet to learn it. Democracy in India is only a top-dressing on an Indian soil which is essentially undemocratic."',
+    citation: 'BAWS Vol. 13 · Constituent Assembly Debates (Nov 4, 1948)',
+    related: ['article-32-heart', 'social-democracy', 'state-socialism']
+  },
+  {
+    id: 'article-32-heart',
+    domain: 'constitution',
+    domainLabel: 'Constitution & Rights',
+    icon: '❤️',
+    title: 'Article 32: Soul of the Constitution',
+    vol: 13,
+    year: 1948,
+    thesis: 'Declared Article 32 (the right to constitutional remedies via Supreme Court writs: Habeas Corpus, Mandamus, Certiorari, Prohibition, Quo Warranto) as the single most vital provision without which the Constitution would be a nullity.',
+    quote: '"If I was asked to name any particular article in this Constitution as the most important — an article without which this Constitution would be a nullity — I could not refer to any other article except this one. It is the very soul of the Constitution and the very heart of it."',
+    citation: 'BAWS Vol. 13, CAD IX · Nov 9, 1948',
+    related: ['constitutional-morality', 'fundamental-rights-liberty']
+  },
+  {
+    id: 'state-socialism',
+    domain: 'constitution',
+    domainLabel: 'Constitution & Rights',
+    icon: '🏛️',
+    title: 'State Socialism by Law',
+    vol: 1,
+    year: 1947,
+    thesis: 'Proposed in "States and Minorities" that key industries, insurance, and agricultural land should be nationalized and mandated directly by the Constitution itself, so that changes in parliamentary majorities cannot dismantle the economic welfare of the poor.',
+    quote: '"State Socialism is essential to the rapid industrialisation of India. Private enterprise cannot do it, and if it did, it would produce the inequalities of wealth which private capitalism has produced in Europe."',
+    citation: 'BAWS Vol. 1, pp. 381–450 · States and Minorities (1947)',
+    related: ['problem-of-the-rupee', 'provincial-finance', 'constitutional-morality']
+  },
+  {
+    id: 'social-democracy',
+    domain: 'constitution',
+    domainLabel: 'Constitution & Rights',
+    icon: '🤝',
+    title: 'Political vs Social Democracy',
+    vol: 13,
+    year: 1949,
+    thesis: 'In his final address to the Constituent Assembly, Ambedkar cautioned that political democracy ("one person, one vote") is an illusion if entrenched economic and social inequalities ("one person, one value" denied) persist alongside it.',
+    quote: '"On the 26th of January 1950, we are going to enter into a life of contradictions. In politics we will have equality and in social and economic life we will have inequality. We must remove this contradiction at the earliest possible moment or else those who suffer from inequality will blow up the structure of political democracy."',
+    citation: 'BAWS Vol. 13 · Final Constituent Assembly Speech (Nov 25, 1949)',
+    related: ['constitutional-morality', 'annihilation-of-caste', 'state-socialism']
+  },
+  {
+    id: 'problem-of-the-rupee',
+    domain: 'economics',
+    domainLabel: 'Economics & Finance',
+    icon: '🪙',
+    title: 'The Problem of the Rupee & Monetary Stability',
+    vol: 6,
+    year: 1923,
+    thesis: 'Ambedkar’s seminal D.Sc. dissertation at LSE establishing that colonial gold-exchange currency manipulation generated inflation that punished the working classes. His testimony before the 1926 Hilton Young Commission directly laid the foundational framework for the Reserve Bank of India (RBI).',
+    quote: '"A currency system should not merely provide a medium of exchange; it should provide a stable standard of value. If the standard varies, contract becomes gambling and industry becomes speculation."',
+    citation: 'BAWS Vol. 6, pp. 313–640 · The Problem of the Rupee (1923)',
+    related: ['provincial-finance', 'state-socialism', 'industrial-democracy']
+  },
+  {
+    id: 'provincial-finance',
+    domain: 'economics',
+    domainLabel: 'Economics & Finance',
+    icon: '📊',
+    title: 'Fiscal Federalism & Provincial Finance',
+    vol: 6,
+    year: 1925,
+    thesis: 'Columbia doctoral thesis analyzing the evolution of provincial finances under British rule. Traced the shift from centralized imperial budgets to federal revenue devolution, providing the conceptual blueprint for modern India’s Finance Commissions.',
+    quote: '"Centrally collected, provincially spent — the financial machinery must balance provincial autonomy with national integration and equity."',
+    citation: 'BAWS Vol. 6, pp. 1–312 · Evolution of Provincial Finance in British India (1925)',
+    related: ['problem-of-the-rupee', 'state-socialism']
+  },
+  {
+    id: 'hindu-code-bill',
+    domain: 'gender',
+    domainLabel: 'Gender Emancipation',
+    icon: '⚖️',
+    title: 'The Hindu Code Bill & Women’s Rights',
+    vol: 14,
+    year: 1951,
+    thesis: 'As India’s first Law Minister, drafted legislation granting Hindu women absolute property inheritance rights, abolishing polygamy, establishing civil divorce, and ensuring inter-caste marriage validity. Resigned from the Cabinet in 1951 when conservative resistance stalled the bill.',
+    quote: '"I measure the progress of a community by the degree of progress which women have achieved."',
+    citation: 'BAWS Vol. 14 (Parts 1 & 2) · Dr. Ambedkar and the Hindu Code Bill',
+    related: ['endogamy-genesis', 'social-democracy', 'constitutional-morality']
+  },
+  {
+    id: 'buddhist-navayana',
+    domain: 'buddhism',
+    domainLabel: 'Buddhism & Ethics',
+    icon: '☸️',
+    title: 'Navayana: Engaged Buddhist Rationalism',
+    vol: 11,
+    year: 1956,
+    thesis: 'Re-interpreted Buddhist Dhamma as a scientific, ethical, and socio-emancipatory philosophy centered on Prajna (wisdom), Karuna (compassion), and Samata (equality) rather than metaphysical mysticism or karma fatalism. Led over 500,000 followers into Buddhism at Nagpur on Oct 14, 1956.',
+    quote: '"Religion must mainly be a matter of principles only. It cannot be a matter of rules. The moment it degenerates into rules, it ceases to be religion."',
+    citation: 'BAWS Vol. 11 · The Buddha and His Dhamma (1957)',
+    related: ['annihilation-of-caste', 'broken-men-theory', 'social-democracy']
+  },
+  {
+    id: 'industrial-democracy',
+    domain: 'labour',
+    domainLabel: 'Labour & Welfare',
+    icon: '🏭',
+    title: 'Labour Rights & Industrial Democracy',
+    vol: 10,
+    year: 1942,
+    thesis: 'As Labour Member of the Viceroy’s Executive Council (1942–46), reduced the official workday from 12 hours to 8 hours, instituted compulsory Dearness Allowance (DA), paid maternity benefits for factory women, and created India’s National Employment Exchange.',
+    quote: '"Labour cannot be satisfied with merely securing better wages. Labour must demand a share in the governance of industry and the state."',
+    citation: 'BAWS Vol. 10 · Executive Council Proceedings (1942–1946)',
+    related: ['river-valley-projects', 'state-socialism', 'problem-of-the-rupee']
+  },
+  {
+    id: 'river-valley-projects',
+    domain: 'labour',
+    domainLabel: 'Labour & Welfare',
+    icon: '🌊',
+    title: 'River Valley Planning & CWC',
+    vol: 10,
+    year: 1944,
+    thesis: 'Pioneered India’s multi-purpose river valley development frameworks modeled after the Tennessee Valley Authority (TVA). Formulated the Damodar Valley Project, Hirakud Dam on the Mahanadi, and created the Central Waterways, Irrigation and Navigation Commission (CWINC).',
+    quote: '"Water is the foundation of national wealth. Flood control, irrigation, electric power, and navigation must be planned holistically across provincial boundaries."',
+    citation: 'BAWS Vol. 10, pp. 385–440 · Central Water Commission Blueprints (1944)',
+    related: ['industrial-democracy', 'provincial-finance']
+  },
+  {
+    id: 'educate-agitate-organise',
+    domain: 'education',
+    domainLabel: 'Education & Journalism',
+    icon: '🎓',
+    title: 'Educate, Agitate, Organise',
+    vol: 17,
+    year: 1924,
+    thesis: 'Foundational tripartite motto of the Bahishkrit Hitakarini Sabha (1924). Education provides rational discernment, agitation shatters mental servility and awakens rights-consciousness, and organization consolidates collective power against tyranny.',
+    quote: '"My final words of advice to you are: Educate, Agitate and Organise; have faith in yourselves. With justice on our side, I do not see how we can lose our battle."',
+    citation: 'BAWS Vol. 17 (Part 3) · All-India Depressed Classes Conference (July 1942)',
+    related: ['journalism-mooknayak', 'annihilation-of-caste', 'buddhist-navayana']
+  },
+  {
+    id: 'journalism-mooknayak',
+    domain: 'education',
+    domainLabel: 'Education & Journalism',
+    icon: '📰',
+    title: 'Voice of the Voiceless: Archival Journalism',
+    vol: 18,
+    year: 1920,
+    thesis: 'Founded Mooknayak (1920), Bahishkrit Bharat (1927), Janata (1930), and Prabuddha Bharat (1956) to counter the monopoly of upper-caste press and construct an autonomous public sphere for the marginalized.',
+    quote: '"A newspaper is not a commercial enterprise; it is the lighthouse of liberty that alerts the people against the onslaughts of despotic power."',
+    citation: 'BAWS Vol. 18 & 19 · Marathi Periodicals and Editorials (1920–1956)',
+    related: ['educate-agitate-organise', 'social-democracy']
+  }
+];
+
+// ── State ──
+let activeDomain = 'all';
+let currentSearch = '';
+let currentView = 'cards';
+
+// ── DOM References ──
+const grid = document.getElementById('ideas-grid');
+const searchInput = document.getElementById('ideas-search');
+const cardsViewWrap = document.getElementById('cards-view-wrap');
+const graphViewWrap = document.getElementById('graph-view-wrap');
+const viewCardsBtn = document.getElementById('view-cards-btn');
+const viewGraphBtn = document.getElementById('view-graph-btn');
+const modal = document.getElementById('idea-modal');
+const modalCloseBtn = document.getElementById('modal-close-btn');
+
+// ── Render Cards ──
+function renderCards() {
+  let filtered = IDEAS_DATA.filter(item => {
+    const matchDomain = activeDomain === 'all' || item.domain === activeDomain;
+    const q = currentSearch.toLowerCase();
+    const matchSearch = !q || 
+      item.title.toLowerCase().includes(q) ||
+      item.thesis.toLowerCase().includes(q) ||
+      item.quote.toLowerCase().includes(q) ||
+      item.citation.toLowerCase().includes(q);
+    return matchDomain && matchSearch;
+  });
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `
+      <div style="grid-column:1/-1;text-align:center;padding:var(--space-16) 0;">
+        <span style="font-size:3rem;display:block;margin-bottom:var(--space-3);">🔍</span>
+        <h3 style="font-size:1.3rem;color:var(--text);margin-bottom:var(--space-2);">No matching concepts found</h3>
+        <p style="color:var(--text-muted);font-size:0.9rem;">Try clearing your search query or selecting "All Domains".</p>
+      </div>
+    `;
+    return;
+  }
+
+  grid.innerHTML = filtered.map(item => `
+    <article class="idea-card animate-fade-up" onclick="openIdeaModal('${item.id}')">
+      <div class="idea-card-inner">
+        <div>
+          <div class="idea-card-header">
+            <span class="idea-domain-badge">${item.icon} ${item.domainLabel}</span>
+            <span class="idea-vol-tag">BAWS Vol. ${item.vol} (${item.year})</span>
+          </div>
+          <h2 class="idea-title">${item.title}</h2>
+          <p class="idea-thesis">${item.thesis.length > 150 ? item.thesis.slice(0, 150) + '…' : item.thesis}</p>
+        </div>
+
+        <div>
+          <div class="idea-key-quote">${item.quote.length > 120 ? item.quote.slice(0, 120) + '…"' : item.quote}</div>
+
+          <div class="idea-footer">
+            <div class="idea-relations">
+              ${item.related.slice(0, 2).map(rId => {
+                const rel = IDEAS_DATA.find(d => d.id === rId);
+                return rel ? `<span class="relation-pill">${rel.icon} ${rel.title.split(' ')[0]}</span>` : '';
+              }).join('')}
+            </div>
+            <span class="explore-cta">Deep Dive <span>→</span></span>
+          </div>
+        </div>
+      </div>
+    </article>
+  `).join('');
+}
+
+// ── Open Deep Dive Modal ──
+function openIdeaModal(id) {
+  const item = IDEAS_DATA.find(d => d.id === id);
+  if (!item) return;
+
+  document.getElementById('modal-domain-badge').textContent = `${item.icon} ${item.domainLabel}`;
+  document.getElementById('modal-vol-tag').textContent = `BAWS Vol. ${item.vol} (${item.year})`;
+  document.getElementById('modal-title').textContent = item.title;
+  document.getElementById('modal-thesis').textContent = item.thesis;
+  document.getElementById('modal-quote').textContent = item.quote;
+  document.getElementById('modal-citation').textContent = `📌 ${item.citation}`;
+
+  const relationsEl = document.getElementById('modal-relations');
+  relationsEl.innerHTML = item.related.map(rId => {
+    const rel = IDEAS_DATA.find(d => d.id === rId);
+    if (!rel) return '';
+    return `<button class="chip" onclick="openIdeaModal('${rel.id}')" style="font-size:0.75rem;">${rel.icon} ${rel.title}</button>`;
+  }).join('');
+
+  document.getElementById('modal-read-btn').href = `archive.html?search=Volume%20${item.vol}`;
+  document.getElementById('modal-ask-btn').href = `assistant.html?q=${encodeURIComponent(item.title)}`;
+
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+modalCloseBtn.addEventListener('click', () => {
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+});
+
+modal.addEventListener('click', (e) => {
+  if (e.target === modal) {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && modal.classList.contains('open')) {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+
+// ── Search & Filter Listeners ──
+searchInput.addEventListener('input', () => {
+  currentSearch = searchInput.value.trim();
+  renderCards();
+});
+
+document.querySelectorAll('#domain-filters .domain-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('#domain-filters .domain-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    activeDomain = chip.dataset.domain;
+    renderCards();
+  });
+});
+
+// ── View Mode Toggles ──
+viewCardsBtn.addEventListener('click', () => {
+  viewCardsBtn.classList.add('active');
+  viewGraphBtn.classList.remove('active');
+  cardsViewWrap.style.display = 'block';
+  graphViewWrap.style.display = 'none';
+  currentView = 'cards';
+});
+
+viewGraphBtn.addEventListener('click', () => {
+  viewGraphBtn.classList.add('active');
+  viewCardsBtn.classList.remove('active');
+  cardsViewWrap.style.display = 'none';
+  graphViewWrap.style.display = 'block';
+  currentView = 'graph';
+  initKnowledgeGraph();
+});
+
+// ── Interactive HTML5 Canvas Knowledge Graph ──
+let graphInitialized = false;
+let nodes = [];
+let links = [];
+let draggingNode = null;
+let hoveredNode = null;
+let animFrameId = null;
+
+function initKnowledgeGraph() {
+  const canvas = document.getElementById('graph-canvas');
+  if (!canvas) return;
+
+  const rect = canvas.parentElement.getBoundingClientRect();
+  canvas.width = rect.width;
+  canvas.height = rect.height;
+  const ctx = canvas.getContext('2d');
+
+  if (!graphInitialized) {
+    const cx = canvas.width / 2;
+    const cy = canvas.height / 2;
+    const radius = Math.min(cx, cy) * 0.75;
+
+    // Create Nodes
+    nodes = IDEAS_DATA.map((item, idx) => {
+      const angle = (idx / IDEAS_DATA.length) * Math.PI * 2;
+      return {
+        id: item.id,
+        title: item.title,
+        icon: item.icon,
+        vol: item.vol,
+        domain: item.domain,
+        x: cx + Math.cos(angle) * (radius * (0.6 + Math.random() * 0.4)),
+        y: cy + Math.sin(angle) * (radius * (0.6 + Math.random() * 0.4)),
+        vx: 0,
+        vy: 0,
+        radius: 28,
+        data: item
+      };
+    });
+
+    // Create Links from related
+    links = [];
+    nodes.forEach(n => {
+      n.data.related.forEach(rId => {
+        const target = nodes.find(o => o.id === rId);
+        if (target) {
+          links.push({ source: n, target: target });
+        }
+      });
+    });
+
+    graphInitialized = true;
+  }
+
+  // Event handlers
+  canvas.onmousedown = (e) => {
+    const pos = getCanvasPos(e, canvas);
+    const hit = findNode(pos.x, pos.y);
+    if (hit) draggingNode = hit;
+  };
+
+  canvas.onmousemove = (e) => {
+    const pos = getCanvasPos(e, canvas);
+    if (draggingNode) {
+      draggingNode.x = pos.x;
+      draggingNode.y = pos.y;
+    } else {
+      hoveredNode = findNode(pos.x, pos.y);
+      canvas.style.cursor = hoveredNode ? 'pointer' : 'grab';
+    }
+  };
+
+  canvas.onmouseup = (e) => {
+    if (draggingNode) {
+      const pos = getCanvasPos(e, canvas);
+      // If barely moved, count as click
+      openIdeaModal(draggingNode.id);
+      draggingNode = null;
+    }
+  };
+
+  if (!animFrameId) {
+    runGraphSimulation(ctx, canvas);
+  }
+}
+
+function getCanvasPos(e, canvas) {
+  const r = canvas.getBoundingClientRect();
+  return {
+    x: e.clientX - r.left,
+    y: e.clientY - r.top
+  };
+}
+
+function findNode(x, y) {
+  return nodes.find(n => {
+    const dx = n.x - x;
+    const dy = n.y - y;
+    return Math.sqrt(dx*dx + dy*dy) < n.radius + 6;
+  });
+}
+
+function runGraphSimulation(ctx, canvas) {
+  function tick() {
+    if (currentView !== 'graph') {
+      animFrameId = null;
+      return;
+    }
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Subtle Grid lines
+    ctx.strokeStyle = 'rgba(255,255,255,0.03)';
+    ctx.lineWidth = 1;
+    for (let x = 0; x < canvas.width; x += 40) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, canvas.height);
+      ctx.stroke();
+    }
+    for (let y = 0; y < canvas.height; y += 40) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(canvas.width, y);
+      ctx.stroke();
+    }
+
+    // Draw Links
+    links.forEach(link => {
+      const isHighlighted = hoveredNode && (link.source === hoveredNode || link.target === hoveredNode);
+      ctx.beginPath();
+      ctx.moveTo(link.source.x, link.source.y);
+      ctx.lineTo(link.target.x, link.target.y);
+      ctx.strokeStyle = isHighlighted ? 'rgba(212,175,55,0.7)' : 'rgba(212,175,55,0.12)';
+      ctx.lineWidth = isHighlighted ? 2.5 : 1;
+      ctx.stroke();
+    });
+
+    // Draw Nodes
+    nodes.forEach(n => {
+      const isHover = hoveredNode === n || draggingNode === n;
+      
+      // Outer glow
+      if (isHover) {
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.radius + 8, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(212,175,55,0.2)';
+        ctx.fill();
+      }
+
+      // Outer bezel circle
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+      ctx.fillStyle = isHover ? '#1e293b' : '#0f172a';
+      ctx.fill();
+      ctx.lineWidth = isHover ? 2.5 : 1.5;
+      ctx.strokeStyle = isHover ? '#d4af37' : 'rgba(212,175,55,0.35)';
+      ctx.stroke();
+
+      // Icon
+      ctx.font = '16px serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(n.icon, n.x, n.y - 2);
+
+      // Label below
+      ctx.font = isHover ? 'bold 11px Plus Jakarta Sans' : '10px Plus Jakarta Sans';
+      ctx.fillStyle = isHover ? '#f8fafc' : '#94a3b8';
+      ctx.fillText(n.title.length > 18 ? n.title.slice(0, 16) + '…' : n.title, n.x, n.y + n.radius + 14);
+    });
+
+    animFrameId = requestAnimationFrame(tick);
+  }
+  tick();
+}
+
+// Initial render
+renderCards();
+</script>
+</body>
+</html>

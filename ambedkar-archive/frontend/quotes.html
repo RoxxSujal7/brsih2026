@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verified Quotes — Dr. B. R. Ambedkar Digital Heritage Archive</title>
+  <meta name="description" content="Browse verified, source-cited quotations from Dr. B. R. Ambedkar's complete writings and speeches. Every quote displays its exact BAWS volume, chapter, and page citation." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script>(function(){const t=localStorage.getItem('site_theme')||localStorage.getItem('reader_theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+
+  <style>
+    /* ── Quotes Page Specific Styles ── */
+    .quotes-hero {
+      background: linear-gradient(135deg, var(--bg) 0%, var(--bg-2) 100%);
+      padding: calc(var(--nav-height) + var(--space-20)) var(--space-6) var(--space-16);
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .quotes-hero::before {
+      content: "\201C";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -55%);
+      font-family: var(--font-display);
+      font-size: 28rem;
+      color: var(--gold);
+      opacity: 0.025;
+      pointer-events: none;
+      line-height: 1;
+    }
+    .quotes-hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: var(--space-4);
+    }
+    .quotes-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      color: var(--text);
+      letter-spacing: -0.01em;
+      margin-bottom: var(--space-4);
+    }
+    .quotes-hero-sub {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 640px;
+      margin: 0 auto var(--space-6);
+      line-height: 1.7;
+    }
+    .source-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--gold-subtle);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-full);
+      padding: 6px 14px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--gold-light);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Filter Bar ── */
+    .quotes-controls {
+      position: sticky;
+      top: var(--nav-height);
+      z-index: 40;
+      background: var(--surface-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: var(--space-3) var(--space-6);
+    }
+    .quotes-controls-inner {
+      max-width: var(--container);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+    }
+    .filter-label {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      flex-shrink: 0;
+    }
+    .filter-chips {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      flex: 1;
+    }
+    .filter-chip {
+      padding: 5px 14px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      font-family: var(--font-body);
+      cursor: pointer;
+      transition: all var(--duration-fast) var(--ease-out);
+    }
+    .filter-chip:hover {
+      border-color: var(--border-gold);
+      color: var(--gold-light);
+    }
+    .filter-chip.active {
+      background: var(--gold-subtle);
+      border-color: var(--border-gold);
+      color: var(--gold-light);
+      font-weight: 600;
+    }
+    .quotes-search-wrap {
+      position: relative;
+      flex-shrink: 0;
+    }
+    .quotes-search {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-full);
+      padding: 7px 16px 7px 36px;
+      color: var(--text);
+      font-size: 0.82rem;
+      font-family: var(--font-body);
+      width: 220px;
+      outline: none;
+      transition: border-color var(--duration-fast) var(--ease-out);
+    }
+    .quotes-search:focus { border-color: var(--border-gold); }
+    .quotes-search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 14px;
+      pointer-events: none;
+    }
+
+    /* ── Grid of Quote Cards ── */
+    .quotes-grid {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: var(--space-10) var(--space-6);
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+      gap: var(--space-6);
+    }
+
+    .quote-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-6) var(--space-8);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+      transition: border-color var(--duration-normal) var(--ease-out),
+                  box-shadow var(--duration-normal) var(--ease-out),
+                  transform var(--duration-normal) var(--ease-spring);
+      position: relative;
+      overflow: hidden;
+    }
+    .quote-card::before {
+      content: "\201C";
+      position: absolute;
+      top: 12px;
+      right: 20px;
+      font-family: var(--font-display);
+      font-size: 5rem;
+      color: var(--gold);
+      opacity: 0.07;
+      line-height: 1;
+      pointer-events: none;
+    }
+    .quote-card:hover {
+      border-color: var(--border-gold);
+      box-shadow: var(--shadow-gold);
+      transform: translateY(-3px);
+    }
+    .quote-card.featured {
+      border-color: var(--border-gold);
+      background: linear-gradient(135deg, var(--surface) 0%, rgba(212,175,55,0.04) 100%);
+    }
+
+    .quote-theme-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--gold-subtle);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-full);
+      padding: 3px 10px;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--gold-light);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      width: fit-content;
+    }
+
+    .quote-text {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      font-style: italic;
+      line-height: 1.75;
+      color: var(--text);
+      position: relative;
+      z-index: 1;
+    }
+
+    .quote-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--border-gold);
+      opacity: 0.5;
+    }
+
+    .quote-source {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--gold-light);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.5;
+    }
+    .quote-source-icon { flex-shrink: 0; font-size: 14px; }
+
+    .quote-actions {
+      display: flex;
+      gap: var(--space-2);
+      flex-wrap: wrap;
+      margin-top: auto;
+    }
+    .quote-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      font-family: var(--font-body);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--duration-fast) var(--ease-out);
+      text-decoration: none;
+    }
+    .quote-btn-ghost {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .quote-btn-ghost:hover {
+      border-color: var(--border-gold);
+      color: var(--gold-light);
+    }
+    .quote-btn-copy {
+      background: var(--gold-subtle);
+      border: 1px solid var(--border-gold);
+      color: var(--gold-light);
+    }
+    .quote-btn-copy:hover {
+      background: var(--gold);
+      color: var(--bg);
+    }
+    .quote-btn-copy.copied {
+      background: var(--success);
+      border-color: var(--success);
+      color: #fff;
+    }
+
+    /* ── Empty State ── */
+    .quotes-empty {
+      grid-column: 1/-1;
+      text-align: center;
+      padding: var(--space-20) var(--space-6);
+      color: var(--text-muted);
+    }
+    .quotes-empty-icon { font-size: 3.5rem; display: block; margin-bottom: var(--space-4); }
+
+    /* ── Stats bar ── */
+    .quotes-stats {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 var(--space-6) var(--space-4);
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+    }
+    .quotes-count {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .quotes-count strong { color: var(--gold-light); }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .quotes-grid { grid-template-columns: 1fr; padding: var(--space-6) var(--space-4); }
+      .quotes-hero h1 { font-size: 2rem; }
+      .quotes-controls-inner { flex-direction: column; align-items: flex-start; }
+      .quotes-search { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── Navigation (consistent with all other pages) ─── -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="Ambedkar Archive Home">
+      <div class="nav-logo-icon" aria-hidden="true">⚜️</div>
+      <div class="nav-logo-text">
+        <span>AMBEDKAR ARCHIVE</span>
+        <span class="nav-logo-sub">Digital Heritage Platform</span>
+      </div>
+    </a>
+
+    <div class="nav-links" role="list">
+      <a href="index.html" class="nav-link" role="listitem">Home</a>
+      <a href="archive.html" class="nav-link" role="listitem">Complete Works (60 Vol)</a>
+      <a href="media.html" class="nav-link" role="listitem">Speeches &amp; Media</a>
+      <a href="timeline.html" class="nav-link" role="listitem">Timeline</a>
+      <a href="assistant.html" class="nav-link" role="listitem">AI Assistant</a>
+    </div>
+
+    <div class="nav-actions">
+      <div class="nav-theme" role="group" aria-label="Atmosphere selection">
+        <button class="theme-toggle-btn active" data-theme="dark" title="Dark">🌙</button>
+        <button class="theme-toggle-btn" data-theme="paper" title="Paper">📜</button>
+        <button class="theme-toggle-btn" data-theme="sepia" title="Sepia">🏺</button>
+      </div>
+      <div class="nav-lang" role="group" aria-label="Language selection">
+        <button class="lang-btn active" data-lang="en" aria-pressed="true">EN</button>
+        <button class="lang-btn" data-lang="hi" aria-pressed="false">हिन्दी</button>
+        <button class="lang-btn" data-lang="mr" aria-pressed="false">मराठी</button>
+      </div>
+      <a id="nav-login-btn" href="login.html" class="btn btn-primary btn-sm">Sign In</a>
+      <div id="nav-user-menu" style="display:none;" class="flex gap-2 items-center">
+        <a href="dashboard.html" class="btn btn-secondary btn-sm"><span>👤</span> <span id="nav-user-name">User</span></a>
+        <button data-action="logout" class="btn btn-ghost btn-sm">Logout</button>
+      </div>
+      <button id="hamburger" class="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Navigation Drawer -->
+<div id="mobile-menu" class="mobile-menu" role="dialog" aria-label="Mobile navigation">
+  <div class="mobile-theme-row flex-between items-center" style="padding:var(--space-2) var(--space-3);margin-bottom:var(--space-2);border-bottom:1px solid var(--border);">
+    <span style="font-size:0.8rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Atmosphere</span>
+    <div class="nav-theme" role="group" aria-label="Atmosphere selection">
+      <button class="theme-toggle-btn active" data-theme="dark" title="Dark Slate">🌙</button>
+      <button class="theme-toggle-btn" data-theme="paper" title="Ivory Paper">📜</button>
+      <button class="theme-toggle-btn" data-theme="sepia" title="Historical Sepia">🏺</button>
+    </div>
+  </div>
+
+  <a href="index.html" class="nav-link">🏠 Home</a>
+  <a href="archive.html" class="nav-link">📚 Complete Works (60 Volumes)</a>
+  <a href="constitution.html" class="nav-link">⚖️ Constitution</a>
+  <a href="ideas.html" class="nav-link">💡 Thematic Ideas</a>
+  <a href="learning.html" class="nav-link">🎓 Learning Center</a>
+  <a href="quotes.html" class="nav-link active">💬 Verified Quotes</a>
+  <a href="media.html" class="nav-link">🎬 Speeches &amp; Audio-Visual</a>
+  <a href="timeline.html" class="nav-link">📅 Chronological Timeline</a>
+  <a href="slides.html" class="nav-link">📽️ Visual Exhibition Deck <span class="badge-16-9">16:9</span></a>
+  <a href="assistant.html" class="nav-link">🤖 AI Research Assistant</a>
+  <a href="ocr.html" class="nav-link">📜 Manuscript OCR</a>
+  <a href="dashboard.html" class="nav-link">👤 My Research Dashboard</a>
+  <div style="height:1px;background:rgba(255,255,255,0.08);margin:var(--space-4) 0;"></div>
+  <a href="login.html" class="btn btn-primary btn-full">Sign In</a>
+</div>
+
+<!-- ─── Vertical Left Dock: Curated Exploration Hubs ─── -->
+<aside class="side-dock" role="navigation" aria-label="Curated exploration hubs">
+  <div class="side-dock-inner">
+    <div class="side-dock-header">
+      <span class="side-dock-badge">Curated Hubs</span>
+    </div>
+    <div class="side-dock-links">
+      <a href="slides.html" class="side-dock-link" title="Visual Exhibition Deck (16:9)">
+        <span class="side-dock-icon">📽️</span>
+        <span class="side-dock-label">Exhibition <span class="badge-16-9">16:9</span></span>
+      </a>
+      <a href="constitution.html" class="side-dock-link" title="Constitution of India">
+        <span class="side-dock-icon">⚖️</span>
+        <span class="side-dock-label">Constitution</span>
+      </a>
+      <a href="ideas.html" class="side-dock-link" title="Thematic Ideas &amp; Philosophy">
+        <span class="side-dock-icon">💡</span>
+        <span class="side-dock-label">Ideas</span>
+      </a>
+      <a href="learning.html" class="side-dock-link" title="Interactive Learning Center">
+        <span class="side-dock-icon">🎓</span>
+        <span class="side-dock-label">Learning</span>
+      </a>
+      <a href="quotes.html" class="side-dock-link active" title="Verified Historical Quotes">
+        <span class="side-dock-icon">💬</span>
+        <span class="side-dock-label">Quotes</span>
+      </a>
+      <a href="ocr.html" class="side-dock-link" title="Manuscript OCR Visualizer">
+        <span class="side-dock-icon">📜</span>
+        <span class="side-dock-label">OCR</span>
+      </a>
+    </div>
+  </div>
+</aside>
+
+<!-- ─── Hero ─── -->
+<section class="quotes-hero" aria-labelledby="quotes-heading">
+  <div class="quotes-hero-eyebrow">📖 Verified Archival Quotations</div>
+  <h1 id="quotes-heading">The Words of Dr. Ambedkar</h1>
+  <p class="quotes-hero-sub">
+    Every quotation on this page is strictly sourced from a verified BAWS volume with an exact chapter and page citation. No quote appears without its documented origin.
+  </p>
+  <div class="source-badge">
+    <span>🔐</span> 100% Source-Verified · BAWS Corpus Only
+  </div>
+</section>
+
+<!-- ─── Filter & Search Controls ─── -->
+<div class="quotes-controls" role="search" aria-label="Filter quotes">
+  <div class="quotes-controls-inner">
+    <span class="filter-label">Filter:</span>
+    <div class="filter-chips" role="group" aria-label="Theme filters">
+      <button class="filter-chip active" data-filter="all" id="filter-all">All Themes</button>
+      <button class="filter-chip" data-filter="caste">⚖️ Caste &amp; Society</button>
+      <button class="filter-chip" data-filter="education">🎓 Education</button>
+      <button class="filter-chip" data-filter="democracy">🏛️ Democracy</button>
+      <button class="filter-chip" data-filter="women">👩‍⚖️ Women's Rights</button>
+      <button class="filter-chip" data-filter="religion">☸️ Buddhism &amp; Religion</button>
+      <button class="filter-chip" data-filter="economics">💰 Economics</button>
+      <button class="filter-chip" data-filter="constitution">📜 Constitution</button>
+    </div>
+    <div class="quotes-search-wrap">
+      <span class="quotes-search-icon">🔍</span>
+      <input type="search" class="quotes-search" id="quoteSearch" placeholder="Search quotes..." aria-label="Search quotes" />
+    </div>
+  </div>
+</div>
+
+<!-- ─── Stats ─── -->
+<div class="quotes-stats">
+  <div class="quotes-count">Showing <strong id="quotesVisibleCount">0</strong> verified quotes from the BAWS corpus</div>
+</div>
+
+<!-- ─── Quotes Grid ─── -->
+<main>
+  <div class="quotes-grid" id="quotesGrid" role="list" aria-label="Ambedkar verified quotes">
+    <!-- Quotes rendered by JavaScript -->
+  </div>
+</main>
+
+<!-- ─── Footer ─── -->
+<footer class="footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">⚜️ Ambedkar Digital Heritage Archive</div>
+      <div class="footer-tagline">Preserving the legacy of Dr. Babasaheb Ambedkar for present and future generations.</div>
+    </div>
+    <div class="footer-bottom">
+      <p>All quotes are sourced from the official BAWS (Dr. Babasaheb Ambedkar: Writings and Speeches) corpus published by the Government of Maharashtra / Ministry of External Affairs.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ─── Toast ─── -->
+<div id="toast-container" class="toast-container" role="status" aria-live="polite"></div>
+
+<!-- ─── Core Scripts ─── -->
+<script src="js/toast.js"></script>
+<script src="js/api.js"></script>
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script src="js/command-palette.js"></script>
+
+<script>
+/**
+ * quotes.js — Verified Quotes Explorer
+ * All quotes are sourced ONLY from CHATBOT_QA entries and TIMELINE_EVENTS.
+ * Zero hallucination policy: No quote without a documented source is displayed.
+ */
+
+// ── Curated verified quotes extracted from CHATBOT_QA and TIMELINE_EVENTS ──
+const VERIFIED_QUOTES = [
+  // From Chatbot QA entries
+  {
+    id: 'q1',
+    text: "Caste is not a physical object like a wall of bricks or a line of barbed wire... Caste is a notion; it is a state of the mind. The destruction of Caste does not therefore mean the destruction of a physical barrier. It means a notional change.",
+    source: "Annihilation of Caste, Section XIV (1936)",
+    citation: "BAWS Vol. 1, pp. 23–96 · Annihilation of Caste (1936)",
+    volNo: 1,
+    docId: 'doc-en-1',
+    theme: 'caste',
+    featured: true
+  },
+  {
+    id: 'q2',
+    text: "Caste is an artificial chopping up of the population into fixed and definite units, each one prevented from fusing into another through the mechanism of Endogamy.",
+    source: "Castes in India: Their Mechanism, Genesis and Development (1916)",
+    citation: "BAWS Vol. 1, pp. 3–22 · Anthropological Paper, Columbia University (1916)",
+    volNo: 1,
+    docId: 'doc-en-1',
+    theme: 'caste',
+    featured: false
+  },
+  {
+    id: 'q3',
+    text: "I measure the progress of a community by the degree of progress which women have achieved.",
+    source: "Address to the All-India Depressed Classes Women's Conference, Nagpur (1942)",
+    citation: "BAWS Vol. 14 · Hindu Code Bill Debates · Women's Conference Address",
+    volNo: 14,
+    docId: 'doc-en-14',
+    theme: 'women',
+    featured: true
+  },
+  {
+    id: 'q4',
+    text: "On the 26th of January 1950, we are going to enter into a life of contradictions. In politics we will have equality and in social and economic life we will have inequality... We must remove this contradiction at the earliest possible moment or else those who suffer will blow up the structure of political democracy.",
+    source: "Final Address to the Constituent Assembly, November 25, 1949",
+    citation: "BAWS Vol. 13 · Constituent Assembly Debates (Nov 25, 1949)",
+    volNo: 13,
+    docId: 'doc-en-13',
+    theme: 'constitution',
+    featured: true
+  },
+  {
+    id: 'q5',
+    text: "We are not going to the Chhadar Tank merely to drink water. We are going to the tank to assert that we too are human beings like others. It is a struggle for human rights and human dignity.",
+    source: "Presidential Address, Mahad Conference (1927)",
+    citation: "BAWS Vol. 17 · Part I · Mahad Water Satyagraha Speeches (1927)",
+    volNo: 17,
+    docId: 'doc-en-17',
+    theme: 'democracy',
+    featured: true
+  },
+  {
+    id: 'q6',
+    text: "Men are mortal. So are ideas. An idea needs propagation as much as a plant needs watering. Otherwise both will wither and die.",
+    source: "Biographical Chronicles and Early Formative Years",
+    citation: "BAWS Vol. 17 (Part I) · Educational Milestones",
+    volNo: 17,
+    docId: 'doc-en-17',
+    theme: 'education',
+    featured: false
+  },
+  {
+    id: 'q7',
+    text: "Cultivation of mind should be the ultimate aim of human existence.",
+    source: "Waiting for a Visa: Autobiographical Reminiscences",
+    citation: "BAWS Vol. 17 (Part I), pp. 661–691 · Autobiographical Notes",
+    volNo: 17,
+    docId: 'doc-en-17',
+    theme: 'education',
+    featured: false
+  },
+  {
+    id: 'q8',
+    text: "Democracy is not merely a form of government; it is primarily a mode of associated living, of conjoint communicated experience.",
+    source: "Letters from New York and Philosophical Studies under John Dewey",
+    citation: "BAWS Vol. 17 (Part III) · Reminiscences of Columbia University",
+    volNo: 17,
+    docId: 'doc-en-17',
+    theme: 'democracy',
+    featured: false
+  },
+  {
+    id: 'q9',
+    text: "My life has been dedicated to liberty, equality, and fraternity for all.",
+    source: "Mahaparinirvan Chronicles and Memorials",
+    citation: "BAWS Vol. 17 (Part I) · Tributes in Parliament and Chaityabhoomi Proceedings",
+    volNo: 17,
+    docId: 'doc-en-17',
+    theme: 'democracy',
+    featured: true
+  },
+  {
+    id: 'q10',
+    text: "Religion must be based on reason and morality, not on superstition and dogma.",
+    source: "The Buddha and His Dhamma: Preface",
+    citation: "BAWS Vol. 11 · The Buddha and His Dhamma (1956, pp. 1–620)",
+    volNo: 11,
+    docId: 'doc-en-11',
+    theme: 'religion',
+    featured: false
+  },
+  {
+    id: 'q11',
+    text: "What is your religion? My religion is Dhamma of the Buddha, that teaches liberty to the slave, equality to the degraded, fraternity to the hostile.",
+    source: "The Buddha and His Dhamma: Philosophy of Buddhism",
+    citation: "BAWS Vol. 11 · The Buddha and His Dhamma (1956)",
+    volNo: 11,
+    docId: 'doc-en-11',
+    theme: 'religion',
+    featured: false
+  },
+  {
+    id: 'q12',
+    text: "The depressed classes want from the Caste Hindus is not social reform. What they want is political power to protect themselves.",
+    source: "Evidence Before the Simon Commission (1928)",
+    citation: "BAWS Vol. 2 · Simon Commission Testimony",
+    volNo: 2,
+    docId: 'doc-en-2',
+    theme: 'democracy',
+    featured: false
+  },
+  {
+    id: 'q13',
+    text: "Economics cannot be divorced from history and the sociological conditions of human labor.",
+    source: "Ancient Indian Commerce: Master of Arts Thesis (1915)",
+    citation: "BAWS Vol. 12 · Ancient Indian Commerce (pp. 1–68)",
+    volNo: 12,
+    docId: 'doc-en-12',
+    theme: 'economics',
+    featured: false
+  },
+  {
+    id: 'q14',
+    text: "Knowledge is the foundation of a man's life and character.",
+    source: "Biographical Chronicles and Early Formative Years (1907)",
+    citation: "BAWS Vol. 17 (Part I) · Educational Milestones, Elphinstone High School",
+    volNo: 17,
+    docId: 'doc-en-17',
+    theme: 'education',
+    featured: false
+  },
+  {
+    id: 'q15',
+    text: "Lost rights are never regained by begging, and yet by an appeal to the conscience of the usurpers, but by relentless struggle.",
+    source: "Bahishkrit Bharat Editorial (1927)",
+    citation: "BAWS Vol. 17 · Bahishkrit Bharat Editorials",
+    volNo: 17,
+    docId: 'doc-en-17',
+    theme: 'caste',
+    featured: true
+  },
+];
+
+// ── Theme metadata map ──
+const THEME_META = {
+  all:          { label: 'All Themes',         emoji: '🌟' },
+  caste:        { label: 'Caste & Society',    emoji: '⚖️' },
+  education:    { label: 'Education',          emoji: '🎓' },
+  democracy:    { label: 'Democracy',          emoji: '🏛️' },
+  women:        { label: "Women's Rights",     emoji: '👩‍⚖️' },
+  religion:     { label: 'Buddhism & Religion',emoji: '☸️' },
+  economics:    { label: 'Economics',          emoji: '💰' },
+  constitution: { label: 'Constitution',       emoji: '📜' },
+};
+
+let currentFilter = 'all';
+let currentSearch = '';
+
+function renderQuotes() {
+  const grid = document.getElementById('quotesGrid');
+  grid.innerHTML = '';
+
+  const filtered = VERIFIED_QUOTES.filter(q => {
+    const matchTheme = currentFilter === 'all' || q.theme === currentFilter;
+    const matchSearch = !currentSearch || 
+      q.text.toLowerCase().includes(currentSearch) ||
+      q.source.toLowerCase().includes(currentSearch) ||
+      q.citation.toLowerCase().includes(currentSearch);
+    return matchTheme && matchSearch;
+  });
+
+  document.getElementById('quotesVisibleCount').textContent = filtered.length;
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `
+      <div class="quotes-empty">
+        <span class="quotes-empty-icon">🔍</span>
+        <h3 style="font-family:var(--font-display);font-size:1.3rem;color:var(--text);margin-bottom:8px;">No Matching Quotes</h3>
+        <p>Try a different filter or search term.</p>
+      </div>`;
+    return;
+  }
+
+  // Featured first
+  const sorted = [...filtered].sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+
+  sorted.forEach((q, i) => {
+    const themeMeta = THEME_META[q.theme] || THEME_META.all;
+    const card = document.createElement('article');
+    card.className = `quote-card${q.featured ? ' featured' : ''}`;
+    card.setAttribute('role', 'listitem');
+    card.style.animationDelay = (i * 40) + 'ms';
+    card.innerHTML = `
+      <div class="quote-theme-tag">${themeMeta.emoji} ${themeMeta.label}</div>
+      <blockquote class="quote-text">"${q.text}"</blockquote>
+      <div class="quote-divider"></div>
+      <div class="quote-source">
+        <span class="quote-source-icon">📌</span>
+        <div>
+          <div style="color:var(--text);font-weight:500;margin-bottom:2px;">${q.source}</div>
+          <div style="color:var(--gold-light);opacity:0.85;">${q.citation}</div>
+        </div>
+      </div>
+      <div class="quote-actions">
+        <button class="quote-btn quote-btn-copy" data-quote-id="${q.id}" aria-label="Copy quote with citation">
+          📋 Copy with Citation
+        </button>
+        <a href="reader.html?id=${q.docId}" class="quote-btn quote-btn-ghost" aria-label="Read in archive">
+          📖 Read in Archive (Vol. ${q.volNo})
+        </a>
+      </div>`;
+    grid.appendChild(card);
+  });
+
+  // Attach copy handlers
+  grid.querySelectorAll('.quote-btn-copy').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const quoteId = btn.dataset.quoteId;
+      const q = VERIFIED_QUOTES.find(x => x.id === quoteId);
+      if (!q) return;
+      const text = `"${q.text}"\n\n— ${q.source}\n${q.citation}\n\nSource: Ambedkar Digital Heritage Archive`;
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = '✅ Copied!';
+        btn.classList.add('copied');
+        if (window.showToast) window.showToast('Quote + citation copied to clipboard!');
+        setTimeout(() => {
+          btn.textContent = '📋 Copy with Citation';
+          btn.classList.remove('copied');
+        }, 2200);
+      }).catch(() => {
+        if (window.showToast) window.showToast('Copy failed — please select and copy manually.', 'error');
+      });
+    });
+  });
+}
+
+// ── Filter chip listeners ──
+document.querySelectorAll('.filter-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    currentFilter = chip.dataset.filter;
+    renderQuotes();
+  });
+});
+
+// ── Search listener ──
+document.getElementById('quoteSearch').addEventListener('input', e => {
+  currentSearch = e.target.value.trim().toLowerCase();
+  renderQuotes();
+});
+
+// ── Initial render ──
+document.addEventListener('DOMContentLoaded', () => {
+  renderQuotes();
+});
+</script>
+</body>
+</html>

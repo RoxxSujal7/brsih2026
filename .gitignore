@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Environment and sensitive data
+.env
+.env.local
+*.log
+
+# Scratch and temporary testing files
+scratch/
+strix_runs/
+
+# Build and OS files
+dist/
+coverage/
+.DS_Store
+Thumbs.db

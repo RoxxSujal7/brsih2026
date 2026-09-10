@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="AI Manuscript & Rare Document OCR Explorer — Digitizing historical archives, rare handwriting, and Devanagari manuscripts of Dr. B. R. Ambedkar." />
+  <title>AI Manuscript OCR Explorer — Ambedkar Digital Heritage Archive</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <script>(function(){const t=localStorage.getItem('site_theme')||localStorage.getItem('reader_theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+
+</head>
+<body>
+
+  <!-- ─── Floating Island Navigation ─────────────────── -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Ambedkar Archive Home">
+        <div class="nav-logo-icon" aria-hidden="true">⚜️</div>
+        <div class="nav-logo-text">
+          <span>AMBEDKAR ARCHIVE</span>
+          <span class="nav-logo-sub">Digital Heritage Platform</span>
+        </div>
+      </a>
+
+      <div class="nav-links" role="list">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="archive.html" class="nav-link">Complete Works (60 Vol)</a>
+        <a href="media.html" class="nav-link">Speeches &amp; Media</a>
+        <a href="timeline.html" class="nav-link">Timeline</a>
+        <a href="assistant.html" class="nav-link">AI Assistant</a>
+      </div>
+
+      <div class="nav-actions">
+              <!-- Reading Atmosphere Switcher -->
+      <div class="nav-theme" role="group" aria-label="Atmosphere selection">
+        <button class="theme-toggle-btn active" data-theme="dark" title="Dark Slate Atmosphere">🌙</button>
+        <button class="theme-toggle-btn" data-theme="paper" title="Ivory Paper Sanctuary">📜</button>
+        <button class="theme-toggle-btn" data-theme="sepia" title="Historical Sepia Sanctuary">🏺</button>
+      </div>
+      <div class="nav-lang" role="group" aria-label="Language selection">
+          <button class="lang-btn active" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="hi">हिन्दी</button>
+          <button class="lang-btn" data-lang="mr">मराठी</button>
+        </div>
+
+        <a id="nav-login-btn" href="login.html" class="btn btn-primary btn-sm">Sign In</a>
+
+        <div id="nav-user-menu" style="display:none;" class="flex gap-2 items-center">
+          <a href="dashboard.html" class="btn btn-secondary btn-sm">
+            <span>👤</span> <span id="nav-user-name">User</span>
+          </a>
+          <button data-action="logout" class="btn btn-ghost btn-sm">Logout</button>
+        </div>
+
+        <button id="hamburger" class="hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Drawer -->
+  <div id="mobile-menu" class="mobile-menu">
+  <div class="mobile-theme-row flex-between items-center" style="padding:var(--space-2) var(--space-3);margin-bottom:var(--space-2);border-bottom:1px solid var(--border);">
+    <span style="font-size:0.8rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Atmosphere</span>
+    <div class="nav-theme" role="group" aria-label="Atmosphere selection">
+      <button class="theme-toggle-btn active" data-theme="dark" title="Dark Slate">🌙</button>
+      <button class="theme-toggle-btn" data-theme="paper" title="Ivory Paper">📜</button>
+      <button class="theme-toggle-btn" data-theme="sepia" title="Historical Sepia">🏺</button>
+    </div>
+  </div>
+
+    <a href="index.html" class="nav-link">🏠 Home</a>
+    <a href="archive.html" class="nav-link">📚 Complete Works (60 Volumes)</a>
+    <a href="constitution.html" class="nav-link">⚖️ Constitution</a>
+    <a href="ideas.html" class="nav-link">💡 Thematic Ideas</a>
+    <a href="learning.html" class="nav-link">🎓 Learning Center</a>
+    <a href="quotes.html" class="nav-link">💬 Verified Quotes</a>
+    <a href="media.html" class="nav-link">🎬 Speeches &amp; Audio-Visual</a>
+    <a href="timeline.html" class="nav-link">📅 Chronological Timeline</a>
+    <a href="slides.html" class="nav-link">📽️ Visual Exhibition Deck <span class="badge-16-9">16:9</span></a>
+    <a href="assistant.html" class="nav-link">🤖 AI Research Assistant</a>
+    <a href="ocr.html" class="nav-link active">📜 Manuscript OCR</a>
+    <a href="dashboard.html" class="nav-link">👤 My Research Dashboard</a>
+    <div style="height:1px;background:rgba(255,255,255,0.08);margin:var(--space-4) 0;"></div>
+    <a href="login.html" class="btn btn-primary btn-full">Sign In</a>
+  </div>
+
+  <!-- ─── Vertical Left Dock: Curated Exploration Hubs ─── -->
+  <aside class="side-dock" role="navigation" aria-label="Curated exploration hubs">
+    <div class="side-dock-inner">
+      <div class="side-dock-header">
+        <span class="side-dock-badge">Curated Hubs</span>
+      </div>
+      <div class="side-dock-links">
+        <a href="slides.html" class="side-dock-link" title="Visual Exhibition Deck (16:9)">
+          <span class="side-dock-icon">📽️</span>
+          <span class="side-dock-label">Exhibition <span class="badge-16-9">16:9</span></span>
+        </a>
+        <a href="constitution.html" class="side-dock-link" title="Constitution of India">
+          <span class="side-dock-icon">⚖️</span>
+          <span class="side-dock-label">Constitution</span>
+        </a>
+        <a href="ideas.html" class="side-dock-link" title="Thematic Ideas &amp; Philosophy">
+          <span class="side-dock-icon">💡</span>
+          <span class="side-dock-label">Ideas</span>
+        </a>
+        <a href="learning.html" class="side-dock-link" title="Interactive Learning Center">
+          <span class="side-dock-icon">🎓</span>
+          <span class="side-dock-label">Learning</span>
+        </a>
+        <a href="quotes.html" class="side-dock-link" title="Verified Historical Quotes">
+          <span class="side-dock-icon">💬</span>
+          <span class="side-dock-label">Quotes</span>
+        </a>
+        <a href="ocr.html" class="side-dock-link active" title="Manuscript OCR Visualizer">
+          <span class="side-dock-icon">📜</span>
+          <span class="side-dock-label">OCR</span>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <main class="page-content" role="main">
+    <!-- Page Header -->
+    <div class="container section" style="padding-bottom:var(--space-8);">
+      <div class="section-header text-center" style="max-width:800px;margin-left:auto;margin-right:auto;">
+        <div class="section-eyebrow">🔍 AI MANUSCRIPT DIGITIZER &amp; OCR</div>
+        <h1 class="section-title">Rare Manuscript OCR Explorer</h1>
+        <p class="section-desc" style="margin-left:auto;margin-right:auto;">
+          Inspect side-by-side high-resolution scans of original historical manuscripts alongside AI-extracted OCR text, confidence scores, and multi-lingual translations.
+        </p>
+      </div>
+
+      <!-- Selector & Toolbar Dock (Double-Bezel Glass) -->
+      <div class="card" style="margin-bottom:var(--space-6);">
+        <div class="card-inner" style="padding:var(--space-4) var(--space-5);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--space-4);">
+          <div class="flex items-center gap-3" style="flex:1;min-width:280px;">
+            <label for="ocr-doc-select" class="font-heading text-sm text-gold" style="white-space:nowrap;">Select Manuscript Scan:</label>
+            <select id="ocr-doc-select" class="input" style="padding:6px 12px;font-size:0.875rem;min-height:38px;border-radius:var(--radius-lg);">
+              <option value="ocr-1">Original Draft of Constitution Article 14 (Handwritten Notes, 1948)</option>
+              <option value="ocr-2">Letter to Dr. B. S. Moonje on Communal Award (1932)</option>
+              <option value="ocr-3">Annihilation of Caste - Original Printed Pamphlet Proof (1936)</option>
+              <option value="ocr-4">Marathi Newspaper 'Mooknayak' Editorial Scan (1920)</option>
+            </select>
+          </div>
+
+          <div class="flex gap-2 items-center">
+            <span class="text-xs text-muted">View Mode:</span>
+            <button class="btn btn-outline btn-xs active" id="btn-side-by-side">Side-by-Side</button>
+            <button class="btn btn-outline btn-xs" id="btn-ocr-overlay">OCR Text Only</button>
+          </div>
+
+          <!-- Quick Archival Presets -->
+          <div class="flex gap-2 items-center flex-wrap" style="width:100%;padding-top:var(--space-2);border-top:1px solid rgba(255,255,255,0.05);">
+            <span class="text-xs text-gold" style="font-family:var(--font-mono);font-size:0.75rem;">⚡ Instant Presets:</span>
+            <button type="button" class="btn btn-secondary btn-xs ocr-preset-btn active" data-preset="ocr-1">Article 14 Draft (1948)</button>
+            <button type="button" class="btn btn-secondary btn-xs ocr-preset-btn" data-preset="ocr-2">Communal Award Letter (1932)</button>
+            <button type="button" class="btn btn-secondary btn-xs ocr-preset-btn" data-preset="ocr-3">Annihilation of Caste (1936)</button>
+            <button type="button" class="btn btn-secondary btn-xs ocr-preset-btn" data-preset="ocr-4">Mooknayak Editorial (1920)</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Dual Panel (Double-Bezel Architecture) -->
+      <div class="grid grid-2 gap-6" id="ocr-view-container">
+        
+        <!-- Left: High-Res Document Scan Simulation -->
+        <div class="card">
+          <div class="card-inner" style="padding:var(--space-5);display:flex;flex-direction:column;height:100%;">
+            <div class="flex-between items-center" style="margin-bottom:var(--space-4);">
+              <h3 class="font-heading text-sm text-gold">🖼️ Original Historical Document Scan</h3>
+              <span class="badge badge-book" id="scan-res-badge">300 DPI Archival Scan</span>
+            </div>
+
+            <!-- Document Canvas Visualizer (Vintage Vellum Paper Effect) -->
+            <div class="ocr-document-canvas" id="scan-preview-box" style="flex:1;position:relative;border-radius:var(--radius-lg);overflow:hidden;border:1px solid rgba(255,255,255,0.06);min-height:380px;">
+              <div class="vintage-paper-effect" id="vintage-doc-text" style="background:#f4ecd8; color:#2c221e; padding:var(--space-5); border-radius:var(--radius-lg); font-family:var(--font-serif); line-height:1.75; box-shadow:inset 0 0 25px rgba(0,0,0,0.15); height:100%; min-height:360px;">
+                <!-- Inserted dynamically by ocr.js -->
+              </div>
+              <div class="ocr-scanline" id="ocr-scanline" style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg, transparent, var(--gold), transparent);box-shadow:0 0 10px var(--gold);pointer-events:none;"></div>
+            </div>
+            
+            <div class="flex-between items-center text-xs text-muted" style="margin-top:var(--space-4);">
+              <span>Archive Ref: <strong id="ocr-ref-no" class="text-gold num-tabular">AIC-MANU-1948-004</strong></span>
+              <span>Condition: <strong style="color:var(--success);">Preserved (94%)</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: AI OCR Extraction & Analysis -->
+        <div class="card">
+          <div class="card-inner" style="padding:var(--space-5);display:flex;flex-direction:column;height:100%;">
+            <div class="flex-between items-center" style="margin-bottom:var(--space-4);">
+              <h3 class="font-heading text-sm text-gold">🤖 AI Digitized Text &amp; Analysis</h3>
+              <div class="flex items-center gap-2">
+                <span class="text-xs text-muted">Confidence:</span>
+                <span class="badge badge-local font-bold num-tabular" id="ocr-confidence">98.4%</span>
+              </div>
+            </div>
+
+            <!-- Tabs for OCR Text vs Translation vs Entity Tagging -->
+            <div class="filter-tabs" style="margin-bottom:var(--space-4);">
+              <button class="filter-tab active" id="tab-ocr-text">OCR Extracted</button>
+              <button class="filter-tab" id="tab-ocr-trans">English Translation</button>
+              <button class="filter-tab" id="tab-ocr-entities">Named Entities</button>
+            </div>
+
+            <!-- Output Box -->
+            <div class="ocr-output-box" id="ocr-output-content" style="flex:1;background:rgba(0,0,0,0.25);padding:var(--space-4);border-radius:var(--radius);border:1px solid rgba(255,255,255,0.06);font-family:var(--font-mono);font-size:0.875rem;line-height:1.7;white-space:pre-wrap;overflow-y:auto;min-height:300px;max-height:380px;">
+              <!-- Rendered by ocr.js -->
+            </div>
+
+            <!-- Action Bar -->
+            <div class="flex-between items-center gap-2" style="margin-top:var(--space-4);padding-top:var(--space-3);border-top:1px solid var(--border);">
+              <button class="btn btn-outline btn-xs" id="run-reocr-btn">⚡ Re-run OCR Scan</button>
+              <div class="flex gap-2">
+                <button class="btn btn-outline btn-xs" id="copy-ocr-btn">Copy Text</button>
+                <button class="btn btn-primary btn-xs" id="export-txt-btn">📥 Export TXT</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Upload Your Own Manuscript Scan (Researcher Sandbox) -->
+    <section class="section" style="padding-top:0;">
+      <div class="container" style="max-width:840px;">
+        <div class="card" style="border-style:dashed;border-color:rgba(212,175,55,0.35);">
+          <div class="card-inner" style="padding:var(--space-8);text-align:center;">
+            <div class="section-eyebrow" style="margin-bottom:var(--space-2);">🧪 RESEARCHER OCR SANDBOX</div>
+            <h2 class="font-heading" style="font-size:1.5rem;margin-bottom:var(--space-2);">Upload Manuscript Image for Instant AI OCR</h2>
+            <p class="text-muted text-sm" style="margin-bottom:var(--space-6);max-width:600px;margin-left:auto;margin-right:auto;">Upload a high-resolution JPG or PNG scan of any historical document or news clipping to extract transcribed Devanagari/English text in real time.</p>
+
+            <div id="drop-zone" style="padding:var(--space-8);border:2px dashed rgba(255,255,255,0.15);border-radius:var(--radius-xl);cursor:pointer;transition:border-color var(--duration-fast);">
+              <div style="font-size:2.8rem;margin-bottom:var(--space-2);" aria-hidden="true">📤</div>
+              <h4 class="font-heading" style="margin-bottom:var(--space-1);">Drag &amp; Drop Manuscript File Here</h4>
+              <p class="text-xs text-muted" style="margin-bottom:var(--space-4);">Supports JPG, PNG, PDF (Max 15MB)</p>
+              <input type="file" id="ocr-file-input" class="hidden" accept="image/*,.pdf" />
+              <button class="btn btn-primary btn-sm" onclick="document.getElementById('ocr-file-input').click()">
+                <span>Browse Local Computer</span>
+                <span class="btn-icon-bubble">📁</span>
+              </button>
+            </div>
+
+            <div id="upload-status" class="mt-3 text-sm text-gold" style="display:none;margin-top:var(--space-4);"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer style="background:var(--bg);border-top:1px solid var(--border);padding:var(--space-12) 0 var(--space-8);" role="contentinfo">
+    <div class="container text-center">
+      <div class="nav-logo-icon" style="margin:0 auto var(--space-3);">⚜️</div>
+      <p style="font-size:0.875rem;color:var(--text-muted);margin-bottom:var(--space-2);">
+        Dr. B. R. Ambedkar Digital Heritage Archive • AI Manuscript Digitization Engine
+      </p>
+      <p style="font-size:0.75rem;color:var(--text-faint);">
+        Preserving historical manuscripts and printed works through optical character recognition and neural language models.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Bottom Tab Bar (Mobile) -->
+  <nav class="bottom-bar" role="navigation" aria-label="Mobile navigation">
+    <a href="index.html" class="tab-item"><span class="tab-icon">🏠</span><span>Home</span></a>
+    <a href="archive.html" class="tab-item"><span class="tab-icon">📚</span><span>Volumes</span></a>
+    <a href="media.html" class="tab-item"><span class="tab-icon">🎬</span><span>Speeches</span></a>
+    <a href="timeline.html" class="tab-item"><span class="tab-icon">📅</span><span>Timeline</span></a>
+    <a href="assistant.html" class="tab-item"><span class="tab-icon">🤖</span><span>AI</span></a>
+  </nav>
+
+  <div id="toast-container" class="toast-container"></div>
+
+  <script src="js/api.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/command-palette.js"></script>
+  <script src="js/ocr.js"></script>
+</body>
+</html>

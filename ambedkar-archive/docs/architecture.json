@@ -1,0 +1,179 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Ambedkar Digital Archive Architecture",
+    "output": "ambedkar-archive-architecture.html",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "full-flow",
+        "label": "Complete System Flow",
+        "focus": ["browser", "frontend", "server", "mongodb", "assets"],
+        "note": "Primary flow from client interactions through Express API to MongoDB and document storage."
+      },
+      {
+        "id": "security-and-auth",
+        "label": "Authentication & Security",
+        "focus": ["browser", "auth", "server"],
+        "note": "JWT token verification guard securing private routes, bookmarks, and user reading progress."
+      },
+      {
+        "id": "assistant-search",
+        "label": "Semantic Search Engine",
+        "focus": ["frontend", "server", "assistant", "mongodb"],
+        "note": "Archive Assistant providing real-time in-memory semantic search over Ambedkar's writings."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "browser",
+      "type": "external",
+      "label": "Browser Client",
+      "sublabel": "Desktop / Mobile Web",
+      "pos": [50, 230],
+      "size": [130, 64]
+    },
+    {
+      "id": "frontend",
+      "type": "frontend",
+      "label": "Frontend Web UI",
+      "sublabel": "HTML5 / Apple Dock",
+      "pos": [250, 230],
+      "size": [130, 64]
+    },
+    {
+      "id": "server",
+      "type": "backend",
+      "brand": "node-js",
+      "label": "Express API Server",
+      "sublabel": "Node.js :5000",
+      "pos": [470, 230],
+      "size": [140, 64]
+    },
+    {
+      "id": "auth",
+      "type": "security",
+      "label": "Auth Guard",
+      "sublabel": "JWT Bearer Token",
+      "tag": "Bcrypt + HMAC",
+      "pos": [470, 80],
+      "size": [140, 64]
+    },
+    {
+      "id": "assistant",
+      "type": "backend",
+      "label": "Archive Assistant",
+      "sublabel": "Semantic NLP Engine",
+      "tag": "TF-IDF + Cosine",
+      "pos": [470, 380],
+      "size": [140, 64]
+    },
+    {
+      "id": "mongodb",
+      "type": "database",
+      "brand": "mongodb",
+      "label": "MongoDB",
+      "sublabel": "Documents & Notes :27017",
+      "pos": [730, 230],
+      "size": [140, 64]
+    },
+    {
+      "id": "assets",
+      "type": "database",
+      "label": "Document Assets",
+      "sublabel": "Speeches, Audio & PDFs",
+      "pos": [730, 380],
+      "size": [140, 64]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Archive Host Environment",
+      "wraps": ["frontend", "server", "auth", "assistant", "mongodb", "assets"]
+    },
+    {
+      "kind": "security-group",
+      "label": "API Security Scope",
+      "wraps": ["server", "auth"]
+    }
+  ],
+  "connections": [
+    {
+      "id": "browser-to-frontend",
+      "from": "browser",
+      "to": "frontend",
+      "label": "HTTPS",
+      "variant": "emphasis"
+    },
+    {
+      "id": "frontend-to-server",
+      "from": "frontend",
+      "to": "server",
+      "label": "REST API"
+    },
+    {
+      "id": "auth-to-server",
+      "from": "auth",
+      "to": "server",
+      "label": "verify token",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelDy": 24
+    },
+    {
+      "id": "server-to-assistant",
+      "from": "server",
+      "to": "assistant",
+      "label": "query index",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelDy": 24,
+      "labelDx": -30
+    },
+    {
+      "id": "server-to-db",
+      "from": "server",
+      "to": "mongodb",
+      "label": "Mongoose BSON"
+    },
+    {
+      "id": "server-to-assets",
+      "from": "server",
+      "to": "assets",
+      "label": "stream media",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "top"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Frontend Experience",
+      "items": [
+        "Apple Design dock navigation with fluid micro-interactions",
+        "Interactive timeline, book reader, quotes gallery, and audio speeches"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Backend Services",
+      "items": [
+        "Express REST endpoints serving historical volumes and catalogs",
+        "Archive Assistant semantic matching engine for contextual inquiry"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Security & Storage",
+      "items": [
+        "JWT-based bearer authentication securing bookmarks & reading progress",
+        "MongoDB persistent document store with static PDF and audio streaming"
+      ]
+    }
+  ]
+}

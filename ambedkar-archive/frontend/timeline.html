@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Explore Dr. B. R. Ambedkar's life chronologically from 1891 to 1956 — an interactive timeline of milestones, works, and historical events." />
+  <title>Life Timeline — Ambedkar Digital Heritage Archive</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="css/style.css" />
+  <script>(function(){const t=localStorage.getItem('site_theme')||localStorage.getItem('reader_theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+
+  <style>
+    .timeline-container { 
+      max-width: 980px; 
+      margin: 0 auto; 
+      padding: var(--space-8) var(--space-4); 
+      position: relative; 
+    }
+    .timeline-line { 
+      position: absolute; 
+      left: 50%; 
+      top: 0; 
+      bottom: 0; 
+      width: 2px; 
+      background: linear-gradient(180deg, var(--accent), var(--gold), var(--primary)); 
+      transform: translateX(-50%); 
+      opacity: 0.35; 
+    }
+    
+    .timeline-item { 
+      display: flex; 
+      position: relative; 
+      align-items: flex-start; 
+      justify-content: space-between; 
+      width: 100%; 
+      margin-bottom: var(--space-10); 
+    }
+
+    /* Strict alternating left / right */
+    .timeline-item.side-left .timeline-content { 
+      width: calc(50% - 36px); 
+      margin-right: auto; 
+      text-align: left;
+    }
+    .timeline-item.side-left .spacer { 
+      width: calc(50% - 36px); 
+      margin-left: auto; 
+    }
+    
+    .timeline-item.side-right .timeline-content { 
+      width: calc(50% - 36px); 
+      margin-left: auto; 
+      text-align: left;
+    }
+    .timeline-item.side-right .spacer { 
+      width: calc(50% - 36px); 
+      margin-right: auto; 
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: 50%;
+      top: 14px;
+      transform: translateX(-50%);
+      width: 46px; 
+      height: 46px;
+      background: var(--surface);
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      z-index: 2;
+      flex-shrink: 0;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+      transition: transform var(--duration-fast) var(--ease-spring), box-shadow var(--duration-fast);
+      cursor: pointer;
+    }
+    .timeline-dot:hover { 
+      transform: translateX(-50%) scale(1.15); 
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.45);
+    }
+    .timeline-dot.featured { 
+      border-color: var(--gold); 
+      background: rgba(212, 175, 55, 0.15); 
+      box-shadow: 0 0 18px rgba(212, 175, 55, 0.35); 
+    }
+    
+    /* Double-Bezel Timeline Content Card */
+    .timeline-content {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 5px;
+      box-shadow: var(--shadow);
+      transition: transform var(--duration-normal) var(--ease-spring), border-color var(--duration-fast), box-shadow var(--duration-normal);
+      cursor: pointer;
+      position: relative;
+    }
+    .timeline-content:hover {
+      border-color: var(--border-gold);
+      box-shadow: var(--shadow-lg), 0 0 24px rgba(212, 175, 55, 0.18);
+      transform: translateY(-3px);
+    }
+    .timeline-content-inner {
+      background: var(--surface);
+      border-radius: calc(var(--radius-xl) - 4px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.08);
+      padding: var(--space-5);
+    }
+    
+    .timeline-year { 
+      font-family: var(--font-display); 
+      font-size: 1.55rem; 
+      font-weight: 800; 
+      color: var(--gold); 
+      margin-bottom: var(--space-1); 
+      font-variant-numeric: tabular-nums; 
+    }
+    .timeline-title { 
+      font-weight: 700; 
+      margin-bottom: var(--space-2); 
+      color: var(--text-heading); 
+      font-size: 1.05rem; 
+      line-height: 1.35;
+    }
+    .timeline-desc { 
+      font-size: .875rem; 
+      color: var(--text-muted); 
+      line-height: 1.68; 
+    }
+    .timeline-tag { 
+      margin-top: var(--space-3); 
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+    .timeline-book-pill {
+      font-size: 0.75rem;
+      color: var(--gold-light);
+      background: rgba(212, 175, 55, 0.1);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      border-radius: var(--radius-full);
+      padding: 3px 10px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: background 0.18s, color 0.18s;
+    }
+    .timeline-content:hover .timeline-book-pill {
+      background: var(--gold);
+      color: #000;
+    }
+
+    /* Mobile view */
+    @media (max-width: 768px) {
+      .timeline-line { left: 26px; }
+      .timeline-item.side-left, .timeline-item.side-right {
+        display: block;
+        padding-left: 58px;
+        margin-bottom: var(--space-6);
+      }
+      .timeline-item .spacer { display: none; }
+      .timeline-item.side-left .timeline-content,
+      .timeline-item.side-right .timeline-content {
+        width: 100% !important;
+        margin: 0 !important;
+      }
+      .timeline-dot {
+        left: 26px !important;
+        transform: translateX(-50%) !important;
+        width: 38px;
+        height: 38px;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── Floating Island Navigation ─────────────────── -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="Ambedkar Archive Home">
+      <div class="nav-logo-icon" aria-hidden="true">⚜️</div>
+      <div class="nav-logo-text">
+        <span>AMBEDKAR ARCHIVE</span>
+        <span class="nav-logo-sub">Digital Heritage Platform</span>
+      </div>
+    </a>
+
+    <div class="nav-links" role="list">
+      <a href="index.html" class="nav-link" role="listitem">Home</a>
+      <a href="archive.html" class="nav-link" role="listitem">Complete Works (60 Vol)</a>
+      <a href="media.html" class="nav-link" role="listitem">Speeches &amp; Media</a>
+      <a href="timeline.html" class="nav-link active" role="listitem">Timeline</a>
+      <a href="assistant.html" class="nav-link" role="listitem">AI Assistant</a>
+    </div>
+
+    <div class="nav-actions">
+            <!-- Reading Atmosphere Switcher -->
+      <div class="nav-theme" role="group" aria-label="Atmosphere selection">
+        <button class="theme-toggle-btn active" data-theme="dark" title="Dark Slate Atmosphere">🌙</button>
+        <button class="theme-toggle-btn" data-theme="paper" title="Ivory Paper Sanctuary">📜</button>
+        <button class="theme-toggle-btn" data-theme="sepia" title="Historical Sepia Sanctuary">🏺</button>
+      </div>
+      <div class="nav-lang" role="group" aria-label="Language selection">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="hi">हिन्दी</button>
+        <button class="lang-btn" data-lang="mr">मराठी</button>
+      </div>
+
+      <a id="nav-login-btn" href="login.html" class="btn btn-primary btn-sm">Sign In</a>
+
+      <div id="nav-user-menu" style="display:none;" class="flex gap-2 items-center">
+        <a href="dashboard.html" class="btn btn-secondary btn-sm">
+          <span>👤</span> <span id="nav-user-name">User</span>
+        </a>
+        <button data-action="logout" class="btn btn-ghost btn-sm">Logout</button>
+      </div>
+
+      <button id="hamburger" class="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Drawer -->
+<div id="mobile-menu" class="mobile-menu">
+  <div class="mobile-theme-row flex-between items-center" style="padding:var(--space-2) var(--space-3);margin-bottom:var(--space-2);border-bottom:1px solid var(--border);">
+    <span style="font-size:0.8rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Atmosphere</span>
+    <div class="nav-theme" role="group" aria-label="Atmosphere selection">
+      <button class="theme-toggle-btn active" data-theme="dark" title="Dark Slate">🌙</button>
+      <button class="theme-toggle-btn" data-theme="paper" title="Ivory Paper">📜</button>
+      <button class="theme-toggle-btn" data-theme="sepia" title="Historical Sepia">🏺</button>
+    </div>
+  </div>
+
+  <a href="index.html" class="nav-link">🏠 Home</a>
+  <a href="archive.html" class="nav-link">📚 Complete Works (60 Volumes)</a>
+  <a href="constitution.html" class="nav-link">⚖️ Constitution</a>
+  <a href="ideas.html" class="nav-link">💡 Thematic Ideas</a>
+  <a href="learning.html" class="nav-link">🎓 Learning Center</a>
+  <a href="quotes.html" class="nav-link">💬 Verified Quotes</a>
+  <a href="media.html" class="nav-link">🎬 Speeches &amp; Audio-Visual</a>
+  <a href="timeline.html" class="nav-link active">📅 Chronological Timeline</a>
+  <a href="slides.html" class="nav-link">📽️ Visual Exhibition Deck <span class="badge-16-9">16:9</span></a>
+  <a href="assistant.html" class="nav-link">🤖 AI Research Assistant</a>
+  <a href="ocr.html" class="nav-link">📜 Manuscript OCR</a>
+  <a href="dashboard.html" class="nav-link">👤 My Research Dashboard</a>
+  <div style="height:1px;background:rgba(255,255,255,0.08);margin:var(--space-4) 0;"></div>
+  <a href="login.html" class="btn btn-primary btn-full">Sign In</a>
+</div>
+
+<!-- ─── Vertical Left Dock: Curated Exploration Hubs ─── -->
+<aside class="side-dock" role="navigation" aria-label="Curated exploration hubs">
+  <div class="side-dock-inner">
+    <div class="side-dock-header">
+      <span class="side-dock-badge">Curated Hubs</span>
+    </div>
+    <div class="side-dock-links">
+      <a href="slides.html" class="side-dock-link" title="Visual Exhibition Deck (16:9)">
+        <span class="side-dock-icon">📽️</span>
+        <span class="side-dock-label">Exhibition <span class="badge-16-9">16:9</span></span>
+      </a>
+      <a href="constitution.html" class="side-dock-link" title="Constitution of India">
+        <span class="side-dock-icon">⚖️</span>
+        <span class="side-dock-label">Constitution</span>
+      </a>
+      <a href="ideas.html" class="side-dock-link" title="Thematic Ideas &amp; Philosophy">
+        <span class="side-dock-icon">💡</span>
+        <span class="side-dock-label">Ideas</span>
+      </a>
+      <a href="learning.html" class="side-dock-link" title="Interactive Learning Center">
+        <span class="side-dock-icon">🎓</span>
+        <span class="side-dock-label">Learning</span>
+      </a>
+      <a href="quotes.html" class="side-dock-link" title="Verified Historical Quotes">
+        <span class="side-dock-icon">💬</span>
+        <span class="side-dock-label">Quotes</span>
+      </a>
+      <a href="ocr.html" class="side-dock-link" title="Manuscript OCR Visualizer">
+        <span class="side-dock-icon">📜</span>
+        <span class="side-dock-label">OCR</span>
+      </a>
+    </div>
+  </div>
+</aside>
+
+<main class="page-content" role="main">
+  <div class="container section">
+    <div class="section-header text-center" style="max-width:760px;margin-left:auto;margin-right:auto;">
+      <div class="section-eyebrow">1891 — 1956</div>
+      <h1 class="section-title">Life &amp; Legacy Timeline</h1>
+      <p class="section-desc" style="margin:0 auto;">The historic journey of Bharat Ratna Dr. B. R. Ambedkar — from Mhow to London, from social emancipation movements to the Drafting of India's Constitution.</p>
+    </div>
+
+    <!-- Filter -->
+    <div class="filter-tabs" style="margin-bottom:var(--space-10);justify-content:center;" role="tablist">
+      <button class="filter-tab active" data-filter="all" role="tab">All Events</button>
+      <button class="filter-tab" data-filter="education" role="tab">🎓 Education</button>
+      <button class="filter-tab" data-filter="writing" role="tab">📖 Writings</button>
+      <button class="filter-tab" data-filter="movement" role="tab">✊ Movement</button>
+      <button class="filter-tab" data-filter="politics" role="tab">🏛️ Politics</button>
+      <button class="filter-tab" data-filter="religion" role="tab">☸️ Religion</button>
+    </div>
+
+    <!-- Timeline -->
+    <div class="timeline-container" id="timeline-container">
+      <div class="timeline-line" aria-hidden="true"></div>
+      <!-- Items injected by JS -->
+    </div>
+  </div>
+</main>
+
+<!-- Interactive Timeline Event & Exact Book Reference Modal -->
+<div id="timeline-detail-modal" class="cmd-backdrop" style="display:none; align-items:center; justify-content:center; padding:var(--space-4); z-index:10000; position:fixed; inset:0;" role="dialog" aria-modal="true" aria-labelledby="modal-event-title">
+  <div class="card animate-fade-up" style="max-width:680px; width:100%; max-height:88vh; overflow-y:auto; border-radius:var(--radius-xl); box-shadow:var(--shadow-lg), 0 0 35px rgba(212,175,55,0.25);">
+    <div class="card-inner" style="padding:var(--space-6);">
+      
+      <!-- Modal Header -->
+      <div class="flex-between items-start" style="margin-bottom:var(--space-4); gap:var(--space-3);">
+        <div class="flex items-center gap-3">
+          <div id="modal-event-icon" style="width:48px; height:48px; border-radius:50%; background:var(--surface-3); display:flex; align-items:center; justify-content:center; font-size:1.5rem; border:1px solid var(--border-gold); flex-shrink:0;">🌟</div>
+          <div>
+            <div class="flex gap-2 items-center flex-wrap">
+              <span id="modal-event-year" class="badge badge-gold font-mono text-sm font-bold">1916</span>
+              <span id="modal-event-category" class="badge badge-book uppercase text-xs">WRITING</span>
+              <span id="modal-event-milestone" class="badge badge-admin text-xs">Historic Milestone</span>
+            </div>
+            <h2 id="modal-event-title" class="font-heading text-xl text-gold" style="margin-top:var(--space-1); line-height:1.3;">Title</h2>
+          </div>
+        </div>
+        <button id="modal-close-btn" class="btn btn-ghost btn-sm" aria-label="Close dialog" style="font-size:1.25rem; line-height:1; border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer;">✕</button>
+      </div>
+
+      <!-- Exact Date and Location Capsule -->
+      <div id="modal-event-meta" class="flex gap-4 items-center flex-wrap text-xs text-muted" style="padding:var(--space-2) var(--space-3); background:var(--surface-2); border-radius:var(--radius-sm); margin-bottom:var(--space-4); border:1px solid var(--border);">
+        <span id="modal-event-date">🗓️ Exact Date</span>
+        <span id="modal-event-location">📍 Location</span>
+      </div>
+
+      <!-- Deep Context -->
+      <div style="margin-bottom:var(--space-5);">
+        <h4 class="text-xs uppercase font-bold text-muted" style="letter-spacing:0.05em; margin-bottom:var(--space-1);">Historical Context &amp; Significance</h4>
+        <p id="modal-event-detail" class="text-sm leading-relaxed" style="color:var(--text);"></p>
+      </div>
+
+      <!-- Historic Quote (if present) -->
+      <blockquote id="modal-event-quote-box" style="margin-bottom:var(--space-5); padding:var(--space-3) var(--space-4); border-left:3px solid var(--gold); background:rgba(212,175,55,0.06); border-radius:0 var(--radius-sm) var(--radius-sm) 0; font-family:var(--font-serif); font-style:italic; font-size:0.95rem; color:var(--text);">
+        "<span id="modal-event-quote"></span>"
+      </blockquote>
+
+      <!-- Exact Official Book Reference Box -->
+      <div style="background:var(--surface-2); border:1px solid var(--border-gold); border-radius:var(--radius-lg); padding:var(--space-4); margin-bottom:var(--space-4);">
+        <div class="flex-between items-center" style="margin-bottom:var(--space-2); flex-wrap:wrap; gap:var(--space-2);">
+          <span class="badge badge-local" style="font-size:0.75rem;">⚡ Official Archival Source</span>
+          <span id="modal-book-vol" class="text-xs text-gold font-mono font-bold">BAWS Volume 1</span>
+        </div>
+        <h4 id="modal-book-title" class="font-heading text-sm text-gold" style="margin-bottom:4px;">Dr. Babasaheb Ambedkar: Writings and Speeches</h4>
+        <p id="modal-book-chapter" class="text-xs text-muted leading-relaxed" style="margin-bottom:var(--space-3);">Chapter reference</p>
+        
+        <div class="flex items-center gap-2 p-2 rounded" style="background:rgba(212,175,55,0.1); border:1px dashed rgba(212,175,55,0.35); margin-bottom:var(--space-3);">
+          <span style="font-size:1.1rem;">💡</span>
+          <span class="text-xs" style="color:var(--text); font-weight:500;">Would you like to jump directly into the official archive volume for this exact reference?</span>
+        </div>
+
+        <div class="flex gap-2 items-center flex-wrap">
+          <a id="modal-jump-btn" href="#" class="btn btn-primary btn-sm flex-1" style="justify-content:center; text-decoration:none;">
+            <span>📖 Jump into Book for Exact Reference</span>
+            <span class="btn-icon-bubble">↗</span>
+          </a>
+          <a id="modal-search-btn" href="#" class="btn btn-secondary btn-sm" style="text-decoration:none;" title="Search for this topic in the archive">
+            <span>🔍 Search Topic</span>
+          </a>
+          <button id="modal-copy-citation-btn" class="btn btn-outline btn-sm" title="Copy academic citation">
+            <span>📋 Copy Citation</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<nav class="bottom-bar">
+  <a href="index.html" class="tab-item"><span class="tab-icon">🏠</span><span>Home</span></a>
+  <a href="archive.html" class="tab-item"><span class="tab-icon">📚</span><span>Archive</span></a>
+  <a href="timeline.html" class="tab-item active"><span class="tab-icon">📅</span><span>Timeline</span></a>
+  <a href="assistant.html" class="tab-item"><span class="tab-icon">🤖</span><span>AI</span></a>
+  <a href="dashboard.html" class="tab-item"><span class="tab-icon">👤</span><span>Me</span></a>
+</nav>
+
+<div id="toast-container" class="toast-container"></div>
+
+<script src="js/api.js"></script>
+<script src="js/toast.js"></script>
+<script src="js/app.js"></script>
+  <script src="js/command-palette.js"></script>
+<script src="js/timeline.js"></script>
+</body>
+</html>

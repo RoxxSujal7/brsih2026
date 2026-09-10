@@ -1,0 +1,579 @@
+/* ═══════════════════════════════════════════════════════════════
+   APPLE DESIGN SYSTEM — Fluid Interfaces & Physical Motion
+   Inspired by WWDC "Designing Fluid Interfaces" & Human Interface Guidelines
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Apple System Typography Hierarchy */
+  --font-apple-system: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", system-ui, sans-serif;
+  --font-apple-mono: "SF Mono", Menlo, Monaco, Consolas, monospace;
+
+  /* Optical Tracking & Leading Tokens */
+  --tracking-hero: -0.035em;
+  --tracking-display: -0.025em;
+  --tracking-title: -0.015em;
+  --tracking-body: 0;
+  --tracking-caps: 0.06em;
+  --leading-hero: 1.05;
+  --leading-display: 1.12;
+  --leading-title: 1.25;
+  --leading-body: 1.55;
+
+  /* Apple Translucent Materials (Vibrancy & Depth) */
+  --apple-blur-thick: blur(28px) saturate(190%);
+  --apple-blur-regular: blur(20px) saturate(180%);
+  --apple-blur-thin: blur(12px) saturate(160%);
+  
+  --apple-glass-bg: rgba(14, 18, 28, 0.76);
+  --apple-glass-card: rgba(20, 27, 43, 0.65);
+  --apple-glass-toolbar: rgba(11, 15, 24, 0.82);
+  --apple-specular-top: inset 0 1px 0.5px rgba(255, 255, 255, 0.22);
+  --apple-specular-subtle: inset 0 0.5px 0.5px rgba(255, 255, 255, 0.12);
+  --apple-hairline-border: 1px solid rgba(255, 255, 255, 0.08);
+
+  /* Physics Transition Curves (Apple Spring Mimicry for CSS) */
+  --apple-spring-curve: cubic-bezier(0.32, 0.72, 0, 1);
+  --apple-instant-press: cubic-bezier(0.2, 0.9, 0.4, 1);
+  --apple-release-spring: cubic-bezier(0.18, 0.89, 0.32, 1.15);
+}
+
+/* Light Theme Material Adjustments */
+[data-theme="paper"] {
+  --apple-glass-bg: rgba(248, 246, 240, 0.82);
+  --apple-glass-card: rgba(255, 255, 255, 0.75);
+  --apple-glass-toolbar: rgba(244, 241, 233, 0.88);
+  --apple-specular-top: inset 0 1px 0.5px rgba(255, 255, 255, 0.8);
+  --apple-hairline-border: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+[data-theme="sepia"] {
+  --apple-glass-bg: rgba(244, 237, 222, 0.84);
+  --apple-glass-card: rgba(250, 245, 233, 0.78);
+  --apple-glass-toolbar: rgba(238, 229, 211, 0.9);
+  --apple-specular-top: inset 0 1px 0.5px rgba(255, 255, 255, 0.7);
+  --apple-hairline-border: 1px solid rgba(80, 50, 20, 0.09);
+}
+
+/* ───────────────────────────────────────────────────────────────
+   1. OPTICAL TYPOGRAPHY (WWDC The Details of UI Typography)
+   ─────────────────────────────────────────────────────────────── */
+h1, .hero-title, .section-title {
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-display);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+.hero-title {
+  letter-spacing: var(--tracking-hero);
+  line-height: var(--leading-hero);
+}
+
+h2, h3, .card-title {
+  letter-spacing: var(--tracking-title);
+  line-height: var(--leading-title);
+}
+
+.section-eyebrow, .badge, .tag, .stat-label {
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+}
+
+/* ───────────────────────────────────────────────────────────────
+   2. INSTANT RESPONSE (Kill Latency on Pointer-Down)
+   ─────────────────────────────────────────────────────────────── */
+/* Instant tactile feedback on press — no delay */
+button,
+.btn,
+.nav-link,
+.card,
+.theme-toggle-btn,
+.lang-btn,
+.quick-action-pill,
+.apple-pressable {
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+button:active,
+.btn:active,
+.nav-logo:active,
+.theme-toggle-btn:active,
+.lang-btn:active,
+.quick-action-pill:active,
+.apple-pressable:active {
+  transform: scale(0.968) !important;
+  transition: transform 70ms var(--apple-instant-press) !important;
+  filter: brightness(1.08);
+}
+
+/* Cards tactile depression */
+.card:active {
+  transform: scale(0.988) translateY(1px);
+  transition: transform 80ms var(--apple-instant-press);
+}
+
+/* ───────────────────────────────────────────────────────────────
+   3. APPLE TRANSLUCENT MATERIALS & FLOATING CHROME
+   ─────────────────────────────────────────────────────────────── */
+.nav,
+.apple-glass {
+  background: var(--apple-glass-bg);
+  backdrop-filter: var(--apple-blur-thick);
+  -webkit-backdrop-filter: var(--apple-blur-thick);
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.45), var(--apple-specular-top);
+  border: var(--apple-hairline-border);
+}
+
+/* ───────────────────────────────────────────────────────────────
+   4. APPLE GESTURE BOTTOM SHEET & QUICK INSPECTOR
+   ─────────────────────────────────────────────────────────────── */
+.apple-sheet-scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.54);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 99990;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 320ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.apple-sheet-scrim.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.apple-sheet {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(105%);
+  width: 100%;
+  max-width: 640px;
+  max-height: 85vh;
+  background: var(--apple-glass-toolbar);
+  backdrop-filter: var(--apple-blur-thick);
+  -webkit-backdrop-filter: var(--apple-blur-thick);
+  border-radius: 28px 28px 0 0;
+  border-top: var(--apple-hairline-border);
+  box-shadow: 0 -12px 48px rgba(0, 0, 0, 0.65), var(--apple-specular-top);
+  z-index: 99995;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  touch-action: none; /* Pointer events directly handled by physics */
+  will-change: transform;
+}
+
+.apple-sheet-handle-zone {
+  width: 100%;
+  padding: 14px 0 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+}
+
+.apple-sheet-handle-zone:active {
+  cursor: grabbing;
+}
+
+.apple-sheet-pill {
+  width: 44px;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.28);
+  transition: background 150ms ease, width 200ms ease;
+}
+
+.apple-sheet-handle-zone:hover .apple-sheet-pill {
+  background: rgba(255, 255, 255, 0.45);
+  width: 52px;
+}
+
+.apple-sheet-header {
+  padding: 0 24px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.apple-sheet-title {
+  font-family: var(--font-apple-system);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: var(--tracking-title);
+  color: var(--text);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.apple-sheet-close-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: var(--text-muted);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.apple-sheet-close-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: var(--text);
+}
+
+.apple-sheet-body {
+  padding: 20px 24px 36px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Quick Control Rows in Apple Sheet */
+.apple-setting-group {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 18px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.apple-setting-group-title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.apple-setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.apple-setting-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.apple-segmented-control {
+  display: flex;
+  background: rgba(0, 0, 0, 0.28);
+  padding: 3px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.apple-segment-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: background 180ms ease, color 180ms ease, transform 120ms ease;
+}
+
+.apple-segment-btn.active {
+  background: rgba(255, 255, 255, 0.18);
+  color: var(--text);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+/* ───────────────────────────────────────────────────────────────
+   4B. VERTICAL LEFT SIDE DOCK (Curated Exhibition & Hubs Rail)
+/* ───────────────────────────────────────────────────────────────
+   4B. VERTICAL LEFT SIDE DOCK (Curated Exhibition & Hubs Rail)
+   ─────────────────────────────────────────────────────────────── */
+.side-dock {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 920;
+  pointer-events: none; /* Never intercept clicks outside the visible dock */
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.side-dock-inner {
+  pointer-events: auto;
+  background: var(--apple-glass-toolbar);
+  backdrop-filter: var(--apple-blur-thick);
+  -webkit-backdrop-filter: var(--apple-blur-thick);
+  border: var(--apple-hairline-border);
+  border-left: none;
+  border-radius: 0 20px 20px 0;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), var(--apple-specular-top);
+  padding: 10px 10px 10px 8px;
+  width: 172px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transform: translateX(-124px); /* Sleek edge rail: peeks 48px showing icons, never covers page buttons */
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+}
+
+.side-dock:hover .side-dock-inner,
+.side-dock:focus-within .side-dock-inner {
+  transform: translateX(0);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 30px rgba(212, 175, 55, 0.25);
+}
+
+@media (min-width: 1600px) {
+  .side-dock {
+    left: 20px;
+  }
+  .side-dock-inner {
+    border-left: var(--apple-hairline-border);
+    border-radius: 20px;
+    transform: translateX(0);
+  }
+}
+
+.side-dock-header {
+  padding: 4px 8px 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 4px;
+}
+
+.side-dock-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+  color: var(--gold-light);
+  display: block;
+}
+
+.side-dock-links {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.side-dock-link {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: background 140ms ease, color 140ms ease, transform 140ms var(--apple-instant-press);
+}
+
+.side-dock-link:hover {
+  background: rgba(255, 255, 255, 0.09);
+  color: var(--text);
+  transform: translateX(3px);
+}
+
+.side-dock-link:active {
+  transform: scale(0.96) !important;
+}
+
+.side-dock-link.active {
+  background: rgba(212, 175, 55, 0.15) !important;
+  color: var(--gold-light) !important;
+  border: 1px solid rgba(212, 175, 55, 0.32) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35) !important;
+}
+
+.side-dock-icon {
+  font-size: 0.95rem;
+  width: 20px;
+  display: inline-flex;
+  justify-content: center;
+}
+
+.side-dock-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+/* Hide side-dock on mobile & tablet where space is restricted */
+@media (max-width: 1180px) {
+  .side-dock {
+    display: none !important;
+  }
+}
+
+/* Floating Apple Quick Action Capsule Button — Repositioned to Right */
+.apple-quick-pill {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  left: auto;
+  z-index: 9998;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 15px;
+  background: var(--apple-glass-toolbar);
+  backdrop-filter: var(--apple-blur-thick);
+  -webkit-backdrop-filter: var(--apple-blur-thick);
+  border: var(--apple-hairline-border);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), var(--apple-specular-top);
+  border-radius: 999px;
+  color: var(--text);
+  font-family: var(--font-apple-system);
+  font-size: 0.825rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 160ms var(--apple-instant-press), box-shadow 200ms ease;
+}
+
+.apple-quick-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.65), var(--apple-specular-top);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.apple-quick-pill:active {
+  transform: scale(0.95) !important;
+}
+
+.apple-quick-pill .apple-icon {
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .apple-quick-pill {
+    bottom: 84px;
+    right: 16px;
+    padding: 7px 12px;
+    font-size: 0.775rem;
+  }
+}
+
+/* ───────────────────────────────────────────────────────────────
+   4C. BUTTON & TAB LABEL STACKING (Never covered when tapped)
+   ─────────────────────────────────────────────────────────────── */
+.filter-tab,
+.tab,
+.domain-chip,
+.btn,
+button {
+  position: relative;
+  z-index: 2;
+}
+
+.filter-tab.active,
+.tab.active {
+  color: #ffffff !important;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="paper"] .filter-tab.active,
+[data-theme="paper"] .tab.active,
+[data-theme="sepia"] .filter-tab.active,
+[data-theme="sepia"] .tab.active {
+  color: #0f172a !important;
+  text-shadow: none;
+}
+
+.btn-primary {
+  color: #ffffff !important;
+}
+.btn-primary:hover,
+.btn-primary:active {
+  color: #ffffff !important;
+}
+
+/* ───────────────────────────────────────────────────────────────
+   5. RUBBER-BANDING & GESTURE SCROLL CONTAINERS
+   ─────────────────────────────────────────────────────────────── */
+.apple-scroll-smooth {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+.apple-carousel-grabbable {
+  cursor: grab;
+  user-select: none;
+}
+
+.apple-carousel-grabbable:active {
+  cursor: grabbing;
+}
+
+/* ───────────────────────────────────────────────────────────────
+   6. ACCESSIBILITY & SYSTEM OVERRIDES (WWDC Safe Motion)
+   ─────────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .apple-sheet {
+    transition: opacity 160ms ease !important;
+    transform: translateX(-50%) translateY(0) !important;
+    opacity: 0;
+  }
+
+  .apple-sheet.open {
+    opacity: 1;
+  }
+
+  button:active,
+  .btn:active,
+  .card:active {
+    transform: none !important;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .nav,
+  .apple-glass,
+  .apple-sheet,
+  .apple-quick-pill,
+  .toast-item {
+    background: #0f1420 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  }
+
+  [data-theme="paper"] .nav,
+  [data-theme="paper"] .apple-glass,
+  [data-theme="paper"] .apple-sheet,
+  [data-theme="paper"] .apple-quick-pill {
+    background: #f4f0e6 !important;
+    border: 1px solid rgba(0, 0, 0, 0.2) !important;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --apple-hairline-border: 1.5px solid rgba(255, 255, 255, 0.4) !important;
+  }
+}

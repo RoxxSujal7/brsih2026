@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Center — Dr. B. R. Ambedkar Digital Heritage Archive</title>
+  <meta name="description" content="Structured learning paths to study Dr. B. R. Ambedkar's life and works — from beginner introductions to advanced constitutional and economic theory." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script>(function(){const t=localStorage.getItem('site_theme')||localStorage.getItem('reader_theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+
+  <style>
+    /* ── Learning Center — Z-Axis Cascade + Bento Layout ── */
+
+    .learn-hero {
+      min-height: 460px;
+      background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(99,102,241,0.1) 0%, transparent 70%),
+                  linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+      padding: calc(var(--nav-height) + var(--space-16)) var(--space-6) var(--space-14);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .learn-hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      margin-bottom: var(--space-4);
+    }
+    .learn-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      color: var(--text);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: var(--space-4);
+    }
+    .learn-hero-sub {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 620px;
+      line-height: 1.75;
+      margin-bottom: var(--space-8);
+    }
+    .learn-path-tabs {
+      display: flex;
+      gap: var(--space-2);
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .learn-tab {
+      padding: 9px 22px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-family: var(--font-body);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.24s cubic-bezier(0.32,0.72,0,1);
+    }
+    .learn-tab:hover { border-color: var(--accent-light); color: var(--accent-light); }
+    .learn-tab.active {
+      background: rgba(56,189,248,0.12);
+      border-color: var(--accent-light);
+      color: var(--accent-light);
+      font-weight: 600;
+    }
+
+    /* ── Path Sections ── */
+    .path-section {
+      display: none;
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: var(--space-14) var(--space-6);
+    }
+    .path-section.active { display: block; }
+
+    /* Path header */
+    .path-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-8);
+      align-items: start;
+      margin-bottom: var(--space-10);
+    }
+    .path-level-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      border-radius: var(--radius-full);
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--space-3);
+      width: fit-content;
+    }
+    .badge-beginner { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); color: #10b981; }
+    .badge-intermediate { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3); color: #f59e0b; }
+    .badge-advanced { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: #ef4444; }
+
+    .path-heading {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      color: var(--text);
+      margin-bottom: var(--space-3);
+      line-height: 1.2;
+    }
+    .path-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+    .path-meta {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+      align-items: flex-end;
+    }
+    .path-time-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-5) var(--space-6);
+      text-align: center;
+      width: 200px;
+    }
+    .path-time-num {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      color: var(--gold-light);
+      line-height: 1;
+    }
+    .path-time-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 4px;
+    }
+
+    /* ── Module Cards (Z-Axis Cascade style) ── */
+    .modules-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+    .module-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 2px;
+      transition: border-color 0.26s cubic-bezier(0.32,0.72,0,1),
+                  transform 0.26s cubic-bezier(0.32,0.72,0,1);
+    }
+    .module-card:hover { border-color: var(--border-gold); transform: translateX(6px); }
+    .module-card-inner {
+      background: var(--surface);
+      border-radius: calc(var(--radius-xl) - 2px);
+      padding: var(--space-6);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+      display: grid;
+      grid-template-columns: 64px 1fr auto;
+      gap: var(--space-5);
+      align-items: center;
+    }
+    .module-num {
+      width: 56px;
+      height: 56px;
+      border-radius: var(--radius-lg);
+      background: var(--gold-subtle);
+      border: 1px solid var(--border-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      color: var(--gold-light);
+      flex-shrink: 0;
+    }
+    .module-body { min-width: 0; }
+    .module-title {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 5px;
+    }
+    .module-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: var(--space-3);
+    }
+    .module-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .module-tag {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      background: var(--surface-2);
+      color: var(--text-muted);
+    }
+    .module-cta {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 18px;
+      border-radius: var(--radius-full);
+      background: var(--gold-subtle);
+      border: 1px solid var(--border-gold);
+      color: var(--gold-light);
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s cubic-bezier(0.32,0.72,0,1);
+      white-space: nowrap;
+    }
+    .module-cta:hover { background: var(--gold); color: var(--bg); }
+
+    /* ── Bento Highlight Grid ── */
+    .highlight-bento {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: var(--space-4);
+      margin-top: var(--space-10);
+    }
+    .bento-cell {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 2px;
+      transition: border-color 0.26s cubic-bezier(0.32,0.72,0,1);
+    }
+    .bento-cell:hover { border-color: var(--border-gold); }
+    .bento-cell-inner {
+      background: var(--surface);
+      border-radius: calc(var(--radius-xl) - 2px);
+      padding: var(--space-6);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+      height: 100%;
+    }
+    .bento-cell.wide { grid-column: span 2; }
+    .bento-icon { font-size: 2rem; margin-bottom: var(--space-3); }
+    .bento-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: var(--space-2);
+    }
+    .bento-text {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+    .bento-link {
+      display: inline-block;
+      margin-top: var(--space-4);
+      font-size: 0.78rem;
+      color: var(--gold-light);
+      text-decoration: none;
+      font-family: var(--font-mono);
+      transition: color 0.18s;
+    }
+    .bento-link:hover { color: var(--gold); }
+
+    /* Scroll-reveal */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1);
+    }
+    .fade-up.in { opacity: 1; transform: none; }
+
+    @media (max-width: 768px) {
+      .path-header { grid-template-columns: 1fr; }
+      .path-meta { align-items: flex-start; }
+      .path-time-box { width: 100%; }
+      .module-card-inner { grid-template-columns: 48px 1fr; }
+      .module-cta { grid-column: span 2; justify-self: start; }
+      .highlight-bento { grid-template-columns: 1fr; }
+      .bento-cell.wide { grid-column: span 1; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── Navigation ─── -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="Ambedkar Archive Home">
+      <div class="nav-logo-icon" aria-hidden="true">⚜️</div>
+      <div class="nav-logo-text">
+        <span>AMBEDKAR ARCHIVE</span>
+        <span class="nav-logo-sub">Digital Heritage Platform</span>
+      </div>
+    </a>
+    <div class="nav-links" role="list">
+      <a href="index.html" class="nav-link" role="listitem">Home</a>
+      <a href="archive.html" class="nav-link" role="listitem">Complete Works (60 Vol)</a>
+      <a href="media.html" class="nav-link" role="listitem">Speeches &amp; Media</a>
+      <a href="timeline.html" class="nav-link" role="listitem">Timeline</a>
+      <a href="assistant.html" class="nav-link" role="listitem">AI Assistant</a>
+    </div>
+    <div class="nav-actions">
+      <div class="nav-theme" role="group" aria-label="Atmosphere selection">
+        <button class="theme-toggle-btn active" data-theme="dark" title="Dark">🌙</button>
+        <button class="theme-toggle-btn" data-theme="paper" title="Paper">📜</button>
+        <button class="theme-toggle-btn" data-theme="sepia" title="Sepia">🏺</button>
+      </div>
+      <div class="nav-lang" role="group" aria-label="Language selection">
+        <button class="lang-btn active" data-lang="en" aria-pressed="true">EN</button>
+        <button class="lang-btn" data-lang="hi" aria-pressed="false">हिन्दी</button>
+        <button class="lang-btn" data-lang="mr" aria-pressed="false">मराठी</button>
+      </div>
+      <a id="nav-login-btn" href="login.html" class="btn btn-primary btn-sm">Sign In</a>
+      <div id="nav-user-menu" style="display:none;" class="flex gap-2 items-center">
+        <a href="dashboard.html" class="btn btn-secondary btn-sm"><span>👤</span> <span id="nav-user-name">User</span></a>
+        <button data-action="logout" class="btn btn-ghost btn-sm">Logout</button>
+      </div>
+      <button id="hamburger" class="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Navigation Drawer -->
+<div id="mobile-menu" class="mobile-menu" role="dialog" aria-label="Mobile navigation">
+  <div class="mobile-theme-row flex-between items-center" style="padding:var(--space-2) var(--space-3);margin-bottom:var(--space-2);border-bottom:1px solid var(--border);">
+    <span style="font-size:0.8rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Atmosphere</span>
+    <div class="nav-theme" role="group" aria-label="Atmosphere selection">
+      <button class="theme-toggle-btn active" data-theme="dark" title="Dark Slate">🌙</button>
+      <button class="theme-toggle-btn" data-theme="paper" title="Ivory Paper">📜</button>
+      <button class="theme-toggle-btn" data-theme="sepia" title="Historical Sepia">🏺</button>
+    </div>
+  </div>
+
+  <a href="index.html" class="nav-link">🏠 Home</a>
+  <a href="archive.html" class="nav-link">📚 Complete Works (60 Volumes)</a>
+  <a href="constitution.html" class="nav-link">⚖️ Constitution</a>
+  <a href="ideas.html" class="nav-link">💡 Thematic Ideas</a>
+  <a href="learning.html" class="nav-link active">🎓 Learning Center</a>
+  <a href="quotes.html" class="nav-link">💬 Verified Quotes</a>
+  <a href="media.html" class="nav-link">🎬 Speeches &amp; Audio-Visual</a>
+  <a href="timeline.html" class="nav-link">📅 Chronological Timeline</a>
+  <a href="slides.html" class="nav-link">📽️ Visual Exhibition Deck <span class="badge-16-9">16:9</span></a>
+  <a href="assistant.html" class="nav-link">🤖 AI Research Assistant</a>
+  <a href="ocr.html" class="nav-link">📜 Manuscript OCR</a>
+  <a href="dashboard.html" class="nav-link">👤 My Research Dashboard</a>
+  <div style="height:1px;background:rgba(255,255,255,0.08);margin:var(--space-4) 0;"></div>
+  <a href="login.html" class="btn btn-primary btn-full">Sign In</a>
+</div>
+
+<!-- ─── Vertical Left Dock: Curated Exploration Hubs ─── -->
+<aside class="side-dock" role="navigation" aria-label="Curated exploration hubs">
+  <div class="side-dock-inner">
+    <div class="side-dock-header">
+      <span class="side-dock-badge">Curated Hubs</span>
+    </div>
+    <div class="side-dock-links">
+      <a href="slides.html" class="side-dock-link" title="Visual Exhibition Deck (16:9)">
+        <span class="side-dock-icon">📽️</span>
+        <span class="side-dock-label">Exhibition <span class="badge-16-9">16:9</span></span>
+      </a>
+      <a href="constitution.html" class="side-dock-link" title="Constitution of India">
+        <span class="side-dock-icon">⚖️</span>
+        <span class="side-dock-label">Constitution</span>
+      </a>
+      <a href="ideas.html" class="side-dock-link" title="Thematic Ideas &amp; Philosophy">
+        <span class="side-dock-icon">💡</span>
+        <span class="side-dock-label">Ideas</span>
+      </a>
+      <a href="learning.html" class="side-dock-link active" title="Interactive Learning Center">
+        <span class="side-dock-icon">🎓</span>
+        <span class="side-dock-label">Learning</span>
+      </a>
+      <a href="quotes.html" class="side-dock-link" title="Verified Historical Quotes">
+        <span class="side-dock-icon">💬</span>
+        <span class="side-dock-label">Quotes</span>
+      </a>
+      <a href="ocr.html" class="side-dock-link" title="Manuscript OCR Visualizer">
+        <span class="side-dock-icon">📜</span>
+        <span class="side-dock-label">OCR</span>
+      </a>
+    </div>
+  </div>
+</aside>
+
+<!-- ─── Hero ─── -->
+<section class="learn-hero" aria-labelledby="learn-heading">
+  <div class="learn-hero-eyebrow">🎓 Structured Study Paths</div>
+  <h1 id="learn-heading">Ambedkar Learning Center</h1>
+  <p class="learn-hero-sub">
+    Choose your path — from a first introduction to advanced constitutional theory. Each module links directly to the primary BAWS volumes in the archive.
+  </p>
+  <div class="learn-path-tabs" role="tablist" aria-label="Learning paths">
+    <button class="learn-tab active" role="tab" aria-selected="true" data-path="beginner" id="tab-beginner">🌱 Beginner</button>
+    <button class="learn-tab" role="tab" aria-selected="false" data-path="intermediate" id="tab-intermediate">📚 Intermediate</button>
+    <button class="learn-tab" role="tab" aria-selected="false" data-path="advanced" id="tab-advanced">🔬 Advanced</button>
+  </div>
+</section>
+
+<!-- ─── BEGINNER PATH ─── -->
+<div class="path-section active" id="path-beginner" role="tabpanel" aria-labelledby="tab-beginner">
+
+  <div class="path-header fade-up">
+    <div>
+      <div class="path-level-badge badge-beginner">🌱 Beginner Path</div>
+      <h2 class="path-heading">Who Was Dr. B. R. Ambedkar?</h2>
+      <p class="path-desc">Start here if you're new to Ambedkar's life and legacy. These modules introduce the key milestones, core ideas, and primary works — no prior knowledge required.</p>
+    </div>
+    <div class="path-meta">
+      <div class="path-time-box">
+        <div class="path-time-num">4</div>
+        <div class="path-time-label">Modules</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modules-list">
+    <div class="module-card fade-up">
+      <div class="module-card-inner">
+        <div class="module-num">01</div>
+        <div class="module-body">
+          <div class="module-title">Life &amp; Milestones: 1891–1956</div>
+          <p class="module-desc">An overview of Ambedkar's extraordinary life — from his birth in Mhow, the Mahad Satyagraha, Columbia and LSE years, constitutional drafting, Buddhist conversion, to Mahaparinirvan.</p>
+          <div class="module-tags">
+            <span class="module-tag">Biography</span>
+            <span class="module-tag">BAWS Vol. 17</span>
+            <span class="module-tag">Timeline</span>
+          </div>
+        </div>
+        <a href="timeline.html" class="module-cta">Begin → Timeline</a>
+      </div>
+    </div>
+
+    <div class="module-card fade-up">
+      <div class="module-card-inner">
+        <div class="module-num">02</div>
+        <div class="module-body">
+          <div class="module-title">Understanding Caste: Annihilation of Caste (1936)</div>
+          <p class="module-desc">The foundational text. Ambedkar dismantles the logic, morality, and religion of caste in India. Required reading for understanding his philosophy of social reform.</p>
+          <div class="module-tags">
+            <span class="module-tag">BAWS Vol. 1</span>
+            <span class="module-tag">Social Reform</span>
+            <span class="module-tag">Core Text</span>
+          </div>
+        </div>
+        <a href="reader.html?id=doc-en-1" class="module-cta">Read Vol. 1 →</a>
+      </div>
+    </div>
+
+    <div class="module-card fade-up">
+      <div class="module-card-inner">
+        <div class="module-num">03</div>
+        <div class="module-body">
+          <div class="module-title">The Constitution: Ambedkar's Greatest Achievement</div>
+          <p class="module-desc">Learn how Ambedkar chaired the Drafting Committee, the key Articles he fought for, and why he called Article 32 "the very soul of the Constitution."</p>
+          <div class="module-tags">
+            <span class="module-tag">BAWS Vol. 13</span>
+            <span class="module-tag">Constitution</span>
+            <span class="module-tag">Fundamental Rights</span>
+          </div>
+        </div>
+        <a href="constitution.html" class="module-cta">Explore Constitution →</a>
+      </div>
+    </div>
+
+    <div class="module-card fade-up">
+      <div class="module-card-inner">
+        <div class="module-num">04</div>
+        <div class="module-body">
+          <div class="module-title">Verified Quotes: In His Own Words</div>
+          <p class="module-desc">Browse Ambedkar's most powerful statements on education, democracy, caste, religion, and women's rights — each with full BAWS citation so you know exactly where it comes from.</p>
+          <div class="module-tags">
+            <span class="module-tag">Quotations</span>
+            <span class="module-tag">All Volumes</span>
+            <span class="module-tag">Source-Verified</span>
+          </div>
+        </div>
+        <a href="quotes.html" class="module-cta">Browse Quotes →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bento highlights -->
+  <div class="highlight-bento">
+    <div class="bento-cell wide fade-up">
+      <div class="bento-cell-inner">
+        <div class="bento-icon">🌊</div>
+        <div class="bento-title">The Mahad Water Satyagraha (1927)</div>
+        <p class="bento-text">On March 20, 1927, Ambedkar led thousands to drink from the Chavdar Tank in Mahad — an act that transformed the fight for water into the first mass civil-rights movement in modern India. This event is the starting point for understanding his method of nonviolent confrontation.</p>
+        <a href="timeline.html" class="bento-link">View in Timeline →</a>
+      </div>
+    </div>
+    <div class="bento-cell fade-up">
+      <div class="bento-cell-inner">
+        <div class="bento-icon">🤖</div>
+        <div class="bento-title">Ask the AI Assistant</div>
+        <p class="bento-text">Have questions? Our AI Research Assistant draws answers strictly from the BAWS corpus with source citations.</p>
+        <a href="assistant.html" class="bento-link">Open Assistant →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── INTERMEDIATE PATH ─── -->
+<div class="path-section" id="path-intermediate" role="tabpanel" aria-labelledby="tab-intermediate">
+
+  <div class="path-header fade-up">
+    <div>
+      <div class="path-level-badge badge-intermediate">📚 Intermediate Path</div>
+      <h2 class="path-heading">Major Works &amp; Movements</h2>
+      <p class="path-desc">Deepen your understanding through Ambedkar's major treatises, political battles, and the Poona Pact. Suitable for those with basic familiarity with his life.</p>
+    </div>
+    <div class="path-meta">
+      <div class="path-time-box">
+        <div class="path-time-num">5</div>
+        <div class="path-time-label">Modules</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modules-list">
+    <div class="module-card fade-up">
+      <div class="module-card-inner">
+        <div class="module-num">01</div>
+        <div class="module-body">
+          <div class="module-title">The Buddha and His Dhamma (1956)</div>
+          <p class="module-desc">Ambedkar's definitive work on Buddhism. Completed days before his death, it reconstructs the Buddha's teachings around Prajna, Karuna, and Samata as a rationalist philosophy of equality.</p>
+          <div class="module-tags">
+            <span class="module-tag">BAWS Vol. 11</span>
+            <span class="module-tag">Buddhism</span>
+            <span class="module-tag">Navayana</span>
+          </div>
+        </div>
+        <a href="reader.html?id=doc-en-11" class="module-cta">Read Vol. 11 →</a>
+      </div>
+    </div>
+
+    <div class="module-card fade-up">
+      <div class="module-card-inner">
+        <div class="module-num">02</div>
+        <div class="module-body">
+          <div class="module-title">Who Were the Shudras? &amp; The Untouchables (1948–1948)</div>
+          <p class="module-desc">A two-volume historical investigation into the origins of the fourth Varna and the Untouchable communities — combining ancient texts, archaeology, and sociological analysis.</p>
+          <div class="module-tags">
+            <span class="module-tag">BAWS Vol. 7</span>
+            <span class="module-tag">History</span>
+            <span class="module-tag">Varna System</span>
+          </div>
+        </div>
+        <a href="reader.html?id=doc-en-7" class="module-cta">Read Vol. 7 →</a>
+      </div>
+    </div>
+
+    <div class="module-card fade-up">
+      <div class="module-card-inner">
+        <div class="module-num">03</div>
+        <div class="module-body">
+          <div class="module-title">Round Table Conferences &amp; The Poona Pact (1930–32)</div>
+          <p class="module-desc">Ambedkar's three appearances at the London Round Table Conferences, the Communal Award, Gandhi's fast, and the landmark Poona Pact that doubled reserved seats.</p>
+          <div class="module-tags">
+            <span class="module-tag">BAWS Vol. 2 &amp; 9</span>
+            <span class="module-tag">Political History</span>
+            <span class="module-tag">Representation</span>
+          </div>
+        </div>
+        <a href="reader.html?id=doc-en-2" class="module-cta">Read Vol. 2 →</a>
+      </div>
+    </div>
+
+    <div class="module-card fade-up">
+      <div class="module-card-inner">
+        <div class="module-num">04</div>
+        <div class="module-body">
+          <div class="module-title">Pakistan or the Partition of India (1940)</div>
+          <p class="module-desc">Ambedkar's dispassionate political analysis of the partition question — examining communalism, the two-nation theory, and the rights of minorities with rigorous legal and historical arguments.</p>
+          <div class="module-tags">
+            <span class="module-tag">BAWS Vol. 8</span>
+            <span class="module-tag">Political Theory</span>
+            <span class="module-tag">Partition</span>
+          </div>
+        </div>
+        <a href="reader.html?id=doc-en-8" class="module-cta">Read Vol. 8 →</a>
+      </div>
+    </div>
+
+    <div class="module-card fade-up">
+      <div class="module-card-inner">
+        <div class="module-num">05</div>
+        <div class="module-body">
+          <div class="module-title">The Hindu Code Bill &amp; Women's Rights (1947–1951)</div>
+          <p class="module-desc">Ambedkar's landmark gender-justice legislation as India's first Law Minister — equal inheritance, right to divorce, abolition of polygamy — and his resignation when conservative forces blocked it.</p>
+          <div class="module-tags">
+            <span class="module-tag">BAWS Vol. 14</span>
+            <span class="module-tag">Women's Rights</span>
+            <span class="module-tag">Family Law</span>
+          </div>
+        </div>
+        <a href="reader.html?id=doc-en-14" class="module-cta">Read Vol. 14 →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── ADVANCED PATH ─── -->
+<div class="path-section" id="path-advanced" role="tabpanel" aria-labelledby="tab-advanced">
+
+  <div class="path-header fade-up">
+    <div>
+      <div class="path-level-badge badge-advanced">🔬 Advanced Path</div>
+      <h2 class="path-heading">Economic Theory &amp; Constitutional Debates</h2>
+      <p class="path-desc">For serious researchers. Engage with Ambedkar's doctoral economic dissertations, his constitutional philosophy, and the complete Constituent Assembly debate record.</p>
+    </div>
+    <div class="path-meta">
+      <div class="path-time-box">
+        <div class="path-time-num">5</div>
+        <div class="path-time-label">Modules</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modules-list">
+    <div class="module-card fade-up">
+      <div class="module-card-inner">
+        <div class="module-num">01</div>
+        <div class="module-body">
+          <div class="module-title">The Problem of the Rupee (1923) — D.Sc. Dissertation, LSE</div>
+          <p class="module-desc">Ambedkar's macroeconomic masterpiece critiquing Keynes on gold exchange standards and the blueprint that influenced the creation of the Reserve Bank of India in 1935.</p>
+          <div class="module-tags">
+            <span class="module-tag">BAWS Vol. 6</span>
+            <span class="module-tag">Monetary Economics</span>
+            <span class="module-tag">RBI Foundation</span>
+          </div>
+        </div>
+        <a href="reader.html?id=doc-en-6" class="module-cta">Read Vol. 6 →</a>
+      </div>
+    </div>
+
+    <div class="module-card fade-up">
+      <div class="module-card-inner">
+        <div class="module-num">02</div>
+        <div class="module-body">
+          <div class="module-title">Evolution of Provincial Finance in British India (1925)</div>
+          <p class="module-desc">Ambedkar's Ph.D. dissertation from Columbia University analyzing fiscal federalism, revenue sharing, and the economic structure of British colonial India.</p>
+          <div class="module-tags">
+            <span class="module-tag">BAWS Vol. 6</span>
+            <span class="module-tag">Fiscal Policy</span>
+            <span class="module-tag">Columbia PhD</span>
+          </div>
+        </div>
+        <a href="reader.html?id=doc-en-6" class="module-cta">Read Vol. 6 →</a>
+      </div>
+    </div>
+
+    <div class="module-card fade-up">
+      <div class="module-card-inner">
+        <div class="module-num">03</div>
+        <div class="module-body">
+          <div class="module-title">Constituent Assembly Debates: Complete Record</div>
+          <p class="module-desc">All of Ambedkar's speeches in the Constituent Assembly — 1948–1949. His defense of Articles 14, 15, 17, 21, 32, universal adult franchise, and his famous final address on November 25, 1949.</p>
+          <div class="module-tags">
+            <span class="module-tag">BAWS Vol. 13</span>
+            <span class="module-tag">Constitutional Law</span>
+            <span class="module-tag">Primary Source</span>
+          </div>
+        </div>
+        <a href="reader.html?id=doc-en-13" class="module-cta">Read Vol. 13 →</a>
+      </div>
+    </div>
+
+    <div class="module-card fade-up">
+      <div class="module-card-inner">
+        <div class="module-num">04</div>
+        <div class="module-body">
+          <div class="module-title">Philosophy of Hinduism &amp; Buddha or Karl Marx (1987)</div>
+          <p class="module-desc">Ambedkar's philosophical comparison between the Buddhist Dhamma and Marxist dialectical materialism — arguing Buddhism offers a superior ethical framework for social equality.</p>
+          <div class="module-tags">
+            <span class="module-tag">BAWS Vol. 3</span>
+            <span class="module-tag">Philosophy</span>
+            <span class="module-tag">Comparative Thought</span>
+          </div>
+        </div>
+        <a href="reader.html?id=doc-en-3" class="module-cta">Read Vol. 3 →</a>
+      </div>
+    </div>
+
+    <div class="module-card fade-up">
+      <div class="module-card-inner">
+        <div class="module-num">05</div>
+        <div class="module-body">
+          <div class="module-title">Riddles in Hinduism (1987) — Posthumous</div>
+          <p class="module-desc">Ambedkar's unfinished critical examination of the Vedas, Upanishads, Epics, and Hindu philosophy — one of his most incisive scholarly works, published posthumously.</p>
+          <div class="module-tags">
+            <span class="module-tag">BAWS Vol. 4</span>
+            <span class="module-tag">Religious Studies</span>
+            <span class="module-tag">Critical Analysis</span>
+          </div>
+        </div>
+        <a href="reader.html?id=doc-en-4" class="module-cta">Read Vol. 4 →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Footer ─── -->
+<footer class="footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">⚜️ Ambedkar Digital Heritage Archive</div>
+      <div class="footer-tagline">All learning modules link to the official BAWS corpus — no summaries substitute for the primary source.</div>
+    </div>
+  </div>
+</footer>
+
+<div id="toast-container" class="toast-container" role="status" aria-live="polite"></div>
+
+<script src="js/toast.js"></script>
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+<script src="js/command-palette.js"></script>
+
+<script>
+  // Tab switching
+  document.querySelectorAll('.learn-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.learn-tab').forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      document.querySelectorAll('.path-section').forEach(s => s.classList.remove('active'));
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+      const target = document.getElementById('path-' + tab.dataset.path);
+      if (target) {
+        target.classList.add('active');
+        // Trigger reveal for newly shown modules
+        target.querySelectorAll('.fade-up:not(.in)').forEach((el, i) => {
+          setTimeout(() => el.classList.add('in'), i * 60);
+        });
+      }
+    });
+  });
+
+  // Scroll-reveal observer
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+
+  document.querySelectorAll('.fade-up').forEach((el, i) => {
+    el.style.transitionDelay = Math.min(i * 35, 180) + 'ms';
+    io.observe(el);
+  });
+</script>
+</body>
+</html>
