@@ -99,10 +99,8 @@ app.use('/api/volumes', volumeRoutes);
 app.use('/api/chat', chatRoutes);
 
 
-// Serve downloaded volume PDFs (backend public dir)
-app.use('/books', express.static(path.join(__dirname, 'public/books')));
-// Serve frontend PDFs directory with cache headers (Phase 6.2)
-app.use('/pdfs', express.static(path.join(__dirname, '../frontend/pdfs'), {
+// Serve volume PDFs directly from canonical frontend/pdfs
+app.use(['/books', '/pdfs'], express.static(path.join(__dirname, '../frontend/pdfs'), {
   maxAge: '7d',
   setHeaders: (res) => { res.setHeader('Cache-Control', 'public, max-age=604800'); }
 }));
@@ -142,7 +140,6 @@ app.get('*', (req, res, next) => {
   res.sendFile(path.join(__dirname, '../frontend', 'index.html'));
 });
 
-const { sendError } = require('./utils/responseFormatter');
 const { AppError, NotFoundError } = require('./errors/AppError');
 
 // 404 handler
@@ -150,28 +147,22 @@ app.use((req, res, next) => {
   next(new NotFoundError('Route', req.originalUrl));
 });
 
-// Global ECC error handler
+// Global error handler
 app.use((err, req, res, next) => {
   console.error(`[ERROR] ${err.name} (${err.code || 500}): ${err.message}`);
-  
-  if (err instanceof AppError) {
-    return sendError(res, err);
-  }
 
-  // Handle Mongoose specific errors
-  if (err.name === 'ValidationError') {
-    const messages = Object.values(err.errors).map((e) => e.message);
-    return sendError(res, new AppError('Validation error', 'VALIDATION_ERROR', 422, messages));
-  }
-  if (err.code === 11000) {
-    const field = Object.keys(err.keyValue || {})[0] || 'Field';
-    return sendError(res, new AppError(`${field} already exists.`, 'DUPLICATE_KEY', 409));
-  }
-  if (err.name === 'CastError') {
-    return sendError(res, new AppError('Invalid ID format.', 'INVALID_ID', 400));
-  }
+  const statusCode = err.statusCode || (err.name === 'ValidationError' ? 422 : err.code === 11000 ? 409 : err.name === 'CastError' ? 400 : 500);
+  const code = err.code || (err.name === 'ValidationError' ? 'VALIDATION_ERROR' : err.name === 'CastError' ? 'INVALID_ID' : 'INTERNAL_ERROR');
 
-  return sendError(res, new AppError(err.message || 'Internal server error', 'INTERNAL_ERROR', err.statusCode || 500));
+  return res.status(statusCode).json({
+    success: false,
+    error: {
+      code,
+      message: err.message || 'Internal server error',
+      details: err.details || null,
+      timestamp: err.timestamp || new Date().toISOString(),
+    },
+  });
 });
 
 const PORT = process.env.PORT || 5000;
