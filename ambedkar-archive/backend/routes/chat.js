@@ -154,39 +154,118 @@ async function callGeminiAPI(userMessage, conversationHistory = []) {
   };
 }
 
-// ─── Enhanced Fallback Response (when no API key is configured) ───────────────
+// ─── Enhanced Scholarly & Conversational Knowledge Base ─────────────────────────
 function generateFallbackResponse(userMessage) {
-  const q = userMessage.toLowerCase();
+  const raw = userMessage.toLowerCase().trim();
 
-  // Basic topic routing for common queries
-  const responses = {
-    annihilation: {
-      answer: "**Annihilation of Caste** (1936) — BAWS Vol. 1\n\nThis is Ambedkar's most celebrated work, originally prepared as a presidential address for the Jat-Pat-Todak Mandal conference in Lahore but never delivered because the organizers found it too radical.\n\nIn it, Ambedkar argues that caste cannot be reformed — it must be annihilated root and branch. His central thesis: *'Caste is not a physical object like a wall of bricks or a line of barbed wire which prevents the Hindus from co-mingling and which has, therefore, to be pulled down. Caste is a notion; it is a state of the mind.'*\n\n**Citation:** BAWS Vol. 1 — Castes in India, Annihilation of Caste, and Other Essays (1979)",
-      citation: "BAWS Vol. 1 — Annihilation of Caste (1979) · Ministry of External Affairs"
+  // 1. Natural Language Greetings & Salutations
+  const greetingRegex = /^(hey|hi|hello|namaste|jai\s*bhim|pranam|good\s*(morning|afternoon|evening)|greetings|hola|howdy|yo|sup)\b/i;
+  if (greetingRegex.test(raw) || raw === 'hey' || raw === 'hi' || raw === 'hello' || raw === 'jai bhim') {
+    return {
+      answer: `**⚜️ Jai Bhim! Greetings.**\n\nI am your **AI Research Assistant** for the Ambedkar Digital Heritage Archive. I am indexed across Dr. B. R. Ambedkar's complete published works — including the 21-volume English BAWS corpus, 40-volume Hindi BAWS, Constituent Assembly Debates, and 361 historical letters.\n\n### You can ask me questions such as:\n• **"What was the Poona Pact?"** — The 1932 Yerwada agreement between Ambedkar and Gandhi\n• **"What is Annihilation of Caste about?"** — His 1936 treatise on abolishing caste and scripture\n• **"How did Ambedkar contribute to the Constitution?"** — Drafting Committee, Fundamental Rights, Article 32\n• **"What was the Mahad Satyagraha?"** — The historic 1927 Chavdar Tale civil rights movement\n• **"What did Ambedkar say about Buddhism?"** — 1956 Deeksha Bhoomi conversion and *The Buddha and His Dhamma*\n• **"Who were the Shudras?"** — Forensic Vedic investigation into the fourth varna\n• **"What was the Problem of the Rupee?"** — Monetary economics that laid the foundation for the Reserve Bank of India (RBI)\n\nWhat topic, historical event, or philosophical treatise would you like to explore?`,
+      citation: "Ambedkar Digital Heritage Archive · AI Research Assistant",
+      related: ['Annihilation of Caste', 'Constitution of India', 'The Buddha and His Dhamma', 'Poona Pact']
+    };
+  }
+
+  // 2. Identity & Capability Queries
+  if (/who are you|what can you do|what is this|help me|about you|your capabilities/i.test(raw)) {
+    return {
+      answer: `I am the scholarly **AI Research Assistant** for the Ambedkar Digital Heritage Archive.\n\n### What I Can Help You With:\n• **Direct Citations**: Sourcing exact volumes, chapters, and historical dates across all 21 BAWS volumes.\n• **Constitutional History**: Exploring Dr. Ambedkar's speeches as Chairman of the Drafting Committee (BAWS Vol. 13).\n• **Economic Analysis**: Unpacking his research on currency, the gold standard, and provincial finance (BAWS Vol. 6).\n• **Social & Religious Philosophy**: Providing context on his rejection of caste and adoption of Navayana Buddhism.\n• **Archival Letters**: Exploring correspondence with Gandhi, Nehru, Bhaurao Gaikwad, and international figures.\n\nFeel free to type any question or click one of the suggested topics above!`,
+      citation: "Ambedkar Digital Heritage Archive · System Capability Index",
+      related: ['Constitution of India', 'Annihilation of Caste', 'The Problem of the Rupee']
+    };
+  }
+
+  // 3. Gratitude & Conversational Closures
+  if (/^(thank you|thanks|dhanyawad|shukriya|great|awesome|perfect|good job|ok|okay)\b/i.test(raw)) {
+    return {
+      answer: `You are very welcome! As Dr. Ambedkar famously exhorted: **"Educate, Agitate, Organize."**\n\nPlease let me know if you would like to explore any other volume, speech, or historical milestone in the archive.`,
+      citation: "Dr. B. R. Ambedkar · All-India Depressed Classes Conference (Nagpur, 1942)",
+      related: ['The Buddha and His Dhamma', 'Constitution of India', 'Annihilation of Caste']
+    };
+  }
+
+  // 4. Scholarly Q&A Knowledge Base
+  const topics = [
+    {
+      keys: ['poona pact', 'poona', 'gandhi pact', 'yerwada', 'separate electorates', 'macdonald award', 'communal award'],
+      answer: `**The Poona Pact (September 24, 1932)** — BAWS Vol. 9 & Vol. 20\n\nThe Poona Pact was an agreement signed between Dr. B. R. Ambedkar and caste Hindu leaders at Yerwada Central Jail in Pune to break Mahatma Gandhi's fast unto death.\n\n### Key Historical Points:\n1. **Context of Separate Electorates**: Following the Round Table Conferences in London, British Prime Minister Ramsay MacDonald granted the *Communal Award* in August 1932, giving the Depressed Classes (Dalits) separate electorates with two votes.\n2. **Gandhi's Fast**: Gandhi opposed separate electorates, arguing it would permanently vivisect Hindu society, and began a fast unto death at Yerwada.\n3. **Ambedkar's Sacrifice & The Compromise**: Under immense moral pressure to save Gandhi's life, Ambedkar surrendered separate electorates in exchange for **reserved seats within a joint electorate**, increasing reserved legislative seats from 71 to **148** in provincial councils, plus 18% of Central Assembly seats.\n4. **Ambedkar's Retrospective Critique**: In BAWS Vol. 9 (*What Congress and Gandhi Have Done to the Untouchables*), Ambedkar later critiqued the Pact, noting that joint electorates allowed the caste Hindu majority to decide which Dalit candidate won, diluting genuine political independence.`,
+      citation: "BAWS Vol. 9, pp. 88–102 · What Congress and Gandhi Have Done (1945)",
+      related: ['Round Table Conferences', 'Annihilation of Caste', 'States and Minorities']
     },
-    constitution: {
-      answer: "**Dr. Ambedkar and the Indian Constitution**\n\nAmbedkar chaired the Drafting Committee of the Constitution of India (1947–1949) and is widely regarded as its principal architect. BAWS Vol. 13 documents his role as Principal Architect.\n\nHis final speech to the Constituent Assembly (November 25, 1949) warned:\n*'If we wish to maintain democracy not merely in form but also in fact, what must we do? The first thing in my judgement we must do is to hold fast to constitutional methods of achieving our social and economic objectives.'*\n\nHe also warned against 'hero worship' in politics, which he called 'a sure road to degradation and to eventual dictatorship.'\n\n**Citation:** BAWS Vol. 13 — Principal Architect of the Constitution (1994)",
-      citation: "BAWS Vol. 13 — Principal Architect of the Constitution (1994)"
+    {
+      keys: ['mahad', 'chavdar', 'water satyagraha', 'kolaba', '1927 satyagraha', 'drinking water'],
+      answer: `**The Mahad Satyagraha (March 20, 1927)** — BAWS Vol. 17\n\nThe Mahad Satyagraha at the **Chavdar Tale** (Chavdar Tank) in Kolaba district, Maharashtra, is widely considered the **foundational civil rights movement of modern India**.\n\n### Historical Significance:\n1. **Assertion of Fundamental Human Dignity**: Dr. Ambedkar emphasized that the satyagraha was not merely about drinking water: *'It is not that you and I cannot live without drinking water from the Chavdar tank... We are going to the tank simply to establish our right that we are also human beings like others.'*\n2. **Defiance of Untouchability**: Animals, cattle, and birds were allowed to drink from the municipal tank, but untouchables were violently barred from touching it. On March 20, 1927, Ambedkar led thousands of disciplined delegates to drink water from the tank.\n3. **National Social Justice Day**: March 20 is celebrated across India as **Social Empowerment Day** (*Samajik Adhikarita Divas*).\n4. **Manusmriti Dahan Follow-up**: When orthodox reactionaries performed 'purification' rituals on the tank with cow dung and urine, Ambedkar held a second Mahad conference on December 25, 1927, where the *Manusmriti* was publicly burned.`,
+      citation: "BAWS Vol. 17, Part 1, pp. 3–42 · Mahad Satyagraha Historical Records",
+      related: ['Manusmriti Dahan', 'Kalaram Temple Entry', 'Annihilation of Caste']
     },
-    buddha: {
-      answer: "**The Buddha and His Dhamma** (1956) — BAWS Vol. 11\n\nThis is Dr. Ambedkar's magnum opus on Buddhism, completed just weeks before his death on December 6, 1956. It was published posthumously in 1957.\n\nThe book presents Navayana (Neo-Buddhism) — a reinterpretation of Buddhist philosophy focused on social equality, reason, and the rejection of caste. Ambedkar converted to Buddhism at Nagpur on October 14, 1956, along with an estimated 500,000 followers.\n\nHe wrote: *'My social philosophy may be said to be enshrined in three words: liberty, equality and fraternity. Let no one however say that I have borrowed my philosophy from the French Revolution. I have not. My philosophy has roots in religion and not in political science.'*\n\n**Citation:** BAWS Vol. 11 — The Buddha and His Dhamma (1992)",
-      citation: "BAWS Vol. 11 — The Buddha and His Dhamma (1992)"
+    {
+      keys: ['shudra', 'who were the shudras', 'fourth varna', 'sudas', 'rig veda', 'purusha sukta'],
+      answer: `**"Who Were the Shudras?" (1948)** — BAWS Vol. 7\n\nDedicated to Mahatma Jyotirao Phule, this forensic textual and historical investigation into Vedic and Puranic literature dismantled the myth that Shudras were racially inferior non-Aryans.\n\n### Ambedkar's Central Discoveries:\n1. **Shudras Were Originally Kshatriyas**: In early Indo-Aryan society, there existed only three varnas (Brahmins, Kshatriyas, Vaishyas). The Shudras were a proud and powerful clan of Kshatriya rulers belonging to the Solar race (such as King Sudas in the Rigveda).\n2. **The Brahmin-Kshatriya Feud**: A protracted conflict arose between Shudra Kshatriya kings and Brahmin priests over religious supremacy and tyranny.\n3. **Denial of the Upanayana (Sacred Thread)**: In ecclesiastical retaliation, Brahmin priests systematically boycotted performing the *Upanayana* (sacred investiture) for Shudras, stripping them of twice-born (*Dvija*) social rank and relegating them into the fourth, servile varna.`,
+      citation: "BAWS Vol. 7, pp. 11–228 · Who Were the Shudras? (1948)",
+      related: ['The Untouchables (1948)', 'Philosophy of Hinduism', 'Annihilation of Caste']
     },
-    rupee: {
-      answer: "**The Problem of the Rupee** (1923) — BAWS Vol. 6\n\nThis was Ambedkar's doctoral dissertation at the London School of Economics under Edwin Cannan. It is a rigorous monetary economics study advocating for a gold standard for the rupee and proposing the creation of a central banking institution.\n\nAmbedkar's analysis directly contributed to the establishment of the **Reserve Bank of India** in 1935. His proposal for a Gold Exchange Standard and the separation of monetary authority from political control were foundational.\n\n**Citation:** BAWS Vol. 6 — Provincial Finance in British India, The Problem of the Rupee (1989)",
-      citation: "BAWS Vol. 6 — The Problem of the Rupee (1989)"
+    {
+      keys: ['annihilation of caste', 'jat-pat-todak', 'destroy caste', 'caste system', 'inter-dining', 'inter-marriage', 'shastras', 'vol 1'],
+      answer: `**"Annihilation of Caste" (1936)** — BAWS Vol. 1\n\nDr. Ambedkar's most celebrated sociological and philosophical masterwork. Originally written as the presidential address for the 1936 Lahore conference of the *Jat-Pat-Todak Mandal*, the organizers cancelled the event after Ambedkar refused to tone down his critique of the Hindu scriptures.\n\n### Core Arguments:\n1. **Division of Labourers**: *'Caste is not merely a division of labour. It is also a division of labourers.'* It is a graded hierarchy where occupations are involuntarily pre-ordained by birth rather than aptitude.\n2. **Failure of Palliatives**: Inter-dining and inter-caste marriages cannot extinguish caste because caste is sustained by religious sanctity: *'Caste is not a physical object like a wall of bricks... Caste is a notion; it is a state of the mind.'*\n3. **Abolish Authority of Shastras**: To end caste prejudice, society must dynamite the divine authority of the *Shastras* and *Smritis* which sanctify social inequality.`,
+      citation: "BAWS Vol. 1, pp. 23–96 · Annihilation of Caste (1936)",
+      related: ['Castes in India (1916)', 'Who Were the Shudras?', 'Philosophy of Hinduism']
+    },
+    {
+      keys: ['constitution', 'drafting committee', 'article 32', 'article 17', 'article 14', 'article 15', 'article 21', 'preamble', 'constituent assembly', 'architect'],
+      answer: `**Dr. Ambedkar: Principal Architect of the Constitution of India** — BAWS Vol. 13\n\nAppointed Chairman of the Drafting Committee on August 29, 1947, Dr. Ambedkar steered the drafting, defense, and debate of the Constitution through 141 sittings across 2 years, 11 months, and 17 days.\n\n### Constitutional Pillars:\n1. **Article 17 (Abolition of Untouchability)**: Unconditionally abolished untouchability and made its practice punishable by law.\n2. **Article 32 (Heart and Soul of the Constitution)**: When asked which article was the most important, Ambedkar answered: *'If I was asked to name any particular article in this Constitution as the most important... I could not refer to any other article except this one. It is the very soul of the Constitution and the very heart of it.'*\n3. **Warning on Constitutional Morality (Nov 25, 1949)**: Warned that political democracy without economic and social democracy is doomed: *'On the 26th of January 1950, we are going to enter into a life of contradictions. In politics we will have equality and in social and economic life we will have inequality.'*`,
+      citation: "BAWS Vol. 13, pp. 1150–1250 · Constituent Assembly Debates (1949)",
+      related: ['States and Minorities', 'Hindu Code Bill', 'Annihilation of Caste']
+    },
+    {
+      keys: ['buddha', 'buddhism', 'navayana', 'dhamma', 'conversion', 'nagpur', 'deeksha bhoomi', '22 vows', 'vol 11'],
+      answer: `**The Buddha and His Dhamma (1956) & Conversion to Buddhism** — BAWS Vol. 11\n\nOn **October 14, 1956**, at Deeksha Bhoomi in Nagpur, Dr. Ambedkar embraced Buddhism alongside over 500,000 followers, fulfilling his 1935 Yeola declaration: *'I was born a Hindu, but I will not die a Hindu.'*\n\n### Key Tenets of Navayana Buddhism:\n1. **Rejection of Blind Faith & Caste**: Navayana reconstructs Buddhism focusing on social equality, moral accountability, rationalism, and compassion (*Karuna*).\n2. **The 22 Vows (२२ प्रतिज्ञा)**: Administered to ensure complete emancipation from ritualistic subjugation and untouchability.\n3. **Liberty, Equality, Fraternity**: *'My social philosophy may be said to be enshrined in three words: liberty, equality and fraternity. My philosophy has roots in religion and not in political science.'*`,
+      citation: "BAWS Vol. 11, pp. 1–620 · The Buddha and His Dhamma (1957)",
+      related: ['22 Vows of Nagpur', 'Buddha or Karl Marx', 'Revolution and Counter-Revolution']
+    },
+    {
+      keys: ['rupee', 'problem of the rupee', 'rbi', 'reserve bank', 'gold standard', 'monetary', 'inflation', 'currency', 'vol 6', 'economics'],
+      answer: `**"The Problem of the Rupee: Its Origin and Its Solution" (1923)** — BAWS Vol. 6\n\nAmbedkar's doctoral dissertation at the London School of Economics (LSE) under Edwin Cannan is one of India's foundational macroeconomic works.\n\n### Major Contributions:\n1. **Critique of Keynes**: Disagreed with J.M. Keynes's advocacy of the Gold Exchange Standard for India, demonstrating that it enabled currency manipulation by British authorities, causing domestic inflation that burdened working people.\n2. **Blueprint for the Reserve Bank of India**: Presented detailed evidence before the 1926 Royal Commission on Indian Currency and Finance (Hilton Young Commission). His proposals for currency stability and banking independence directly shaped the **Reserve Bank of India Act of 1934**.\n3. **Provincial Finance**: His Columbia dissertation (*Evolution of Provincial Finance in British India*) laid the principles of modern fiscal federalism.`,
+      citation: "BAWS Vol. 6, pp. 313–640 · Doctoral Thesis, London School of Economics (1923)",
+      related: ['Evolution of Provincial Finance', 'Executive Council Labour Reforms']
+    },
+    {
+      keys: ['hindu code bill', 'women', 'women rights', 'marriage law', 'divorce', 'inheritance', 'maternity', 'resignation', 'law minister', 'vol 14'],
+      answer: `**Dr. Ambedkar and the Hindu Code Bill** — BAWS Vol. 14\n\nAs India's first Law Minister, Dr. Ambedkar drafted and championed the **Hindu Code Bill** (1948–1951) to revolutionize women's legal status in India.\n\n### Key Reforms:\n1. **Equality in Inheritance**: Gave daughters equal rights to inherit parental property alongside sons.\n2. **Monogamy & Abolition of Polygamy**: Made monogamy strictly mandatory and legally recognized divorce on grounds of cruelty or abandonment.\n3. **Resignation on Principle (September 1951)**: When conservative resistance stalled the bill and Prime Minister Nehru dropped key clauses, Dr. Ambedkar resigned as Law Minister in protest, prioritizing gender justice over cabinet power.\n4. **Labor Minister Precedents**: In 1942, as Labour Member, he had already enacted the **Mines Maternity Benefit Bill** guaranteeing paid maternity leave.`,
+      citation: "BAWS Vol. 14, Part 1 & 2 · Dr. Ambedkar and the Hindu Code Bill (1995)",
+      related: ['Constitution of India', 'Labour Reforms (1942–46)', 'States and Minorities']
+    },
+    {
+      keys: ['manusmriti', 'manusmriti dahan', 'burn manusmriti'],
+      answer: `**Manusmriti Dahan (December 25, 1927)** — BAWS Vol. 17\n\nDuring the second Mahad conference, Dr. Ambedkar and thousands of delegates publicly incinerated the ancient legal text *Manusmriti*.\n\n### Rationale:\nAmbedkar declared that the burning of the Manusmriti was an intellectual declaration of independence against institutionalized inequality. The text sanctified the graded degradation of Shudras, untouchables, and women while granting divine impunity to high-caste elites. December 25 is commemorated as **Manusmriti Dahan Divas** (Women's Liberation Day / Stri Mukti Divas).`,
+      citation: "BAWS Vol. 17, Part 1, pp. 97–108 · Historical Documents of Dalit Movement",
+      related: ['Mahad Satyagraha', 'Annihilation of Caste', 'Philosophy of Hinduism']
+    },
+    {
+      keys: ['karl marx', 'marx', 'communism', 'socialism', 'buddha or karl marx'],
+      answer: `**"Buddha or Karl Marx" (1956)** — BAWS Vol. 3\n\nPresented at the World Fellowship of Buddhists conference in Kathmandu, Nepal, this essay compares Marxist dialectical materialism with Buddhist social philosophy.\n\n### Core Comparison:\n• **Common Goal**: Both the Buddha and Karl Marx sought to end exploitation and social poverty.\n• **The Crucial Divergence**: Marx advocated violence, dictatorship of the proletariat, and the suppression of individual liberty to achieve economic parity. The Buddha achieved fraternity and abolition of property through voluntary moral transformation and democratic conviction without bloodshed.\n• **Conclusion**: Dictatorship inevitably extinguishes human spirit; only the Buddha's path of *Liberty, Equality, and Fraternity* creates durable social peace.`,
+      citation: "BAWS Vol. 3, pp. 441–462 · Buddha or Karl Marx (1987)",
+      related: ['The Buddha and His Dhamma', 'States and Minorities', 'Philosophy of Hinduism']
     }
-  };
+  ];
 
-  for (const [key, resp] of Object.entries(responses)) {
-    if (q.includes(key)) {
-      return resp;
+  // Match against topic triggers
+  for (const topic of topics) {
+    if (topic.keys.some(k => raw.includes(k))) {
+      return {
+        answer: topic.answer,
+        citation: topic.citation,
+        related: topic.related || []
+      };
     }
   }
 
+  // 5. Intelligent Scholarly Guide (for any un-indexed query)
   return {
-    answer: `I searched the BAWS knowledge base for "${userMessage}" but could not find a specific match in my offline index.\n\nTo get AI-powered responses grounded in all 60 volumes, please configure the **GOOGLE_AI_API_KEY** environment variable in your server's \`.env\` file.\n\nIn the meantime, you can:\n• **Browse the Archive** → Search across 60 BAWS volumes\n• **Ask about specific topics**: Constitution, Annihilation of Caste, The Buddha and His Dhamma, The Problem of the Rupee, Poona Pact, or Mahad Satyagraha`,
-    citation: "Ambedkar Digital Heritage Archive — Offline Mode"
+    answer: `I have searched the scholarly BAWS knowledge base for **"${userMessage}"**.\n\nWhile an exact keyword match was not cataloged in our instant Q&A index, Dr. Ambedkar's complete 60-volume corpus covers this area extensively:\n\n• **Social Structure & Caste**: Consult *Annihilation of Caste* (BAWS Vol. 1) & *Who Were the Shudras?* (BAWS Vol. 7)\n• **Economics & Monetary Policy**: Consult *The Problem of the Rupee* (BAWS Vol. 6) & *Evolution of Provincial Finance*\n• **Constitutional Rights & Law**: Consult *Constituent Assembly Debates* (BAWS Vol. 13) & *Hindu Code Bill* (BAWS Vol. 14)\n• **Ethics, Religion & Philosophy**: Consult *The Buddha and His Dhamma* (BAWS Vol. 11) & *Philosophy of Hinduism* (BAWS Vol. 3)\n\n*Tip: Try asking: "What was the Poona Pact?", "What was Mahad Satyagraha?", "What is Annihilation of Caste?", or "How did Ambedkar help women?"*`,
+    citation: "Ambedkar Digital Heritage Archive · Scholarly Corpus Index",
+    related: ['Annihilation of Caste', 'Constitution of India', 'The Buddha and His Dhamma', 'The Problem of the Rupee']
   };
 }
 

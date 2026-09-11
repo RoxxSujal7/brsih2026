@@ -267,7 +267,8 @@
           By taking these 22 vows, Dr. Ambedkar created an autonomous moral and legal charter ensuring that conversion to Buddhism was not merely symbolic, but a complete emancipation from feudal hierarchy, ritual subjugation, and untouchability.
         </p>
       </div>
-      <div>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <button id="listen-vows-btn" class="btn btn-secondary btn-sm" style="white-space: nowrap;">🔊 Listen</button>
         <button id="copy-all-vows-btn" class="btn btn-secondary btn-sm" style="white-space: nowrap;">📋 Copy All</button>
       </div>
     </div>
@@ -321,9 +322,12 @@
       const titleEl = document.getElementById('vows-main-title');
       const descEl = document.getElementById('vows-main-desc');
       const copyBtn = document.getElementById('copy-all-vows-btn');
+      const listenBtn = document.getElementById('listen-vows-btn');
 
       let currentLang = 'mr'; // Marathi by default
       let currentVowsList = [];
+      let isSpeaking = false;
+      const synth = typeof window !== 'undefined' && 'speechSynthesis' in window ? window.speechSynthesis : null;
 
       try {
         const langRes = await api.vows.languages();
@@ -342,6 +346,7 @@
 
         langBar.querySelectorAll('.lang-pill').forEach(btn => {
           btn.addEventListener('click', () => {
+            stopVowsSpeech();
             langBar.querySelectorAll('.lang-pill').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             currentLang = btn.getAttribute('data-id');
@@ -361,7 +366,6 @@
           if (data.description) descEl.textContent = data.description;
 
           grid.innerHTML = currentVowsList.map((vowText, idx) => {
-            // Strip leading number if already formatted e.g. "1. "
             const cleanText = vowText.replace(/^[0-9]+[\.\s\-]+/, '');
             return `
               <div class="vow-card">
@@ -375,17 +379,90 @@
         }
       }
 
+      function stopVowsSpeech() {
+        if (synth) synth.cancel();
+        isSpeaking = false;
+        if (listenBtn) {
+          listenBtn.innerHTML = '🔊 Listen';
+          listenBtn.classList.remove('btn-primary');
+          listenBtn.classList.add('btn-secondary');
+        }
+      }
+
+      listenBtn?.addEventListener('click', () => {
+        if (!synth) {
+          showToast('Text-to-speech is not supported in this browser.', 'warning');
+          return;
+        }
+
+        if (isSpeaking) {
+          stopVowsSpeech();
+          return;
+        }
+
+        if (!currentVowsList.length) return;
+
+        const allText = currentVowsList
+          .map((v, i) => `Vow ${i + 1}: ${v.replace(/^[0-9]+[\.\s\-]+/, '')}`)
+          .join('. ');
+
+        const utterance = new SpeechSynthesisUtterance(allText);
+        utterance.rate = 0.95;
+
+        // Language code mapping
+        const langMap = { mr: 'mr-IN', hi: 'hi-IN', en: 'en-IN', gu: 'gu-IN', bn: 'bn-IN', ta: 'ta-IN', te: 'te-IN', kn: 'kn-IN', pa: 'pa-IN' };
+        utterance.lang = langMap[currentLang] || 'en-IN';
+
+        utterance.onstart = () => {
+          isSpeaking = true;
+          listenBtn.innerHTML = '⏹️ Stop';
+          listenBtn.classList.remove('btn-secondary');
+          listenBtn.classList.add('btn-primary');
+        };
+
+        utterance.onend = stopVowsSpeech;
+        utterance.onerror = stopVowsSpeech;
+
+        synth.speak(utterance);
+      });
+
       copyBtn?.addEventListener('click', () => {
         if (!currentVowsList.length) return;
         const text = currentVowsList.map((v, i) => `${i + 1}. ${v.replace(/^[0-9]+[\.\s\-]+/, '')}`).join('\n\n');
-        navigator.clipboard.writeText(text).then(() => {
-          if (window.AppState && AppState.showToast) {
-            AppState.showToast('All 22 Vows copied to clipboard! 📋', 'success');
-          } else {
-            alert('Copied all 22 Vows!');
-          }
-        });
+        
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(() => {
+            showToast('All 22 Vows copied to clipboard! 📋', 'success');
+          }).catch(() => fallbackCopy(text));
+        } else {
+          fallbackCopy(text);
+        }
       });
+
+      function fallbackCopy(text) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        try {
+          document.execCommand('copy');
+          showToast('All 22 Vows copied to clipboard! 📋', 'success');
+        } catch (e) {
+          alert('Copied 22 Vows!');
+        }
+        document.body.removeChild(ta);
+      }
+
+      function showToast(msg, type = 'success') {
+        if (window.AppState && AppState.showToast) {
+          AppState.showToast(msg, type);
+        } else {
+          alert(msg);
+        }
+      }
     });
   </script>
 </body>

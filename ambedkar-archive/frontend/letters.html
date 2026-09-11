@@ -164,7 +164,33 @@
       line-height: 1.8;
       color: var(--text);
       white-space: pre-wrap;
-      font-family: var(--font-body);
+    .letter-card:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 2px;
+    }
+    mark.letter-highlight {
+      background: rgba(212, 175, 55, 0.25);
+      color: var(--gold-light);
+      padding: 1px 4px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .speaking-active {
+      background: rgba(212, 175, 55, 0.25) !important;
+      border-color: var(--gold) !important;
+      color: var(--gold-light) !important;
+      animation: audio-pulse 1.4s ease-in-out infinite;
+    }
+    @keyframes audio-pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.75; transform: scale(1.02); }
+    }
+    @media print {
+      body > *:not(#letter-modal) { display: none !important; }
+      #letter-modal { position: absolute; inset: 0; background: #fff !important; color: #000 !important; opacity: 1 !important; pointer-events: auto !important; }
+      .letter-modal-box { max-width: 100% !important; max-height: 100% !important; border: none !important; box-shadow: none !important; background: #fff !important; color: #000 !important; }
+      .letter-modal-header button, #modal-lang-toggle, .font-size-controls, #speak-letter-btn, #print-letter-btn, #copy-citation-btn, #modal-prev-letter, #modal-next-letter { display: none !important; }
+      .letter-modal-body { color: #000 !important; font-size: 12pt !important; }
     }
   </style>
 </head>
@@ -379,16 +405,34 @@
   <div id="letter-modal" class="letter-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-letter-title">
     <div class="letter-modal-box">
       <div class="letter-modal-header">
-        <div>
+        <div style="flex: 1; min-width: 0; padding-right: 12px;">
           <div id="modal-letter-date" class="letter-date-badge" style="display: inline-block; margin-bottom: 4px;"></div>
-          <h2 id="modal-letter-title" style="font-family: var(--font-display); font-size: 1.25rem; margin: 0; color: var(--text);"></h2>
+          <h2 id="modal-letter-title" style="font-family: var(--font-display); font-size: 1.25rem; margin: 0; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"></h2>
+          <div id="modal-letter-parties" style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;"></div>
         </div>
-        <button id="close-letter-modal" class="btn btn-secondary btn-sm" style="border-radius: var(--radius-full);">✕ Close</button>
+        <div style="display: flex; gap: 6px; align-items: center;">
+          <button id="modal-prev-letter" class="btn btn-secondary btn-xs" title="Previous Letter (←)" aria-label="Previous Letter">← Prev</button>
+          <span id="modal-letter-position" style="font-size: 0.75rem; color: var(--text-faint); font-family: var(--font-mono); min-width: 42px; text-align: center;"></span>
+          <button id="modal-next-letter" class="btn btn-secondary btn-xs" title="Next Letter (→)" aria-label="Next Letter">Next →</button>
+          <button id="close-letter-modal" class="btn btn-secondary btn-sm" style="border-radius: var(--radius-full); margin-left: 4px;" aria-label="Close Modal">✕</button>
+        </div>
       </div>
 
-      <div style="padding: 10px 24px; background: var(--surface-2); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
-        <div id="modal-lang-toggle" style="display: flex; gap: 6px;"></div>
-        <button id="copy-citation-btn" class="btn btn-secondary btn-xs">📋 Copy Citation</button>
+      <div style="padding: 10px 24px; background: var(--surface-2); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div id="modal-lang-toggle" style="display: flex; gap: 6px;"></div>
+          <div class="font-size-controls" style="display: flex; gap: 2px; align-items: center; border-left: 1px solid var(--border); padding-left: 10px;">
+            <span style="font-size: 0.725rem; color: var(--text-muted); margin-right: 4px;">Size:</span>
+            <button id="btn-font-decrease" class="btn btn-secondary btn-xs" title="Smaller Font" aria-label="Decrease text size" style="padding: 2px 7px;">A-</button>
+            <button id="btn-font-reset" class="btn btn-secondary btn-xs" title="Default Font" aria-label="Reset text size" style="padding: 2px 7px;">A</button>
+            <button id="btn-font-increase" class="btn btn-secondary btn-xs" title="Larger Font" aria-label="Increase text size" style="padding: 2px 7px;">A+</button>
+          </div>
+        </div>
+        <div style="display: flex; gap: 6px; align-items: center;">
+          <button id="speak-letter-btn" class="btn btn-secondary btn-xs" title="Listen to Letter" aria-label="Listen to Letter">🔊 Listen</button>
+          <button id="print-letter-btn" class="btn btn-secondary btn-xs" title="Print Letter Transcript" aria-label="Print Letter">🖨️ Print</button>
+          <button id="copy-citation-btn" class="btn btn-secondary btn-xs" title="Copy Archival Citation" aria-label="Copy Citation">📋 Citation</button>
+        </div>
       </div>
 
       <div id="modal-letter-body" class="letter-modal-body"></div>

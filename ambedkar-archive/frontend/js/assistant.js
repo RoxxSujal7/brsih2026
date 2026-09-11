@@ -10,7 +10,9 @@ const sendBtn = document.getElementById('send-btn');
 const chipsContainer = document.getElementById('suggestion-chips');
 
 function scrollToBottom() {
-  messagesEl.scrollTop = messagesEl.scrollHeight;
+  requestAnimationFrame(() => {
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  });
 }
 
 function escapeHtml(str) {
@@ -135,6 +137,11 @@ function hideTyping() {
 async function sendMessage() {
   const query = inputEl.value.trim();
   if (!query) return;
+
+  // Immediately hide top suggestion chips so messages have full room
+  if (chipsContainer) {
+    chipsContainer.style.display = 'none';
+  }
 
   // Add user message bubble
   addMessage(query, 'user');
