@@ -1,0 +1,14 @@
+{
+  "name": "ambedkar-digital-heritage-archive-root",
+  "version": "1.0.0",
+  "description": "Root deployment wrapper for Ambedkar Digital Heritage Archive",
+  "scripts": {
+    "install": "npm install --prefix ambedkar-archive",
+    "build": "npm install --prefix ambedkar-archive",
+    "start": "npm start --prefix ambedkar-archive",
+    "dev": "npm run dev --prefix ambedkar-archive"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
