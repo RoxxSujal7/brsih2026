@@ -87,12 +87,15 @@ function addMessage(text, type = 'ai', citation = null, volumeNo = null, related
 }
 
 function renderDynamicPills(prompts) {
+  // Clear any existing follow-up decks so older messages don't leave lingering chips
+  document.querySelectorAll('.dynamic-followups').forEach(el => el.remove());
+
   const pillDeck = document.createElement('div');
   pillDeck.className = 'dynamic-followups';
   pillDeck.style.display = 'flex';
   pillDeck.style.flexWrap = 'wrap';
   pillDeck.style.gap = '0.4rem';
-  pillDeck.style.margin = '0.5rem 0 1rem';
+  pillDeck.style.margin = '0.75rem 0 1.25rem';
   pillDeck.style.paddingLeft = '0.5rem';
 
   const label = document.createElement('span');

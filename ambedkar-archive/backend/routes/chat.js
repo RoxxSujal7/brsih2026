@@ -71,8 +71,12 @@ function detectPromptInjection(userInput) {
 }
 
 // ─── Gemini API Integration ───────────────────────────────────────────────────
+function getGeminiApiKey() {
+  return (process.env.GOOGLE_AI_API_KEY || process.env.GEMINI_API_KEY || '').trim();
+}
+
 async function callGeminiAPI(userMessage, conversationHistory = []) {
-  const apiKey = process.env.GOOGLE_AI_API_KEY || process.env.GEMINI_API_KEY;
+  const apiKey = getGeminiApiKey();
   if (!apiKey) {
     throw new Error('GOOGLE_AI_API_KEY / GEMINI_API_KEY not configured');
   }
@@ -188,6 +192,12 @@ function generateFallbackResponse(userMessage) {
 
   // 4. Scholarly Q&A Knowledge Base
   const topics = [
+    {
+      keys: ['who is br', 'who is ambedkar', 'who is babasaheb', 'who was ambedkar', 'who is dr ambedkar', 'who was dr ambedkar', 'about ambedkar', 'biography', 'life of ambedkar', 'dr ambedkar', 'b.r. ambedkar', 'bhimrao', 'who is he'],
+      answer: `**Dr. Bhimrao Ramji Ambedkar (1891–1956)** — *Babasaheb*\n\nDr. B. R. Ambedkar was a preeminent Indian jurist, economist, social reformer, and political leader. He was the **Chief Architect of the Constitution of India** and served as Independent India's first Minister of Law and Justice. In 1990, he was posthumously conferred the **Bharat Ratna**, India's highest civilian honour.\n\n### Life & Historic Achievements:\n1. **Education & Scholarship (1891–1923)**: Born on April 14, 1891, in Mhow (Madhya Pradesh). Overcame harrowing untouchability to earn doctorates in economics from both **Columbia University (New York)** and the **London School of Economics (LSE)**, and was called to the Bar at Gray's Inn, London.\n2. **Pioneering Civil Rights Movements**: Led the historic **Mahad Satyagraha (1927)** for public water rights, the **Manusmriti Dahan (1927)** asserting social equality, and the **Kalaram Temple Entry Satyagraha (1930)**.\n3. **Founding of Modern Institutions**: His monetary economics research (*The Problem of the Rupee*, 1923) provided the operational charter for the **Reserve Bank of India (RBI)** in 1935. As Labour Minister (1942–46), he reduced daily working hours from 12 to 8, established the Central Water Commission, and enacted compulsory maternity benefits.\n4. **Framing the Constitution (1947–1950)**: As Chairman of the Drafting Committee, he enshrined Fundamental Rights, abolished untouchability (Article 17), and established judicial review through Article 32.\n5. **Spiritual & Social Revolution (1956)**: At Deeksha Bhoomi, Nagpur, on October 14, 1956, he led over 500,000 followers in converting to Buddhism, formulating the 22 Vows (*Navayana*).\n\n### Enduring Motto:\n> *"Educate, Agitate, Organize. Have faith in yourselves. With justice on our side, I do not see how we can lose our battle."*`,
+      citation: "Ambedkar Digital Heritage Archive · Comprehensive Biography",
+      related: ['Constitution of India', 'Annihilation of Caste', 'The Buddha and His Dhamma', 'The Problem of the Rupee']
+    },
     {
       keys: ['poona pact', 'poona', 'gandhi pact', 'yerwada', 'separate electorates', 'macdonald award', 'communal award'],
       answer: `**The Poona Pact (September 24, 1932)** — BAWS Vol. 9 & Vol. 20\n\nThe Poona Pact was an agreement signed between Dr. B. R. Ambedkar and caste Hindu leaders at Yerwada Central Jail in Pune to break Mahatma Gandhi's fast unto death.\n\n### Key Historical Points:\n1. **Context of Separate Electorates**: Following the Round Table Conferences in London, British Prime Minister Ramsay MacDonald granted the *Communal Award* in August 1932, giving the Depressed Classes (Dalits) separate electorates with two votes.\n2. **Gandhi's Fast**: Gandhi opposed separate electorates, arguing it would permanently vivisect Hindu society, and began a fast unto death at Yerwada.\n3. **Ambedkar's Sacrifice & The Compromise**: Under immense moral pressure to save Gandhi's life, Ambedkar surrendered separate electorates in exchange for **reserved seats within a joint electorate**, increasing reserved legislative seats from 71 to **148** in provincial councils, plus 18% of Central Assembly seats.\n4. **Ambedkar's Retrospective Critique**: In BAWS Vol. 9 (*What Congress and Gandhi Have Done to the Untouchables*), Ambedkar later critiqued the Pact, noting that joint electorates allowed the caste Hindu majority to decide which Dalit candidate won, diluting genuine political independence.`,
@@ -307,7 +317,7 @@ router.post('/', chatLimiter, async (req, res) => {
       : [];
 
     // Try Gemini API first
-    const hasApiKey = !!process.env.GOOGLE_AI_API_KEY;
+    const hasApiKey = !!getGeminiApiKey();
 
     if (hasApiKey) {
       try {
