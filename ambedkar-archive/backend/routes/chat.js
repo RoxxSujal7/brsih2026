@@ -72,9 +72,9 @@ function detectPromptInjection(userInput) {
 
 // ─── Gemini API Integration ───────────────────────────────────────────────────
 async function callGeminiAPI(userMessage, conversationHistory = []) {
-  const apiKey = process.env.GOOGLE_AI_API_KEY;
+  const apiKey = process.env.GOOGLE_AI_API_KEY || process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    throw new Error('GOOGLE_AI_API_KEY not configured');
+    throw new Error('GOOGLE_AI_API_KEY / GEMINI_API_KEY not configured');
   }
 
   const modelName = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
