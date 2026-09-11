@@ -46,6 +46,20 @@ const userSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
+    phone: {
+      type: String,
+      trim: true,
+      default: '',
+    },
+    authProvider: {
+      type: String,
+      enum: ['local', 'google', 'phone', 'email_otp'],
+      default: 'local',
+    },
+    googleId: {
+      type: String,
+      default: '',
+    },
     isActive: {
       type: Boolean,
       default: true,

@@ -1,18 +1,34 @@
 const express = require('express');
+const rateLimit = require('express-rate-limit');
 const router = express.Router();
 const Document = require('../models/Document');
+
+// Rate limit: max 120 search queries per minute per IP
+const searchLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 120,
+  message: { success: false, message: 'Search rate limit exceeded. Please wait a moment.' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 
 /**
  * GET /api/search?q=query
  * Unified search endpoint across documents and media (offline safe)
  */
-router.get('/', async (req, res, next) => {
+router.get('/', searchLimiter, async (req, res, next) => {
   try {
     const query = req.query.q || '';
     if (!query.trim()) {
       return res.json({ success: true, count: 0, data: { results: [] } });
     }
 
+    // HIGH-04 FIX: Validate query length to prevent ReDoS and performance attacks
+    if (query.length > 200) {
+      return res.status(400).json({ success: false, message: 'Search query must be 200 characters or fewer.' });
+    }
+
+    const sanitizedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     let documents = [];
     try {
       documents = await Document.find(
@@ -23,7 +39,7 @@ router.get('/', async (req, res, next) => {
         .limit(10);
     } catch (e) {
       try {
-        const regex = new RegExp(query, 'i');
+        const regex = new RegExp(sanitizedQuery, 'i');
         documents = await Document.find({
           $or: [{ title: regex }, { description: regex }, { category: regex }, { tags: regex }]
         }).limit(10);

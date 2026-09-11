@@ -4,13 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Explore Dr. B. R. Ambedkar's life chronologically from 1891 to 1956 — an interactive timeline of milestones, works, and historical events." />
+  <meta name="theme-color" content="#07090e" />
+  <meta property="og:title" content="Life Timeline — Ambedkar Digital Heritage Archive" />
+  <meta property="og:description" content="Chronological journey through Dr. B. R. Ambedkar's life milestones, writings, and historic struggles (1891–1956)." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Life Timeline — Ambedkar Digital Heritage Archive" />
+  <meta name="twitter:description" content="Interactive milestone timeline of Dr. Babasaheb Ambedkar." />
   <title>Life Timeline — Ambedkar Digital Heritage Archive</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏛️</text></svg>" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏛️</text></svg>" />
   
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css?v=2.2" />
   <script>(function(){const t=localStorage.getItem('site_theme')||localStorage.getItem('reader_theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
 
   <style>
@@ -200,7 +210,9 @@
 
     <div class="nav-links" role="list">
       <a href="index.html" class="nav-link" role="listitem">Home</a>
-      <a href="archive.html" class="nav-link" role="listitem">Complete Works (60 Vol)</a>
+      <a href="archive.html" class="nav-link" role="listitem">Volumes &amp; Books</a>
+      <a href="letters.html" class="nav-link" role="listitem">Letters (361)</a>
+      <a href="vows.html" class="nav-link" role="listitem">22 Vows</a>
       <a href="media.html" class="nav-link" role="listitem">Speeches &amp; Media</a>
       <a href="timeline.html" class="nav-link active" role="listitem">Timeline</a>
       <a href="assistant.html" class="nav-link" role="listitem">AI Assistant</a>
@@ -248,6 +260,8 @@
 
   <a href="index.html" class="nav-link">🏠 Home</a>
   <a href="archive.html" class="nav-link">📚 Complete Works (60 Volumes)</a>
+  <a href="letters.html" class="nav-link">📜 Letters &amp; Correspondence (361)</a>
+  <a href="vows.html" class="nav-link">☸️ The 22 Vows (22 प्रतिज्ञा)</a>
   <a href="constitution.html" class="nav-link">⚖️ Constitution</a>
   <a href="ideas.html" class="nav-link">💡 Thematic Ideas</a>
   <a href="learning.html" class="nav-link">🎓 Learning Center</a>
@@ -281,6 +295,10 @@
         <span class="side-dock-icon">💡</span>
         <span class="side-dock-label">Ideas</span>
       </a>
+      <a href="media.html" class="side-dock-link" title="Speeches &amp; Audio-Visual Archive">
+        <span class="side-dock-icon">🎬</span>
+        <span class="side-dock-label">Speeches</span>
+      </a>
       <a href="learning.html" class="side-dock-link" title="Interactive Learning Center">
         <span class="side-dock-icon">🎓</span>
         <span class="side-dock-label">Learning</span>
@@ -305,14 +323,15 @@
       <p class="section-desc" style="margin:0 auto;">The historic journey of Bharat Ratna Dr. B. R. Ambedkar — from Mhow to London, from social emancipation movements to the Drafting of India's Constitution.</p>
     </div>
 
-    <!-- Filter -->
-    <div class="filter-tabs" style="margin-bottom:var(--space-10);justify-content:center;" role="tablist">
-      <button class="filter-tab active" data-filter="all" role="tab">All Events</button>
+    <!-- Filter Tabs -->
+    <div class="filter-tabs flex gap-2 flex-wrap mb-8 justify-center" role="tablist" aria-label="Filter events by category">
+      <button class="filter-tab active" data-filter="all" role="tab" aria-selected="true">All Milestones (35+)</button>
       <button class="filter-tab" data-filter="education" role="tab">🎓 Education</button>
       <button class="filter-tab" data-filter="writing" role="tab">📖 Writings</button>
       <button class="filter-tab" data-filter="movement" role="tab">✊ Movement</button>
       <button class="filter-tab" data-filter="politics" role="tab">🏛️ Politics</button>
       <button class="filter-tab" data-filter="religion" role="tab">☸️ Religion</button>
+      <button class="filter-tab" data-filter="bookmarked" role="tab">🔖 Bookmarked (<span id="bookmark-counter">0</span>)</button>
     </div>
 
     <!-- Timeline -->
@@ -324,8 +343,8 @@
 </main>
 
 <!-- Interactive Timeline Event & Exact Book Reference Modal -->
-<div id="timeline-detail-modal" class="cmd-backdrop" style="display:none; align-items:center; justify-content:center; padding:var(--space-4); z-index:10000; position:fixed; inset:0;" role="dialog" aria-modal="true" aria-labelledby="modal-event-title">
-  <div class="card animate-fade-up" style="max-width:680px; width:100%; max-height:88vh; overflow-y:auto; border-radius:var(--radius-xl); box-shadow:var(--shadow-lg), 0 0 35px rgba(212,175,55,0.25);">
+<div id="timeline-detail-modal" class="timeline-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-event-title">
+  <div class="card timeline-modal-dialog animate-fade-up">
     <div class="card-inner" style="padding:var(--space-6);">
       
       <!-- Modal Header -->
@@ -341,7 +360,19 @@
             <h2 id="modal-event-title" class="font-heading text-xl text-gold" style="margin-top:var(--space-1); line-height:1.3;">Title</h2>
           </div>
         </div>
-        <button id="modal-close-btn" class="btn btn-ghost btn-sm" aria-label="Close dialog" style="font-size:1.25rem; line-height:1; border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer;">✕</button>
+        <div class="flex items-center gap-2">
+          <!-- Voice narration / Speech synthesis button -->
+          <button id="modal-speak-btn" class="btn btn-outline btn-sm" title="Listen to narration of this milestone" aria-label="Listen to narration">
+            <span id="modal-speak-icon">🔊</span>
+            <span id="modal-speak-text">Listen</span>
+          </button>
+          <!-- Bookmark button -->
+          <button id="modal-bookmark-btn" class="btn btn-outline btn-sm" title="Bookmark this milestone" aria-label="Bookmark this milestone">
+            <span id="modal-bookmark-icon">🔖</span>
+            <span id="modal-bookmark-text">Bookmark</span>
+          </button>
+          <button id="modal-close-btn" class="btn btn-ghost btn-sm" aria-label="Close dialog" style="font-size:1.25rem; line-height:1; border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer;">✕</button>
+        </div>
       </div>
 
       <!-- Exact Date and Location Capsule -->
@@ -407,6 +438,6 @@
 <script src="js/toast.js"></script>
 <script src="js/app.js"></script>
   <script src="js/command-palette.js"></script>
-<script src="js/timeline.js"></script>
+<script src="js/timeline.js?v=2.2"></script>
 </body>
 </html>

@@ -13,8 +13,18 @@ function scrollToBottom() {
   messagesEl.scrollTop = messagesEl.scrollHeight;
 }
 
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
 function parseMarkdown(text) {
-  return text
+  const safeText = escapeHtml(text);
+  return safeText
     .replace(/^### (.+)$/gm, '<h4 style="font-family:var(--font-heading);color:var(--text);margin:0.75rem 0 0.4rem;font-size:1rem;letter-spacing:-0.01em;">$1</h4>')
     .replace(/^## (.+)$/gm, '<h3 style="font-family:var(--font-heading);color:var(--accent-light);margin:0.85rem 0 0.4rem;font-size:1.1rem;">$1</h3>')
     .replace(/\*\*(.+?)\*\*/g, '<strong style="color:var(--text);font-weight:600;">$1</strong>')
@@ -134,33 +144,83 @@ async function sendMessage() {
 
   showTyping();
 
-  // Realistic scholarly thinking latency (500-900ms)
-  await new Promise(r => setTimeout(r, 500 + Math.random() * 400));
+  // Track conversation history for multi-turn context
+  if (!window._chatHistory) window._chatHistory = [];
+  window._chatHistory.push({ role: 'user', content: query });
 
-  hideTyping();
-
-  // Query scholarly engine
   const lang = (window.AppState && window.AppState.getCurrentLang) ? window.AppState.getCurrentLang() : 'en';
-  const result = window.ChatbotData.findAnswer(query);
 
-  let answerText = result?.answer || 'I could not find a relevant passage in the BAWS corpus.';
+  let answerText = '';
+  let citation = 'Ambedkar Digital Heritage Archive';
+  let related = [];
+  let source = 'offline';
 
-  if (lang === 'hi') {
+  // Phase 3: Try the real /api/chat endpoint (Gemini AI) first
+  try {
+    const chatRes = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: query,
+        history: window._chatHistory.slice(-8), // Last 4 turns
+        lang
+      }),
+      signal: AbortSignal.timeout(20000) // 20 second timeout
+    });
+
+    if (chatRes.ok) {
+      const data = await chatRes.json();
+      if (data.success && data.response) {
+        answerText = data.response.text || '';
+        citation = data.response.citation || citation;
+        related = data.response.related || [];
+        source = data.response.source || 'api';
+      }
+    }
+  } catch (networkErr) {
+    // Network unavailable — fall through to offline engine
+    console.log('Chat API unavailable, using offline knowledge base.');
+  }
+
+  // Fallback to local keyword-matching engine if API failed or is offline
+  if (!answerText && window.ChatbotData) {
+    const result = window.ChatbotData.findAnswer(query);
+    answerText = result?.answer || 'I could not find a relevant passage in the BAWS corpus.';
+    citation = result?.citation || citation;
+    related = result?.related || related;
+    source = 'offline';
+  }
+
+  // Add language prefix for non-English responses
+  if (lang === 'hi' && source === 'offline') {
     answerText = `[English scholarly extract — Hindi translation in synthesis]\n\n${answerText}`;
-  } else if (lang === 'mr') {
+  } else if (lang === 'mr' && source === 'offline') {
     answerText = `[English scholarly extract — Marathi translation in synthesis]\n\n${answerText}`;
   }
 
-  addMessage(answerText, 'ai', result?.citation, result?.volume, result?.related);
+  hideTyping();
+
+  // Track AI response in history
+  window._chatHistory.push({ role: 'assistant', content: answerText });
+  // Keep history to last 10 turns
+  if (window._chatHistory.length > 20) {
+    window._chatHistory = window._chatHistory.slice(-20);
+  }
+
+  // Extract volume number for quick reader link
+  const volMatch = (citation || '').match(/Vol\.\s*(\d+)/i);
+  const volumeNo = volMatch ? parseInt(volMatch[1]) : null;
+
+  addMessage(answerText, 'ai', citation, volumeNo, related);
   sendBtn.disabled = false;
 
-  // Search API for relevant documents in parallel if backend is available
+  // Search archive catalog for related documents
   try {
     if (window.api && window.api.documents) {
       const searchRes = await window.api.documents.search(query, { limit: 2 });
       if (searchRes?.documents?.length) {
         const docLinks = searchRes.documents
-          .map(d => `<a href="reader.html?id=${d._id}" style="color:var(--accent-light);text-decoration:underline;">📖 ${d.title}</a>`)
+          .map(d => `<a href="reader.html?id=${d._id}" style="color:var(--accent-light);text-decoration:underline;">📖 ${escapeHtml(d.title)}</a>`)
           .join('<br/>');
         const relBubble = document.createElement('div');
         relBubble.className = 'chat-bubble bubble-ai';

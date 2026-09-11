@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="The historic 22 Vows (22 प्रतिज्ञा) administered by Dr. B. R. Ambedkar at Deeksha Bhoomi, Nagpur in 1956 in 11 Indian languages." />
+  <meta name="theme-color" content="#07090e" />
+  <meta property="og:title" content="The 22 Vows (22 प्रतिज्ञा) — Ambedkar Digital Heritage Archive" />
+  <meta property="og:description" content="Historic 22 Vows administered by Dr. B. R. Ambedkar at Deeksha Bhoomi, Nagpur in 1956 across 11 Indian languages." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="The 22 Vows of Dr. B. R. Ambedkar (1956)" />
+  <meta name="twitter:description" content="Historic 22 Vows in English, Hindi, Marathi, and 8 other Indian languages." />
+  <title>The 22 Vows (22 प्रतिज्ञा) — Ambedkar Digital Heritage Archive</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏛️</text></svg>" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏛️</text></svg>" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/apple-design.css" />
+  <script>(function(){const t=localStorage.getItem('site_theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+
+  <style>
+    .vows-hero {
+      padding: var(--space-12) 0 var(--space-8);
+      text-align: center;
+    }
+    .lang-pills-bar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: var(--space-6) 0 var(--space-8);
+    }
+    .lang-pill {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 8px 18px;
+      border-radius: var(--radius-full);
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--duration-fast) var(--ease-spring);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .lang-pill:hover {
+      border-color: var(--border-gold);
+      color: var(--text);
+      transform: translateY(-1px);
+    }
+    .lang-pill.active {
+      background: var(--gold);
+      color: #000;
+      border-color: var(--gold);
+      box-shadow: 0 4px 14px rgba(212,175,55,0.4);
+    }
+    .vows-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: var(--space-5);
+      margin-bottom: var(--space-12);
+    }
+    .vow-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-5);
+      transition: all var(--duration-fast) var(--ease-spring);
+      display: flex;
+      gap: var(--space-4);
+      align-items: flex-start;
+      box-shadow: inset 0 1px 1px rgba(255,255,255,0.05);
+    }
+    .vow-card:hover {
+      border-color: var(--border-gold);
+      background: var(--surface-2);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.35), 0 0 20px rgba(212,175,55,0.08);
+    }
+    .vow-num-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-full);
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid var(--border-gold);
+      color: var(--gold);
+      font-weight: 800;
+      font-family: var(--font-heading);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.95rem;
+    }
+    .vow-text {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text);
+      font-family: 'Noto Sans Devanagari', var(--font-body), sans-serif;
+    }
+    .vow-historic-box {
+      background: rgba(212, 175, 55, 0.05);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-2xl);
+      padding: var(--space-6);
+      margin-bottom: var(--space-8);
+      display: flex;
+      gap: var(--space-5);
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- ─── Floating Island Navigation ─────────────────── -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Ambedkar Archive Home">
+        <div class="nav-logo-icon" aria-hidden="true">⚜️</div>
+        <div class="nav-logo-text">
+          <span>AMBEDKAR ARCHIVE</span>
+          <span class="nav-logo-sub">Digital Heritage Platform</span>
+        </div>
+      </a>
+
+      <div class="nav-links" role="list">
+        <a href="index.html" class="nav-link" role="listitem">Home</a>
+        <a href="archive.html" class="nav-link" role="listitem">Volumes &amp; Books</a>
+        <a href="letters.html" class="nav-link" role="listitem">Letters (361)</a>
+        <a href="vows.html" class="nav-link active" role="listitem">22 Vows</a>
+        <a href="media.html" class="nav-link" role="listitem">Speeches &amp; Media</a>
+        <a href="timeline.html" class="nav-link" role="listitem">Timeline</a>
+        <a href="assistant.html" class="nav-link" role="listitem">AI Assistant</a>
+      </div>
+
+      <div class="nav-actions">
+        <!-- Reading Atmosphere Switcher -->
+        <div class="nav-theme" role="group" aria-label="Atmosphere selection">
+          <button class="theme-toggle-btn active" data-theme="dark" title="Dark Slate Atmosphere">🌙</button>
+          <button class="theme-toggle-btn" data-theme="paper" title="Ivory Paper Sanctuary">📜</button>
+          <button class="theme-toggle-btn" data-theme="sepia" title="Historical Sepia Sanctuary">🏺</button>
+        </div>
+        <div class="nav-lang" role="group" aria-label="Language selection">
+          <button class="lang-btn active" data-lang="en" aria-pressed="true">EN</button>
+          <button class="lang-btn" data-lang="hi" aria-pressed="false">हिन्दी</button>
+          <button class="lang-btn" data-lang="mr" aria-pressed="false">मराठी</button>
+        </div>
+
+        <!-- Logged-out state -->
+        <a id="nav-login-btn" href="login.html" class="btn btn-primary btn-sm">Sign In</a>
+
+        <!-- Logged-in state (hidden by default) -->
+        <div id="nav-user-menu" style="display:none;" class="flex gap-2 items-center">
+          <a href="dashboard.html" class="btn btn-secondary btn-sm">
+            <span>👤</span> <span id="nav-user-name">User</span>
+          </a>
+          <button data-action="logout" class="btn btn-ghost btn-sm">Logout</button>
+        </div>
+
+        <button id="hamburger" class="hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Navigation Drawer -->
+  <div id="mobile-menu" class="mobile-menu" role="dialog" aria-label="Mobile navigation">
+    <div class="mobile-theme-row flex-between items-center" style="padding:var(--space-2) var(--space-3);margin-bottom:var(--space-2);border-bottom:1px solid var(--border);">
+      <span style="font-size:0.8rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Atmosphere</span>
+      <div class="nav-theme" role="group" aria-label="Atmosphere selection">
+        <button class="theme-toggle-btn active" data-theme="dark" title="Dark Slate">🌙</button>
+        <button class="theme-toggle-btn" data-theme="paper" title="Ivory Paper">📜</button>
+        <button class="theme-toggle-btn" data-theme="sepia" title="Historical Sepia">🏺</button>
+      </div>
+    </div>
+
+    <a href="index.html" class="nav-link">🏠 Home</a>
+    <a href="archive.html" class="nav-link">📚 Volumes &amp; Books</a>
+    <a href="letters.html" class="nav-link">📜 Letters &amp; Correspondence (361)</a>
+    <a href="vows.html" class="nav-link active">☸️ The 22 Vows (22 प्रतिज्ञा)</a>
+    <a href="constitution.html" class="nav-link">⚖️ Constitution</a>
+    <a href="ideas.html" class="nav-link">💡 Thematic Ideas</a>
+    <a href="learning.html" class="nav-link">🎓 Learning Center</a>
+    <a href="quotes.html" class="nav-link">💬 Verified Quotes</a>
+    <a href="media.html" class="nav-link">🎬 Speeches &amp; Audio-Visual</a>
+    <a href="timeline.html" class="nav-link">📅 Chronological Timeline</a>
+    <a href="slides.html" class="nav-link">📽️ Visual Exhibition Deck <span class="badge-16-9">16:9</span></a>
+    <a href="assistant.html" class="nav-link">🤖 AI Research Assistant</a>
+    <a href="ocr.html" class="nav-link">📜 Manuscript OCR</a>
+    <a href="dashboard.html" class="nav-link">👤 My Research Dashboard</a>
+    <div style="height:1px;background:rgba(255,255,255,0.08);margin:var(--space-4) 0;"></div>
+    <a href="login.html" class="btn btn-primary btn-full">Sign In</a>
+  </div>
+
+  <!-- ─── Vertical Left Dock: Curated Exploration Hubs ─── -->
+  <aside class="side-dock" role="navigation" aria-label="Curated exploration hubs">
+    <div class="side-dock-inner">
+      <div class="side-dock-header">
+        <span class="side-dock-badge">Curated Hubs</span>
+      </div>
+      <div class="side-dock-links">
+        <a href="slides.html" class="side-dock-link" title="Visual Exhibition Deck (16:9)">
+          <span class="side-dock-icon">📽️</span>
+          <span class="side-dock-label">Exhibition <span class="badge-16-9">16:9</span></span>
+        </a>
+        <a href="constitution.html" class="side-dock-link" title="Constitution of India">
+          <span class="side-dock-icon">⚖️</span>
+          <span class="side-dock-label">Constitution</span>
+        </a>
+        <a href="ideas.html" class="side-dock-link" title="Thematic Ideas &amp; Philosophy">
+          <span class="side-dock-icon">💡</span>
+          <span class="side-dock-label">Ideas</span>
+        </a>
+        <a href="media.html" class="side-dock-link" title="Speeches &amp; Audio-Visual Archive">
+          <span class="side-dock-icon">🎬</span>
+          <span class="side-dock-label">Speeches</span>
+        </a>
+        <a href="learning.html" class="side-dock-link" title="Interactive Learning Center">
+          <span class="side-dock-icon">🎓</span>
+          <span class="side-dock-label">Learning</span>
+        </a>
+        <a href="quotes.html" class="side-dock-link" title="Verified Historical Quotes">
+          <span class="side-dock-icon">💬</span>
+          <span class="side-dock-label">Quotes</span>
+        </a>
+        <a href="ocr.html" class="side-dock-link" title="Manuscript OCR Visualizer">
+          <span class="side-dock-icon">📜</span>
+          <span class="side-dock-label">OCR</span>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <main class="page-content" role="main">
+    <div class="container section">
+    <!-- Hero Header -->
+    <section class="vows-hero">
+      <div class="badge badge-gold" style="margin-bottom: var(--space-3);">
+        <span>☸️</span> <span>Deeksha Bhoomi Nagpur • 14 October 1956</span>
+      </div>
+      <h1 id="vows-main-title" style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.2rem); margin-bottom: var(--space-3); letter-spacing: -0.015em;">
+        The 22 Vows (२२ प्रतिज्ञा)
+      </h1>
+      <p id="vows-main-desc" style="color: var(--text-muted); font-size: 1.05rem; max-width: 760px; margin: 0 auto; line-height: 1.7;">
+        Administered by Dr. Babasaheb Ambedkar to over 500,000 followers at Nagpur, renouncing social inequality, superstition, and caste divisions in pursuit of ethical humanism, wisdom, and compassion.
+      </p>
+
+      <!-- Language Switcher Bar -->
+      <div class="lang-pills-bar" id="vows-lang-bar">
+        <!-- Injected via JS -->
+      </div>
+    </section>
+
+    <!-- Historical Context Callout -->
+    <div class="vow-historic-box">
+      <div style="font-size: 2.2rem;">🏛️</div>
+      <div style="flex: 1;">
+        <h3 style="font-family: var(--font-display); font-size: 1.1rem; color: var(--gold-light); margin-bottom: 4px;">
+          Historical Significance of the 22 Pledges
+        </h3>
+        <p style="font-size: 0.875rem; color: var(--text-muted); margin: 0; line-height: 1.6;">
+          By taking these 22 vows, Dr. Ambedkar created an autonomous moral and legal charter ensuring that conversion to Buddhism was not merely symbolic, but a complete emancipation from feudal hierarchy, ritual subjugation, and untouchability.
+        </p>
+      </div>
+      <div>
+        <button id="copy-all-vows-btn" class="btn btn-secondary btn-sm" style="white-space: nowrap;">📋 Copy All</button>
+      </div>
+    </div>
+
+    <!-- Vows Grid -->
+    <div id="vows-grid" class="vows-grid">
+      <!-- 22 Vows Injected via JS -->
+    </div>
+    </div>
+  </main>
+
+  <!-- Bottom Tab Bar (Mobile) -->
+  <nav class="bottom-bar" role="navigation" aria-label="Mobile navigation">
+    <a href="index.html" class="tab-item" aria-label="Home">
+      <span class="tab-icon" aria-hidden="true">🏠</span>
+      <span>Home</span>
+    </a>
+    <a href="archive.html" class="tab-item" aria-label="Volumes">
+      <span class="tab-icon" aria-hidden="true">📚</span>
+      <span>Volumes</span>
+    </a>
+    <a href="letters.html" class="tab-item" aria-label="Letters">
+      <span class="tab-icon" aria-hidden="true">📜</span>
+      <span>Letters</span>
+    </a>
+    <a href="vows.html" class="tab-item active" aria-label="Vows">
+      <span class="tab-icon" aria-hidden="true">☸️</span>
+      <span>22 Vows</span>
+    </a>
+    <a href="timeline.html" class="tab-item" aria-label="Timeline">
+      <span class="tab-icon" aria-hidden="true">📅</span>
+      <span>Timeline</span>
+    </a>
+  </nav>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <p>© 2026 Ambedkar Digital Heritage Archive. Dedicated to liberty, equality, and fraternity.</p>
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/command-palette.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const langBar = document.getElementById('vows-lang-bar');
+      const grid = document.getElementById('vows-grid');
+      const titleEl = document.getElementById('vows-main-title');
+      const descEl = document.getElementById('vows-main-desc');
+      const copyBtn = document.getElementById('copy-all-vows-btn');
+
+      let currentLang = 'mr'; // Marathi by default
+      let currentVowsList = [];
+
+      try {
+        const langRes = await api.vows.languages();
+        renderLangPills(langRes.languages);
+        loadVows(currentLang);
+      } catch (e) {
+        console.error('Error fetching vows languages:', e);
+      }
+
+      function renderLangPills(langs) {
+        langBar.innerHTML = langs.map(l => `
+          <button class="lang-pill ${l.id === currentLang ? 'active' : ''}" data-id="${l.id}">
+            ${l.name}
+          </button>
+        `).join('');
+
+        langBar.querySelectorAll('.lang-pill').forEach(btn => {
+          btn.addEventListener('click', () => {
+            langBar.querySelectorAll('.lang-pill').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentLang = btn.getAttribute('data-id');
+            loadVows(currentLang);
+          });
+        });
+      }
+
+      async function loadVows(lang) {
+        grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px;"><span class="spinner spinner-sm"></span> Loading pledges…</div>';
+        try {
+          const res = await api.vows.get(lang);
+          const data = res.data;
+          currentVowsList = data.vows || [];
+
+          if (data.title) titleEl.textContent = data.title;
+          if (data.description) descEl.textContent = data.description;
+
+          grid.innerHTML = currentVowsList.map((vowText, idx) => {
+            // Strip leading number if already formatted e.g. "1. "
+            const cleanText = vowText.replace(/^[0-9]+[\.\s\-]+/, '');
+            return `
+              <div class="vow-card">
+                <div class="vow-number">${idx + 1}</div>
+                <div class="vow-text">${cleanText}</div>
+              </div>
+            `;
+          }).join('');
+        } catch (err) {
+          grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--text-faint);">Failed to load vows: ${err.message}</div>`;
+        }
+      }
+
+      copyBtn?.addEventListener('click', () => {
+        if (!currentVowsList.length) return;
+        const text = currentVowsList.map((v, i) => `${i + 1}. ${v.replace(/^[0-9]+[\.\s\-]+/, '')}`).join('\n\n');
+        navigator.clipboard.writeText(text).then(() => {
+          if (window.AppState && AppState.showToast) {
+            AppState.showToast('All 22 Vows copied to clipboard! 📋', 'success');
+          } else {
+            alert('Copied all 22 Vows!');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

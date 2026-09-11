@@ -136,6 +136,19 @@ async function loadPdfVolume(docId) {
   if (loadingEl) loadingEl.style.display = 'flex';
   if (loadingText) loadingText.textContent = `Streaming ${currentDocMeta.title} (${currentDocMeta.file})...`;
 
+  // HIGH-02 FIX: Check if local PDF exists before attempting PDF.js load
+  // If not available locally, show helpful fallback to MEA external source
+  try {
+    // Quick HEAD check to see if local PDF is available
+    const checkRes = await fetch(currentDocMeta.file, { method: 'HEAD' });
+    if (!checkRes.ok) {
+      showPdfFallback(loadingEl, loadingText, currentDocMeta);
+      return;
+    }
+  } catch (headErr) {
+    // Network issue or CORS — try loading anyway, PDF.js will catch the error
+  }
+
   try {
     const loadingTask = pdfjsLib.getDocument({
       url: currentDocMeta.file,
@@ -170,14 +183,76 @@ async function loadPdfVolume(docId) {
 
   } catch (err) {
     console.error('PDF Load Error:', err);
-    if (loadingText) {
-      loadingText.innerHTML = `
-        <span style="color:var(--danger);display:block;margin-bottom:8px;">⚠️ Direct PDF stream failed: ${err.message}</span>
-        <button onclick="switchToNativeViewer()" class="btn btn-primary btn-sm">Switch to Native PDF Viewer</button>
-      `;
-    }
+    showPdfFallback(loadingEl, loadingText, currentDocMeta, err.message);
   }
 }
+
+// HIGH-02 FIX: Graceful fallback UI when local PDF is unavailable
+function showPdfFallback(loadingEl, loadingText, meta, errMsg) {
+  // Try to find external MEA URL from the volumes API catalog
+  const externalUrl = meta.externalUrl || null;
+  const meaBaseUrl = 'https://www.mea.gov.in/Portal/LegalTreatiesSearch';
+
+  if (loadingText) {
+    loadingText.innerHTML = `
+      <div style="text-align:center;padding:1.5rem;max-width:500px;">
+        <div style="font-size:2.5rem;margin-bottom:1rem;">📚</div>
+        <h3 style="font-family:var(--font-display);color:var(--gold-light);margin-bottom:0.75rem;font-size:1.1rem;">
+          ${meta.title}
+        </h3>
+        <p style="color:var(--text-muted);font-size:0.875rem;margin-bottom:1.25rem;line-height:1.6;">
+          This volume's local PDF is not yet downloaded to this server.
+          ${errMsg ? `<br><span style="color:var(--danger);font-size:0.75rem;font-family:var(--font-mono);">${errMsg}</span>` : ''}
+        </p>
+        <div style="display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;">
+          ${externalUrl ? `
+            <a href="${externalUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+              📥 Download from MEA Official Archive
+            </a>
+            <button onclick="loadExternalPdf('${externalUrl}')" class="btn btn-secondary btn-sm">
+              📖 Open in Embedded Viewer
+            </button>
+          ` : `
+            <a href="https://www.mea.gov.in/Portal/LegalTreatiesSearch" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+              🌐 Visit MEA Official Archive
+            </a>
+          `}
+          <a href="archive.html" class="btn btn-ghost btn-sm">← Back to Archive</a>
+        </div>
+        <p style="color:var(--text-faint);font-size:0.7rem;margin-top:1rem;">
+          Source: Ministry of External Affairs & Dr. Ambedkar Foundation — Official BAWS Publication
+        </p>
+      </div>
+    `;
+  }
+  if (loadingEl) {
+    loadingEl.style.display = 'flex';
+    loadingEl.style.alignItems = 'center';
+    loadingEl.style.justifyContent = 'center';
+  }
+}
+
+// Load an external PDF URL in the embedded PDF.js viewer
+async function loadExternalPdf(url) {
+  const loadingEl = document.getElementById('canvas-loading');
+  const loadingText = document.getElementById('canvas-loading-text');
+  if (loadingText) loadingText.textContent = 'Loading external PDF...';
+
+  try {
+    const loadingTask = pdfjsLib.getDocument({
+      url,
+      cMapUrl: 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/cmaps/',
+      cMapPacked: true,
+    });
+    pdfDoc = await loadingTask.promise;
+    totalPages = pdfDoc.numPages;
+    if (loadingEl) loadingEl.style.display = 'none';
+    await renderCurrentView();
+  } catch (err) {
+    if (loadingText) loadingText.innerHTML = `<span style="color:var(--danger);">Failed to load external PDF: ${err.message}</span>`;
+  }
+}
+
 
 function updateMetaUI() {
   if (!currentDocMeta) return;

@@ -1,0 +1,36 @@
+name: Strix AI Security Scan
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  security-audit:
+    name: Dependency & AppSec Review
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Audit npm dependencies
+        working-directory: ./ambedkar-archive
+        run: npm audit --audit-level=high
+
+      - name: Install Strix CLI
+        run: curl -sSL https://strix.ai/install | bash
+
+      - name: Run Strix Security Review
+        if: env.LLM_API_KEY != ''
+        env:
+          STRIX_LLM: ${{ secrets.STRIX_LLM || 'openrouter/z-ai/glm-5.3' }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+        run: strix -n -t ./ambedkar-archive --scan-mode quick --max-budget 10

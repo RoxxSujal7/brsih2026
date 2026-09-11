@@ -493,6 +493,195 @@ const TIMELINE_EVENTS = [
 ];
 
 let activeFilter = 'all';
+let activeModalEvent = null;
+let currentSpeechUtterance = null;
+let isSpeaking = false;
+
+// ── Local & Cloud Bookmark Store ───────────────────────────
+const TIMELINE_BOOKMARK_KEY = 'archival_timeline_bookmarks';
+
+function getTimelineBookmarks() {
+  try {
+    const raw = localStorage.getItem(TIMELINE_BOOKMARK_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch (err) {
+    return [];
+  }
+}
+
+function isMilestoneBookmarked(ev) {
+  if (!ev) return false;
+  const bookmarks = getTimelineBookmarks();
+  const id = `${ev.year}_${ev.title}`;
+  return bookmarks.some(b => (typeof b === 'string' ? b === id : b.id === id));
+}
+
+function toggleTimelineBookmark(ev) {
+  if (!ev) return false;
+  const id = `${ev.year}_${ev.title}`;
+  let bookmarks = getTimelineBookmarks();
+  const index = bookmarks.findIndex(b => (typeof b === 'string' ? b === id : b.id === id));
+  let isNowBookmarked = false;
+
+  if (index >= 0) {
+    bookmarks.splice(index, 1);
+    isNowBookmarked = false;
+  } else {
+    bookmarks.push({
+      id: id,
+      year: ev.year,
+      title: ev.title,
+      category: ev.category,
+      exactDate: ev.exactDate,
+      savedAt: new Date().toISOString()
+    });
+    isNowBookmarked = true;
+
+    // Optional cloud sync if logged in
+    if (window.api && window.api.bookmarks && typeof window.api.bookmarks.add === 'function') {
+      window.api.bookmarks.add({
+        documentId: ev.bookRef?.docId || 'timeline-milestone',
+        title: `${ev.year}: ${ev.title}`,
+        page: ev.year,
+        excerpt: ev.desc || ev.title,
+        type: 'milestone'
+      }).catch(() => {});
+    }
+  }
+
+  localStorage.setItem(TIMELINE_BOOKMARK_KEY, JSON.stringify(bookmarks));
+
+  // Update card buttons across DOM
+  document.querySelectorAll(`.timeline-card-bookmark-btn[data-id="${id}"]`).forEach(btn => {
+    if (isNowBookmarked) {
+      btn.classList.add('bookmarked');
+      btn.setAttribute('title', 'Remove bookmark');
+      btn.setAttribute('aria-label', 'Remove bookmark');
+    } else {
+      btn.classList.remove('bookmarked');
+      btn.setAttribute('title', 'Bookmark milestone');
+      btn.setAttribute('aria-label', 'Bookmark milestone');
+    }
+  });
+
+  // Update modal button if currently open for this event
+  updateModalBookmarkBtn(ev);
+  updateBookmarkCounter();
+
+  if (window.showToast) {
+    window.showToast(isNowBookmarked ? `🔖 Bookmarked: ${ev.year} — ${ev.title}` : `Bookmark removed for ${ev.year}`);
+  }
+
+  // If in 'bookmarked' filter tab, re-render view
+  if (activeFilter === 'bookmarked') {
+    renderTimeline('bookmarked');
+  }
+
+  return isNowBookmarked;
+}
+
+function updateBookmarkCounter() {
+  const counterEl = document.getElementById('bookmark-counter');
+  if (counterEl) {
+    const list = getTimelineBookmarks();
+    counterEl.textContent = list.length;
+  }
+}
+
+function updateModalBookmarkBtn(ev) {
+  const btn = document.getElementById('modal-bookmark-btn');
+  const icon = document.getElementById('modal-bookmark-icon');
+  const text = document.getElementById('modal-bookmark-text');
+  if (!btn || !ev) return;
+
+  const bookmarked = isMilestoneBookmarked(ev);
+  if (bookmarked) {
+    btn.classList.add('bookmarked');
+    btn.style.borderColor = 'var(--gold)';
+    btn.style.color = 'var(--gold)';
+    btn.style.background = 'rgba(212, 175, 55, 0.18)';
+    if (icon) icon.textContent = '★';
+    if (text) text.textContent = 'Bookmarked';
+  } else {
+    btn.classList.remove('bookmarked');
+    btn.style.borderColor = '';
+    btn.style.color = '';
+    btn.style.background = '';
+    if (icon) icon.textContent = '🔖';
+    if (text) text.textContent = 'Bookmark';
+  }
+}
+
+// ── Speech Synthesis Narration ("Tell Description") ──────────
+function stopSpeaking() {
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+  }
+  isSpeaking = false;
+  currentSpeechUtterance = null;
+  const icon = document.getElementById('modal-speak-icon');
+  const text = document.getElementById('modal-speak-text');
+  const btn = document.getElementById('modal-speak-btn');
+  if (icon) icon.textContent = '🔊';
+  if (text) text.textContent = 'Listen';
+  if (btn) {
+    btn.classList.remove('btn-primary');
+    btn.classList.add('btn-outline');
+  }
+}
+
+function speakEventDescription(ev) {
+  if (!('speechSynthesis' in window)) {
+    if (window.showToast) window.showToast('Speech narration is not supported on this browser.');
+    return;
+  }
+
+  if (isSpeaking) {
+    stopSpeaking();
+    return;
+  }
+
+  // Construct clear, comprehensive narration text
+  const narrative = [
+    `Milestone: ${ev.year}, ${ev.title}.`,
+    ev.exactDate ? `Date: ${ev.exactDate}.` : '',
+    ev.location ? `Location: ${ev.location}.` : '',
+    ev.desc || '',
+    ev.detail ? `Historical Context: ${ev.detail}.` : '',
+    ev.quote ? `Quote by Dr. Ambedkar: "${ev.quote}"` : '',
+    ev.bookRef ? `Official reference recorded in ${ev.bookRef.volTitle}.` : ''
+  ].filter(Boolean).join(' ');
+
+  const utterance = new SpeechSynthesisUtterance(narrative);
+  utterance.rate = 0.95;
+  utterance.pitch = 1.0;
+  utterance.lang = 'en-US';
+
+  const icon = document.getElementById('modal-speak-icon');
+  const text = document.getElementById('modal-speak-text');
+  const btn = document.getElementById('modal-speak-btn');
+
+  utterance.onstart = () => {
+    isSpeaking = true;
+    if (icon) icon.textContent = '⏹️';
+    if (text) text.textContent = 'Stop';
+    if (btn) {
+      btn.classList.remove('btn-outline');
+      btn.classList.add('btn-primary');
+    }
+  };
+
+  utterance.onend = () => {
+    stopSpeaking();
+  };
+
+  utterance.onerror = () => {
+    stopSpeaking();
+  };
+
+  currentSpeechUtterance = utterance;
+  window.speechSynthesis.speak(utterance);
+}
 
 function renderTimeline(filter) {
   const container = document.getElementById('timeline-container');
@@ -504,7 +693,14 @@ function renderTimeline(filter) {
   container.innerHTML = '';
   container.appendChild(line);
 
-  const filtered = filter === 'all' ? TIMELINE_EVENTS : TIMELINE_EVENTS.filter(e => e.category === filter);
+  let filtered = [];
+  if (filter === 'all') {
+    filtered = TIMELINE_EVENTS;
+  } else if (filter === 'bookmarked') {
+    filtered = TIMELINE_EVENTS.filter(e => isMilestoneBookmarked(e));
+  } else {
+    filtered = TIMELINE_EVENTS.filter(e => e.category === filter);
+  }
 
   filtered.forEach((ev, i) => {
     // Strictly alternate: even index = left side, odd index = right side
@@ -517,11 +713,19 @@ function renderTimeline(filter) {
       ? `<span class="timeline-book-pill" title="Official BAWS Reference Available">📖 Vol. ${ev.bookRef.volNo} Ref ↗</span>` 
       : '';
 
+    const id = `${ev.year}_${ev.title}`;
+    const bookmarked = isMilestoneBookmarked(ev);
+
     const cardHtml = `
       <div class="timeline-content" tabindex="0" role="article" aria-label="${ev.year}: ${ev.title}">
         <div class="timeline-content-inner">
           <div class="flex-between items-center" style="margin-bottom:var(--space-2);">
-            <div class="timeline-year">${ev.year}</div>
+            <div class="flex items-center gap-2">
+              <div class="timeline-year">${ev.year}</div>
+              <button class="timeline-card-bookmark-btn ${bookmarked ? 'bookmarked' : ''}" data-id="${id}" title="${bookmarked ? 'Remove Bookmark' : 'Bookmark Milestone'}" aria-label="Bookmark this milestone">
+                🔖
+              </button>
+            </div>
             <span class="text-xs text-muted font-mono" style="font-size:0.75rem;">${ev.exactDate || ''}</span>
           </div>
           <div class="timeline-title">${ev.title}</div>
@@ -550,6 +754,14 @@ function renderTimeline(filter) {
     // Attach click events to card and dot
     const contentEl = item.querySelector('.timeline-content');
     const dotEl = item.querySelector('.timeline-dot');
+    const bookmarkBtn = item.querySelector('.timeline-card-bookmark-btn');
+
+    if (bookmarkBtn) {
+      bookmarkBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleTimelineBookmark(ev);
+      });
+    }
 
     const openHandler = () => openTimelineModal(ev);
     if (contentEl) {
@@ -569,14 +781,29 @@ function renderTimeline(filter) {
   });
 
   if (!filtered.length) {
-    container.innerHTML += `<div class="empty-state py-8 text-center"><span class="empty-state-icon text-3xl">📅</span><h3 class="font-heading text-lg mt-2">No events found for this category filter.</h3></div>`;
+    if (filter === 'bookmarked') {
+      container.innerHTML += `
+        <div class="empty-state py-12 text-center" style="grid-column: 1 / -1; width: 100%;">
+          <span class="empty-state-icon text-4xl">🔖</span>
+          <h3 class="font-heading text-lg mt-2 text-gold">No Bookmarked Milestones Yet</h3>
+          <p class="text-sm text-muted mt-1 max-w-md mx-auto">Click the bookmark icon 🔖 on any milestone card or inside the detail modal to save it to your personal study collection.</p>
+        </div>
+      `;
+    } else {
+      container.innerHTML += `<div class="empty-state py-8 text-center" style="grid-column: 1 / -1; width: 100%;"><span class="empty-state-icon text-3xl">📅</span><h3 class="font-heading text-lg mt-2">No events found for this category filter.</h3></div>`;
+    }
   }
+
+  updateBookmarkCounter();
 }
 
 // ── Interactive Detail Modal & Book Reference Controller ──
 function openTimelineModal(ev) {
   const modal = document.getElementById('timeline-detail-modal');
-  if (!modal) return;
+  if (!modal || !ev) return;
+
+  activeModalEvent = ev;
+  stopSpeaking(); // Reset any active speech
 
   const iconEl = document.getElementById('modal-event-icon');
   const yearEl = document.getElementById('modal-event-year');
@@ -636,19 +863,36 @@ function openTimelineModal(ev) {
     }
   }
 
-  modal.style.display = 'flex';
+  // Update Bookmark & Speak controls
+  updateModalBookmarkBtn(ev);
+
+  const speakBtn = document.getElementById('modal-speak-btn');
+  if (speakBtn) {
+    speakBtn.onclick = () => speakEventDescription(ev);
+  }
+
+  const bookmarkBtn = document.getElementById('modal-bookmark-btn');
+  if (bookmarkBtn) {
+    bookmarkBtn.onclick = () => toggleTimelineBookmark(ev);
+  }
+
+  // Activate Modal
+  modal.classList.add('active');
   document.body.style.overflow = 'hidden'; // Lock background scroll
 }
 
 function closeTimelineModal() {
   const modal = document.getElementById('timeline-detail-modal');
   if (!modal) return;
-  modal.style.display = 'none';
+  modal.classList.remove('active');
   document.body.style.overflow = '';
+  stopSpeaking();
+  activeModalEvent = null;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   renderTimeline('all');
+  updateBookmarkCounter();
 
   // Category filter tabs
   document.querySelectorAll('.filter-tab').forEach(tab => {
@@ -671,6 +915,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const modal = document.getElementById('timeline-detail-modal');
   if (modal) {
     modal.addEventListener('click', (e) => {
+      // Close only if clicking the backdrop outside the dialog
       if (e.target === modal) closeTimelineModal();
     });
   }

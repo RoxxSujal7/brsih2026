@@ -381,7 +381,12 @@ function renderDocCard(doc) {
   const displayTitle = preferIndic ? (doc.titleHi || doc.title) : doc.title;
   const subTitle = preferIndic ? (doc.titleHi ? doc.title : '') : (doc.titleHi || '');
   const volumePill = preferIndic ? `खंड ${doc.volumeNo}` : `BAWS Vol. ${doc.volumeNo}`;
-  const pdfUrl = doc.localPdf || `/pdfs/Volume${doc.volumeNo}.pdf`;
+  const vNumStr = String(doc.volumeNo).padStart(2, '0');
+  let pdfUrl = doc.edition === 'English BAWS'
+    ? `/books/Volume_${vNumStr}.pdf`
+    : (doc.localPdf || `/pdfs/Volume${doc.volumeNo}.pdf`);
+  if (doc.volumeNo === 14 && doc.edition === 'English BAWS') pdfUrl = '/books/Volume_14_01.pdf';
+  if (doc.volumeNo === 17 && doc.edition === 'English BAWS') pdfUrl = '/books/Volume_17_01.pdf';
   const readLabel = lang === 'hi' ? 'खंड पढ़ें' : lang === 'mr' ? 'खंड वाचा' : 'Read Online';
 
   // Check progress

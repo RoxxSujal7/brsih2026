@@ -1,0 +1,21 @@
+﻿User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /archive.html
+Allow: /letters.html
+Allow: /vows.html
+Allow: /ideas.html
+Allow: /timeline.html
+Allow: /media.html
+Allow: /assistant.html
+Allow: /constitution.html
+Allow: /quotes.html
+Allow: /reader.html
+Allow: /login.html
+Allow: /dashboard.html
+Disallow: /api/
+Disallow: /backend/
+Disallow: /node_modules/
+Disallow: /data/
+
+Sitemap: https://ambedkar-archive.org/sitemap.xml

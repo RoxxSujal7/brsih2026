@@ -93,8 +93,9 @@ async function findById(id) {
   return null;
 }
 
-async function createUser({ name, email, password, role = 'visitor', language = 'en', institution = '', avatar = '', authProvider = 'local', googleId = '' }) {
+async function createUser({ name, email, password, phone = '', role = 'visitor', language = 'en', institution = '', avatar = '', authProvider = 'local', googleId = '' }) {
   const normalized = (email || '').toLowerCase().trim();
+  const cleanPhone = (phone || '').replace(/[^0-9+]/g, '');
 
   if (isDbConnected()) {
     try {
@@ -102,6 +103,7 @@ async function createUser({ name, email, password, role = 'visitor', language = 
         name,
         email: normalized,
         password,
+        phone: cleanPhone,
         role,
         language,
         institution,
@@ -120,6 +122,7 @@ async function createUser({ name, email, password, role = 'visitor', language = 
     _id: id,
     name,
     email: normalized,
+    phone: cleanPhone,
     password: hashedPassword,
     role,
     language,
@@ -139,8 +142,48 @@ async function createUser({ name, email, password, role = 'visitor', language = 
     },
   };
 
-  inMemoryUsers.set(normalized, user);
+  inMemoryUsers.set(normalized || cleanPhone, user);
   return user;
+}
+
+async function findByPhone(phone, includePassword = false) {
+  const cleanPhone = (phone || '').replace(/[^0-9+]/g, '');
+  if (!cleanPhone) return null;
+
+  // Prepare search candidates (e.g., "+919876543210", "9876543210")
+  const candidates = [cleanPhone];
+  if (cleanPhone.startsWith('+91') && cleanPhone.length === 13) {
+    candidates.push(cleanPhone.slice(3));
+  } else if (!cleanPhone.startsWith('+') && cleanPhone.length === 10) {
+    candidates.push('+91' + cleanPhone);
+  }
+
+  if (isDbConnected()) {
+    try {
+      const q = User.findOne({ phone: { $in: candidates } });
+      if (includePassword) q.select('+password');
+      const doc = await q.exec();
+      if (doc) return doc;
+    } catch (e) {
+      // fallback
+    }
+  }
+
+  for (const u of inMemoryUsers.values()) {
+    if (u.phone && candidates.includes(u.phone)) {
+      return {
+        ...u,
+        comparePassword: async function (candidate) {
+          return await bcrypt.compare(candidate, u.password);
+        },
+        updateActivity: async function () {
+          u.lastActiveAt = new Date();
+          return true;
+        },
+      };
+    }
+  }
+  return null;
 }
 
 async function updateUser(id, updates) {
@@ -163,6 +206,7 @@ async function updateUser(id, updates) {
 
 module.exports = {
   findByEmail,
+  findByPhone,
   findById,
   createUser,
   updateUser,

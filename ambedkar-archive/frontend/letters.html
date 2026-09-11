@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Explore 361 historical letters and correspondence of Dr. B. R. Ambedkar with Gandhi, Nehru, Gaikwad, and international figures." />
+  <meta name="theme-color" content="#07090e" />
+  <meta property="og:title" content="Letters &amp; Correspondence (361 Letters) — Ambedkar Digital Heritage Archive" />
+  <meta property="og:description" content="Explore 361 historical letters and correspondence of Dr. B. R. Ambedkar with Gandhi, Nehru, Gaikwad, and global figures." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ambedkar Historical Letters &amp; Correspondence" />
+  <meta name="twitter:description" content="361 historical letters of Dr. B. R. Ambedkar in English and Marathi." />
+  <title>Letters &amp; Correspondence (361 Letters) — Ambedkar Digital Heritage Archive</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏛️</text></svg>" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏛️</text></svg>" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/apple-design.css" />
+  <script>(function(){const t=localStorage.getItem('site_theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+
+  <style>
+    .letters-hero {
+      padding: var(--space-12) 0 var(--space-8);
+      text-align: center;
+      position: relative;
+    }
+    .letters-filter-bar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-2xl);
+      padding: var(--space-5);
+      margin-bottom: var(--space-8);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.25), inset 0 1px 1px rgba(255,255,255,0.06);
+    }
+    .letters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: var(--space-5);
+      margin-bottom: var(--space-8);
+    }
+    .letter-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-5);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all var(--duration-fast) var(--ease-spring);
+      cursor: pointer;
+      position: relative;
+      box-shadow: inset 0 1px 1px rgba(255,255,255,0.05);
+    }
+    .letter-card:hover {
+      border-color: var(--border-gold);
+      background: var(--surface-2);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.35), 0 0 20px rgba(212,175,55,0.08);
+    }
+    .letter-meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-3);
+    }
+    .letter-date-badge {
+      font-family: var(--font-mono);
+      font-size: 0.775rem;
+      background: rgba(212, 175, 55, 0.1);
+      color: var(--gold-light);
+      padding: 3px 8px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+    }
+    .letter-parties {
+      font-size: 0.95rem;
+      margin-bottom: var(--space-3);
+      line-height: 1.4;
+    }
+    .letter-parties strong { color: var(--gold-light); }
+    .letter-snippet {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: var(--space-4);
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .correspondent-pills {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-top: var(--space-3);
+    }
+    .correspondent-pill {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      font-size: 0.775rem;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .correspondent-pill:hover, .correspondent-pill.active {
+      background: var(--gold);
+      color: #000;
+      border-color: var(--gold);
+      font-weight: 600;
+    }
+    /* Letter Modal */
+    .letter-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(12px);
+      z-index: 1200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-4);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .letter-modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .letter-modal-box {
+      width: 100%;
+      max-width: 760px;
+      max-height: 90vh;
+      background: var(--surface);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-2xl);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.8), 0 0 40px rgba(212,175,55,0.15);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      animation: zoomIn 0.2s var(--ease-spring) both;
+    }
+    .letter-modal-header {
+      padding: var(--space-5) var(--space-6);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .letter-modal-body {
+      padding: var(--space-6);
+      overflow-y: auto;
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--text);
+      white-space: pre-wrap;
+      font-family: var(--font-body);
+    }
+  </style>
+</head>
+<body>
+  <!-- ─── Floating Island Navigation ─────────────────── -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Ambedkar Archive Home">
+        <div class="nav-logo-icon" aria-hidden="true">⚜️</div>
+        <div class="nav-logo-text">
+          <span>AMBEDKAR ARCHIVE</span>
+          <span class="nav-logo-sub">Digital Heritage Platform</span>
+        </div>
+      </a>
+
+      <div class="nav-links" role="list">
+        <a href="index.html" class="nav-link" role="listitem">Home</a>
+        <a href="archive.html" class="nav-link" role="listitem">Volumes &amp; Books</a>
+        <a href="letters.html" class="nav-link active" role="listitem">Letters (361)</a>
+        <a href="vows.html" class="nav-link" role="listitem">22 Vows</a>
+        <a href="media.html" class="nav-link" role="listitem">Speeches &amp; Media</a>
+        <a href="timeline.html" class="nav-link" role="listitem">Timeline</a>
+        <a href="assistant.html" class="nav-link" role="listitem">AI Assistant</a>
+      </div>
+
+      <div class="nav-actions">
+        <!-- Reading Atmosphere Switcher -->
+        <div class="nav-theme" role="group" aria-label="Atmosphere selection">
+          <button class="theme-toggle-btn active" data-theme="dark" title="Dark Slate Atmosphere">🌙</button>
+          <button class="theme-toggle-btn" data-theme="paper" title="Ivory Paper Sanctuary">📜</button>
+          <button class="theme-toggle-btn" data-theme="sepia" title="Historical Sepia Sanctuary">🏺</button>
+        </div>
+        <div class="nav-lang" role="group" aria-label="Language selection">
+          <button class="lang-btn active" data-lang="en" aria-pressed="true">EN</button>
+          <button class="lang-btn" data-lang="hi" aria-pressed="false">हिन्दी</button>
+          <button class="lang-btn" data-lang="mr" aria-pressed="false">मराठी</button>
+        </div>
+
+        <!-- Logged-out state -->
+        <a id="nav-login-btn" href="login.html" class="btn btn-primary btn-sm">Sign In</a>
+
+        <!-- Logged-in state (hidden by default) -->
+        <div id="nav-user-menu" style="display:none;" class="flex gap-2 items-center">
+          <a href="dashboard.html" class="btn btn-secondary btn-sm">
+            <span>👤</span> <span id="nav-user-name">User</span>
+          </a>
+          <button data-action="logout" class="btn btn-ghost btn-sm">Logout</button>
+        </div>
+
+        <button id="hamburger" class="hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Navigation Drawer -->
+  <div id="mobile-menu" class="mobile-menu" role="dialog" aria-label="Mobile navigation">
+    <div class="mobile-theme-row flex-between items-center" style="padding:var(--space-2) var(--space-3);margin-bottom:var(--space-2);border-bottom:1px solid var(--border);">
+      <span style="font-size:0.8rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Atmosphere</span>
+      <div class="nav-theme" role="group" aria-label="Atmosphere selection">
+        <button class="theme-toggle-btn active" data-theme="dark" title="Dark Slate">🌙</button>
+        <button class="theme-toggle-btn" data-theme="paper" title="Ivory Paper">📜</button>
+        <button class="theme-toggle-btn" data-theme="sepia" title="Historical Sepia">🏺</button>
+      </div>
+    </div>
+
+    <a href="index.html" class="nav-link">🏠 Home</a>
+    <a href="archive.html" class="nav-link">📚 Volumes &amp; Books</a>
+    <a href="letters.html" class="nav-link active">📜 Letters &amp; Correspondence (361)</a>
+    <a href="vows.html" class="nav-link">☸️ The 22 Vows (22 प्रतिज्ञा)</a>
+    <a href="constitution.html" class="nav-link">⚖️ Constitution</a>
+    <a href="ideas.html" class="nav-link">💡 Thematic Ideas</a>
+    <a href="learning.html" class="nav-link">🎓 Learning Center</a>
+    <a href="quotes.html" class="nav-link">💬 Verified Quotes</a>
+    <a href="media.html" class="nav-link">🎬 Speeches &amp; Audio-Visual</a>
+    <a href="timeline.html" class="nav-link">📅 Chronological Timeline</a>
+    <a href="slides.html" class="nav-link">📽️ Visual Exhibition Deck <span class="badge-16-9">16:9</span></a>
+    <a href="assistant.html" class="nav-link">🤖 AI Research Assistant</a>
+    <a href="ocr.html" class="nav-link">📜 Manuscript OCR</a>
+    <a href="dashboard.html" class="nav-link">👤 My Research Dashboard</a>
+    <div style="height:1px;background:rgba(255,255,255,0.08);margin:var(--space-4) 0;"></div>
+    <a href="login.html" class="btn btn-primary btn-full">Sign In</a>
+  </div>
+
+  <!-- ─── Vertical Left Dock: Curated Exploration Hubs ─── -->
+  <aside class="side-dock" role="navigation" aria-label="Curated exploration hubs">
+    <div class="side-dock-inner">
+      <div class="side-dock-header">
+        <span class="side-dock-badge">Curated Hubs</span>
+      </div>
+      <div class="side-dock-links">
+        <a href="slides.html" class="side-dock-link" title="Visual Exhibition Deck (16:9)">
+          <span class="side-dock-icon">📽️</span>
+          <span class="side-dock-label">Exhibition <span class="badge-16-9">16:9</span></span>
+        </a>
+        <a href="constitution.html" class="side-dock-link" title="Constitution of India">
+          <span class="side-dock-icon">⚖️</span>
+          <span class="side-dock-label">Constitution</span>
+        </a>
+        <a href="ideas.html" class="side-dock-link" title="Thematic Ideas &amp; Philosophy">
+          <span class="side-dock-icon">💡</span>
+          <span class="side-dock-label">Ideas</span>
+        </a>
+        <a href="media.html" class="side-dock-link" title="Speeches &amp; Audio-Visual Archive">
+          <span class="side-dock-icon">🎬</span>
+          <span class="side-dock-label">Speeches</span>
+        </a>
+        <a href="learning.html" class="side-dock-link" title="Interactive Learning Center">
+          <span class="side-dock-icon">🎓</span>
+          <span class="side-dock-label">Learning</span>
+        </a>
+        <a href="quotes.html" class="side-dock-link" title="Verified Historical Quotes">
+          <span class="side-dock-icon">💬</span>
+          <span class="side-dock-label">Quotes</span>
+        </a>
+        <a href="ocr.html" class="side-dock-link" title="Manuscript OCR Visualizer">
+          <span class="side-dock-icon">📜</span>
+          <span class="side-dock-label">OCR</span>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <main class="page-content" role="main">
+    <div class="container section">
+    <!-- Hero Header -->
+    <section class="letters-hero">
+      <div class="badge badge-gold" style="margin-bottom: var(--space-3);">
+        <span>📜</span> <span>Historical Correspondence Corpus</span>
+      </div>
+      <h1 style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.2rem); margin-bottom: var(--space-3); letter-spacing: -0.015em;">
+        The Letters of Dr. B. R. Ambedkar
+      </h1>
+      <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 720px; margin: 0 auto;">
+        An archival repository of 361 original letters, telegrams, and historical exchanges with Mahatma Gandhi, Jawaharlal Nehru, Bhaurao Gaikwad, and international scholars from 1927 to 1956.
+      </p>
+    </section>
+
+    <!-- Search and Filters -->
+    <section class="letters-filter-bar">
+      <div style="display: flex; gap: var(--space-4); flex-wrap: wrap;">
+        <div class="input-with-icon" style="flex: 2; min-width: 260px;">
+          <span class="input-icon">🔍</span>
+          <input id="letter-search-input" type="search" class="input" placeholder="Search by recipient, keyword, topic, or date..." />
+        </div>
+        <select id="letter-year-select" class="input" style="flex: 1; min-width: 140px; padding: 8px 14px;">
+          <option value="">All Years</option>
+          <option value="192">1920s</option>
+          <option value="193">1930s</option>
+          <option value="194">1940s</option>
+          <option value="195">1950s</option>
+        </select>
+        <button id="reset-filters-btn" class="btn btn-secondary btn-sm" style="align-self: center;">Reset</button>
+      </div>
+
+      <!-- Prominent Correspondents -->
+      <div style="margin-top: var(--space-3);">
+        <span style="font-size: 0.775rem; font-weight: 600; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.05em;">Frequent Correspondents:</span>
+        <div class="correspondent-pills" id="correspondent-pills">
+          <button class="correspondent-pill active" data-to="">All (361)</button>
+          <button class="correspondent-pill" data-to="Bhaurao Gaikwad">Bhaurao Gaikwad</button>
+          <button class="correspondent-pill" data-to="Gandhi">M. K. Gandhi</button>
+          <button class="correspondent-pill" data-to="Nehru">Jawaharlal Nehru</button>
+          <button class="correspondent-pill" data-to="Savarkar">V. D. Savarkar</button>
+          <button class="correspondent-pill" data-to="Linlithgow">Lord Linlithgow</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Active Filter Summary -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4);">
+      <div id="letters-count-text" style="font-size: 0.9rem; color: var(--text-muted);">Showing letters...</div>
+      <div id="letters-page-indicator" style="font-size: 0.85rem; color: var(--gold-light); font-family: var(--font-mono);"></div>
+    </div>
+
+    <!-- Letters Grid -->
+    <div id="letters-grid" class="letters-grid">
+      <!-- Injected by JavaScript -->
+    </div>
+
+      <!-- Pagination -->
+      <div id="letters-pagination" style="display: flex; justify-content: center; gap: 8px; margin-bottom: var(--space-12);"></div>
+    </div>
+  </main>
+
+  <!-- Bottom Tab Bar (Mobile) -->
+  <nav class="bottom-bar" role="navigation" aria-label="Mobile navigation">
+    <a href="index.html" class="tab-item" aria-label="Home">
+      <span class="tab-icon" aria-hidden="true">🏠</span>
+      <span>Home</span>
+    </a>
+    <a href="archive.html" class="tab-item" aria-label="Volumes">
+      <span class="tab-icon" aria-hidden="true">📚</span>
+      <span>Volumes</span>
+    </a>
+    <a href="letters.html" class="tab-item active" aria-label="Letters">
+      <span class="tab-icon" aria-hidden="true">📜</span>
+      <span>Letters</span>
+    </a>
+    <a href="vows.html" class="tab-item" aria-label="Vows">
+      <span class="tab-icon" aria-hidden="true">☸️</span>
+      <span>22 Vows</span>
+    </a>
+    <a href="timeline.html" class="tab-item" aria-label="Timeline">
+      <span class="tab-icon" aria-hidden="true">📅</span>
+      <span>Timeline</span>
+    </a>
+  </nav>
+
+  <!-- Letter Full-Text Reader Modal -->
+  <div id="letter-modal" class="letter-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-letter-title">
+    <div class="letter-modal-box">
+      <div class="letter-modal-header">
+        <div>
+          <div id="modal-letter-date" class="letter-date-badge" style="display: inline-block; margin-bottom: 4px;"></div>
+          <h2 id="modal-letter-title" style="font-family: var(--font-display); font-size: 1.25rem; margin: 0; color: var(--text);"></h2>
+        </div>
+        <button id="close-letter-modal" class="btn btn-secondary btn-sm" style="border-radius: var(--radius-full);">✕ Close</button>
+      </div>
+
+      <div style="padding: 10px 24px; background: var(--surface-2); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+        <div id="modal-lang-toggle" style="display: flex; gap: 6px;"></div>
+        <button id="copy-citation-btn" class="btn btn-secondary btn-xs">📋 Copy Citation</button>
+      </div>
+
+      <div id="modal-letter-body" class="letter-modal-body"></div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <p>© 2026 Ambedkar Digital Heritage Archive. Preserving the legacy of Dr. Babasaheb Ambedkar.</p>
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/command-palette.js"></script>
+  <script src="js/letters.js"></script>
+</body>
+</html>

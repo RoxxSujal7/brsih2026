@@ -46,6 +46,8 @@ const api = {
     register: (body) => apiFetch('/auth/register', { method: 'POST', body: JSON.stringify(body) }),
     login: (body) => apiFetch('/auth/login', { method: 'POST', body: JSON.stringify(body) }),
     googleLogin: (body) => apiFetch('/auth/google', { method: 'POST', body: JSON.stringify(body) }),
+    sendOtp: (body) => apiFetch('/auth/send-otp', { method: 'POST', body: JSON.stringify(body) }),
+    verifyOtp: (body) => apiFetch('/auth/verify-otp', { method: 'POST', body: JSON.stringify(body) }),
     me: () => apiFetch('/auth/me'),
     updateProfile: (body) => apiFetch('/auth/profile', { method: 'PATCH', body: JSON.stringify(body) }),
   },
@@ -80,9 +82,33 @@ const api = {
     get: (id) => apiFetch(`/media/${id}`),
   },
 
-  // ── Health ────────────────────────────────────
+  // ── Letters (361 Historical Letters) ──────────
+  letters: {
+    list: (params = {}) => apiFetch('/letters?' + new URLSearchParams(params)),
+    get: (id) => apiFetch(`/letters/${id}`),
+  },
+
+  // ── 22 Vows (11 Languages) ────────────────────
+  vows: {
+    languages: () => apiFetch('/vows'),
+    get: (lang) => apiFetch(`/vows/${lang}`),
+  },
+
+  // ── BAWS 20 Volumes & Writings ────────────────
+  volumes: {
+    list: () => apiFetch('/volumes'),
+    writings: (params = {}) => apiFetch('/volumes/writings?' + new URLSearchParams(params)),
+    getDownloadUrl: (code) => `/books/${code}.pdf`,
+  },
+
+  // ── Search (unified) ──────────────────────────────
+  search: (q, params = {}) => apiFetch('/search?' + new URLSearchParams({ q, ...params })),
+
+  // ── Health ────────────────────────────────────────
   health: () => apiFetch('/health'),
 };
 
 window.api = api;
 window.clearAuthSession = clearAuthSession;
+// HIGH-03 FIX: Export apiFetch directly so search.js and other scripts can call window.apiFetch()
+window.apiFetch = apiFetch;

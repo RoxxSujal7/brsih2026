@@ -14,6 +14,8 @@
   <script>(function(){const t=localStorage.getItem('site_theme')||localStorage.getItem('reader_theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
 
   <link rel="stylesheet" href="css/auth.css" />
+  <!-- Real Google Identity Services SDK -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
   <main class="auth-page" role="main">
@@ -46,8 +48,16 @@
             <span id="login-error-text"></span>
           </div>
 
-          <!-- Google Sign-In Option -->
+          <!-- Real Google Sign-In Option -->
           <div style="margin-bottom: var(--space-4);">
+            <div id="g_id_onload"
+                 data-client_id="1088481439247-demoarchive.apps.googleusercontent.com"
+                 data-context="signin"
+                 data-ux_mode="popup"
+                 data-callback="handleGoogleCredentialResponse"
+                 data-auto_prompt="false">
+            </div>
+            <div id="google-gsi-container" style="display:flex;justify-content:center;margin-bottom:8px;"></div>
             <button type="button" class="btn btn-google" id="google-login-btn">
               <svg class="google-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -59,54 +69,167 @@
             </button>
           </div>
 
-          <div class="divider-or" style="margin:var(--space-4) 0 var(--space-4);">or sign in with email</div>
+          <div class="divider-or" style="margin:var(--space-4) 0 var(--space-4);">or select sign in method</div>
 
-          <form id="login-form" class="auth-form" novalidate>
-            <!-- Email -->
-            <div class="form-group">
-              <label class="form-label" for="email" style="display:block;margin-bottom:6px;font-size:0.825rem;color:var(--text-muted);font-weight:600;">Email Address</label>
-              <div class="input-with-icon">
-                <span class="input-icon" aria-hidden="true">📧</span>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  class="input"
-                  placeholder="you@example.com"
-                  autocomplete="email"
-                  required
-                  aria-required="true"
-                />
-              </div>
-            </div>
-
-            <!-- Password -->
-            <div class="form-group">
-              <label class="form-label" for="password" style="display:block;margin-bottom:6px;font-size:0.825rem;color:var(--text-muted);font-weight:600;">
-                Password
-                <a href="javascript:void(0)" onclick="if(window.toast){window.toast.info('Password reset instructions will be dispatched to your email address.')}else{alert('Password reset instructions dispatched.')}" style="float:right;font-size:.8rem;color:var(--gold-light);">Forgot password?</a>
-              </label>
-              <div class="input-with-icon">
-                <span class="input-icon" aria-hidden="true">🔒</span>
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  class="input"
-                  placeholder="Your password"
-                  autocomplete="current-password"
-                  required
-                  aria-required="true"
-                />
-                <button id="toggle-password" class="input-eye" type="button" aria-label="Show password">👁</button>
-              </div>
-            </div>
-
-            <button type="submit" class="btn btn-primary btn-full btn-lg" id="login-btn" style="border-radius:var(--radius-full);">
-              <span>Sign In</span>
-              <span class="btn-icon-bubble">→</span>
+          <!-- Multi-Factor / Multi-Method Segmented Tabs -->
+          <nav class="auth-tabs-nav" role="tablist" aria-label="Sign In Methods">
+            <button type="button" class="auth-tab-btn active" role="tab" id="tab-password" aria-selected="true" data-tab="password">
+              <span>🔑</span> <span>Password</span>
             </button>
-          </form>
+            <button type="button" class="auth-tab-btn" role="tab" id="tab-phone" aria-selected="false" data-tab="phone">
+              <span>📱</span> <span>Phone OTP</span>
+            </button>
+            <button type="button" class="auth-tab-btn" role="tab" id="tab-email-otp" aria-selected="false" data-tab="email-otp">
+              <span>✉️</span> <span>Gmail OTP</span>
+            </button>
+          </nav>
+
+          <!-- Panel 1: Email or Phone + Password -->
+          <div id="auth-panel-password" class="auth-panel active">
+            <form id="login-form" class="auth-form" novalidate>
+              <div class="form-group">
+                <label class="form-label" for="email" style="display:block;margin-bottom:6px;font-size:0.825rem;color:var(--text-muted);font-weight:600;">Email or Mobile Number</label>
+                <div class="input-with-icon">
+                  <span class="input-icon" aria-hidden="true">👤</span>
+                  <input
+                    id="email"
+                    name="email"
+                    type="text"
+                    class="input"
+                    placeholder="you@example.com or 9876543210"
+                    autocomplete="username"
+                    required
+                    aria-required="true"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="password" style="display:block;margin-bottom:6px;font-size:0.825rem;color:var(--text-muted);font-weight:600;">
+                  Password
+                  <a href="javascript:void(0)" onclick="if(window.toast){window.toast.info('Use Phone OTP or Gmail OTP tab above for instant 1-step login!')}else{alert('Use Phone OTP or Gmail OTP tab above for instant login!')}" style="float:right;font-size:.8rem;color:var(--gold-light);">Forgot password?</a>
+                </label>
+                <div class="input-with-icon">
+                  <span class="input-icon" aria-hidden="true">🔒</span>
+                  <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    class="input"
+                    placeholder="Your password"
+                    autocomplete="current-password"
+                    required
+                    aria-required="true"
+                  />
+                  <button id="toggle-password" class="input-eye" type="button" aria-label="Show password">👁</button>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-full btn-lg" id="login-btn" style="border-radius:var(--radius-full);">
+                <span>Sign In with Password</span>
+                <span class="btn-icon-bubble">→</span>
+              </button>
+            </form>
+          </div>
+
+          <!-- Panel 2: Phone Number + OTP -->
+          <div id="auth-panel-phone" class="auth-panel" style="display:none;">
+            <form id="phone-otp-form" class="auth-form" novalidate>
+              <div class="form-group">
+                <label class="form-label" for="phone-number" style="display:block;margin-bottom:6px;font-size:0.825rem;color:var(--text-muted);font-weight:600;">Mobile Number</label>
+                <div class="phone-input-wrap">
+                  <div class="phone-prefix">🇮🇳 +91</div>
+                  <input
+                    id="phone-number"
+                    name="phone-number"
+                    type="tel"
+                    class="input"
+                    placeholder="98765 43210"
+                    maxlength="10"
+                    required
+                    style="flex:1;"
+                  />
+                  <button type="button" id="send-phone-otp-btn" class="btn btn-secondary" style="white-space:nowrap;font-size:0.825rem;">
+                    Send OTP
+                  </button>
+                </div>
+                <div id="phone-otp-status" class="otp-status-text" style="display:none;">
+                  <span id="phone-otp-status-msg"></span>
+                  <span id="phone-otp-timer" style="font-weight:600;color:var(--gold-light);"></span>
+                </div>
+              </div>
+
+              <div id="phone-otp-box" class="form-group" style="display:none;">
+                <label class="form-label" for="phone-otp-code" style="display:block;margin-bottom:6px;font-size:0.825rem;color:var(--text-muted);font-weight:600;">6-Digit OTP Code</label>
+                <div class="input-with-icon">
+                  <span class="input-icon" aria-hidden="true">🔑</span>
+                  <input
+                    id="phone-otp-code"
+                    type="text"
+                    class="input otp-input"
+                    placeholder="------"
+                    maxlength="6"
+                    autocomplete="one-time-code"
+                  />
+                </div>
+                <div id="phone-demo-chip" style="display:none;"></div>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-full btn-lg" id="verify-phone-otp-btn" style="border-radius:var(--radius-full);" disabled>
+                <span>Verify & Sign In</span>
+                <span class="btn-icon-bubble">→</span>
+              </button>
+            </form>
+          </div>
+
+          <!-- Panel 3: Gmail / Email + OTP -->
+          <div id="auth-panel-email-otp" class="auth-panel" style="display:none;">
+            <form id="email-otp-form" class="auth-form" novalidate>
+              <div class="form-group">
+                <label class="form-label" for="email-otp-target" style="display:block;margin-bottom:6px;font-size:0.825rem;color:var(--text-muted);font-weight:600;">Gmail / Email Address</label>
+                <div style="display:flex;gap:8px;">
+                  <div class="input-with-icon" style="flex:1;">
+                    <span class="input-icon" aria-hidden="true">✉️</span>
+                    <input
+                      id="email-otp-target"
+                      type="email"
+                      class="input"
+                      placeholder="you@gmail.com"
+                      required
+                    />
+                  </div>
+                  <button type="button" id="send-email-otp-btn" class="btn btn-secondary" style="white-space:nowrap;font-size:0.825rem;">
+                    Send OTP
+                  </button>
+                </div>
+                <div id="email-otp-status" class="otp-status-text" style="display:none;">
+                  <span id="email-otp-status-msg"></span>
+                  <span id="email-otp-timer" style="font-weight:600;color:var(--gold-light);"></span>
+                </div>
+              </div>
+
+              <div id="email-otp-box" class="form-group" style="display:none;">
+                <label class="form-label" for="email-otp-code" style="display:block;margin-bottom:6px;font-size:0.825rem;color:var(--text-muted);font-weight:600;">6-Digit OTP Code</label>
+                <div class="input-with-icon">
+                  <span class="input-icon" aria-hidden="true">🔑</span>
+                  <input
+                    id="email-otp-code"
+                    type="text"
+                    class="input otp-input"
+                    placeholder="------"
+                    maxlength="6"
+                    autocomplete="one-time-code"
+                  />
+                </div>
+                <div id="email-demo-chip" style="display:none;"></div>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-full btn-lg" id="verify-email-otp-btn" style="border-radius:var(--radius-full);" disabled>
+                <span>Verify & Sign In</span>
+                <span class="btn-icon-bubble">→</span>
+              </button>
+            </form>
+          </div>
 
           <div style="margin-top: var(--space-5);"></div>
 
