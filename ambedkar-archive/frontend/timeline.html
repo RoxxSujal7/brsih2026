@@ -173,10 +173,11 @@
 
     /* Mobile view */
     @media (max-width: 768px) {
-      .timeline-line { left: 26px; }
+      .timeline-container { padding: var(--space-4) var(--space-2); }
+      .timeline-line { left: 22px; }
       .timeline-item.side-left, .timeline-item.side-right {
         display: block;
-        padding-left: 58px;
+        padding-left: 48px;
         margin-bottom: var(--space-6);
       }
       .timeline-item .spacer { display: none; }
@@ -185,12 +186,15 @@
         width: 100% !important;
         margin: 0 !important;
       }
+      .timeline-content-inner {
+        padding: var(--space-4) !important;
+      }
       .timeline-dot {
-        left: 26px !important;
+        left: 22px !important;
         transform: translateX(-50%) !important;
-        width: 38px;
-        height: 38px;
-        font-size: 1rem;
+        width: 36px;
+        height: 36px;
+        font-size: 0.95rem;
       }
     }
   </style>
@@ -257,6 +261,15 @@
       <button class="theme-toggle-btn" data-theme="sepia" title="Historical Sepia">🏺</button>
     </div>
   </div>
+
+    <div class="mobile-theme-row flex-between items-center" style="padding:var(--space-2) var(--space-3);margin-bottom:var(--space-2);border-bottom:1px solid var(--border);">
+      <span style="font-size:0.8rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Language</span>
+      <div class="nav-lang" role="group" aria-label="Language selection">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="hi">हिन्दी</button>
+        <button class="lang-btn" data-lang="mr">मराठी</button>
+      </div>
+    </div>
 
   <a href="index.html" class="nav-link">🏠 Home</a>
   <a href="archive.html" class="nav-link">📚 Complete Works (60 Volumes)</a>

@@ -412,8 +412,8 @@ function initHamburger() {
     document.body.style.overflow = nextState ? 'hidden' : '';
   });
 
-  // Close on link click
-  mobileMenu.querySelectorAll('a, button').forEach((el) => {
+  // Close on navigation link click (keep open on theme/lang toggles for fluid UX)
+  mobileMenu.querySelectorAll('a').forEach((el) => {
     el.addEventListener('click', () => {
       hamburger.setAttribute('aria-expanded', 'false');
       mobileMenu.classList.remove('open');
