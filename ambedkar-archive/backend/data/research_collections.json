@@ -56,5 +56,128 @@
     ],
     "createdAt": "2026-09-12T18:20:44.217Z",
     "updatedAt": "2026-09-12T18:20:44.242Z"
+  },
+  {
+    "id": "col-5c7e65aa61fc2e80",
+    "userId": "mock-user-researcher-001",
+    "title": "Constitutional Morality & Social Democracy",
+    "description": "Primary source excerpts from BAWS Vol. 13 and speeches on November 25, 1949.",
+    "tags": [
+      "Constitution",
+      "Democracy",
+      "Morality"
+    ],
+    "items": [
+      {
+        "id": "item-fc6fb4e342ee",
+        "type": "passage",
+        "sourceId": "baws-vol-13",
+        "sourceTitle": "Constituent Assembly Debates (Nov 25, 1949)",
+        "archivalQuote": "Democracy in India is only a top-dressing on an Indian soil which is essentially undemocratic.",
+        "citation": "Ambedkar, B. R. (1949). CAD Vol. 11, p. 972.",
+        "userNote": "Crucial concept: Constitutional morality as cultivated habit rather than innate default.",
+        "tags": [
+          "Democracy",
+          "Constitutionalism"
+        ],
+        "createdAt": "2026-09-12T18:25:33.351Z"
+      }
+    ],
+    "createdAt": "2026-09-12T18:25:33.341Z",
+    "updatedAt": "2026-09-12T18:25:33.351Z"
+  },
+  {
+    "id": "col-b560ee4891aaddc5",
+    "userId": "mock-user-researcher-001",
+    "title": "Constitutional Morality & Social Democracy",
+    "description": "Primary source excerpts from BAWS Vol. 13 and speeches on November 25, 1949.",
+    "tags": [
+      "Constitution",
+      "Democracy",
+      "Morality"
+    ],
+    "items": [
+      {
+        "id": "item-fedd77042183",
+        "type": "passage",
+        "sourceId": "baws-vol-13",
+        "sourceTitle": "Constituent Assembly Debates (Nov 25, 1949)",
+        "archivalQuote": "Democracy in India is only a top-dressing on an Indian soil which is essentially undemocratic.",
+        "citation": "Ambedkar, B. R. (1949). CAD Vol. 11, p. 972.",
+        "userNote": "Crucial concept: Constitutional morality as cultivated habit rather than innate default.",
+        "tags": [
+          "Democracy",
+          "Constitutionalism"
+        ],
+        "createdAt": "2026-09-12T18:25:59.875Z"
+      }
+    ],
+    "createdAt": "2026-09-12T18:25:59.871Z",
+    "updatedAt": "2026-09-12T18:25:59.875Z"
+  },
+  {
+    "id": "col-ff0d8de9d43b98e3",
+    "userId": "mock-user-researcher-001",
+    "title": "Adversarial Test Collection A",
+    "description": "Secret research",
+    "tags": [
+      "PrivSec"
+    ],
+    "items": [],
+    "createdAt": "2026-09-12T18:30:29.294Z",
+    "updatedAt": "2026-09-12T18:30:29.294Z"
+  },
+  {
+    "id": "col-180720acbc4116c5",
+    "userId": "mock-user-researcher-001",
+    "title": "Adversarial Test Collection A",
+    "description": "Secret research",
+    "tags": [
+      "PrivSec"
+    ],
+    "items": [],
+    "createdAt": "2026-09-12T18:33:44.117Z",
+    "updatedAt": "2026-09-12T18:33:44.117Z"
+  },
+  {
+    "id": "col-1734edad479aadab",
+    "userId": "mock-user-researcher-001",
+    "title": "Adversarial Test Collection A",
+    "description": "Secret research",
+    "tags": [
+      "PrivSec"
+    ],
+    "items": [],
+    "createdAt": "2026-09-12T18:34:15.665Z",
+    "updatedAt": "2026-09-12T18:34:15.665Z"
+  },
+  {
+    "id": "col-423e12859e57c196",
+    "userId": "mock-user-researcher-001",
+    "title": "Constitutional Morality & Social Democracy",
+    "description": "Primary source excerpts from BAWS Vol. 13 and speeches on November 25, 1949.",
+    "tags": [
+      "Constitution",
+      "Democracy",
+      "Morality"
+    ],
+    "items": [
+      {
+        "id": "item-ed864bbfe690",
+        "type": "passage",
+        "sourceId": "baws-vol-13",
+        "sourceTitle": "Constituent Assembly Debates (Nov 25, 1949)",
+        "archivalQuote": "Democracy in India is only a top-dressing on an Indian soil which is essentially undemocratic.",
+        "citation": "Ambedkar, B. R. (1949). CAD Vol. 11, p. 972.",
+        "userNote": "Crucial concept: Constitutional morality as cultivated habit rather than innate default.",
+        "tags": [
+          "Democracy",
+          "Constitutionalism"
+        ],
+        "createdAt": "2026-09-12T18:34:51.534Z"
+      }
+    ],
+    "createdAt": "2026-09-12T18:34:51.525Z",
+    "updatedAt": "2026-09-12T18:34:51.534Z"
   }
 ]

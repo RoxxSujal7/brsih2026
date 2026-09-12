@@ -730,22 +730,22 @@ router.get('/audit-log', requireRole('super_admin', 'admin'), (req, res) => {
 // 2.8 USER & ROLE GOVERNANCE
 // ═════════════════════════════════════════════════════════════════════════════
 
+const DEFAULT_USER_REGISTRY = [
+  { id: 'user-000', name: 'Public Visitor', email: 'visitor@ambedkar-archive.in', role: 'visitor', status: 'active' },
+  { id: 'user-001', name: 'Archival Researcher', email: 'researcher@ambedkar-archive.in', role: 'researcher', status: 'active' },
+  { id: 'user-003', name: 'Content Editor', email: 'editor@ambedkar-archive.in', role: 'content_editor', status: 'active' },
+  { id: 'user-004', name: 'Senior Archivist', email: 'archivist@ambedkar-archive.in', role: 'archivist', status: 'active' },
+  { id: 'user-002', name: 'Archive Administrator', email: 'admin@ambedkar-archive.in', role: 'admin', status: 'active' },
+  { id: 'user-005', name: 'Super Administrator', email: 'superadmin@ambedkar-archive.in', role: 'super_admin', status: 'active' }
+];
+
 // GET /api/admin/users
 router.get('/users', requirePermission('manage_users'), async (req, res) => {
   try {
-    const defaultRegistry = [
-      { id: 'user-000', name: 'Public Visitor', email: 'visitor@ambedkar-archive.in', role: 'visitor', status: 'active' },
-      { id: 'user-001', name: 'Archival Researcher', email: 'researcher@ambedkar-archive.in', role: 'researcher', status: 'active' },
-      { id: 'user-003', name: 'Content Editor', email: 'editor@ambedkar-archive.in', role: 'content_editor', status: 'active' },
-      { id: 'user-004', name: 'Senior Archivist', email: 'archivist@ambedkar-archive.in', role: 'archivist', status: 'active' },
-      { id: 'user-002', name: 'Archive Administrator', email: 'admin@ambedkar-archive.in', role: 'admin', status: 'active' },
-      { id: 'user-005', name: 'Super Administrator', email: 'superadmin@ambedkar-archive.in', role: 'super_admin', status: 'active' }
-    ];
-
     res.json({
       success: true,
-      count: defaultRegistry.length,
-      users: defaultRegistry
+      count: DEFAULT_USER_REGISTRY.length,
+      users: DEFAULT_USER_REGISTRY
     });
   } catch (err) {
     res.status(500).json({ success: false, message: 'Failed to retrieve user registry.' });
@@ -755,7 +755,7 @@ router.get('/users', requirePermission('manage_users'), async (req, res) => {
 // PATCH /api/admin/users/:id/role
 router.patch('/users/:id/role', requirePermission('manage_roles'), (req, res) => {
   const { id } = req.params;
-  const { role, currentTargetRole = 'visitor' } = req.body;
+  const { role } = req.body;
   const validRoles = ['visitor', 'user', 'public', 'researcher', 'content_editor', 'editor', 'archivist', 'admin', 'super_admin'];
 
   if (!role || !validRoles.includes(role)) {
@@ -765,15 +765,22 @@ router.patch('/users/:id/role', requirePermission('manage_roles'), (req, res) =>
     });
   }
 
-  // Hierarchy enforcement: prevent privilege escalation
+  // Hierarchy enforcement: prevent privilege escalation by resolving real target user role from server registry
   const actorRole = req.user.role;
-  const allowed = canManageRole(actorRole, currentTargetRole, role);
+  const targetUser = DEFAULT_USER_REGISTRY.find(u => u.id === id || u.email === id);
+  const actualTargetRole = targetUser ? targetUser.role : (req.body.currentTargetRole || 'visitor');
+
+  const allowed = canManageRole(actorRole, actualTargetRole, role);
 
   if (!allowed) {
     return res.status(403).json({
       success: false,
       message: `Access denied: Role "${actorRole}" cannot assign or modify role "${role}" on target account.`
     });
+  }
+
+  if (targetUser) {
+    targetUser.role = role;
   }
 
   logAdminAction(req, 'ROLE_MODIFY', `Changed role of user ${id} to ${role}`, 'user', id);

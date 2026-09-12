@@ -48,10 +48,10 @@ async function verifyGoogleToken(idToken) {
   return payload;
 }
 
-// Rate limit: max 30 auth requests per 15 minutes per IP
+// Rate limit: max 30 auth requests per 15 minutes per IP in prod (higher in dev/test)
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 30,
+  max: process.env.NODE_ENV === 'production' ? 30 : 500,
   message: { success: false, message: 'Too many attempts. Please try again in 15 minutes.' },
   standardHeaders: true,
   legacyHeaders: false,

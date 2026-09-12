@@ -279,8 +279,9 @@ class HybridSearchEngine {
       const semanticScore = this.cosineSimilarity(queryVec, chunkVec);
       const authorityScore = chunk.authorityScore || 0.9;
 
-      // Hybrid formula
-      const hybridScore = (0.55 * lexicalScore) + (0.35 * semanticScore) + (0.10 * authorityScore);
+      // Hybrid formula: authority boost only applies if there is base relevance
+      const baseRelevance = (0.55 * lexicalScore) + (0.35 * semanticScore);
+      const hybridScore = baseRelevance > 0.04 ? baseRelevance + (0.10 * authorityScore) : 0;
 
       let matchType = 'semantic';
       if (lexicalScore > 0.6) matchType = 'lexical';
