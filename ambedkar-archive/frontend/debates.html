@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Political Thought &amp; Historical Debates — Dr. B. R. Ambedkar Digital Heritage Archive</title>
+  <meta name="description" content="Explore Dr. B. R. Ambedkar's core political thought and seminal historical debates: Ambedkar vs Gandhi on Caste &amp; Village Swaraj, Critiques of Congress, Muslim League &amp; Pakistan Debates, Round Table Conferences, and Social Democracy." />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="css/style.css" />
+  <script>(function(){const t=localStorage.getItem('site_theme')||localStorage.getItem('reader_theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+
+  <style>
+    .debates-hero {
+      background: radial-gradient(ellipse 70% 50% at 50% -10%, rgba(212,175,55,0.12) 0%, transparent 70%),
+                  linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+      padding: calc(var(--nav-height) + var(--space-16)) var(--space-6) var(--space-12);
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .debates-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      color: var(--text);
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-4);
+    }
+    .debates-grid {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-12);
+      max-width: 1040px;
+      margin: var(--space-8) auto var(--space-20);
+      padding: 0 var(--space-6);
+    }
+    .debate-article {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-2xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      transition: border-color 0.2s;
+    }
+    .debate-article:hover {
+      border-color: var(--border-gold);
+    }
+    .debate-header {
+      padding: var(--space-8) var(--space-8) var(--space-6);
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, transparent 100%);
+    }
+    .debate-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: var(--space-2);
+    }
+    .debate-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      color: var(--text);
+      margin-bottom: var(--space-4);
+      line-height: 1.25;
+    }
+    .topics-pill-deck {
+      display: flex;
+      gap: var(--space-2);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-4);
+    }
+    .topic-pill {
+      background: rgba(212,175,55,0.08);
+      border: 1px solid var(--border-gold);
+      color: var(--gold-light);
+      font-size: 0.75rem;
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+      font-family: var(--font-mono);
+    }
+    .debate-body {
+      padding: var(--space-8);
+    }
+    .context-block {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text);
+      margin-bottom: var(--space-8);
+      padding-bottom: var(--space-6);
+      border-bottom: 1px solid var(--border);
+    }
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-6);
+      margin-bottom: var(--space-8);
+    }
+    @media (max-width: 768px) {
+      .comparison-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .perspective-card {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+    }
+    .perspective-card.ambedkar {
+      border-color: rgba(212,175,55,0.4);
+      background: radial-gradient(circle at top right, rgba(212,175,55,0.06), transparent 70%), var(--bg-2);
+    }
+    .perspective-header {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--space-3);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .perspective-thesis {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+      margin-bottom: var(--space-4);
+    }
+    .quote-box {
+      border-left: 3px solid var(--gold);
+      padding: var(--space-3) var(--space-4);
+      background: rgba(212,175,55,0.05);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      font-style: italic;
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: var(--text);
+      margin-bottom: var(--space-3);
+    }
+    .fact-analysis-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-6);
+      background: var(--surface-glass);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+      margin-bottom: var(--space-8);
+    }
+    @media (max-width: 768px) {
+      .fact-analysis-split {
+        grid-template-columns: 1fr;
+      }
+    }
+    .fact-col h4, .analysis-col h4 {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: var(--space-3);
+    }
+    .fact-col h4 { color: #10b981; }
+    .analysis-col h4 { color: #3b82f6; }
+    .fact-list, .analysis-list {
+      padding-left: var(--space-4);
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+    }
+    .source-strip {
+      display: flex;
+      gap: var(--space-3);
+      align-items: center;
+      flex-wrap: wrap;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 10px 16px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── Navigation ─── -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="Ambedkar Archive Home">
+      <div class="nav-logo-icon" aria-hidden="true">⚖️</div>
+      <div class="nav-logo-text">
+        <span>AMBEDKAR ARCHIVE</span>
+        <span class="nav-logo-sub">Political Thought &amp; Debates</span>
+      </div>
+    </a>
+    <div class="nav-links" role="list">
+      <a href="index.html" class="nav-link" role="listitem">Home</a>
+      <a href="archive.html" class="nav-link" role="listitem">Volumes &amp; Books</a>
+      <a href="memorials.html" class="nav-link" role="listitem">Memorials</a>
+      <a href="debates.html" class="nav-link active" role="listitem">Historical Debates</a>
+      <a href="ideas.html" class="nav-link" role="listitem">Philosophy</a>
+      <a href="timeline.html" class="nav-link" role="listitem">Timeline</a>
+    </div>
+    <div class="nav-actions">
+      <div class="nav-theme" role="group" aria-label="Atmosphere selection">
+        <button class="theme-toggle-btn active" data-theme="dark" title="Dark Slate Atmosphere">🌙</button>
+        <button class="theme-toggle-btn" data-theme="paper" title="Ivory Paper Sanctuary">📜</button>
+        <button class="theme-toggle-btn" data-theme="sepia" title="Historical Sepia Sanctuary">🏺</button>
+      </div>
+      <div class="nav-lang" role="group" aria-label="Language selection">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="hi">हिन्दी</button>
+        <button class="lang-btn" data-lang="mr">मराठी</button>
+      </div>
+      <a href="kiosk.html" class="btn btn-secondary btn-sm"><span>🖥️ Kiosk</span></a>
+      <a id="nav-login-btn" href="login.html" class="btn btn-primary btn-sm">Sign In</a>
+      <div id="nav-user-menu" style="display:none;" class="flex gap-2 items-center">
+        <a href="dashboard.html" class="btn btn-secondary btn-sm"><span>👤</span> <span id="nav-user-name">User</span></a>
+        <button data-action="logout" class="btn btn-ghost btn-sm">Logout</button>
+      </div>
+      <button id="hamburger" class="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Navigation Drawer -->
+<div id="mobile-menu" class="mobile-menu" role="dialog" aria-label="Mobile navigation">
+  <a href="index.html" class="nav-link">🏠 Home</a>
+  <a href="archive.html" class="nav-link">📚 Complete Works (60 Vol)</a>
+  <a href="memorials.html" class="nav-link">🏛️ Memorials &amp; Heritage</a>
+  <a href="debates.html" class="nav-link active">⚖️ Historical Debates</a>
+  <a href="constitution.html" class="nav-link">📜 Constitution</a>
+  <a href="ideas.html" class="nav-link">💡 Thematic Ideas</a>
+  <a href="timeline.html" class="nav-link">📅 Timeline</a>
+  <a href="assistant.html" class="nav-link">🤖 AI Assistant</a>
+  <a href="kiosk.html" class="nav-link">🖥️ Kiosk Mode</a>
+  <a href="exhibition.html" class="nav-link">📺 Smart Display</a>
+  <div style="height:1px;background:rgba(255,255,255,0.08);margin:var(--space-4) 0;"></div>
+  <a href="login.html" class="btn btn-primary btn-full">Sign In</a>
+</div>
+
+<!-- ─── Vertical Left Dock: Curated Exploration Hubs ─── -->
+<aside class="side-dock" role="navigation" aria-label="Curated exploration hubs">
+  <div class="side-dock-inner">
+    <div class="side-dock-header">
+      <span class="side-dock-badge">Heritage Hubs</span>
+    </div>
+    <div class="side-dock-links">
+      <a href="memorials.html" class="side-dock-link" title="Memorials &amp; Heritage">
+        <span class="side-dock-icon">🏛️</span>
+        <span class="side-dock-label">Memorials</span>
+      </a>
+      <a href="debates.html" class="side-dock-link active" title="Political Thought &amp; Debates">
+        <span class="side-dock-icon">⚖️</span>
+        <span class="side-dock-label">Debates</span>
+      </a>
+      <a href="kiosk.html" class="side-dock-link" title="Institutional Kiosk Mode">
+        <span class="side-dock-icon">🖥️</span>
+        <span class="side-dock-label">Kiosk</span>
+      </a>
+      <a href="exhibition.html" class="side-dock-link" title="Smart Display Ambient Mode">
+        <span class="side-dock-icon">📺</span>
+        <span class="side-dock-label">Exhibition</span>
+      </a>
+      <a href="slides.html" class="side-dock-link" title="Visual Exhibition Deck (16:9)">
+        <span class="side-dock-icon">📽️</span>
+        <span class="side-dock-label">Deck 16:9</span>
+      </a>
+    </div>
+  </div>
+</aside>
+
+<!-- ─── Hero Section ─── -->
+<section class="debates-hero">
+  <div class="section-eyebrow" style="margin-bottom:var(--space-2);">PRIMARY-SOURCE POLITICAL ENCOUNTERS</div>
+  <h1>Political Thought &amp; Historical Debates</h1>
+  <p class="section-desc" style="max-width:800px;margin:0 auto var(--space-6);color:var(--text-muted);">
+    Rigorous, primary-source exploration of Dr. B. R. Ambedkar's most contentious political and historical encounters — distinguishing documented historical facts from scholarly interpretations, with direct citations to the 21-volume BAWS corpus and archival correspondence.
+  </p>
+
+  <div class="flex gap-2 justify-center" style="flex-wrap:wrap;">
+    <button class="chip active" data-filter="all">🌟 All Debates (6 Core Modules)</button>
+    <button class="chip" data-filter="ideological-debates">⚡ Ambedkar &amp; Gandhi</button>
+    <button class="chip" data-filter="political-debates">🏛️ Ambedkar &amp; Congress</button>
+    <button class="chip" data-filter="constitutional-debates">📜 Muslim League &amp; Partition</button>
+    <button class="chip" data-filter="historical-events">⏳ Round Table Conferences &amp; 1932</button>
+    <button class="chip" data-filter="political-thought">🤝 Social Democracy &amp; Freedom</button>
+  </div>
+</section>
+
+<!-- ─── Debates Stream ─── -->
+<main class="debates-grid" id="debates-stream">
+  <!-- Rendered dynamically from /api/debates -->
+</main>
+
+<script src="js/api.js"></script>
+<script src="js/toast.js"></script>
+<script src="js/app.js"></script>
+
+<script>
+let debateModules = [];
+let activeCategory = 'all';
+
+async function loadDebates() {
+  try {
+    const res = await fetch('/api/debates');
+    const json = await res.json();
+    if (json.success) {
+      debateModules = json.data;
+      renderDebates();
+    }
+  } catch (err) {
+    console.error('Error fetching debates:', err);
+  }
+}
+
+function renderDebates() {
+  const container = document.getElementById('debates-stream');
+  const filtered = activeCategory === 'all'
+    ? debateModules
+    : debateModules.filter(d => d.category === activeCategory);
+
+  container.innerHTML = filtered.map(d => `
+    <article class="debate-article" id="${d.id}">
+      <header class="debate-header">
+        <div class="flex-between items-center" style="margin-bottom:var(--space-2);flex-wrap:wrap;gap:8px;">
+          <div class="debate-eyebrow">HISTORICAL DIALOGUE &amp; CONSTITUTIONAL ANALYSIS · ${d.period}</div>
+          <button class="btn btn-ghost btn-sm" onclick="speakDebateSummary('${d.id}')" title="Listen to summary">
+            <span>🔊 Listen</span>
+          </button>
+        </div>
+        <h2 class="debate-title">${d.title}</h2>
+        <div class="topics-pill-deck">
+          ${(d.topicsCovered || []).map(t => `<span class="topic-pill"># ${t}</span>`).join('')}
+        </div>
+      </header>
+
+      <div class="debate-body">
+        <div class="context-block">
+          <h3 style="font-family:var(--font-mono);font-size:0.75rem;text-transform:uppercase;color:var(--gold);letter-spacing:0.12em;margin-bottom:var(--space-2);">Historical Context &amp; Genesis</h3>
+          <p>${d.historicalContext}</p>
+        </div>
+
+        <div class="comparison-grid">
+          <!-- Ambedkar's Documented Position -->
+          <div class="perspective-card ambedkar">
+            <div class="perspective-header" style="color:var(--gold);">
+              <span>⚖️ Dr. B. R. Ambedkar's Documented Position</span>
+            </div>
+            <p class="perspective-thesis">${d.ambedkarPosition ? d.ambedkarPosition.thesis : ''}</p>
+            ${(d.ambedkarPosition && d.ambedkarPosition.keyQuotes || []).map(q => `
+              <blockquote class="quote-box">"${q}"</blockquote>
+            `).join('')}
+            <div style="font-family:var(--font-mono);font-size:0.75rem;color:var(--gold-light);margin-top:var(--space-3);">
+              📌 Citation: ${d.ambedkarPosition ? d.ambedkarPosition.bawsReference : 'BAWS Corpus'}
+            </div>
+          </div>
+
+          <!-- Counter Position / Historical Context -->
+          <div class="perspective-card">
+            <div class="perspective-header" style="color:var(--text);">
+              <span>🏛️ Counter-Perspective / Contemporary Viewpoint</span>
+            </div>
+            <p class="perspective-thesis">${
+              d.gandhiPosition ? d.gandhiPosition.thesis :
+              d.congressPosition ? d.congressPosition.thesis :
+              d.muslimLeaguePosition ? d.muslimLeaguePosition.thesis :
+              d.educationalFramework ? d.educationalFramework.explanation : 'Contemporary political discourse'
+            }</p>
+            ${
+              d.gandhiPosition && d.gandhiPosition.keyQuotes ? d.gandhiPosition.keyQuotes.map(q => `<blockquote class="quote-box" style="border-color:var(--text-muted);">"${q}"</blockquote>`).join('') :
+              d.congressPosition && d.congressPosition.keyQuotes ? d.congressPosition.keyQuotes.map(q => `<blockquote class="quote-box" style="border-color:var(--text-muted);">"${q}"</blockquote>`).join('') :
+              d.muslimLeaguePosition && d.muslimLeaguePosition.keyQuotes ? d.muslimLeaguePosition.keyQuotes.map(q => `<blockquote class="quote-box" style="border-color:var(--text-muted);">"${q}"</blockquote>`).join('') :
+              d.educationalFramework ? `<div class="quote-box" style="border-color:var(--accent-blue);font-style:normal;font-weight:700;">${d.educationalFramework.formula}</div>` : ''
+            }
+          </div>
+        </div>
+
+        <!-- Documented Facts vs Scholarly Interpretations -->
+        <div class="fact-analysis-split">
+          <div class="fact-col">
+            <h4>✅ Verified Documented Facts</h4>
+            <ul class="fact-list">
+              ${(d.scholarlyInterpretationVsFact && d.scholarlyInterpretationVsFact.documentedFacts || []).map(f => `<li>${f}</li>`).join('')}
+            </ul>
+          </div>
+          <div class="analysis-col">
+            <h4>🧠 Scholarly &amp; Academic Interpretations</h4>
+            <ul class="analysis-list">
+              ${(d.scholarlyInterpretationVsFact && d.scholarlyInterpretationVsFact.scholarlyInterpretations || []).map(a => `<li>${a}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+
+        <!-- Primary Source Strip -->
+        <div class="source-strip flex-between items-center" style="flex-wrap:wrap;gap:var(--space-3);">
+          <div style="display:flex;gap:var(--space-2);align-items:center;flex-wrap:wrap;">
+            <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--gold-light);">Primary Sources:</span>
+            ${(d.primarySources || []).map(s => `
+              <a href="archive.html?search=${encodeURIComponent(s.volNo ? 'Volume ' + s.volNo : d.title)}" class="chip" style="font-size:0.75rem;">
+                📖 ${s.citation}
+              </a>
+            `).join('')}
+          </div>
+          <a href="assistant.html?q=${encodeURIComponent('Explain: ' + d.title)}" class="btn btn-primary btn-sm">
+            <span>🤖 Ask AI About This Debate</span>
+          </a>
+        </div>
+      </div>
+    </article>
+  `).join('');
+}
+
+// Filter button clicks
+document.querySelectorAll('[data-filter]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeCategory = btn.dataset.filter;
+    renderDebates();
+  });
+});
+
+// Speech narration helper
+function speakDebateSummary(id) {
+  const d = debateModules.find(item => item.id === id);
+  if (!d || !('speechSynthesis' in window)) return;
+
+  window.speechSynthesis.cancel();
+  const text = `${d.title}. ${d.historicalContext}. Dr. Ambedkar's documented position: ${d.ambedkarPosition ? d.ambedkarPosition.thesis : ''}`;
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.rate = 1.0;
+  window.speechSynthesis.speak(utter);
+}
+
+window.addEventListener('load', () => {
+  loadDebates().then(() => {
+    if (window.location.hash) {
+      const el = document.querySelector(window.location.hash);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+</script>
+</body>
+</html>

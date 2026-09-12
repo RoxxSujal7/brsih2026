@@ -233,6 +233,7 @@
             <div class="flex-between items-center gap-2" style="margin-top:var(--space-4);padding-top:var(--space-3);border-top:1px solid var(--border);">
               <button class="btn btn-outline btn-xs" id="run-reocr-btn">⚡ Re-run OCR Scan</button>
               <div class="flex gap-2">
+                <button class="btn btn-secondary btn-xs" id="edit-ocr-btn">✏️ Edit / Correct Text</button>
                 <button class="btn btn-outline btn-xs" id="copy-ocr-btn">Copy Text</button>
                 <button class="btn btn-primary btn-xs" id="export-txt-btn">📥 Export TXT</button>
               </div>
@@ -251,17 +252,28 @@
           <div class="card-inner" style="padding:var(--space-8);text-align:center;">
             <div class="section-eyebrow" style="margin-bottom:var(--space-2);">🧪 RESEARCHER OCR SANDBOX</div>
             <h2 class="font-heading" style="font-size:1.5rem;margin-bottom:var(--space-2);">Upload Manuscript Image for Instant AI OCR</h2>
-            <p class="text-muted text-sm" style="margin-bottom:var(--space-6);max-width:600px;margin-left:auto;margin-right:auto;">Upload a high-resolution JPG or PNG scan of any historical document or news clipping to extract transcribed Devanagari/English text in real time.</p>
+            <p class="text-muted text-sm" style="margin-bottom:var(--space-6);max-width:600px;margin-left:auto;margin-right:auto;">Upload a high-resolution JPG or PNG scan of any historical document or news clipping to extract transcribed Devanagari/English text in real time using Tesseract.js neural OCR.</p>
 
             <div id="drop-zone" style="padding:var(--space-8);border:2px dashed rgba(255,255,255,0.15);border-radius:var(--radius-xl);cursor:pointer;transition:border-color var(--duration-fast);">
               <div style="font-size:2.8rem;margin-bottom:var(--space-2);" aria-hidden="true">📤</div>
               <h4 class="font-heading" style="margin-bottom:var(--space-1);">Drag &amp; Drop Manuscript File Here</h4>
-              <p class="text-xs text-muted" style="margin-bottom:var(--space-4);">Supports JPG, PNG, PDF (Max 15MB)</p>
-              <input type="file" id="ocr-file-input" class="hidden" accept="image/*,.pdf" />
+              <p class="text-xs text-muted" style="margin-bottom:var(--space-4);">Supports JPG, PNG, WebP (Client-side local OCR)</p>
+              <input type="file" id="ocr-file-input" class="hidden" accept="image/*" />
               <button class="btn btn-primary btn-sm" onclick="document.getElementById('ocr-file-input').click()">
                 <span>Browse Local Computer</span>
                 <span class="btn-icon-bubble">📁</span>
               </button>
+            </div>
+
+            <!-- OCR Progress Bar -->
+            <div id="ocr-progress-container" style="display:none;margin-top:var(--space-4);max-width:400px;margin-inline:auto;">
+              <div class="flex-between items-center text-xs" style="margin-bottom:4px;">
+                <span id="ocr-progress-label" class="text-gold">Initializing Tesseract Worker...</span>
+                <span id="ocr-progress-pct" class="num-tabular font-bold">0%</span>
+              </div>
+              <div style="height:6px;background:rgba(255,255,255,0.1);border-radius:var(--radius-full);overflow:hidden;">
+                <div id="ocr-progress-bar" style="height:100%;width:0%;background:var(--gold);transition:width 0.2s;"></div>
+              </div>
             </div>
 
             <div id="upload-status" class="mt-3 text-sm text-gold" style="display:none;margin-top:var(--space-4);"></div>
@@ -295,6 +307,7 @@
 
   <div id="toast-container" class="toast-container"></div>
 
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
   <script src="js/api.js"></script>
   <script src="js/toast.js"></script>
   <script src="js/app.js"></script>

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Display Exhibition Mode — Dr. Ambedkar International Centre</title>
+  <meta name="description" content="Passive ambient smart display exhibition mode for institutional lobbies, museums, and wall displays at Dr. Ambedkar International Centre." />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Cinzel:wght@700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="css/style.css" />
+  <script>(function(){document.documentElement.setAttribute('data-theme','dark');})();</script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      user-select: none;
+    }
+    body {
+      background: #04060a;
+      color: #f8fafc;
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* Ambient Display Stage */
+    .stage {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(2rem, 5vw, 6rem);
+      background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(212,175,55,0.12) 0%, #04060a 85%);
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: clamp(2rem, 6vw, 6rem);
+      opacity: 0;
+      transform: scale(0.96);
+      transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+    .slide.active {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+
+    .slide-emblem {
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      margin-bottom: var(--space-4);
+      filter: drop-shadow(0 0 25px rgba(212,175,55,0.4));
+      animation: float-ambient 6s ease-in-out infinite alternate;
+    }
+    @keyframes float-ambient {
+      from { transform: translateY(0); }
+      to { transform: translateY(-10px); }
+    }
+
+    .slide-category {
+      font-family: var(--font-mono);
+      font-size: clamp(0.75rem, 1.2vw, 1rem);
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+      margin-bottom: var(--space-3);
+    }
+
+    .slide-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4.5vw, 4.2rem);
+      color: var(--text);
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      max-width: 1200px;
+      margin-bottom: var(--space-6);
+    }
+
+    .slide-quote {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(1.25rem, 2.2vw, 2rem);
+      color: var(--gold-light);
+      line-height: 1.65;
+      max-width: 1000px;
+      margin-bottom: var(--space-6);
+      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+    }
+
+    .slide-context {
+      font-size: clamp(1rem, 1.4vw, 1.35rem);
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 920px;
+      margin-bottom: var(--space-6);
+    }
+
+    .slide-citation {
+      font-family: var(--font-mono);
+      font-size: clamp(0.8rem, 1.1vw, 1rem);
+      color: var(--text-muted);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border-gold);
+      padding: 8px 24px;
+      border-radius: var(--radius-full);
+    }
+
+    /* Ambient Progress Bar */
+    .progress-bar-wrap {
+      height: 6px;
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      position: relative;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--gold), #f3e5ab);
+      box-shadow: 0 0 15px var(--gold);
+      transition: width 0.1s linear;
+    }
+
+    /* Passive Exhibition Footer */
+    .exhibit-footer {
+      height: 60px;
+      background: #060910;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 var(--space-8);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .exhibit-ctrls {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+    }
+    .ctrl-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .ctrl-btn:hover {
+      color: var(--gold-light);
+    }
+  </style>
+</head>
+<body>
+
+<!-- Progress Bar -->
+<div class="progress-bar-wrap">
+  <div class="progress-bar-fill" id="progress-fill"></div>
+</div>
+
+<!-- Exhibit Stage -->
+<main class="stage" id="stage">
+
+  <!-- Slide 1: Welcome Folio -->
+  <div class="slide active" data-duration="15">
+    <div class="slide-emblem">🏛️</div>
+    <div class="slide-category">Dr. Ambedkar International Centre · New Delhi</div>
+    <h1 class="slide-title">Digital Heritage Archive</h1>
+    <p class="slide-context">
+      A digital sanctuary preserving the complete 60-volume corpus, historical manuscripts, speeches, constitutional debates, and national memorials of Bharat Ratna Dr. B. R. Ambedkar.
+    </p>
+    <div class="slide-citation">Ministry of Social Justice and Empowerment · Government of India</div>
+  </div>
+
+  <!-- Slide 2: Constitutional Morality -->
+  <div class="slide" data-duration="15">
+    <div class="slide-emblem">⚖️</div>
+    <div class="slide-category">Constitutional Philosophy · Nov 4, 1948</div>
+    <h2 class="slide-title">Cultivating Constitutional Morality</h2>
+    <blockquote class="slide-quote">
+      "Constitutional morality is not a natural sentiment. It has to be cultivated. We must realize that our people have yet to learn it. Democracy in India is only a top-dressing on an Indian soil which is essentially undemocratic."
+    </blockquote>
+    <div class="slide-citation">BAWS Vol. 13 · Constituent Assembly Debates (CAD VII)</div>
+  </div>
+
+  <!-- Slide 3: The Life of Contradictions -->
+  <div class="slide" data-duration="18">
+    <div class="slide-emblem">🕊️</div>
+    <div class="slide-category">Final Constituent Assembly Address · Nov 25, 1949</div>
+    <h2 class="slide-title">Entering a Life of Contradictions</h2>
+    <blockquote class="slide-quote">
+      "On the 26th of January 1950, we are going to enter into a life of contradictions. In politics we will have equality and in social and economic life we will have inequality... We must remove this contradiction at the earliest possible moment."
+    </blockquote>
+    <p class="slide-context">
+      Political democracy ('one person, one vote') cannot survive without social and economic democracy ('one person, one value').
+    </p>
+    <div class="slide-citation">BAWS Vol. 13 · Final Address to the Nation (November 25, 1949)</div>
+  </div>
+
+  <!-- Slide 4: Article 32 -->
+  <div class="slide" data-duration="15">
+    <div class="slide-emblem">❤️</div>
+    <div class="slide-category">Fundamental Rights &amp; Remedies</div>
+    <h2 class="slide-title">The Heart &amp; Soul of the Constitution</h2>
+    <blockquote class="slide-quote">
+      "If I was asked to name any particular article in this Constitution as the most important — an article without which this Constitution would be a nullity — I could not refer to any other article except Article 32. It is the very soul of the Constitution and the very heart of it."
+    </blockquote>
+    <div class="slide-citation">Constituent Assembly Debates · November 9, 1948</div>
+  </div>
+
+  <!-- Slide 5: Annihilation of Caste -->
+  <div class="slide" data-duration="16">
+    <div class="slide-emblem">⚡</div>
+    <div class="slide-category">Masterwork of Social Theory · 1936</div>
+    <h2 class="slide-title">Annihilation of Caste</h2>
+    <blockquote class="slide-quote">
+      "Caste is not merely a division of labour. It is also a division of labourers... You cannot build anything on the foundations of caste. You cannot build up a nation, you cannot build up a morality."
+    </blockquote>
+    <p class="slide-context">
+      Originally drafted for the Lahore Jat-Pat-Todak Mandal, this treatise remains the world's preeminent sociological dismantling of hereditary graded hierarchy.
+    </p>
+    <div class="slide-citation">BAWS Vol. 1 · Annihilation of Caste (1936)</div>
+  </div>
+
+  <!-- Slide 6: Mahad Satyagraha -->
+  <div class="slide" data-duration="16">
+    <div class="slide-emblem">💧</div>
+    <div class="slide-category">Civil Rights Milestone · March 20, 1927</div>
+    <h2 class="slide-title">The Mahad Water Satyagraha</h2>
+    <blockquote class="slide-quote">
+      "It is not that you and I cannot live without drinking water from the Chavdar tank... We are going to the tank simply to establish our right that we are also human beings like others."
+    </blockquote>
+    <p class="slide-context">
+      Celebrated annually as Social Empowerment Day (Samajik Adhikarita Divas) across India.
+    </p>
+    <div class="slide-citation">BAWS Vol. 17 · Mahad Historical Proceedings (Chavdar Tale)</div>
+  </div>
+
+  <!-- Slide 7: Economics & The Reserve Bank of India -->
+  <div class="slide" data-duration="16">
+    <div class="slide-emblem">🪙</div>
+    <div class="slide-category">Monetary Science · London School of Economics · 1923</div>
+    <h2 class="slide-title">The Problem of the Rupee &amp; RBI</h2>
+    <blockquote class="slide-quote">
+      "A currency system should not merely provide a medium of exchange; it should provide a stable standard of value. If the standard varies, contract becomes gambling."
+    </blockquote>
+    <p class="slide-context">
+      Dr. Ambedkar's doctoral evidence before the 1926 Royal Commission (Hilton Young Commission) provided the operational charter and design for the Reserve Bank of India (RBI Act 1934).
+    </p>
+    <div class="slide-citation">BAWS Vol. 6 · The Problem of the Rupee: Its Origin and Its Solution</div>
+  </div>
+
+  <!-- Slide 8: Deeksha Bhoomi & 22 Vows -->
+  <div class="slide" data-duration="16">
+    <div class="slide-emblem">☸️</div>
+    <div class="slide-category">Spiritual Emancipation · October 14, 1956</div>
+    <h2 class="slide-title">Deeksha Bhoomi, Nagpur</h2>
+    <blockquote class="slide-quote">
+      "My social philosophy may be said to be enshrined in three words: liberty, equality and fraternity. My philosophy has roots in religion and not in political science."
+    </blockquote>
+    <p class="slide-context">
+      Over 500,000 followers embraced Navayana Buddhism at Nagpur, taking the 22 Vows of ethical liberation and human equality.
+    </p>
+    <div class="slide-citation">BAWS Vol. 11 · The Buddha and His Dhamma (1957)</div>
+  </div>
+
+  <!-- Slide 9: The Hindu Code Bill -->
+  <div class="slide" data-duration="16">
+    <div class="slide-emblem">👩</div>
+    <div class="slide-category">Gender Justice &amp; Legal Emancipation · 1948–1951</div>
+    <h2 class="slide-title">Champion of Women's Rights</h2>
+    <blockquote class="slide-quote">
+      "I measure the progress of a community by the degree of progress which women have achieved."
+    </blockquote>
+    <p class="slide-context">
+      Drafted the Hindu Code Bill granting daughters equal inheritance, abolishing polygamy, and legalizing divorce. Resigned from the Union Cabinet in September 1951 when conservative resistance stalled the bill.
+    </p>
+    <div class="slide-citation">BAWS Vol. 14 · Dr. Ambedkar and the Hindu Code Bill</div>
+  </div>
+
+  <!-- Slide 10: Educate, Agitate, Organise -->
+  <div class="slide" data-duration="15">
+    <div class="slide-emblem">⚡</div>
+    <div class="slide-category">Foundational Motto · Nagpur, 1942</div>
+    <h2 class="slide-title">Educate, Agitate, Organise</h2>
+    <blockquote class="slide-quote">
+      "Educate, Agitate and Organise; have faith in yourselves. With justice on our side, I do not see how we can lose our battle. The battle to me is one of freedom, not for bread alone, but for human dignity."
+    </blockquote>
+    <div class="slide-citation">All-India Depressed Classes Conference Address (July 1942)</div>
+  </div>
+
+</main>
+
+<!-- Exhibition Footer -->
+<footer class="exhibit-footer">
+  <div>
+    <span>Dr. Ambedkar International Centre · Exhibition Mode</span>
+    <span style="margin: 0 10px; opacity:0.3;">|</span>
+    <span id="slide-indicator">Folio 1 of 10</span>
+  </div>
+
+  <div class="exhibit-ctrls">
+    <button class="ctrl-btn" id="prev-btn" title="Previous Folio">⏮️</button>
+    <button class="ctrl-btn" id="pause-btn" title="Pause / Play Auto-Cycle">⏸️</button>
+    <button class="ctrl-btn" id="next-btn" title="Next Folio">⏭️</button>
+    <button class="ctrl-btn" id="fullscreen-btn" title="Fullscreen">⛶</button>
+    <a href="index.html" class="ctrl-btn" title="Exit to Portal" style="text-decoration:none;">✕</a>
+  </div>
+</footer>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+let currentIndex = 0;
+let isPaused = false;
+let slideTimer = null;
+let progressInterval = null;
+let currentDuration = 15; // default seconds
+let elapsedSec = 0;
+
+function showSlide(index) {
+  slides.forEach((s, idx) => {
+    s.classList.toggle('active', idx === index);
+  });
+  currentIndex = index;
+  currentDuration = parseInt(slides[currentIndex].dataset.duration || '15', 10);
+  elapsedSec = 0;
+  
+  const indicator = document.getElementById('slide-indicator');
+  if (indicator) indicator.textContent = `Folio ${currentIndex + 1} of ${slides.length}`;
+}
+
+function nextSlide() {
+  const next = (currentIndex + 1) % slides.length;
+  showSlide(next);
+}
+
+function prevSlide() {
+  const prev = (currentIndex - 1 + slides.length) % slides.length;
+  showSlide(prev);
+}
+
+function startAmbientCycle() {
+  if (progressInterval) clearInterval(progressInterval);
+
+  const fill = document.getElementById('progress-fill');
+  progressInterval = setInterval(() => {
+    if (!isPaused) {
+      elapsedSec += 0.1;
+      const pct = Math.min(100, (elapsedSec / currentDuration) * 100);
+      if (fill) fill.style.width = `${pct}%`;
+
+      if (elapsedSec >= currentDuration) {
+        nextSlide();
+      }
+    }
+  }, 100);
+}
+
+document.getElementById('pause-btn').addEventListener('click', () => {
+  isPaused = !isPaused;
+  document.getElementById('pause-btn').textContent = isPaused ? '▶️' : '⏸️';
+});
+
+document.getElementById('next-btn').addEventListener('click', () => {
+  nextSlide();
+});
+
+document.getElementById('prev-btn').addEventListener('click', () => {
+  prevSlide();
+});
+
+document.getElementById('fullscreen-btn').addEventListener('click', () => {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(() => {});
+  } else {
+    document.exitFullscreen().catch(() => {});
+  }
+});
+
+// Keyboard navigation (arrows/space)
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+  if (e.key === 'ArrowLeft') prevSlide();
+  if (e.key === 'p' || e.key === 'P') {
+    isPaused = !isPaused;
+    document.getElementById('pause-btn').textContent = isPaused ? '▶️' : '⏸️';
+  }
+});
+
+showSlide(0);
+startAmbientCycle();
+</script>
+</body>
+</html>

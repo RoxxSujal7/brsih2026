@@ -202,7 +202,8 @@
         </div>
 
         <!-- Bookmarks -->
-        <div>
+        <!-- Bookmarks -->
+        <div style="margin-bottom:var(--space-8);">
           <div class="dash-section-title">
             <h2 style="font-size:1.25rem;font-family:var(--font-display);">🔖 Saved Bookmarks</h2>
             <span id="bookmark-count" style="font-size:.875rem;color:var(--gold-light);font-weight:600;"></span>
@@ -211,6 +212,62 @@
             <div class="card card-body" style="text-align:center;padding:var(--space-6);"><span style="color:var(--text-muted);">Loading bookmarks…</span></div>
           </div>
         </div>
+
+        <!-- Research Workspace & Multi-Format Citation Generator (Requirement 16) -->
+        <div class="card" style="margin-bottom:var(--space-8);">
+          <div class="card-inner" style="padding:var(--space-6);">
+            <div class="flex-between items-center" style="margin-bottom:var(--space-3);">
+              <h2 style="font-size:1.25rem;font-family:var(--font-display);color:var(--text);">📑 Academic Citation Generator</h2>
+              <span class="badge badge-gold" style="font-size:0.75rem;">APA · MLA · Chicago · BibTeX</span>
+            </div>
+            <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:var(--space-4);">
+              Generate verified academic citations for any volume or treatise in the Ambedkar Digital Heritage Archive.
+            </p>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-bottom:var(--space-4);">
+              <div>
+                <label for="cite-volume" style="font-size:0.75rem;color:var(--text-muted);display:block;margin-bottom:4px;">Select Volume / Treatise:</label>
+                <select id="cite-volume" class="input" style="width:100%;font-size:0.85rem;padding:6px 10px;">
+                  <option value="vol-1">BAWS Vol. 1: Annihilation of Caste (1936)</option>
+                  <option value="vol-6">BAWS Vol. 6: The Problem of the Rupee (1923)</option>
+                  <option value="vol-7">BAWS Vol. 7: Who Were the Shudras? (1948)</option>
+                  <option value="vol-8">BAWS Vol. 8: Pakistan or the Partition of India (1945)</option>
+                  <option value="vol-9">BAWS Vol. 9: What Congress and Gandhi Have Done (1945)</option>
+                  <option value="vol-11">BAWS Vol. 11: The Buddha and His Dhamma (1957)</option>
+                  <option value="vol-13">BAWS Vol. 13: Constituent Assembly Debates (1949)</option>
+                  <option value="vol-14">BAWS Vol. 14: Dr. Ambedkar and the Hindu Code Bill</option>
+                  <option value="vol-17">BAWS Vol. 17: Mahad Satyagraha & Writings (1927)</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="cite-style" style="font-size:0.75rem;color:var(--text-muted);display:block;margin-bottom:4px;">Citation Style:</label>
+                <select id="cite-style" class="input" style="width:100%;font-size:0.85rem;padding:6px 10px;">
+                  <option value="apa">APA 7th Edition</option>
+                  <option value="mla">MLA 9th Edition</option>
+                  <option value="chicago">Chicago 17th Edition</option>
+                  <option value="harvard">Harvard Style</option>
+                  <option value="bibtex">BibTeX Entry</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Formatted Citation Display -->
+            <div id="citation-result" style="background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--space-4);font-family:var(--font-mono);font-size:0.82rem;line-height:1.6;color:var(--gold-light);margin-bottom:var(--space-4);word-break:break-word;">
+              <!-- Inserted via JS -->
+            </div>
+
+            <div class="flex gap-2">
+              <button class="btn btn-primary btn-sm" id="btn-copy-citation">
+                <span>📋 Copy Citation</span>
+              </button>
+              <button class="btn btn-secondary btn-sm" id="btn-export-collection">
+                <span>📥 Export Bibliography (.txt)</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <!-- Right: Quick links + Profile -->
@@ -219,6 +276,42 @@
         <div style="margin-bottom:var(--space-6);">
           <h2 style="font-size:1.15rem;margin-bottom:var(--space-4);font-family:var(--font-display);">⚡ Quick Access</h2>
           <div style="display:flex;flex-direction:column;gap:var(--space-3);">
+            <a href="memorials.html" class="card" style="text-decoration:none;">
+              <div class="card-inner" style="padding:var(--space-4);display:flex;align-items:center;gap:var(--space-4);">
+                <span style="font-size:1.6rem;" aria-hidden="true">🏛️</span>
+                <div>
+                  <div style="font-weight:600;color:var(--text);font-size:0.95rem;">National Memorials</div>
+                  <div style="font-size:.78rem;color:var(--text-muted);">DAIC, Chaitya Bhoomi, Deeksha Bhoomi, Mhow</div>
+                </div>
+              </div>
+            </a>
+            <a href="debates.html" class="card" style="text-decoration:none;">
+              <div class="card-inner" style="padding:var(--space-4);display:flex;align-items:center;gap:var(--space-4);">
+                <span style="font-size:1.6rem;" aria-hidden="true">⚖️</span>
+                <div>
+                  <div style="font-weight:600;color:var(--text);font-size:0.95rem;">Historical Debates</div>
+                  <div style="font-size:.78rem;color:var(--text-muted);">Ambedkar vs Gandhi, Congress, 1932 RTC</div>
+                </div>
+              </div>
+            </a>
+            <a href="kiosk.html" class="card" style="text-decoration:none;">
+              <div class="card-inner" style="padding:var(--space-4);display:flex;align-items:center;gap:var(--space-4);">
+                <span style="font-size:1.6rem;" aria-hidden="true">🖥️</span>
+                <div>
+                  <div style="font-weight:600;color:var(--text);font-size:0.95rem;">Touchscreen Kiosk Mode</div>
+                  <div style="font-size:.78rem;color:var(--text-muted);">Optimized for institutional touch displays</div>
+                </div>
+              </div>
+            </a>
+            <a href="exhibition.html" class="card" style="text-decoration:none;">
+              <div class="card-inner" style="padding:var(--space-4);display:flex;align-items:center;gap:var(--space-4);">
+                <span style="font-size:1.6rem;" aria-hidden="true">📺</span>
+                <div>
+                  <div style="font-weight:600;color:var(--text);font-size:0.95rem;">Smart Display Mode</div>
+                  <div style="font-size:.78rem;color:var(--text-muted);">Hands-free ambient cycling for smart TVs</div>
+                </div>
+              </div>
+            </a>
             <a href="archive.html" class="card" style="text-decoration:none;">
               <div class="card-inner" style="padding:var(--space-4);display:flex;align-items:center;gap:var(--space-4);">
                 <span style="font-size:1.6rem;" aria-hidden="true">📚</span>
@@ -237,21 +330,12 @@
                 </div>
               </div>
             </a>
-            <a href="timeline.html" class="card" style="text-decoration:none;">
+            <a href="admin.html" class="card" style="text-decoration:none;">
               <div class="card-inner" style="padding:var(--space-4);display:flex;align-items:center;gap:var(--space-4);">
-                <span style="font-size:1.6rem;" aria-hidden="true">📅</span>
+                <span style="font-size:1.6rem;" aria-hidden="true">🛡️</span>
                 <div>
-                  <div style="font-weight:600;color:var(--text);font-size:0.95rem;">Life Timeline</div>
-                  <div style="font-size:.78rem;color:var(--text-muted);">1891 — 1956 historical milestones</div>
-                </div>
-              </div>
-            </a>
-            <a href="media.html" class="card" style="text-decoration:none;">
-              <div class="card-inner" style="padding:var(--space-4);display:flex;align-items:center;gap:var(--space-4);">
-                <span style="font-size:1.6rem;" aria-hidden="true">🎬</span>
-                <div>
-                  <div style="font-weight:600;color:var(--text);font-size:0.95rem;">Audio-Visual Gallery</div>
-                  <div style="font-size:.78rem;color:var(--text-muted);">Speeches, interviews, radio broadcasts</div>
+                  <div style="font-weight:600;color:var(--text);font-size:0.95rem;">Archivist Console</div>
+                  <div style="font-size:.78rem;color:var(--text-muted);">PREMIS integrity checks &amp; Dublin Core</div>
                 </div>
               </div>
             </a>
@@ -406,6 +490,74 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('continue-reading-list').innerHTML = `<div class="card"><div class="card-inner" style="padding:var(--space-6);text-align:center;"><p style="color:var(--text-muted);">Start reading any volume to record local offline history.</p><a href="archive.html" class="btn btn-primary btn-sm" style="margin-top:var(--space-3);">Explore 60 Volumes</a></div></div>`;
     document.getElementById('bookmarks-list').innerHTML = '';
   }
+
+  // ── Academic Citation Generator Logic (Requirement 16) ──
+  const CITATION_DATA = {
+    'vol-1': { author: 'Ambedkar, B. R.', year: 1936, title: 'Annihilation of Caste: With a Reply to Mahatma Gandhi', vol: 1, publisher: 'Government of Maharashtra / Dr. Ambedkar Foundation' },
+    'vol-6': { author: 'Ambedkar, B. R.', year: 1923, title: 'The Problem of the Rupee: Its Origin and Its Solution', vol: 6, publisher: 'P. S. King & Son / Dr. Ambedkar Foundation' },
+    'vol-7': { author: 'Ambedkar, B. R.', year: 1948, title: 'Who Were the Shudras? How They Came to be the Fourth Varna in Indo-Aryan Society', vol: 7, publisher: 'Thackers / Dr. Ambedkar Foundation' },
+    'vol-8': { author: 'Ambedkar, B. R.', year: 1945, title: 'Pakistan or the Partition of India', vol: 8, publisher: 'Thackers / Government of Maharashtra' },
+    'vol-9': { author: 'Ambedkar, B. R.', year: 1945, title: 'What Congress and Gandhi Have Done to the Untouchables', vol: 9, publisher: 'Thacker & Co. Ltd. / Dr. Ambedkar Foundation' },
+    'vol-11': { author: 'Ambedkar, B. R.', year: 1957, title: 'The Buddha and His Dhamma', vol: 11, publisher: 'Siddharth College Publications / Government of Maharashtra' },
+    'vol-13': { author: 'Ambedkar, B. R.', year: 1949, title: 'Dr. Babasaheb Ambedkar in the Constituent Assembly of India', vol: 13, publisher: 'Legislative Department / Government of Maharashtra' },
+    'vol-14': { author: 'Ambedkar, B. R.', year: 1951, title: 'Dr. Ambedkar and the Hindu Code Bill', vol: 14, publisher: 'Ministry of Social Justice & Empowerment' },
+    'vol-17': { author: 'Ambedkar, B. R.', year: 1927, title: 'Dr. B. R. Ambedkar and His Egalitarian Revolution: Speeches and Writings on Mahad', vol: 17, publisher: 'Dr. Ambedkar Foundation' }
+  };
+
+  function updateCitation() {
+    const volSelect = document.getElementById('cite-volume');
+    const styleSelect = document.getElementById('cite-style');
+    if (!volSelect || !styleSelect) return;
+
+    const volKey = volSelect.value;
+    const style = styleSelect.value;
+    const item = CITATION_DATA[volKey];
+    if (!item) return;
+
+    let citation = '';
+    if (style === 'apa') {
+      citation = `${item.author} (${item.year}). ${item.title} (Babasaheb Ambedkar Writings and Speeches, Vol. ${item.vol}). ${item.publisher}.`;
+    } else if (style === 'mla') {
+      citation = `${item.author}. ${item.title}. Babasaheb Ambedkar Writings and Speeches, vol. ${item.vol}, ${item.publisher}, ${item.year}.`;
+    } else if (style === 'chicago') {
+      citation = `${item.author}. ${item.year}. ${item.title}. Vol. ${item.vol} of Babasaheb Ambedkar Writings and Speeches. New Delhi: ${item.publisher}.`;
+    } else if (style === 'harvard') {
+      citation = `${item.author}, ${item.year}. ${item.title}, Babasaheb Ambedkar Writings and Speeches, Vol. ${item.vol}. ${item.publisher}.`;
+    } else if (style === 'bibtex') {
+      const citeKey = `ambedkar${item.year}${volKey.replace('-', '')}`;
+      citation = `@book{${citeKey},\n  author    = {${item.author}},\n  title     = {${item.title}},\n  year      = {${item.year}},\n  volume    = {${item.vol}},\n  series    = {Babasaheb Ambedkar Writings and Speeches},\n  publisher = {${item.publisher}}\n}`;
+    }
+    const resultBox = document.getElementById('citation-result');
+    if (resultBox) resultBox.textContent = citation;
+  }
+
+  document.getElementById('cite-volume')?.addEventListener('change', updateCitation);
+  document.getElementById('cite-style')?.addEventListener('change', updateCitation);
+  updateCitation();
+
+  document.getElementById('btn-copy-citation')?.addEventListener('click', () => {
+    const resultEl = document.getElementById('citation-result');
+    if (!resultEl) return;
+    const text = resultEl.textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      if (typeof showToast === 'function') showToast('Citation copied to clipboard!', 'success');
+      else alert('Citation copied to clipboard!');
+    }).catch(() => {
+      if (typeof showToast === 'function') showToast('Could not copy citation.', 'warning');
+    });
+  });
+
+  document.getElementById('btn-export-collection')?.addEventListener('click', () => {
+    const entries = Object.values(CITATION_DATA).map(item =>
+      `${item.author} (${item.year}). ${item.title} (BAWS Vol. ${item.vol}). ${item.publisher}.`
+    ).join('\n\n');
+    const blob = new Blob([entries], { type: 'text/plain;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'Ambedkar_Archive_Bibliography.txt';
+    a.click();
+    if (typeof showToast === 'function') showToast('Bibliography exported (.txt)', 'success');
+  });
 });
 </script>
 </body>

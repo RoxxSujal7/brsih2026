@@ -1,0 +1,249 @@
+[
+  {
+    "id": "daic-delhi",
+    "name": "Dr. Ambedkar International Centre (DAIC)",
+    "hindiName": "डॉ. अम्बेडकर अंतर्राष्ट्रीय केन्द्र",
+    "marathiName": "डॉ. आंबेडकर आंतरराष्ट्रीय केंद्र",
+    "city": "New Delhi",
+    "state": "Delhi",
+    "location": "15, Janpath Road, New Delhi 110001",
+    "coordinates": { "lat": 28.6186, "lng": 77.2185 },
+    "establishedYear": 2017,
+    "inauguratedBy": "Prime Minister of India (December 7, 2017)",
+    "significance": "Apex national centre for socio-economic research, constitutional education, and inclusive policy ideation named in honour of Dr. B. R. Ambedkar.",
+    "historicalContext": "Conceived as an intellectual bridge between Dr. Ambedkar's historical thought and contemporary socio-economic policy. The centre houses the Dr. Ambedkar National Library, research faculties specializing in inclusive development, digital archives, and state-of-the-art auditoriums for international conferences on social justice and constitutional morality.",
+    "architecturalFeatures": [
+      "Modern classical fusion blending Buddhist stupa motifs with democratic institutional geometry",
+      "Torana gates inspired by Sanchi Stupa at the grand entrance",
+      "Dr. Ambedkar National Library with digitized archives of BAWS volumes",
+      "Two high-capacity auditoriums named 'Bhim' and 'Samyak' for public scholarship"
+    ],
+    "audioNarration": "The Dr. Ambedkar International Centre, located on Janpath in the heart of New Delhi, was inaugurated on December 7, 2017. As an apex institution under the Ministry of Social Justice and Empowerment, it serves as a premier research hub and think-tank devoted to socio-economic studies, constitutional education, and the dissemination of Babasaheb's visionary ideas across India and the globe.",
+    "relatedVolumes": [1, 6, 10, 13],
+    "relatedEvents": [
+      { "year": 1947, "title": "Drafting Committee Appointment" },
+      { "year": 1950, "title": "Adoption of the Constitution of India" }
+    ],
+    "visitorInfo": {
+      "timings": "09:30 AM – 06:00 PM (Tuesday to Sunday, Closed on Mondays)",
+      "entry": "Free / Public Academic Entry with ID",
+      "nearestMetro": "Janpath / Patel Chowk Metro Station"
+    }
+  },
+  {
+    "id": "chaitya-bhoomi-mumbai",
+    "name": "Chaitya Bhoomi",
+    "hindiName": "चैत्य भूमि",
+    "marathiName": "चैत्यभूमी",
+    "city": "Mumbai",
+    "state": "Maharashtra",
+    "location": "Dadar Chowpatty, Shivaji Park, Mumbai 400028",
+    "coordinates": { "lat": 19.0269, "lng": 72.8354 },
+    "establishedYear": 1971,
+    "inauguratedBy": "Inaugurated by Smt. Mai Ambedkar (Savita Ambedkar) on May 4, 1971",
+    "significance": "Sacred cremation ground and memorial stupa commemorating Dr. B. R. Ambedkar's Mahaparinirvan.",
+    "historicalContext": "Following Dr. Ambedkar's Mahaparinirvan at 26 Alipur Road, Delhi, on December 6, 1956, his mortal remains were flown to Mumbai. On December 7, 1956, over half a million grief-stricken followers gathered at Dadar beach for his last rites, conducted according to Buddhist rites. In 1971, the circular Chaitya Bhoomi memorial was constructed over his ashes. Every year on December 6 (Mahaparinirvan Din), millions of pilgrims from all across India congregate peacefully to pay homage.",
+    "architecturalFeatures": [
+      "Circular Buddhist Stupa architecture housing a reliquary chamber with Babasaheb's bust",
+      "Marble-clad domed structure with ornamental square railing",
+      "Ashoka Pillar replica erected on the seaside promenade",
+      "Adjoining meditation pavilion and archival exhibition gallery"
+    ],
+    "audioNarration": "Chaitya Bhoomi, situated on the shores of Dadar Chowpatty in Mumbai, is the sacred site of Dr. B. R. Ambedkar's cremation on December 7, 1956. Designed in the classical Buddhist stupa tradition, it represents the spiritual heart of the emancipatory movement. Every year on December 6, Mahaparinirvan Din, millions assemble here in one of the world's largest peaceful democratic pilgrimages.",
+    "relatedVolumes": [11, 17],
+    "relatedEvents": [
+      { "year": 1956, "title": "Mahaparinirvan on December 6, 1956" },
+      { "year": 1956, "title": "Last Rites at Dadar on December 7, 1956" }
+    ],
+    "visitorInfo": {
+      "timings": "06:00 AM – 09:00 PM Daily",
+      "entry": "Free Public Entry",
+      "nearestMetro": "Dadar Railway Station (Western & Central Lines)"
+    }
+  },
+  {
+    "id": "deeksha-bhoomi-nagpur",
+    "name": "Deeksha Bhoomi",
+    "hindiName": "दीक्षा भूमि",
+    "marathiName": "दीक्षाभूमी",
+    "city": "Nagpur",
+    "state": "Maharashtra",
+    "location": "South Ambazari Road, Ramdaspeth, Nagpur 440010",
+    "coordinates": { "lat": 21.1278, "lng": 79.0664 },
+    "establishedYear": 2001,
+    "inauguratedBy": "Memorial Stupa dedicated on December 18, 2001 by President K. R. Narayanan",
+    "significance": "Site of the historic mass conversion to Buddhism on October 14, 1956; largest hollow Buddhist stupa in Asia.",
+    "historicalContext": "Fulfilling his historic 1935 Yeola declaration ('Even though I was born a Hindu, I will not die a Hindu'), Dr. Ambedkar embraced Buddhism alongside over 500,000 followers at this ground on Ashoka Vijaya Dashami, October 14, 1956. Here he administered the historic 22 Vows (Navayana), rejecting untouchability and idolatry, and revitalizing Buddhism in its land of origin as an egalitarian ethical philosophy.",
+    "architecturalFeatures": [
+      "Monumental hollow hemispherical stupa with a diameter of 120 feet and height of 120 feet",
+      "Constructed from Dholpur sandstone, granite, and marble",
+      "Upper floor enshrines a bronze Buddha statue and relic urns",
+      "Plaza accommodating over 300,000 pilgrims simultaneously"
+    ],
+    "audioNarration": "Deeksha Bhoomi in Nagpur marks the epicenter of India's modern Buddhist renaissance. On October 14, 1956, Dr. Ambedkar led over half a million followers into Buddhism, delivering the 22 Vows of emancipation. Today, the majestic stupa at Deeksha Bhoomi stands as Asia's largest hollow stupa, drawing millions every Ashoka Vijaya Dashami and Dhammachakra Pravartan Din.",
+    "relatedVolumes": [11, 17, 20],
+    "relatedEvents": [
+      { "year": 1935, "title": "Yeola Conversion Declaration" },
+      { "year": 1956, "title": "Historic Conversion & 22 Vows on October 14, 1956" }
+    ],
+    "visitorInfo": {
+      "timings": "06:00 AM – 08:30 PM Daily",
+      "entry": "Free Public Entry",
+      "nearestMetro": "Congress Nagar / Rahate Colony Metro Station"
+    }
+  },
+  {
+    "id": "danm-alipur-delhi",
+    "name": "Dr. Ambedkar National Memorial (DANM)",
+    "hindiName": "डॉ. अम्बेडकर राष्ट्रीय स्मारक (26 अलीपुर रोड)",
+    "marathiName": "डॉ. आंबेडकर राष्ट्रीय स्मारक (२६ अलीपूर रोड)",
+    "city": "New Delhi",
+    "state": "Delhi",
+    "location": "26, Alipur Road (Sham Nath Marg), Civil Lines, New Delhi 110054",
+    "coordinates": { "lat": 28.6756, "lng": 77.2255 },
+    "establishedYear": 2018,
+    "inauguratedBy": "Prime Minister of India (April 13, 2018)",
+    "significance": "Mahaparinirvan Sthal where Dr. Ambedkar lived in his final years and breathed his last on December 6, 1956.",
+    "historicalContext": "Formerly the residence of the Maharaja of Sirohi, Dr. Ambedkar resided here from 1951 until his demise in December 1956. Here he completed his magnum opus 'The Buddha and His Dhamma', prepared the draft of 'Revolution and Counter-Revolution in Ancient India', drafted his resignation speech over the Hindu Code Bill, and formulated the charter of the Republican Party of India.",
+    "architecturalFeatures": [
+      "Striking contemporary architectural form designed in the shape of an open book representing the Constitution",
+      "Ashoka Stambh column at the reflection pool entrance",
+      "Virtual Reality and interactive multi-media museum narrating Babasaheb's life",
+      "Preserved replica of Dr. Ambedkar's personal study and library chamber"
+    ],
+    "audioNarration": "The Dr. Ambedkar National Memorial at 26 Alipur Road, Civil Lines, New Delhi, is the historic residence where Babasaheb lived after resigning from the Union Cabinet, and where he attained Mahaparinirvan on December 6, 1956. Shaped like an open book to symbolize his constitutional masterpiece, the memorial houses an immersive exhibition of his final manuscripts, books, and personal belongings.",
+    "relatedVolumes": [11, 14, 15, 17],
+    "relatedEvents": [
+      { "year": 1951, "title": "Resignation as Law Minister over Hindu Code Bill" },
+      { "year": 1956, "title": "Mahaparinirvan at 26 Alipur Road on Dec 6, 1956" }
+    ],
+    "visitorInfo": {
+      "timings": "09:30 AM – 05:30 PM (Closed Mondays & National Holidays)",
+      "entry": "Free Public Entry",
+      "nearestMetro": "Civil Lines Metro Station (Yellow Line)"
+    }
+  },
+  {
+    "id": "bhim-janmabhoomi-mhow",
+    "name": "Bhim Janmabhoomi Memorial",
+    "hindiName": "भीम जन्मभूमि स्मारक, महू",
+    "marathiName": "भीम जन्मभूमी स्मारक, महू",
+    "city": "Dr. Ambedkar Nagar (Mhow)",
+    "state": "Madhya Pradesh",
+    "location": "Kali Paltan, Dr. Ambedkar Nagar (Mhow), Indore District, MP 453441",
+    "coordinates": { "lat": 22.5526, "lng": 75.7644 },
+    "establishedYear": 1991,
+    "inauguratedBy": "Foundation laid by Chief Minister Sunderlal Patwa; memorial dedicated April 14, 2008",
+    "significance": "Birthplace memorial marking the humble military quarters where Bhimrao was born on April 14, 1891.",
+    "historicalContext": "Bhimrao Ramji Ambedkar was born the 14th child of Subedar Ramji Maloji Sakpal, an army school teacher in the British Indian Army's 106th Hazara Pioneers cantonment. The memorial stands at the very spot where his military family lived. On every Ambedkar Jayanti (April 14), over a million people travel to Mhow from across the subcontinent to commemorate his birth.",
+    "architecturalFeatures": [
+      "Stately 65-foot Buddhist stupa memorial built of pink Dholpur sandstone",
+      "Bronze statue of Dr. Ambedkar with the Constitution in hand at the central sanctum",
+      "Gallery displaying archival childhood documents, army service rolls of his father, and genealogy",
+      "Serene landscaped gardens and communal assembly halls"
+    ],
+    "audioNarration": "Bhim Janmabhoomi in Mhow, Madhya Pradesh, now officially designated Dr. Ambedkar Nagar, is the birthplace of Babasaheb Ambedkar. Born on April 14, 1891 in the military cantonment quarters of the British Indian Army, this site has become a national pilgrimage destination celebrating the genesis of modern India's champion of human dignity.",
+    "relatedVolumes": [12, 17],
+    "relatedEvents": [
+      { "year": 1891, "title": "Birth of Bhimrao on April 14, 1891" },
+      { "year": 1990, "title": "Bharat Ratna Conferred Posthumously" }
+    ],
+    "visitorInfo": {
+      "timings": "06:00 AM – 08:00 PM Daily",
+      "entry": "Free Public Entry",
+      "nearestMetro": "Dr. Ambedkar Nagar Railway Station / Indore Airport (30 km)"
+    }
+  },
+  {
+    "id": "rajgruha-mumbai",
+    "name": "Rajgruha Memorial & Library",
+    "hindiName": "राजगृह, मुंबई",
+    "marathiName": "राजगृह, मुंबई",
+    "city": "Mumbai",
+    "state": "Maharashtra",
+    "location": "Hindu Colony, Dadar East, Mumbai 400014",
+    "coordinates": { "lat": 19.0189, "lng": 72.8488 },
+    "establishedYear": 1933,
+    "inauguratedBy": "Constructed by Dr. B. R. Ambedkar (completed in 1933)",
+    "significance": "Dr. Ambedkar's historical residence and personal research library which once housed over 50,000 books.",
+    "historicalContext": "Named after the ancient Magadhan capital of Rajgriha associated with the Buddha, Dr. Ambedkar purchased three plots in Hindu Colony, Dadar, and designed this three-story building specifically to house his legendary private book collection. He lived here during the pivotal years of the 1930s while drafting 'Annihilation of Caste' and organizing the Independent Labour Party. The ground floor remains preserved with his original books, armchairs, and personal effects.",
+    "architecturalFeatures": [
+      "Three-story Art Deco colonial-era residence with dedicated ground-floor library halls",
+      "Reinforced book storage stacks designed to support the immense weight of 50,000 volumes",
+      "Preserved study room featuring Babasaheb's original reading desk, glasses, and pens",
+      "Front courtyard with commemorative bust and inscription plaques"
+    ],
+    "audioNarration": "Rajgruha, in Hindu Colony, Dadar, Mumbai, was the private residence and intellectual sanctuary built by Dr. Ambedkar in the 1930s. Designed by him to house his personal library of over fifty thousand books, Rajgruha was where Babasaheb spent days and nights researching, writing, and conferring with political colleagues during the most fertile intellectual decades of his life.",
+    "relatedVolumes": [1, 5, 7, 8, 9],
+    "relatedEvents": [
+      { "year": 1933, "title": "Completion of Rajgruha Residence" },
+      { "year": 1936, "title": "Authoring of Annihilation of Caste" }
+    ],
+    "visitorInfo": {
+      "timings": "10:00 AM – 05:00 PM (Public viewing hours)",
+      "entry": "Free Public Entry (Respectful silence requested)",
+      "nearestMetro": "Dadar East Railway Station"
+    }
+  },
+  {
+    "id": "chavdar-tale-mahad",
+    "name": "Chavdar Tale & Kranti Stambh (Mahad)",
+    "hindiName": "चवदार तालाब एवं क्रांति स्तम्भ, महाड",
+    "marathiName": "चवदार तळे आणि क्रांती स्तंभ, महाड",
+    "city": "Mahad",
+    "state": "Maharashtra",
+    "location": "Chavdar Tale, Mahad, Raigad District, Maharashtra 402301",
+    "coordinates": { "lat": 18.0827, "lng": 73.4192 },
+    "establishedYear": 1927,
+    "inauguratedBy": "Historical Civil Rights Satyagraha led on March 20, 1927",
+    "significance": "Site of the historic Mahad Water Satyagraha asserting fundamental rights to public civic amenities; celebrated as Social Empowerment Day.",
+    "historicalContext": "On March 20, 1927, Dr. Ambedkar led thousands of untouchables in a peaceful procession to the municipal Chavdar water tank to drink water from a source where even animals drank freely but human beings were barred. Babasaheb proclaimed: 'We are not going to the tank simply to drink water; we are going to establish our right that we are also human beings like others.' Later that year on December 25, 1927, the Manusmriti was burned here in protest of scriptural inequality.",
+    "architecturalFeatures": [
+      "Historic municipal tank surrounded by stone embankments and commemorative promenade",
+      "Kranti Stambh (Revolution Victory Pillar) erected at the Satyagraha staging grounds",
+      "Social Empowerment Memorial Hall and documentary library",
+      "Statue of Dr. Ambedkar taking water in his cupped hands"
+    ],
+    "audioNarration": "Chavdar Tale in Mahad, Raigad district, is hailed as the birthplace of India's civil rights movement. On March 20, 1927, Dr. Ambedkar led the historic Mahad Satyagraha, marching to the town's central water reservoir to drink water and assert the fundamental human dignity of the untouchables. March 20 is commemorated across India as Social Empowerment Day.",
+    "relatedVolumes": [17],
+    "relatedEvents": [
+      { "year": 1927, "title": "Mahad Water Satyagraha on March 20, 1927" },
+      { "year": 1927, "title": "Manusmriti Dahan on December 25, 1927" }
+    ],
+    "visitorInfo": {
+      "timings": "Open 24 Hours (Historical Public Site)",
+      "entry": "Free Public Entry",
+      "nearestMetro": "Veer Railway Station / Mumbai-Goa Highway (NH 66)"
+    }
+  },
+  {
+    "id": "kalaram-mandir-nashik",
+    "name": "Kalaram Mandir Satyagraha Memorial",
+    "hindiName": "कालाराम मंदिर सत्याग्रह स्मारक, नाशिक",
+    "marathiName": "काळाराम मंदिर सत्याग्रह स्मारक, नाशिक",
+    "city": "Nashik",
+    "state": "Maharashtra",
+    "location": "Panchavati, Nashik, Maharashtra 422003",
+    "coordinates": { "lat": 20.0064, "lng": 73.7938 },
+    "establishedYear": 1930,
+    "inauguratedBy": "Satyagraha launched March 2, 1930 by Dr. Ambedkar & Bhaurao Gaikwad",
+    "significance": "Epic 5-year non-violent struggle for civic equality and unconditional temple entry (1930–1935).",
+    "historicalContext": "On March 2, 1930, Dr. Ambedkar launched the Kalaram Temple Entry Satyagraha with over 15,000 disciplined volunteers in Panchavati, Nashik. The movement continued relentlessly for five years. Dr. Ambedkar made it clear that the goal was not to pray before stone idols, but to test whether Hindu society considered Dalits human beings with equal civic rights. The orthodox refusal confirmed his conclusion that social emancipation could only be achieved through legal, educational, and political power, leading to his 1935 Yeola declaration.",
+    "architecturalFeatures": [
+      "Commemorative memorial plaza on the Godavari banks at Panchavati",
+      "Sculptural reliefs depicting the disciplined non-violent marchers led by Dr. Ambedkar and Karmaveer Dadasaheb Gaikwad",
+      "Historical inscription markers documenting the 1930–1935 court proceedings and civil rights resolutions"
+    ],
+    "audioNarration": "The Kalaram Mandir Satyagraha in Nashik, begun on March 2, 1930, was a five-year non-violent campaign that transformed the political consciousness of India's depressed classes. Babasaheb used the struggle to demonstrate that the denial of temple entry was fundamentally an assault on human equality, ultimately paving the way for the historic political battles at the Round Table Conferences in London.",
+    "relatedVolumes": [17, 20],
+    "relatedEvents": [
+      { "year": 1930, "title": "Launch of Kalaram Temple Satyagraha on March 2, 1930" },
+      { "year": 1935, "title": "Conclusion of Satyagraha & Yeola Resolution" }
+    ],
+    "visitorInfo": {
+      "timings": "06:00 AM – 09:00 PM Daily",
+      "entry": "Free Public Entry",
+      "nearestMetro": "Nashik Road Railway Station"
+    }
+  }
+]

@@ -20,6 +20,9 @@ const letterRoutes = require('./routes/letters');
 const vowRoutes = require('./routes/vows');
 const volumeRoutes = require('./routes/volumes');
 const chatRoutes = require('./routes/chat');
+const memorialRoutes = require('./routes/memorials');
+const debateRoutes = require('./routes/debates');
+const preservationRoutes = require('./routes/preservation');
 
 
 const app = express();
@@ -33,11 +36,12 @@ app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'", "https://accounts.google.com", "https://accounts.google.com/gsi/client"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "https://accounts.google.com", "https://accounts.google.com/gsi/client", "https://cdn.jsdelivr.net"],
+      workerSrc: ["'self'", "blob:"],
       styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://accounts.google.com/gsi/style"],
       fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
       imgSrc: ["'self'", "data:", "https:", "blob:"],
-      connectSrc: ["'self'", "https://accounts.google.com", "https://accounts.google.com/gsi/", "https://generativelanguage.googleapis.com"],
+      connectSrc: ["'self'", "https://accounts.google.com", "https://accounts.google.com/gsi/", "https://generativelanguage.googleapis.com", "https://cdn.jsdelivr.net", "https://tessdata.projectnaptha.com"],
       frameSrc: ["'self'", "https://accounts.google.com"],
       objectSrc: ["'none'"],
       baseUri: ["'self'"],
@@ -120,6 +124,9 @@ app.use('/api/letters', letterRoutes);
 app.use('/api/vows', vowRoutes);
 app.use('/api/volumes', volumeRoutes);
 app.use('/api/chat', chatRoutes);
+app.use('/api/memorials', memorialRoutes);
+app.use('/api/debates', debateRoutes);
+app.use('/api/preservation', preservationRoutes);
 
 
 // Serve volume PDFs directly from canonical frontend/pdfs
