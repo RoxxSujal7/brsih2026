@@ -46,17 +46,17 @@
     window.threeCore.launchExperience(instance);
   }
 
-  // Global Entry Points
+  // Global Entry Points to Modern Dedicated React Three Fiber Experiences
   window.open3DMuseum = function () {
-    return launch('museumExperience', 'MuseumExperience');
+    window.location.href = '/experience/museum';
   };
 
   window.open3DTimeline = function () {
-    return launch('timelineExperience', 'TimelineExperience');
+    window.location.href = '/experience/timeline';
   };
 
   window.open3DConstitution = function () {
-    return launch('constitutionExperience', 'ConstitutionExperience');
+    window.location.href = '/experience/constitution';
   };
 
   window.open3DSpeeches = function () {
@@ -64,7 +64,7 @@
   };
 
   window.open3DJourney = function () {
-    return launch('journeyExperience', 'JourneyExperience');
+    window.location.href = '/experience/journey';
   };
 
   // Wire automatic click listeners for elements with data-three-experience attributes

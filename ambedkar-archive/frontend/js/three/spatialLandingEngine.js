@@ -207,17 +207,25 @@
     state.scene.add(state.particles);
   }
 
-  // 7. Museum-Grade 3D Procedural Exhibits
+  // 7. Museum-Grade 3D Procedural Exhibits with Photorealistic PBR Maps
   function build3DExhibits() {
+    const texLoader = new THREE.TextureLoader();
+    const constitutionTex = texLoader.load('/assets/textures/constitution_leather_gold.jpg');
+    const basaltTex = texLoader.load('/assets/textures/mahad_basalt_water_stone.jpg');
+    const bronzeTex = texLoader.load('/assets/textures/antique_bronze_patina.jpg');
+    const parchmentTex = texLoader.load('/assets/textures/scholar_parchment_vellum.jpg');
+
     // A. Dr. B. R. Ambedkar Memorial Bust
     const bustGroup = new THREE.Group();
     bustGroup.name = 'bust';
 
-    // Pedestal Base (Black Granite)
+    // Pedestal Base (Chiseled Basalt / Granite)
     const pedestalGeo = new THREE.CylinderGeometry(1.2, 1.4, 0.4, 32);
     const graniteMat = new THREE.MeshStandardMaterial({
-      color: 0x0f172a,
-      roughness: 0.3,
+      map: basaltTex,
+      bumpMap: basaltTex,
+      bumpScale: 0.08,
+      roughness: 0.6,
       metalness: 0.2
     });
     const pedestal = new THREE.Mesh(pedestalGeo, graniteMat);
@@ -225,11 +233,13 @@
     pedestal.receiveShadow = true;
     bustGroup.add(pedestal);
 
-    // Bronze Torso
+    // Patinated Antique Museum Bronze Torso
     const bronzeMat = new THREE.MeshStandardMaterial({
-      color: 0x854d0e,
+      map: bronzeTex,
+      bumpMap: bronzeTex,
+      bumpScale: 0.05,
       roughness: 0.35,
-      metalness: 0.85
+      metalness: 0.8
     });
     const torsoGeo = new THREE.CylinderGeometry(0.5, 0.85, 1.2, 24);
     const torso = new THREE.Mesh(torsoGeo, bronzeMat);
@@ -277,9 +287,15 @@
     specsGroup.add(bridge);
     bustGroup.add(specsGroup);
 
-    // Constitution Folio under arm
+    // Constitution Folio under arm (With Gold Embossed Leather)
     const folioGeo = new THREE.BoxGeometry(0.35, 0.8, 0.5);
-    const folioMat = new THREE.MeshStandardMaterial({ color: 0x451a03, roughness: 0.5, metalness: 0.3 });
+    const folioMat = new THREE.MeshStandardMaterial({
+      map: constitutionTex,
+      bumpMap: constitutionTex,
+      bumpScale: 0.06,
+      roughness: 0.35,
+      metalness: 0.2
+    });
     const folio = new THREE.Mesh(folioGeo, folioMat);
     folio.position.set(-0.65, -0.3, 0.1);
     folio.rotation.z = -0.15;
@@ -288,13 +304,17 @@
     state.exhibits.bust = bustGroup;
     state.scene.add(bustGroup);
 
-    // B. The Constitution of India (Illuminated Pedestal)
+    // B. The Constitution of India (Illuminated Pedestal with Gold Embossed Master Texture)
     const constGroup = new THREE.Group();
     constGroup.name = 'constitution';
 
     // Pedestal Base Ring
     const baseGeo = new THREE.CylinderGeometry(1.6, 1.8, 0.3, 32);
-    const baseMat = new THREE.MeshStandardMaterial({ color: 0x020617, roughness: 0.15, metalness: 0.4 });
+    const baseMat = new THREE.MeshStandardMaterial({
+      map: basaltTex,
+      roughness: 0.4,
+      metalness: 0.3
+    });
     const base = new THREE.Mesh(baseGeo, baseMat);
     base.position.y = -1.3;
     constGroup.add(base);
@@ -302,18 +322,20 @@
     // Glowing Azure Holographic Ring
     const haloRingGeo = new THREE.TorusGeometry(1.5, 0.03, 16, 64);
     haloRingGeo.rotateX(Math.PI / 2);
-    const haloMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8 });
+    const haloMat = new THREE.MeshBasicMaterial({ color: 0xf59e0b });
     const haloRing = new THREE.Mesh(haloRingGeo, haloMat);
     haloRing.position.y = -1.14;
     constGroup.add(haloRing);
     constGroup.halo = haloRing;
 
-    // The Book Cover (Black Leather with Gold Inlay)
+    // The Book Cover (Deep Oxblood Morocco Leather with Gold Ashok Chakra Inlay)
     const bookGeo = new THREE.BoxGeometry(1.8, 0.22, 1.3);
     const coverMat = new THREE.MeshStandardMaterial({
-      color: 0x1e1b18,
-      roughness: 0.45,
-      metalness: 0.3
+      map: constitutionTex,
+      bumpMap: constitutionTex,
+      bumpScale: 0.08,
+      roughness: 0.3,
+      metalness: 0.2
     });
     const book = new THREE.Mesh(bookGeo, coverMat);
     book.position.y = -0.2;
@@ -321,24 +343,14 @@
     book.castShadow = true;
     constGroup.add(book);
 
-    // Gold Ashoka Seal Embossed on Cover
-    const sealGeo = new THREE.CylinderGeometry(0.28, 0.28, 0.04, 32);
-    const goldSealMat = new THREE.MeshStandardMaterial({
-      color: 0xf59e0b,
-      roughness: 0.25,
-      metalness: 0.95
-    });
-    const seal = new THREE.Mesh(sealGeo, goldSealMat);
-    seal.position.set(0, -0.07, 0.15);
-    seal.rotation.x = 0.35;
-    constGroup.add(seal);
-
-    // Open Parchment Fan / Pages
+    // Gilded Gold Foil Edge Pages
     const pagesGeo = new THREE.BoxGeometry(1.72, 0.16, 1.22);
     const pagesMat = new THREE.MeshStandardMaterial({
-      color: 0xfef3c7,
-      roughness: 0.8,
-      metalness: 0.05
+      color: 0xd97706,
+      emissive: 0xb45309,
+      emissiveIntensity: 0.25,
+      roughness: 0.2,
+      metalness: 0.88
     });
     const pages = new THREE.Mesh(pagesGeo, pagesMat);
     pages.position.set(0, -0.16, 0.02);
@@ -348,13 +360,17 @@
     state.exhibits.constitution = constGroup;
     state.scene.add(constGroup);
 
-    // C. Mahad Satyagraha Water Pillar Monument
+    // C. Mahad Satyagraha Water Pillar Monument (Basalt Rock & Chavdar Tale Pool)
     const mahadGroup = new THREE.Group();
     mahadGroup.name = 'mahad';
 
-    // Water Basin Pool
+    // Water Basin Pool Outer Rim
     const poolGeo = new THREE.CylinderGeometry(1.8, 1.9, 0.25, 32);
-    const poolMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.2 });
+    const poolMat = new THREE.MeshStandardMaterial({
+      map: basaltTex,
+      roughness: 0.7,
+      metalness: 0.2
+    });
     const pool = new THREE.Mesh(poolGeo, poolMat);
     pool.position.y = -1.2;
     mahadGroup.add(pool);
@@ -373,18 +389,29 @@
     water.position.y = -1.06;
     mahadGroup.add(water);
 
-    // Basalt Obelisk Pillar
+    // Basalt Obelisk Pillar with Etched Devanagari Texture
     const obeliskGeo = new THREE.CylinderGeometry(0.32, 0.55, 2.2, 4);
-    const basaltMat = new THREE.MeshStandardMaterial({ color: 0x18181b, roughness: 0.85, metalness: 0.1 });
+    const basaltMat = new THREE.MeshStandardMaterial({
+      map: basaltTex,
+      bumpMap: basaltTex,
+      bumpScale: 0.12,
+      roughness: 0.8,
+      metalness: 0.15
+    });
     const obelisk = new THREE.Mesh(obeliskGeo, basaltMat);
     obelisk.position.y = 0.05;
     obelisk.rotation.y = Math.PI / 4;
     obelisk.castShadow = true;
     mahadGroup.add(obelisk);
 
-    // Brass Plaque on Pillar
+    // Brass Commemorative Plaque on Pillar
     const plaqueGeo = new THREE.BoxGeometry(0.4, 0.6, 0.04);
-    const brassMat = new THREE.MeshStandardMaterial({ color: 0xd97706, roughness: 0.3, metalness: 0.85 });
+    const brassMat = new THREE.MeshStandardMaterial({
+      map: bronzeTex,
+      color: 0xd97706,
+      roughness: 0.3,
+      metalness: 0.85
+    });
     const plaque = new THREE.Mesh(plaqueGeo, brassMat);
     plaque.position.set(0, -0.1, 0.34);
     mahadGroup.add(plaque);
@@ -392,7 +419,7 @@
     state.exhibits.mahad = mahadGroup;
     state.scene.add(mahadGroup);
 
-    // D. Historical Drafting Suite (Parker Pen & Spectacles)
+    // D. Historical Drafting Suite (Columbia/LSE Dissertation Vellum & Pen)
     const quillGroup = new THREE.Group();
     quillGroup.name = 'quill';
 
@@ -403,9 +430,15 @@
     desk.position.y = -0.9;
     quillGroup.add(desk);
 
-    // Open Leather Journal
+    // Open Archival Ledger with Columbia/LSE Vellum Parchment
     const journalGeo = new THREE.BoxGeometry(1.2, 0.08, 0.9);
-    const journalMat = new THREE.MeshStandardMaterial({ color: 0xfef9c3, roughness: 0.9 });
+    const journalMat = new THREE.MeshStandardMaterial({
+      map: parchmentTex,
+      bumpMap: parchmentTex,
+      bumpScale: 0.05,
+      roughness: 0.65,
+      metalness: 0.05
+    });
     const journal = new THREE.Mesh(journalGeo, journalMat);
     journal.position.set(-0.35, -0.78, 0.0);
     journal.rotation.y = 0.15;

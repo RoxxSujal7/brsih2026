@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import TimelineExperience from './experiences/timeline/TimelineExperience';
+import ConstitutionExperience from './experiences/constitution/ConstitutionExperience';
+import MuseumExperience from './experiences/museum/MuseumExperience';
+import JourneyExperience from './experiences/journey/JourneyExperience';
 import WebGLFallback from './three/WebGLFallback';
 import { detectDeviceCapabilities } from './three/DeviceDetection';
 import useLenis from './utils/useLenis';
@@ -24,6 +27,12 @@ export default function App() {
   }
 
   switch (currentRoute) {
+    case 'constitution':
+      return <ConstitutionExperience />;
+    case 'museum':
+      return <MuseumExperience />;
+    case 'journey':
+      return <JourneyExperience />;
     case 'timeline':
     default:
       return <TimelineExperience />;
