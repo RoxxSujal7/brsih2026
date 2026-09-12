@@ -253,6 +253,42 @@
     }
   }
 
+  const POS_STORAGE_KEY = 'ambedkar_dock_float_pos';
+  const LEGACY_STORAGE_KEY = 'ambedkar_dock_snap';
+  const DEFAULT_POS = { left: 20, top: 160, mode: 'vertical' };
+
+  function snapToCoords(snapClass) {
+    const viewW = (typeof window !== 'undefined' && window.innerWidth) || 1200;
+    const viewH = (typeof window !== 'undefined' && window.innerHeight) || 800;
+    switch (snapClass) {
+      case 'snap-bottom-left':
+        return { left: 24, top: Math.max(10, viewH - 90), mode: 'horizontal', snap: 'snap-bottom-left' };
+      case 'snap-bottom-right':
+        return { left: Math.max(10, viewW - 650), top: Math.max(10, viewH - 90), mode: 'horizontal', snap: 'snap-bottom-right' };
+      case 'snap-middle-left':
+        return { left: 20, top: Math.max(10, Math.round((viewH - 450) / 2)), mode: 'vertical', snap: 'snap-middle-left' };
+      case 'snap-middle-right':
+        return { left: Math.max(10, viewW - 192), top: Math.max(10, Math.round((viewH - 450) / 2)), mode: 'vertical', snap: 'snap-middle-right' };
+      case 'snap-bottom-center':
+      default:
+        return { left: Math.max(10, Math.round((viewW - 650) / 2)), top: Math.max(10, viewH - 90), mode: 'horizontal', snap: 'snap-bottom-center' };
+    }
+  }
+
+  function getStoredPosition() {
+    try {
+      const rawFloat = localStorage.getItem(POS_STORAGE_KEY);
+      if (rawFloat) {
+        return JSON.parse(rawFloat);
+      }
+      const legacySnap = localStorage.getItem(LEGACY_STORAGE_KEY);
+      if (legacySnap) {
+        return snapToCoords(legacySnap);
+      }
+    } catch (e) {}
+    return null;
+  }
+
   // ── 5. Master Movable / Floating Dockbar System ──────────
   function renderOrSyncFloatingDock() {
     const currentPath = getCurrentPath();
@@ -261,17 +297,20 @@
     // Remove obsolete legacy static side-docks if present
     document.querySelectorAll('.side-dock, #side-dock, #deckSideDock').forEach(el => el.remove());
 
-    const savedSnap = localStorage.getItem(STORAGE_KEY) || DEFAULT_SNAP;
-    const initialClass = SNAP_CLASSES.includes(savedSnap) ? savedSnap : DEFAULT_SNAP;
+    const saved = getStoredPosition();
+    const initialMode = (saved && saved.mode) ? saved.mode : DEFAULT_POS.mode;
 
     const dockHtml = `
       <div class="dock-shell" id="dock-shell">
         <div class="dock-header" id="dock-header">
-          <div class="dock-handle-bar" id="dock-drag-handle" role="button" aria-grabbed="false" tabindex="0" title="Drag to reposition dock (Snaps to Bottom-Center, Bottom-Left, Bottom-Right, Left, Right). Press Arrow keys or 'R' to cycle/reset.">
+          <div class="dock-handle-bar" id="dock-drag-handle" role="button" aria-grabbed="false" tabindex="0" title="Drag to float dock anywhere on screen (Press Arrow keys to move, 'T' to toggle layout, 'R' to reset)">
             <span class="dock-handle-grip" aria-hidden="true">⠿</span>
-            <span class="dock-handle-title">Curated Hubs</span>
+            <span class="dock-badge">Curated Hubs</span>
           </div>
-          <button class="dock-reset-btn" id="dock-reset-btn" title="Reset dock to default bottom-center position" aria-label="Reset dock position">↺</button>
+          <div class="dock-header-actions">
+            <button class="dock-action-btn" id="dock-orient-btn" title="Toggle Layout (Vertical / Horizontal)" aria-label="Toggle layout">⇄</button>
+            <button class="dock-action-btn" id="dock-reset-btn" title="Reset dock to default position" aria-label="Reset dock position">↺</button>
+          </div>
         </div>
 
         <div class="dock-items" role="list">
@@ -294,23 +333,65 @@
     if (!dock) {
       dock = document.createElement('aside');
       dock.id = 'global-floating-dock';
-      dock.className = `floating-dock ${initialClass}`;
+      dock.className = `floating-dock dock-${initialMode}`;
       dock.setAttribute('role', 'navigation');
       dock.setAttribute('aria-label', 'Curated exploration hubs');
       dock.innerHTML = dockHtml;
       document.body.appendChild(dock);
     } else {
-      dock.className = `floating-dock ${initialClass}`;
+      dock.className = `floating-dock dock-${initialMode}`;
       dock.innerHTML = dockHtml;
     }
 
-    initDockDragAndSnap(dock);
+    // Apply saved coordinates or default position
+    applyInitialPosition(dock, saved);
+
+    initDockFloatingAndDrag(dock);
   }
 
-  // ── 6. Intelligent Drag & Snap Engine ────────────────────
-  function initDockDragAndSnap(dock) {
+  function applyInitialPosition(dock, saved) {
+    const margin = 8;
+    const viewW = (typeof window !== 'undefined' && window.innerWidth) || 1200;
+    const viewH = (typeof window !== 'undefined' && window.innerHeight) || 800;
+
+    let left = DEFAULT_POS.left;
+    let top = DEFAULT_POS.top;
+    let mode = DEFAULT_POS.mode;
+    let snap = null;
+
+    if (saved) {
+      if (typeof saved.left === 'number') left = saved.left;
+      if (typeof saved.top === 'number') top = saved.top;
+      if (saved.mode) mode = saved.mode;
+      if (saved.snap) snap = saved.snap;
+    }
+
+    dock.classList.toggle('dock-horizontal', mode === 'horizontal');
+    dock.classList.toggle('dock-vertical', mode === 'vertical');
+
+    SNAP_CLASSES.forEach(c => dock.classList.remove(c));
+    if (snap) {
+      dock.classList.add(snap);
+    }
+
+    const dockW = dock.offsetWidth || (mode === 'horizontal' ? 620 : 172);
+    const dockH = dock.offsetHeight || (mode === 'horizontal' ? 60 : 450);
+
+    left = Math.max(margin, Math.min(left, viewW - dockW - margin));
+    top = Math.max(margin, Math.min(top, viewH - dockH - margin));
+
+    dock.style.left = `${left}px`;
+    dock.style.top = `${top}px`;
+    dock.style.right = 'auto';
+    dock.style.bottom = 'auto';
+    dock.style.transform = 'none';
+  }
+
+  // ── 6. Free-Floating Drag & Placement Engine ─────────────
+  function initDockFloatingAndDrag(dock) {
     const handle = dock.querySelector('#dock-drag-handle');
     const resetBtn = dock.querySelector('#dock-reset-btn');
+    const orientBtn = dock.querySelector('#dock-orient-btn');
     if (!handle) return;
 
     let isDragging = false;
@@ -324,49 +405,89 @@
     if (resetBtn) {
       resetBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        snapDockTo('snap-bottom-center');
+        NavigationSystem.resetDockPosition();
       });
     }
 
-    // Keyboard cycle/reset support on handle
+    // Orientation toggle logic (Vertical Rail vs Horizontal Pill)
+    if (orientBtn) {
+      orientBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleOrientation();
+      });
+    }
+
+    function toggleOrientation() {
+      const isHoriz = dock.classList.contains('dock-horizontal');
+      const newMode = isHoriz ? 'vertical' : 'horizontal';
+      dock.classList.toggle('dock-horizontal', newMode === 'horizontal');
+      dock.classList.toggle('dock-vertical', newMode === 'vertical');
+
+      clampInsideViewport();
+
+      const rect = dock.getBoundingClientRect();
+      savePosition(rect.left, rect.top, newMode);
+    }
+
+    function clampInsideViewport() {
+      const margin = 8;
+      const dockW = dock.offsetWidth || 172;
+      const dockH = dock.offsetHeight || 300;
+      const viewW = window.innerWidth;
+      const viewH = window.innerHeight;
+
+      const rect = dock.getBoundingClientRect();
+      let left = Math.max(margin, Math.min(rect.left, viewW - dockW - margin));
+      let top = Math.max(margin, Math.min(rect.top, viewH - dockH - margin));
+
+      dock.style.left = `${left}px`;
+      dock.style.top = `${top}px`;
+    }
+
+    function savePosition(left, top, mode) {
+      const currentMode = mode || (dock.classList.contains('dock-horizontal') ? 'horizontal' : 'vertical');
+      const data = {
+        left: Math.round(left),
+        top: Math.round(top),
+        mode: currentMode
+      };
+      localStorage.setItem(POS_STORAGE_KEY, JSON.stringify(data));
+    }
+
+    // Keyboard accessibility support on handle
     handle.addEventListener('keydown', (e) => {
+      const step = 24;
+      const rect = dock.getBoundingClientRect();
+
       if (e.key === 'r' || e.key === 'R') {
         e.preventDefault();
-        snapDockTo('snap-bottom-center');
-      } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        NavigationSystem.resetDockPosition();
+      } else if (e.key === 't' || e.key === 'T') {
         e.preventDefault();
-        cycleNextSnap();
-      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        toggleOrientation();
+      } else if (e.key === 'ArrowRight') {
         e.preventDefault();
-        cyclePrevSnap();
+        dock.style.left = `${Math.min(window.innerWidth - dock.offsetWidth - 8, rect.left + step)}px`;
+        savePosition(dock.getBoundingClientRect().left, rect.top);
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        dock.style.left = `${Math.max(8, rect.left - step)}px`;
+        savePosition(dock.getBoundingClientRect().left, rect.top);
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        dock.style.top = `${Math.min(window.innerHeight - dock.offsetHeight - 8, rect.top + step)}px`;
+        savePosition(rect.left, dock.getBoundingClientRect().top);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        dock.style.top = `${Math.max(8, rect.top - step)}px`;
+        savePosition(rect.left, dock.getBoundingClientRect().top);
       }
     });
 
-    function cycleNextSnap() {
-      const current = getActiveSnapClass();
-      const idx = SNAP_CLASSES.indexOf(current);
-      const next = SNAP_CLASSES[(idx + 1) % SNAP_CLASSES.length];
-      snapDockTo(next);
-    }
-
-    function cyclePrevSnap() {
-      const current = getActiveSnapClass();
-      const idx = SNAP_CLASSES.indexOf(current);
-      const prev = SNAP_CLASSES[(idx - 1 + SNAP_CLASSES.length) % SNAP_CLASSES.length];
-      snapDockTo(prev);
-    }
-
-    function getActiveSnapClass() {
-      for (const cls of SNAP_CLASSES) {
-        if (dock.classList.contains(cls)) return cls;
-      }
-      return DEFAULT_SNAP;
-    }
-
     // Pointer events (Desktop mouse & Touch screens)
     function onPointerDown(e) {
-      // Don't drag if clicking buttons inside header
-      if (e.target.closest('#dock-reset-btn')) return;
+      // Don't drag if clicking buttons inside header actions
+      if (e.target.closest('#dock-reset-btn') || e.target.closest('#dock-orient-btn')) return;
 
       isDragging = true;
       dragThresholdPassed = false;
@@ -390,11 +511,9 @@
       const deltaX = e.clientX - startX;
       const deltaY = e.clientY - startY;
 
-      if (!dragThresholdPassed && Math.hypot(deltaX, deltaY) > 5) {
+      if (!dragThresholdPassed && Math.hypot(deltaX, deltaY) > 4) {
         dragThresholdPassed = true;
         dock.classList.add('is-dragging');
-        // Clear all snap classes and CSS transforms so free coordinates take over
-        SNAP_CLASSES.forEach(cls => dock.classList.remove(cls));
         dock.style.transform = 'none';
         dock.style.transition = 'none';
       }
@@ -411,7 +530,7 @@
         let newTop = initialTop + deltaY;
 
         // Viewport boundaries containment (keep safely on screen)
-        const margin = 10;
+        const margin = 8;
         newLeft = Math.max(margin, Math.min(newLeft, viewW - dockWidth - margin));
         newTop = Math.max(margin, Math.min(newTop, viewH - dockHeight - margin));
 
@@ -436,57 +555,16 @@
         return;
       }
 
-      // Calculate nearest smart snap position
       const rect = dock.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      const viewW = window.innerWidth;
-      const viewH = window.innerHeight;
-
-      let targetSnap = 'snap-bottom-center';
-
-      if (centerY > viewH * 0.65) {
-        // Bottom territory
-        if (centerX < viewW * 0.33) {
-          targetSnap = 'snap-bottom-left';
-        } else if (centerX > viewW * 0.67) {
-          targetSnap = 'snap-bottom-right';
-        } else {
-          targetSnap = 'snap-bottom-center';
-        }
-      } else {
-        // Upper or middle territory -> snap to side rail
-        if (centerX < viewW * 0.5) {
-          targetSnap = 'snap-middle-left';
-        } else {
-          targetSnap = 'snap-middle-right';
-        }
-      }
-
-      snapDockTo(targetSnap);
-    }
-
-    function snapDockTo(snapClass) {
-      // Clear inline coordinate styles
-      dock.style.left = '';
-      dock.style.top = '';
-      dock.style.right = '';
-      dock.style.bottom = '';
-      dock.style.transform = '';
-      dock.style.transition = '';
-
-      SNAP_CLASSES.forEach(cls => dock.classList.remove(cls));
-      dock.classList.add(snapClass);
-
-      // Save preference in localStorage
-      localStorage.setItem(STORAGE_KEY, snapClass);
-
-      // Subtle pulse feedback
-      dock.classList.add('dock-snap-pulse');
-      setTimeout(() => dock.classList.remove('dock-snap-pulse'), 400);
+      savePosition(rect.left, rect.top);
     }
 
     handle.addEventListener('pointerdown', onPointerDown);
+
+    // Window resize safeguard
+    window.addEventListener('resize', () => {
+      clampInsideViewport();
+    }, { passive: true });
 
     // Reading Mode Priority: Subtle compacting during rapid downward scroll
     let lastScrollY = window.scrollY;
@@ -597,21 +675,51 @@
       wireCoreNavActions();
     },
     resetDockPosition: function() {
-      localStorage.setItem(STORAGE_KEY, DEFAULT_SNAP);
+      const def = { ...DEFAULT_POS, snap: 'snap-bottom-center' };
+      localStorage.setItem(POS_STORAGE_KEY, JSON.stringify(def));
+      localStorage.setItem(LEGACY_STORAGE_KEY, 'snap-bottom-center');
       const dock = document.getElementById('global-floating-dock');
       if (dock) {
-        SNAP_CLASSES.forEach(cls => dock.classList.remove(cls));
-        dock.classList.add(DEFAULT_SNAP);
+        applyInitialPosition(dock, def);
       }
     },
-    setDockPosition: function(snapClass) {
-      if (!SNAP_CLASSES.includes(snapClass)) return;
-      localStorage.setItem(STORAGE_KEY, snapClass);
+    setDockPosition: function(arg1, arg2, arg3) {
       const dock = document.getElementById('global-floating-dock');
-      if (dock) {
-        SNAP_CLASSES.forEach(cls => dock.classList.remove(cls));
-        dock.classList.add(snapClass);
+      let coords = null;
+      if (typeof arg1 === 'string') {
+        coords = snapToCoords(arg1);
+        coords.snap = arg1;
+        localStorage.setItem(LEGACY_STORAGE_KEY, arg1);
+      } else if (typeof arg1 === 'object' && arg1 !== null) {
+        coords = {
+          left: Number(arg1.left) || DEFAULT_POS.left,
+          top: Number(arg1.top) || DEFAULT_POS.top,
+          mode: arg1.mode || DEFAULT_POS.mode,
+          snap: arg1.snap || null
+        };
+      } else if (typeof arg1 === 'number' && typeof arg2 === 'number') {
+        coords = {
+          left: arg1,
+          top: arg2,
+          mode: arg3 || 'horizontal',
+          snap: null
+        };
       }
+
+      if (coords) {
+        localStorage.setItem(POS_STORAGE_KEY, JSON.stringify(coords));
+        if (coords.snap) {
+          localStorage.setItem(LEGACY_STORAGE_KEY, coords.snap);
+        } else {
+          localStorage.removeItem(LEGACY_STORAGE_KEY);
+        }
+        if (dock) {
+          applyInitialPosition(dock, coords);
+        }
+      }
+    },
+    getDockPosition: function() {
+      return getStoredPosition() || { ...DEFAULT_POS };
     }
   };
 

@@ -113,27 +113,39 @@ class MockElement {
     this.listeners[evt].push(fn);
   }
 
+  dispatch(evt, eventObj = {}) {
+    if (this.listeners[evt]) {
+      this.listeners[evt].forEach(fn => fn(eventObj));
+    }
+  }
+
   querySelector(selector) {
     // If selector matches a direct child or nested child
     const found = this._findFirst(selector);
     if (found) return found;
 
+    if (!this._cachedElements) this._cachedElements = {};
+
     // If innerHTML contains the ID or class, synthesize a matching MockElement
     if (selector.startsWith('#')) {
       const id = selector.slice(1);
+      if (this._cachedElements[id]) return this._cachedElements[id];
       if (this.innerHTML && this.innerHTML.includes(`id="${id}"`)) {
         const el = new MockElement('div');
         el.id = id;
         el.parentElement = this;
+        this._cachedElements[id] = el;
         return el;
       }
     }
     if (selector.startsWith('.')) {
       const cls = selector.slice(1);
+      if (this._cachedElements[cls]) return this._cachedElements[cls];
       if (this.innerHTML && this.innerHTML.includes(`class="`) && this.innerHTML.includes(cls)) {
         const el = new MockElement('div');
         el.classList.add(cls);
         el.parentElement = this;
+        this._cachedElements[cls] = el;
         return el;
       }
     }
@@ -405,6 +417,78 @@ runTest('TEST 8: All 25 HTML pages audited — script inclusions and master navi
     }
     if (!content.includes('app.js')) {
       throw new Error(`${file} missing app.js script tag`);
+    }
+  });
+});
+
+// ── TEST 9: Free-floating anywhere on screen with arbitrary (x, y) coordinates
+runTest('TEST 9: Free-floating anywhere on screen: coordinates persist to ambedkar_dock_float_pos and apply inline styles', () => {
+  const env = createMockEnvironment('/index.html');
+  env.NavigationSystem.setDockPosition({ left: 340, top: 125, mode: 'vertical' });
+
+  const stored = JSON.parse(env.storage['ambedkar_dock_float_pos']);
+  if (stored.left !== 340 || stored.top !== 125 || stored.mode !== 'vertical') {
+    throw new Error(`Expected storage to contain { left: 340, top: 125, mode: 'vertical' }, got ${env.storage['ambedkar_dock_float_pos']}`);
+  }
+
+  // Load new page and verify dock positioned at exact floating coordinates
+  const env2 = createMockEnvironment('/constitution.html', env.storage);
+  const dock = env2.document.querySelector('.floating-dock');
+  if (!dock) throw new Error('Floating dock missing on constitution.html');
+  if (dock.style.left !== '340px' || dock.style.top !== '125px') {
+    throw new Error(`Expected dock styles left: 340px, top: 125px, got left: ${dock.style.left}, top: ${dock.style.top}`);
+  }
+  if (!dock.classList.contains('dock-vertical')) {
+    throw new Error('Expected dock to retain dock-vertical mode');
+  }
+});
+
+// ── TEST 10: Layout orientation toggle button (#dock-orient-btn)
+runTest('TEST 10: Orientation toggle: button #dock-orient-btn exists and switches layout mode', () => {
+  const env = createMockEnvironment('/index.html', {
+    'ambedkar_dock_float_pos': JSON.stringify({ left: 50, top: 100, mode: 'vertical' })
+  });
+  const dock = env.document.querySelector('.floating-dock');
+  if (!dock) throw new Error('Floating dock missing');
+
+  const orientBtn = dock.querySelector('#dock-orient-btn');
+  if (!orientBtn) throw new Error('Orientation toggle button #dock-orient-btn missing in dock header');
+
+  // Trigger orientation switch
+  orientBtn.dispatch('click', { stopPropagation: () => {} });
+
+  if (!dock.classList.contains('dock-horizontal')) {
+    throw new Error('Dock should switch to dock-horizontal when orient button clicked');
+  }
+
+  const stored = JSON.parse(env.storage['ambedkar_dock_float_pos']);
+  if (stored.mode !== 'horizontal') {
+    throw new Error(`Stored mode should be horizontal, got: ${stored.mode}`);
+  }
+});
+
+// ── TEST 11: Restored Apple Design styling tokens and color audit
+runTest('TEST 11: Style audit: apple-design.css contains authentic Apple glass tokens and theme support', () => {
+  const cssPath = path.join(frontendDir, 'css/apple-design.css');
+  const css = fs.readFileSync(cssPath, 'utf8');
+
+  // Check critical Apple tokens used in restored dock
+  const requiredTokens = [
+    '--apple-glass-toolbar',
+    '--apple-blur-thick',
+    '--apple-hairline-border',
+    '--apple-specular-top',
+    'rgba(212, 175, 55, 0.15)', // Authentic gold accent highlight
+    '.dock-shell',
+    '.floating-dock.dock-vertical',
+    '.floating-dock.dock-horizontal',
+    '[data-theme="paper"]',
+    '[data-theme="sepia"]'
+  ];
+
+  requiredTokens.forEach(token => {
+    if (!css.includes(token)) {
+      throw new Error(`apple-design.css missing required styling token: ${token}`);
     }
   });
 });

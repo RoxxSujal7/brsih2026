@@ -352,18 +352,90 @@ button:active,
   100% { transform: scale(1); }
 }
 
-/* Base Shell */
+/* Base Shell - Restored Authentic Apple Glass Toolbar Material */
 .dock-shell {
-  background: rgba(13, 17, 26, 0.85);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(212, 175, 55, 0.28);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65), 0 0 20px rgba(212, 175, 55, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  background: var(--apple-glass-toolbar);
+  backdrop-filter: var(--apple-blur-thick);
+  -webkit-backdrop-filter: var(--apple-blur-thick);
+  border: var(--apple-hairline-border);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), var(--apple-specular-top);
   display: flex;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: box-shadow 0.2s ease, opacity 0.22s ease, transform 0.2s ease, background 0.2s ease;
 }
 
-/* Handle Bar & Gripper */
+.floating-dock:hover .dock-shell,
+.floating-dock:focus-within .dock-shell {
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 30px rgba(212, 175, 55, 0.25);
+}
+
+/* ───────────────────────────────────────────────────────────────
+   VERTICAL RAIL MODE (Default Classic Side Dock Style)
+   ─────────────────────────────────────────────────────────────── */
+.floating-dock.dock-vertical {
+  width: 172px;
+}
+
+.floating-dock.dock-vertical .dock-shell {
+  flex-direction: column;
+  border-radius: 20px;
+  padding: 10px 10px 10px 8px;
+  gap: 4px;
+}
+
+.floating-dock.dock-vertical .dock-header {
+  padding: 4px 8px 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.floating-dock.dock-vertical .dock-items {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.floating-dock.dock-vertical .dock-item {
+  width: 100%;
+}
+
+/* ───────────────────────────────────────────────────────────────
+   HORIZONTAL CAPSULE MODE (Floating Pill Style)
+   ─────────────────────────────────────────────────────────────── */
+.floating-dock.dock-horizontal .dock-shell {
+  flex-direction: row;
+  align-items: center;
+  border-radius: 40px;
+  padding: 6px 12px 6px 14px;
+  gap: 8px;
+}
+
+.floating-dock.dock-horizontal .dock-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-right: 8px;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.floating-dock.dock-horizontal .dock-items {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+}
+
+.floating-dock.dock-horizontal .dock-item {
+  padding: 6px 10px;
+}
+
+/* ───────────────────────────────────────────────────────────────
+   HEADER, DRAG HANDLE, BADGE & CONTROLS
+   ─────────────────────────────────────────────────────────────── */
 .dock-handle-bar {
   display: flex;
   align-items: center;
@@ -374,223 +446,177 @@ button:active,
   user-select: none;
 }
 
-.dock-handle-bar:active {
-  cursor: grabbing;
-}
-
 .dock-handle-bar:hover {
   color: var(--gold-light);
 }
 
+.dock-handle-bar:active {
+  cursor: grabbing;
+}
+
 .dock-handle-grip {
-  font-size: 1.1rem;
+  font-size: 1rem;
   letter-spacing: 1px;
   line-height: 1;
   opacity: 0.75;
 }
 
-.dock-handle-title {
+.dock-badge,
+.dock-handle-title,
+.side-dock-badge {
   font-size: 0.68rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: var(--tracking-caps);
   color: var(--gold-light);
+  display: block;
   white-space: nowrap;
 }
 
+.dock-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.dock-action-btn,
 .dock-reset-btn {
   background: transparent;
   border: none;
   color: var(--text-muted);
   cursor: pointer;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   line-height: 1;
   padding: 2px 4px;
   border-radius: 4px;
   transition: color 0.15s ease, transform 0.2s ease;
 }
 
+.dock-action-btn:hover,
 .dock-reset-btn:hover {
-  color: var(--gold);
-  transform: rotate(-45deg);
+  color: var(--gold-light);
+  transform: scale(1.12);
 }
 
-/* Items */
-.dock-items {
+/* ───────────────────────────────────────────────────────────────
+   RESTORED OLD LINKS & ICONS
+   ─────────────────────────────────────────────────────────────── */
+.dock-item,
+.side-dock-link {
   display: flex;
   align-items: center;
-}
-
-.dock-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  text-decoration: none;
-  color: var(--text-muted);
+  gap: 9px;
+  padding: 8px 10px;
   border-radius: 12px;
-  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.82rem;
   font-weight: 600;
-  white-space: nowrap;
   transition: background 140ms ease, color 140ms ease, transform 140ms var(--apple-instant-press);
+  white-space: nowrap;
 }
 
-.dock-item:hover {
+.dock-item:hover,
+.side-dock-link:hover {
   background: rgba(255, 255, 255, 0.09);
   color: var(--text);
-  transform: translateY(-2px);
+  transform: translateX(3px);
 }
 
-.dock-item:active {
-  transform: scale(0.95) !important;
+.dock-item:active,
+.side-dock-link:active {
+  transform: scale(0.96) !important;
 }
 
-.dock-item.active {
-  background: rgba(212, 175, 55, 0.18) !important;
+.dock-item.active,
+.side-dock-link.active {
+  background: rgba(212, 175, 55, 0.15) !important;
   color: var(--gold-light) !important;
-  border: 1px solid rgba(212, 175, 55, 0.35) !important;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4) !important;
+  border: 1px solid rgba(212, 175, 55, 0.32) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35) !important;
 }
 
-.dock-icon {
+.dock-icon,
+.side-dock-icon {
   font-size: 0.95rem;
+  width: 20px;
   display: inline-flex;
   justify-content: center;
 }
 
-/* ───────────────────────────────────────────────────────────────
-   SNAP POSITIONS: Horizontal Capsule Layouts (Bottom Snap)
-   ─────────────────────────────────────────────────────────────── */
-.floating-dock.snap-bottom-center,
-.floating-dock.snap-bottom-left,
-.floating-dock.snap-bottom-right {
-  bottom: 24px;
-}
-
-.floating-dock.snap-bottom-center {
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.floating-dock.snap-bottom-left {
-  left: 24px;
-  transform: none;
-}
-
-.floating-dock.snap-bottom-right {
-  right: 24px;
-  left: auto;
-  transform: none;
-}
-
-.floating-dock.snap-bottom-center .dock-shell,
-.floating-dock.snap-bottom-left .dock-shell,
-.floating-dock.snap-bottom-right .dock-shell {
-  flex-direction: row;
+.dock-label,
+.side-dock-label {
+  display: inline-flex;
   align-items: center;
-  border-radius: 40px;
-  padding: 6px 10px 6px 14px;
-  gap: 8px;
-}
-
-.floating-dock.snap-bottom-center .dock-header,
-.floating-dock.snap-bottom-left .dock-header,
-.floating-dock.snap-bottom-right .dock-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding-right: 8px;
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.floating-dock.snap-bottom-center .dock-items,
-.floating-dock.snap-bottom-left .dock-items,
-.floating-dock.snap-bottom-right .dock-items {
-  flex-direction: row;
   gap: 4px;
-}
-
-.floating-dock.snap-bottom-center .dock-item,
-.floating-dock.snap-bottom-left .dock-item,
-.floating-dock.snap-bottom-right .dock-item {
-  padding: 6px 10px;
+  white-space: nowrap;
 }
 
 /* ───────────────────────────────────────────────────────────────
-   SNAP POSITIONS: Vertical Rail Layouts (Middle Left & Right)
+   RESTORED LIGHT THEME (PAPER & SEPIA)
    ─────────────────────────────────────────────────────────────── */
-.floating-dock.snap-middle-left,
-.floating-dock.snap-middle-right {
-  top: 50%;
-  bottom: auto;
+[data-theme="paper"] .dock-shell {
+  background: rgba(247, 243, 235, 0.96) !important;
+  border-color: rgba(179, 139, 34, 0.45) !important;
+  box-shadow: 0 16px 40px rgba(43, 39, 35, 0.18) !important;
+}
+[data-theme="paper"] .dock-badge,
+[data-theme="paper"] .side-dock-badge {
+  color: #7a5c10 !important;
+}
+[data-theme="paper"] .dock-item,
+[data-theme="paper"] .side-dock-link {
+  color: #5e564b;
+}
+[data-theme="paper"] .dock-item:hover,
+[data-theme="paper"] .side-dock-link:hover {
+  background: rgba(43, 39, 35, 0.08);
+  color: #1a1714;
+}
+[data-theme="paper"] .dock-item.active,
+[data-theme="paper"] .side-dock-link.active {
+  background: rgba(179, 139, 34, 0.15) !important;
+  color: #7a5c10 !important;
+  border-color: rgba(179, 139, 34, 0.5) !important;
 }
 
-.floating-dock.snap-middle-left {
-  left: 16px;
-  transform: translateY(-50%);
+[data-theme="sepia"] .dock-shell {
+  background: rgba(239, 230, 212, 0.96) !important;
+  border-color: rgba(157, 111, 26, 0.45) !important;
+  box-shadow: 0 16px 40px rgba(59, 44, 30, 0.18) !important;
 }
-
-.floating-dock.snap-middle-right {
-  right: 16px;
-  left: auto;
-  transform: translateY(-50%);
+[data-theme="sepia"] .dock-badge,
+[data-theme="sepia"] .side-dock-badge {
+  color: #604008 !important;
 }
-
-.floating-dock.snap-middle-left .dock-shell,
-.floating-dock.snap-middle-right .dock-shell {
-  flex-direction: column;
-  border-radius: 20px;
-  padding: 10px 8px;
-  gap: 6px;
-  width: 172px;
+[data-theme="sepia"] .dock-item,
+[data-theme="sepia"] .side-dock-link {
+  color: #66503b;
 }
-
-.floating-dock.snap-middle-left .dock-header,
-.floating-dock.snap-middle-right .dock-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-bottom: 6px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  margin-bottom: 2px;
+[data-theme="sepia"] .dock-item:hover,
+[data-theme="sepia"] .side-dock-link:hover {
+  background: rgba(59, 44, 30, 0.08);
+  color: #261b11;
 }
-
-.floating-dock.snap-middle-left .dock-items,
-.floating-dock.snap-middle-right .dock-items {
-  flex-direction: column;
-  gap: 3px;
-}
-
-.floating-dock.snap-middle-left .dock-item,
-.floating-dock.snap-middle-right .dock-item {
-  padding: 6px 10px;
-  width: 100%;
+[data-theme="sepia"] .dock-item.active,
+[data-theme="sepia"] .side-dock-link.active {
+  background: rgba(157, 111, 26, 0.15) !important;
+  color: #604008 !important;
+  border-color: rgba(157, 111, 26, 0.5) !important;
 }
 
 /* ───────────────────────────────────────────────────────────────
-   Mobile Responsive Adjustments
+   MOBILE RESPONSIVENESS
    ─────────────────────────────────────────────────────────────── */
 @media (max-width: 900px) {
-  .floating-dock.snap-bottom-center,
-  .floating-dock.snap-bottom-left,
-  .floating-dock.snap-bottom-right {
-    bottom: 74px; /* Sits cleanly above mobile bottom-bar */
-    max-width: calc(100vw - 24px);
+  .floating-dock.dock-horizontal {
+    max-width: calc(100vw - 20px);
   }
-  .floating-dock .dock-shell {
+  .floating-dock.dock-horizontal .dock-shell {
     overflow-x: auto;
     scrollbar-width: none;
   }
-  .floating-dock .dock-shell::-webkit-scrollbar {
-    display: none;
-  }
-  .floating-dock.snap-middle-left .dock-shell,
-  .floating-dock.snap-middle-right .dock-shell {
-    width: 60px;
-  }
-  .floating-dock.snap-middle-left .dock-label,
-  .floating-dock.snap-middle-right .dock-label,
-  .floating-dock.snap-middle-left .dock-handle-title,
-  .floating-dock.snap-middle-right .dock-handle-title {
+  .floating-dock.dock-horizontal .dock-shell::-webkit-scrollbar {
     display: none;
   }
 }
