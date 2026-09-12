@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "outputDirectory": "ambedkar-archive/frontend",
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "ambedkar-archive/backend/data/**"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api"
+    }
+  ]
+}
