@@ -8,82 +8,89 @@ export default function DhammaWheelLotus({ isActive, isHovered }) {
   const wheelRef = useRef();
   const texture = useLoader(THREE.TextureLoader, textureUrl);
 
+  texture.generateMipmaps = true;
+  texture.minFilter = THREE.LinearMipmapLinearFilter;
+  texture.magFilter = THREE.LinearFilter;
+
   useFrame((state, delta) => {
     if (groupRef.current) {
-      groupRef.current.rotation.y += delta * 0.15;
+      // Gentle dignified monument sway (NO wild spinning!)
+      groupRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.4) * 0.06;
     }
     if (wheelRef.current) {
-      // Noble continuous rotation of the 24-spoke Dhamma Wheel
-      wheelRef.current.rotation.z -= delta * (isActive ? 0.6 : 0.2);
+      // Sacred majestic slow rotation of the 24-spoke Dhamma Wheel
+      wheelRef.current.rotation.z -= delta * (isActive ? 0.35 : 0.15);
     }
   });
 
   return (
-    <group ref={groupRef} scale={isActive ? 1.15 : 0.95}>
-      {/* Sculpted Marble Lotus Pedestal */}
-      <mesh position={[0, -0.65, 0]}>
-        <cylinderGeometry args={[1.05, 1.25, 0.14, 32]} />
-        <meshStandardMaterial
-          color="#f4f4f5"
-          roughness={0.2}
-          metalness={0.1}
-        />
-      </mesh>
-
-      {/* Lotus Petal Collar Plinth */}
-      <mesh position={[0, -0.52, 0]}>
-        <torusGeometry args={[0.75, 0.1, 16, 32]} />
-        <meshStandardMaterial
-          color="#e4e4e7"
-          roughness={0.3}
-          metalness={0.2}
-        />
-      </mesh>
-
-      {/* 24-Spoke Sarnath Sandstone Dhamma Chakra Wheel */}
-      <group position={[0, 0.15, 0]} ref={wheelRef}>
-        {/* Main Sandstone Medallion Disc */}
-        <mesh castShadow receiveShadow>
-          <cylinderGeometry args={[0.75, 0.75, 0.12, 64]} rotation={[Math.PI / 2, 0, 0]} />
+    <group ref={groupRef} scale={isActive ? 1.08 : 0.92}>
+      {/* Sculpted White Makrana Marble Lotus Pedestal */}
+      <group position={[0, -0.48, 0]}>
+        {/* Tiered Lotus Base Plinth */}
+        <mesh position={[0, 0, 0]} receiveShadow>
+          <cylinderGeometry args={[1.15, 1.35, 0.16, 48]} />
           <meshStandardMaterial
-            map={texture}
-            roughness={0.75}
-            metalness={0.05}
-            bumpMap={texture}
-            bumpScale={0.1}
+            color="#f8fafc"
+            roughness={0.25}
+            metalness={0.15}
           />
         </mesh>
 
-        {/* Central Hub Boss */}
-        <mesh position={[0, 0, 0.08]}>
-          <cylinderGeometry args={[0.16, 0.16, 0.06, 32]} rotation={[Math.PI / 2, 0, 0]} />
+        {/* Polished Gold Collar Ring */}
+        <mesh position={[0, 0.085, 0]}>
+          <cylinderGeometry args={[1.05, 1.05, 0.02, 48]} />
+          <meshStandardMaterial color="#f59e0b" roughness={0.2} metalness={0.92} />
+        </mesh>
+
+        {/* Carved Lotus Petal Collar */}
+        <mesh position={[0, 0.18, 0]}>
+          <torusGeometry args={[0.82, 0.12, 16, 48]} />
           <meshStandardMaterial
-            color="#d97706"
-            roughness={0.4}
-            metalness={0.6}
+            color="#f1f5f9"
+            roughness={0.35}
+            metalness={0.1}
           />
         </mesh>
       </group>
 
-      {/* Radiant Enlightenment Aura Ring for Active State */}
-      {isActive && (
-        <mesh position={[0, -0.56, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-          <ringGeometry args={[1.1, 1.38, 32]} />
-          <meshBasicMaterial
-            color="#eab308"
-            transparent
-            opacity={0.85}
-            side={THREE.DoubleSide}
+      {/* 24-Spoke Sarnath Sandstone Dhamma Chakra Wheel (1956 Deekshabhoomi Nagpur) */}
+      <group position={[0, 0.32, 0]} ref={wheelRef}>
+        {/* Main Sandstone Medallion Disc */}
+        <mesh castShadow receiveShadow>
+          <cylinderGeometry args={[0.85, 0.85, 0.12, 64]} rotation={[Math.PI / 2, 0, 0]} />
+          <meshStandardMaterial
+            map={texture}
+            roughness={0.75}
+            metalness={0.08}
+            bumpMap={texture}
+            bumpScale={0.12}
           />
         </mesh>
-      )}
 
-      {/* Warm Golden Core Spotlight */}
+        {/* Outer Wheel Rim */}
+        <mesh position={[0, 0, 0]}>
+          <torusGeometry args={[0.82, 0.035, 16, 64]} />
+          <meshStandardMaterial color="#d97706" roughness={0.3} metalness={0.7} />
+        </mesh>
+
+        {/* Central Hub Boss (Embossed Lotus Seedpod) */}
+        <mesh position={[0, 0, 0.07]}>
+          <cylinderGeometry args={[0.18, 0.18, 0.06, 32]} rotation={[Math.PI / 2, 0, 0]} />
+          <meshStandardMaterial
+            color="#f59e0b"
+            roughness={0.25}
+            metalness={0.88}
+          />
+        </mesh>
+      </group>
+
+      {/* Warm Golden Core Enlightenment Light */}
       <pointLight
-        position={[0, 0.2, 0.8]}
-        color="#fbbf24"
-        intensity={isActive ? 2.2 : 0.8}
-        distance={3.0}
+        position={[0, 0.4, 0.9]}
+        color="#fde047"
+        intensity={isActive ? 3.5 : 1.4}
+        distance={3.5}
       />
     </group>
   );

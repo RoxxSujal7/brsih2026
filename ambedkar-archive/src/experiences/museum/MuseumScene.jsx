@@ -1,14 +1,14 @@
-import React, { useRef, useMemo, Suspense } from 'react';
-import { useFrame, useThree } from '@react-three/fiber';
+import React, { useRef, Suspense } from 'react';
+import { useFrame, useLoader } from '@react-three/fiber';
+import { ContactShadows, Sparkles, OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
 
 import ConstitutionFolio from '../timeline/artifacts/ConstitutionFolio';
 import MahadBasaltStele from '../timeline/artifacts/MahadBasaltStele';
 import ScholarlyTomePen from '../timeline/artifacts/ScholarlyTomePen';
 import BronzeMedallion from '../timeline/artifacts/BronzeMedallion';
 import DhammaWheelLotus from '../timeline/artifacts/DhammaWheelLotus';
+import marbleUrl from '../../assets/textures/museum_marble.jpg';
 
 export const MUSEUM_ARTIFACTS = [
   {
@@ -69,108 +69,149 @@ export const MUSEUM_ARTIFACTS = [
 ];
 
 export default function MuseumScene({ activeIndex, onSelectArtifact }) {
-  const { camera } = useThree();
-  const targetCamPos = useRef(new THREE.Vector3(0, 1.8, 6.5));
-  const targetLookAt = useRef(new THREE.Vector3(0, 0, 0));
-  const currentLookAt = useRef(new THREE.Vector3(0, 0, 0));
+  const controlsRef = useRef();
+  const marbleTexture = useLoader(THREE.TextureLoader, marbleUrl);
+  const activeExhibit = MUSEUM_ARTIFACTS[activeIndex] || MUSEUM_ARTIFACTS[0];
+  const ArtifactComponent = activeExhibit.component;
 
-  // Arrange the 5 artifacts in an elegant semi-circular gallery vitrine
-  const positions = useMemo(() => {
-    const radius = 5.2;
-    return MUSEUM_ARTIFACTS.map((_, i) => {
-      const angle = (i - 2) * 0.52; // centered semi-circle
-      return [
-        Math.sin(angle) * radius,
-        0,
-        -Math.cos(angle) * radius + radius - 1.2
-      ];
-    });
-  }, []);
-
-  // GSAP camera glide to active exhibit
-  useGSAP(() => {
-    const activePos = positions[activeIndex];
-    if (!activePos) return;
-
-    gsap.to(targetCamPos.current, {
-      x: activePos[0],
-      y: activePos[1] + 1.6,
-      z: activePos[2] + 4.6,
-      duration: 1.4,
-      ease: 'power3.out'
-    });
-
-    gsap.to(targetLookAt.current, {
-      x: activePos[0],
-      y: activePos[1] + 0.1,
-      z: activePos[2],
-      duration: 1.4,
-      ease: 'power3.out'
-    });
-  }, [activeIndex, positions]);
-
-  useFrame(() => {
-    camera.position.lerp(targetCamPos.current, 0.08);
-    currentLookAt.current.lerp(targetLookAt.current, 0.08);
-    camera.lookAt(currentLookAt.current);
-  });
+  marbleTexture.generateMipmaps = true;
+  marbleTexture.minFilter = THREE.LinearMipmapLinearFilter;
+  marbleTexture.magFilter = THREE.LinearFilter;
 
   return (
-    <group>
-      {/* Dynamic Gallery Spotlight on Active Artifact */}
-      {positions[activeIndex] && (
-        <spotLight
-          position={[
-            positions[activeIndex][0] + 1.2,
-            positions[activeIndex][1] + 3.8,
-            positions[activeIndex][2] + 2.8
-          ]}
-          target-position={[
-            positions[activeIndex][0],
-            positions[activeIndex][1],
-            positions[activeIndex][2]
-          ]}
-          angle={0.6}
-          penumbra={0.8}
-          intensity={5.5}
-          color="#fffbeb"
-          castShadow
-        />
-      )}
+    <group position={[0, 0, 0]}>
+      {/* 1. OrbitControls for intuitive, museum-grade object inspection */}
+      <OrbitControls
+        ref={controlsRef}
+        enablePan={false}
+        enableZoom={true}
+        minDistance={2.5}
+        maxDistance={6.5}
+        minPolarAngle={Math.PI / 4.5}
+        maxPolarAngle={Math.PI / 2.05}
+        dampingFactor={0.04}
+        enableDamping={true}
+        rotateSpeed={0.6}
+      />
 
-      {/* Render All 5 Historical Vitrine Exhibits */}
-      {MUSEUM_ARTIFACTS.map((artifact, i) => {
-        const ArtifactComponent = artifact.component;
-        const isActive = i === activeIndex;
-        const pos = positions[i];
+      {/* 2. Museum Three-Point Cinematic Lighting Setup */}
+      <ambientLight color="#2a221a" intensity={1.5} />
 
-        return (
-          <group
-            key={artifact.id}
-            position={pos}
-            onClick={(e) => {
-              e.stopPropagation();
-              onSelectArtifact(i);
-            }}
-            style={{ cursor: 'pointer' }}
-          >
-            <Suspense fallback={null}>
-              <ArtifactComponent isActive={isActive} isHovered={false} />
-            </Suspense>
+      {/* Overhead Key Spotlight focused onto the Center Vitrine */}
+      <spotLight
+        position={[2.5, 5.0, 3.8]}
+        angle={0.65}
+        penumbra={0.8}
+        intensity={5.5}
+        color="#fffbeb"
+        castShadow
+        shadow-mapSize={[2048, 2048]}
+      />
 
-            {/* Vitrine Floor Ring */}
-            <mesh position={[0, -0.68, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-              <ringGeometry args={[1.2, 1.35, 32]} />
-              <meshBasicMaterial
-                color={isActive ? '#f59e0b' : '#334155'}
-                transparent
-                opacity={isActive ? 0.9 : 0.25}
-                side={THREE.DoubleSide}
-              />
-            </mesh>
-          </group>
-        );
-      })}
+      {/* Saffron/Gold Rim Light from rear */}
+      <directionalLight
+        position={[-3.5, 4.0, -2.5]}
+        intensity={2.8}
+        color="#f59e0b"
+      />
+
+      {/* Sapphire Fill Light */}
+      <pointLight
+        position={[-3.8, 1.8, 2.5]}
+        intensity={1.2}
+        color="#93c5fd"
+        distance={8.0}
+      />
+
+      {/* Subtle Warm Pedestal Underglow */}
+      <pointLight
+        position={[0, -0.6, 1.2]}
+        intensity={0.8}
+        color="#d97706"
+        distance={3.0}
+      />
+
+      {/* 3. Golden Dust Particles */}
+      <Sparkles
+        count={45}
+        scale={7}
+        size={2.2}
+        speed={0.3}
+        color="#fbbf24"
+        opacity={0.6}
+      />
+
+      {/* 4. Soft Ground Contact Shadows */}
+      <ContactShadows
+        position={[0, -1.02, 0]}
+        opacity={0.85}
+        scale={9}
+        blur={2.4}
+        far={3.0}
+        color="#05070d"
+      />
+
+      {/* 5. Center-Stage Nero Marquina Marble Pedestal with Solid Brass Collar */}
+      <group position={[0, -0.92, 0]}>
+        <mesh receiveShadow>
+          <cylinderGeometry args={[2.0, 2.2, 0.22, 64]} />
+          <meshStandardMaterial
+            map={marbleTexture}
+            bumpMap={marbleTexture}
+            bumpScale={0.03}
+            roughness={0.25}
+            metalness={0.35}
+          />
+        </mesh>
+
+        {/* Polished Solid Brass Plinth Ring */}
+        <mesh position={[0, 0.11, 0]}>
+          <cylinderGeometry args={[2.02, 2.02, 0.025, 64]} />
+          <meshStandardMaterial
+            color="#f59e0b"
+            roughness={0.2}
+            metalness={0.92}
+          />
+        </mesh>
+
+        {/* Outer Radiant Brass Floor Halo */}
+        <mesh position={[0, -0.09, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+          <ringGeometry args={[2.22, 2.34, 64]} />
+          <meshBasicMaterial
+            color="#d97706"
+            transparent
+            opacity={0.65}
+            side={THREE.DoubleSide}
+          />
+        </mesh>
+
+        {/* Engraved Archival Label Plate */}
+        <group position={[0, 0.02, 1.75]} rotation={[-0.2, 0, 0]}>
+          <mesh castShadow receiveShadow>
+            <boxGeometry args={[1.5, 0.18, 0.02]} />
+            <meshStandardMaterial
+              color="#b45309"
+              roughness={0.25}
+              metalness={0.88}
+            />
+          </mesh>
+          <mesh position={[0, 0, 0.012]}>
+            <boxGeometry args={[1.46, 0.14, 0.005]} />
+            <meshStandardMaterial
+              color="#1a110a"
+              roughness={0.6}
+              metalness={0.4}
+            />
+          </mesh>
+        </group>
+      </group>
+
+      {/* 6. The Center-Stage Historical Artifact */}
+      <group position={[0, -0.15, 0]}>
+        <Suspense fallback={null}>
+          <ArtifactComponent isActive={true} isHovered={false} />
+        </Suspense>
+      </group>
     </group>
   );
 }

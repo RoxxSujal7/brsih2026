@@ -1,6 +1,6 @@
 import React, { useMemo, useRef, useState, Suspense } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import { Html, Line } from '@react-three/drei';
+import { Html, Line, ContactShadows, Sparkles } from '@react-three/drei';
 import * as THREE from 'three';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -172,6 +172,29 @@ export default function TimelineScene({
           lineWidth={2.2}
           transparent
           opacity={0.65}
+        />
+      )}
+
+      {/* Subtle Floating Golden Dust Motes along Timeline Spline */}
+      <Sparkles
+        count={50}
+        scale={[12, 6, 80]}
+        position={[0, 0, -40]}
+        size={2.5}
+        speed={0.3}
+        color="#fbbf24"
+        opacity={0.45}
+      />
+
+      {/* Ground Contact Shadows for Active Milestone Area */}
+      {nodePositions[activeIndex] && (
+        <ContactShadows
+          position={[nodePositions[activeIndex][0], nodePositions[activeIndex][1] - 0.78, nodePositions[activeIndex][2]]}
+          opacity={0.7}
+          scale={5}
+          blur={2.4}
+          far={3.0}
+          color="#000000"
         />
       )}
 
