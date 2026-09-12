@@ -298,6 +298,84 @@
     }
     .rtc-card:hover { border-color: var(--border-gold); }
 
+    /* 3rd RTC Verified Attendance Callout — Multi-Theme Typography */
+    .rtc-verified-callout {
+      background: rgba(2, 132, 199, 0.12);
+      border: 1px solid rgba(2, 132, 199, 0.45);
+      border-radius: var(--radius-md);
+      padding: 10px 14px;
+      margin-bottom: 10px;
+      font-size: 0.85rem;
+      line-height: 1.65;
+      color: #bae6fd;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .rtc-verified-callout strong {
+      color: #ffffff;
+      font-weight: 600;
+    }
+    .rtc-verified-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #38bdf8;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+    .rtc-verified-text {
+      margin: 0;
+      color: inherit;
+    }
+
+    /* Paper Theme (Ivory Paper Sanctuary) */
+    html[data-theme="paper"] .rtc-verified-callout,
+    body.mode-paper .rtc-verified-callout,
+    [data-theme="paper"] .rtc-verified-callout {
+      background: rgba(2, 132, 199, 0.08);
+      border-color: rgba(2, 132, 199, 0.35);
+      color: #0c4a6e !important; /* Deep legible navy ink */
+    }
+    html[data-theme="paper"] .rtc-verified-callout strong,
+    body.mode-paper .rtc-verified-callout strong,
+    [data-theme="paper"] .rtc-verified-callout strong {
+      color: #082f49 !important;
+    }
+    html[data-theme="paper"] .rtc-verified-eyebrow,
+    body.mode-paper .rtc-verified-eyebrow,
+    [data-theme="paper"] .rtc-verified-eyebrow {
+      color: #0369a1 !important; /* Authoritative ocean blue */
+    }
+    html[data-theme="paper"] .rtc-dot-fact,
+    [data-theme="paper"] .rtc-dot-fact {
+      border-color: #0284c7 !important;
+      box-shadow: 0 0 8px rgba(2, 132, 199, 0.4) !important;
+    }
+
+    /* Sepia Theme (Historical Parchment) */
+    html[data-theme="sepia"] .rtc-verified-callout,
+    body.mode-sepia .rtc-verified-callout,
+    [data-theme="sepia"] .rtc-verified-callout {
+      background: rgba(180, 83, 9, 0.09);
+      border-color: rgba(180, 83, 9, 0.35);
+      color: #451a03 !important; /* Deep rich sepia ink */
+    }
+    html[data-theme="sepia"] .rtc-verified-callout strong,
+    body.mode-sepia .rtc-verified-callout strong,
+    [data-theme="sepia"] .rtc-verified-callout strong {
+      color: #2b0f02 !important;
+    }
+    html[data-theme="sepia"] .rtc-verified-eyebrow,
+    body.mode-sepia .rtc-verified-eyebrow,
+    [data-theme="sepia"] .rtc-verified-eyebrow {
+      color: #92400e !important; /* Rich antique bronze */
+    }
+    html[data-theme="sepia"] .rtc-dot-fact,
+    [data-theme="sepia"] .rtc-dot-fact {
+      border-color: #b45309 !important;
+      box-shadow: 0 0 8px rgba(180, 83, 9, 0.4) !important;
+    }
+
     /* Concepts Grid */
     .concepts-grid {
       display: grid;
@@ -1001,16 +1079,18 @@
 
         <!-- 3rd RTC Historical Fact -->
         <div class="rtc-node">
-          <div class="rtc-dot" style="border-color:#38bdf8;box-shadow:0 0 10px rgba(56,189,248,0.5);"></div>
+          <div class="rtc-dot rtc-dot-fact" style="border-color:#38bdf8;box-shadow:0 0 10px rgba(56,189,248,0.5);"></div>
           <div class="rtc-card">
             <div class="flex-between items-center" style="margin-bottom:8px;flex-wrap:wrap;">
               <span class="badge" style="background:#0284c7;color:#fff;">NOVEMBER 17 – DECEMBER 24, 1932</span>
               <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-muted);">London, House of Lords (46 Delegates)</span>
             </div>
             <h3 style="font-family:var(--font-display);font-size:1.25rem;color:var(--text);margin-bottom:8px;">Third Round Table Conference</h3>
-            <div style="background:rgba(2,132,199,0.1);border:1px solid #0284c7;border-radius:var(--radius-md);padding:10px 14px;margin-bottom:10px;font-size:0.85rem;color:#bae6fd;">
-              <div style="font-family:var(--font-mono);font-size:0.7rem;font-weight:700;color:#38bdf8;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;">VERIFIED HISTORICAL RECORD · ATTENDANCE &amp; PARTICIPATION</div>
-              <strong>Authoritative Historical Record:</strong> While boycotted by the Indian National Congress and British Labour Party, <strong>Dr. B. R. Ambedkar attended the Third Round Table Conference</strong> in London as the official delegate representing the Depressed Classes (alongside Rao Bahadur R. Srinivasan). Sailing from Bombay aboard the SS <em>Conte Verde</em> on November 7, 1932, he actively participated in the conference deliberations on franchise qualifications, federal legislature structure, and fundamental rights safeguards (documented in <strong>BAWS Vol. 2, Part III, pp. 665–746</strong>).
+            <div class="rtc-verified-callout">
+              <div class="rtc-verified-eyebrow">VERIFIED HISTORICAL RECORD · ATTENDANCE &amp; PARTICIPATION</div>
+              <p class="rtc-verified-text">
+                <strong>Authoritative Historical Record:</strong> While boycotted by the Indian National Congress and British Labour Party, <strong>Dr. B. R. Ambedkar attended the Third Round Table Conference</strong> in London as the official delegate representing the Depressed Classes (alongside Rao Bahadur R. Srinivasan). Sailing from Bombay aboard the SS <em>Conte Verde</em> on November 7, 1932, he actively participated in the conference deliberations on franchise qualifications, federal legislature structure, and fundamental rights safeguards (documented in <strong>BAWS Vol. 2, Part III, pp. 665–746</strong>).
+              </p>
             </div>
             <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.6;margin-bottom:0;">
               <strong>Historical Precision:</strong> Attendance: Verified in London; Participation: Active in franchise and federal structure discussions; Representation: Official delegate for Depressed Classes; Specific Plenary Output: Direct contributions to the 1933 White Paper and the Government of India Act, 1935.

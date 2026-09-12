@@ -776,3 +776,55 @@ button {
     --apple-hairline-border: 1.5px solid rgba(255, 255, 255, 0.4) !important;
   }
 }
+
+/* ───────────────────────────────────────────────────────────────
+   7. HISTORICAL RECORD & VERIFICATION CALLOUTS (Multi-Theme Contrast)
+   ─────────────────────────────────────────────────────────────── */
+.rtc-verified-callout {
+  background: rgba(2, 132, 199, 0.12);
+  border: 1px solid rgba(2, 132, 199, 0.45);
+  border-radius: var(--radius-md, 12px);
+  padding: 10px 14px;
+  margin-bottom: 10px;
+  font-size: 0.85rem;
+  line-height: 1.65;
+  color: #bae6fd;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.rtc-verified-callout strong {
+  color: #ffffff;
+  font-weight: 600;
+}
+.rtc-verified-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #38bdf8;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+
+[data-theme="paper"] .rtc-verified-callout {
+  background: rgba(2, 132, 199, 0.08) !important;
+  border-color: rgba(2, 132, 199, 0.35) !important;
+  color: #0c4a6e !important; /* Deep legible navy ink on paper */
+}
+[data-theme="paper"] .rtc-verified-callout strong {
+  color: #082f49 !important;
+}
+[data-theme="paper"] .rtc-verified-eyebrow {
+  color: #0369a1 !important; /* Authoritative ocean blue */
+}
+
+[data-theme="sepia"] .rtc-verified-callout {
+  background: rgba(180, 83, 9, 0.09) !important;
+  border-color: rgba(180, 83, 9, 0.35) !important;
+  color: #451a03 !important; /* Deep rich sepia ink on parchment */
+}
+[data-theme="sepia"] .rtc-verified-callout strong {
+  color: #2b0f02 !important;
+}
+[data-theme="sepia"] .rtc-verified-eyebrow {
+  color: #92400e !important; /* Rich antique bronze */
+}

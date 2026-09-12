@@ -219,6 +219,19 @@
       border: 1px solid var(--border-gold);
       pointer-events: none;
       z-index: 10;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    [data-theme="paper"] .graph-instructions {
+      background: rgba(243, 239, 230, 0.94);
+      color: #7a5c10;
+      border-color: rgba(179, 139, 34, 0.45);
+      box-shadow: 0 4px 12px rgba(45, 40, 32, 0.08);
+    }
+    [data-theme="sepia"] .graph-instructions {
+      background: rgba(236, 227, 207, 0.94);
+      color: #604008;
+      border-color: rgba(157, 111, 26, 0.45);
+      box-shadow: 0 4px 12px rgba(59, 44, 30, 0.08);
     }
     #graph-canvas {
       width: 100%;
@@ -1114,10 +1127,18 @@ function runGraphSimulation(ctx, canvas) {
       return;
     }
 
+    const currentTheme = document.documentElement.getAttribute('data-theme') || localStorage.getItem('site_theme') || 'dark';
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Subtle Grid lines
-    ctx.strokeStyle = 'rgba(255,255,255,0.03)';
+    // Subtle Grid lines (Theme Adaptive)
+    if (currentTheme === 'paper') {
+      ctx.strokeStyle = 'rgba(43, 39, 35, 0.05)';
+    } else if (currentTheme === 'sepia') {
+      ctx.strokeStyle = 'rgba(59, 44, 30, 0.06)';
+    } else {
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
+    }
     ctx.lineWidth = 1;
     for (let x = 0; x < canvas.width; x += 40) {
       ctx.beginPath();
@@ -1132,18 +1153,24 @@ function runGraphSimulation(ctx, canvas) {
       ctx.stroke();
     }
 
-    // Draw Links
+    // Draw Links (Theme Adaptive)
     links.forEach(link => {
       const isHighlighted = hoveredNode && (link.source === hoveredNode || link.target === hoveredNode);
       ctx.beginPath();
       ctx.moveTo(link.source.x, link.source.y);
       ctx.lineTo(link.target.x, link.target.y);
-      ctx.strokeStyle = isHighlighted ? 'rgba(212,175,55,0.7)' : 'rgba(212,175,55,0.12)';
+      if (currentTheme === 'paper') {
+        ctx.strokeStyle = isHighlighted ? 'rgba(179, 139, 34, 0.9)' : 'rgba(179, 139, 34, 0.28)';
+      } else if (currentTheme === 'sepia') {
+        ctx.strokeStyle = isHighlighted ? 'rgba(157, 111, 26, 0.9)' : 'rgba(157, 111, 26, 0.3)';
+      } else {
+        ctx.strokeStyle = isHighlighted ? 'rgba(212, 175, 55, 0.85)' : 'rgba(212, 175, 55, 0.16)';
+      }
       ctx.lineWidth = isHighlighted ? 2.5 : 1;
       ctx.stroke();
     });
 
-    // Draw Nodes
+    // Draw Nodes (Theme Adaptive)
     nodes.forEach(n => {
       const isHover = hoveredNode === n || draggingNode === n;
       
@@ -1151,17 +1178,29 @@ function runGraphSimulation(ctx, canvas) {
       if (isHover) {
         ctx.beginPath();
         ctx.arc(n.x, n.y, n.radius + 8, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(212,175,55,0.2)';
+        ctx.fillStyle = currentTheme === 'paper'
+          ? 'rgba(179, 139, 34, 0.22)'
+          : currentTheme === 'sepia'
+            ? 'rgba(157, 111, 26, 0.22)'
+            : 'rgba(212, 175, 55, 0.25)';
         ctx.fill();
       }
 
       // Outer bezel circle
       ctx.beginPath();
       ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
-      ctx.fillStyle = isHover ? '#1e293b' : '#0f172a';
+      if (currentTheme === 'paper') {
+        ctx.fillStyle = isHover ? '#242f44' : '#141c2c';
+        ctx.strokeStyle = isHover ? '#b38b22' : 'rgba(179, 139, 34, 0.65)';
+      } else if (currentTheme === 'sepia') {
+        ctx.fillStyle = isHover ? '#2e2014' : '#1c130b';
+        ctx.strokeStyle = isHover ? '#9d6f1a' : 'rgba(157, 111, 26, 0.65)';
+      } else {
+        ctx.fillStyle = isHover ? '#1e293b' : '#0f172a';
+        ctx.strokeStyle = isHover ? '#d4af37' : 'rgba(212, 175, 55, 0.35)';
+      }
       ctx.fill();
       ctx.lineWidth = isHover ? 2.5 : 1.5;
-      ctx.strokeStyle = isHover ? '#d4af37' : 'rgba(212,175,55,0.35)';
       ctx.stroke();
 
       // Icon
@@ -1170,9 +1209,17 @@ function runGraphSimulation(ctx, canvas) {
       ctx.textBaseline = 'middle';
       ctx.fillText(n.icon, n.x, n.y - 2);
 
-      // Label below
-      ctx.font = isHover ? 'bold 11px Plus Jakarta Sans' : '10px Plus Jakarta Sans';
-      ctx.fillStyle = isHover ? '#f8fafc' : '#94a3b8';
+      // Label below - Theme-specific font color for maximum contrast
+      ctx.font = isHover ? 'bold 11px "Plus Jakarta Sans", sans-serif' : '600 11px "Plus Jakarta Sans", sans-serif';
+      
+      if (currentTheme === 'paper') {
+        ctx.fillStyle = isHover ? '#0f0d0b' : '#2b2620';
+      } else if (currentTheme === 'sepia') {
+        ctx.fillStyle = isHover ? '#1a0e06' : '#3d2b1c';
+      } else {
+        ctx.fillStyle = isHover ? '#ffffff' : '#cbd5e1';
+      }
+
       ctx.fillText(n.title.length > 18 ? n.title.slice(0, 16) + '…' : n.title, n.x, n.y + n.radius + 14);
     });
 
