@@ -133,6 +133,19 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// Dedicated React Three Fiber 3D Experience Application Layer
+const experienceDistPath = path.join(__dirname, '../frontend/experience/dist');
+app.use('/experience', express.static(experienceDistPath, {
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.html')) {
+      res.setHeader('Cache-Control', 'no-cache, must-revalidate');
+    }
+  }
+}));
+app.get(['/experience', '/experience/*'], (req, res) => {
+  res.sendFile(path.join(experienceDistPath, 'experience.html'));
+});
+
 // Serve frontend static files with optimized Cache-Control headers (Phase 6.1)
 app.use(express.static(path.join(__dirname, '../frontend'), {
   maxAge: '1d',
