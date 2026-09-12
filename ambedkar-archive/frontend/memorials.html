@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Memorials &amp; Heritage — Dr. B. R. Ambedkar Digital Heritage Archive</title>
-  <meta name="description" content="Explore the national memorials, sacred sites, and architectural heritage of Dr. B. R. Ambedkar: DAIC New Delhi, Chaitya Bhoomi Mumbai, Deeksha Bhoomi Nagpur, 26 Alipur Road, Rajgruha, and Mhow." />
+  <title>Memorials &amp; Digital Heritage Journey — Dr. B. R. Ambedkar Digital Heritage Archive</title>
+  <meta name="description" content="Explore the national memorials, sacred heritage sites, and monumental architecture of Dr. B. R. Ambedkar: DAIC New Delhi, Chaitya Bhoomi Mumbai, Deeksha Bhoomi Nagpur, 26 Alipur Road, Rajgruha, Mhow, Mahad, and Nashik." />
   
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,6 +14,7 @@
   <script>(function(){const t=localStorage.getItem('site_theme')||localStorage.getItem('reader_theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
 
   <style>
+    /* Hero Preservation */
     .memorials-hero {
       background: radial-gradient(ellipse 70% 50% at 50% -10%, rgba(212,175,55,0.12) 0%, transparent 70%),
                   linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
@@ -29,11 +30,52 @@
       letter-spacing: -0.02em;
       margin-bottom: var(--space-4);
     }
+
+    /* Long-Scroll Heritage Wrap */
+    .memorials-page-wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 var(--space-6) var(--space-24);
+    }
+    .heritage-section {
+      padding: var(--space-16) 0 var(--space-12);
+      border-bottom: 1px solid var(--border);
+    }
+    .heritage-section:last-of-type {
+      border-bottom: none;
+    }
+    .section-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: var(--space-2);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      color: var(--text);
+      margin-bottom: var(--space-4);
+      line-height: 1.25;
+    }
+    .section-desc {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+      max-width: 840px;
+      margin-bottom: var(--space-8);
+    }
+
+    /* Grid Layouts */
     .memorial-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr));
       gap: var(--space-6);
-      margin: var(--space-8) 0 var(--space-16);
+      margin-top: var(--space-6);
     }
     .memorial-card {
       background: var(--surface);
@@ -114,6 +156,77 @@
       line-height: 1.6;
       margin-bottom: var(--space-4);
     }
+
+    /* Pancha Tirtha Cards */
+    .pancha-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--space-5);
+      margin-top: var(--space-6);
+    }
+    .pancha-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+      position: relative;
+      overflow: hidden;
+      border-top: 3px solid var(--gold);
+    }
+    .pancha-num {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--gold);
+      margin-bottom: var(--space-1);
+    }
+    .pancha-title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      color: var(--text);
+      margin-bottom: var(--space-2);
+    }
+    .pancha-loc {
+      font-size: 0.82rem;
+      color: var(--gold-light);
+      font-family: var(--font-mono);
+      margin-bottom: var(--space-3);
+    }
+    .pancha-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Deep Dive Spotlights */
+    .spotlight-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-2xl);
+      padding: var(--space-8);
+      margin-bottom: var(--space-8);
+      position: relative;
+      overflow: hidden;
+    }
+    .spotlight-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
+    .spotlight-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: var(--space-8);
+      align-items: center;
+    }
+    @media (max-width: 860px) {
+      .spotlight-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Audio Bar */
     .audio-bar {
       display: flex;
       align-items: center;
@@ -139,407 +252,1457 @@
       font-weight: bold;
       transition: transform 0.2s;
     }
-    .audio-btn:hover {
-      transform: scale(1.08);
+    .audio-btn:hover { transform: scale(1.08); }
+
+    /* Heritage Timeline Trail */
+    .heritage-timeline-trail {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-4);
+      margin-top: var(--space-6);
     }
-    /* Modal styles */
-    .memorial-modal {
-      display: none;
+    .timeline-step {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      border-left: 3px solid var(--gold);
+    }
+    .step-year { font-family: var(--font-mono); font-size: 0.75rem; color: var(--gold); }
+    .step-title { font-size: 0.92rem; font-weight: 700; color: var(--text); margin: 4px 0; }
+    .step-place { font-size: 0.78rem; color: var(--gold-light); font-family: var(--font-mono); }
+
+    /* Modal Styling */
+    .memorial-modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(7,10,18,0.85);
-      backdrop-filter: blur(14px);
+      background: rgba(4,6,12,0.88);
+      backdrop-filter: blur(12px);
       z-index: 1000;
+      display: none;
       align-items: center;
       justify-content: center;
       padding: var(--space-4);
     }
-    .memorial-modal.open {
-      display: flex;
-    }
-    .memorial-modal-box {
+    .memorial-modal-backdrop.active { display: flex; }
+    .memorial-modal-dialog {
       background: var(--bg-2);
       border: 1px solid var(--border-gold);
       border-radius: var(--radius-2xl);
-      max-width: 820px;
+      max-width: 780px;
       width: 100%;
-      max-height: 88vh;
+      max-height: 90vh;
       overflow-y: auto;
       padding: var(--space-8);
       position: relative;
-      box-shadow: 0 25px 60px -15px rgba(0,0,0,0.8), 0 0 40px rgba(212,175,55,0.15);
+      box-shadow: 0 25px 60px -15px rgba(0,0,0,0.8);
+    }
+
+    /* Section 5: Explore by Location Grid */
+    .location-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--space-4);
+      margin-top: var(--space-6);
+    }
+    .location-card-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-5);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .location-card-item:hover,
+    .location-card-item.active {
+      border-color: var(--gold);
+      background: rgba(212,175,55,0.05);
+      transform: translateY(-2px);
+    }
+    .location-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-3);
+    }
+    .location-city-name {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      color: var(--text);
+    }
+    .location-sites-count {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--gold);
+      background: rgba(212,175,55,0.1);
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-gold);
+    }
+    .location-sites-list {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: var(--space-4);
+    }
+
+    /* Section 10: Memorial Story Cards */
+    .story-cards-container {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+      margin-top: var(--space-6);
+    }
+    .story-card-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-2xl);
+      overflow: hidden;
+      transition: border-color 0.25s ease;
+    }
+    .story-card-item:hover {
+      border-color: var(--border-gold);
+    }
+    .story-card-header {
+      padding: var(--space-6) var(--space-8);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, transparent 100%);
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+    }
+    .story-card-title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      color: var(--text);
+      margin: 4px 0;
+    }
+    .story-card-body {
+      padding: var(--space-8);
+      display: none;
+    }
+    .story-card-item.open .story-card-body {
+      display: block;
+    }
+    .story-step-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-5);
+      margin-bottom: var(--space-6);
+    }
+    .story-step-box {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-5);
+    }
+    .story-step-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--space-2);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .story-step-text {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.7;
     }
   </style>
 </head>
 <body>
 
-<!-- ─── Navigation ─── -->
-<nav class="nav" role="navigation" aria-label="Main navigation">
-  <div class="nav-inner">
-    <a href="index.html" class="nav-logo" aria-label="Ambedkar Archive Home">
-      <div class="nav-logo-icon" aria-hidden="true">🏛️</div>
-      <div class="nav-logo-text">
-        <span>AMBEDKAR ARCHIVE</span>
-        <span class="nav-logo-sub">Memorials &amp; Heritage</span>
-      </div>
-    </a>
-    <div class="nav-links" role="list">
-      <a href="index.html" class="nav-link" role="listitem">Home</a>
-      <a href="archive.html" class="nav-link" role="listitem">Volumes &amp; Books</a>
-      <a href="memorials.html" class="nav-link active" role="listitem">Memorials</a>
-      <a href="debates.html" class="nav-link" role="listitem">Historical Debates</a>
-      <a href="ideas.html" class="nav-link" role="listitem">Philosophy</a>
-      <a href="timeline.html" class="nav-link" role="listitem">Timeline</a>
-    </div>
-    <div class="nav-actions">
-      <div class="nav-theme" role="group" aria-label="Atmosphere selection">
-        <button class="theme-toggle-btn active" data-theme="dark" title="Dark Slate Atmosphere">🌙</button>
-        <button class="theme-toggle-btn" data-theme="paper" title="Ivory Paper Sanctuary">📜</button>
-        <button class="theme-toggle-btn" data-theme="sepia" title="Historical Sepia Sanctuary">🏺</button>
-      </div>
-      <div class="nav-lang" role="group" aria-label="Language selection">
-        <button class="lang-btn active" data-lang="en">EN</button>
-        <button class="lang-btn" data-lang="hi">हिन्दी</button>
-        <button class="lang-btn" data-lang="mr">मराठी</button>
-      </div>
-      <a href="kiosk.html" class="btn btn-secondary btn-sm" title="Launch Touchscreen Kiosk Mode">
-        <span>🖥️ Kiosk</span>
+  <!-- Top Navigation -->
+  <header class="site-header" role="banner">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo" aria-label="Ambedkar Digital Heritage Archive">
+        <span class="logo-mark">BA</span>
+        <span class="logo-text">Ambedkar Archive</span>
       </a>
-      <a id="nav-login-btn" href="login.html" class="btn btn-primary btn-sm">Sign In</a>
-      <div id="nav-user-menu" style="display:none;" class="flex gap-2 items-center">
-        <a href="dashboard.html" class="btn btn-secondary btn-sm"><span>👤</span> <span id="nav-user-name">User</span></a>
-        <button data-action="logout" class="btn btn-ghost btn-sm">Logout</button>
+
+      <nav class="nav-links" role="navigation" aria-label="Main Navigation">
+        <a href="archive.html" class="nav-link">Volumes</a>
+        <a href="memorials.html" class="nav-link active">Memorials</a>
+        <a href="debates.html" class="nav-link">Debates</a>
+        <a href="timeline.html" class="nav-link">Timeline</a>
+        <a href="ideas.html" class="nav-link">Ideas</a>
+        <a href="transparency.html" class="nav-link">Transparency</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="assistant.html?q=national-memorials" class="btn btn-secondary btn-sm" style="display:flex;align-items:center;gap:6px;">
+          <span>🤖</span><span>Ask AI Assistant</span>
+        </a>
       </div>
-      <button id="hamburger" class="hamburger" aria-label="Open menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section (Preserved Exactly) -->
+  <section class="memorials-hero">
+    <div class="container">
+      <div class="badge badge-gold" style="margin-bottom:var(--space-3);">SACRED GEOGRAPHY &amp; NATIONAL MEMORIALS</div>
+      <h1>Memorials &amp; Digital Heritage Journey</h1>
+      <p style="font-size:1.15rem;color:var(--text-muted);max-width:760px;margin:0 auto;line-height:1.7;">
+        An interactive exploration of the historic sites, architectural landmarks, and sacred spaces commemorating the life, struggle, and intellectual legacy of Dr. B. R. Ambedkar.
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Scrollable Archive Body -->
+  <div class="memorials-page-wrap">
+
+    <!-- ═══════════════════════════════════════════════════════
+         SECTION 1: THE HERITAGE JOURNEY
+         ═══════════════════════════════════════════════════════ -->
+    <section class="heritage-section" id="section-heritage-journey">
+      <div class="section-eyebrow"><span>🗺️</span> SECTION 1 • SACRED MEMORIALIZATION</div>
+      <h2 class="section-title">The Heritage Journey: Living Monuments of Emancipation</h2>
+      <p class="section-desc">
+        Memorials to Dr. Babasaheb Ambedkar are not merely decorative structures of stone and bronze; they are living pilgrimage sites of human rights, civil dignity, and constitutional nation-building.
+      </p>
+
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-xl);padding:var(--space-6);line-height:1.8;color:var(--text);">
+        <p style="margin-bottom:var(--space-4);">
+          From his birthplace in the military cantonment of Mhow to the water reservoir at Mahad where civil rights were asserted for the first time in Indian history; from the intellectual haven of Rajgruha in Mumbai where tens of thousands of books were gathered, to 26 Alipur Road in Delhi where the Constitution took final shape and his Mahaparinirvan occurred — these physical coordinates represent a continental geography of resistance and enlightenment.
+        </p>
+        <p style="margin-bottom:0;color:var(--text-muted);">
+          Every year, millions of citizens journey to Chaitya Bhoomi on December 6 and Deeksha Bhoomi on October 14, affirming their devotion not to a feudal monarch, but to the ideals of <em>Liberty, Equality, and Fraternity</em>.
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SECTION 2: FEATURED MEMORIALS (LIVE ARCHIVE CARDS)
+         ═══════════════════════════════════════════════════════ -->
+    <section class="heritage-section" id="section-featured-memorials">
+      <div class="section-eyebrow"><span>🏛️</span> SECTION 2 • ARCHIVAL EXPLORER</div>
+      <h2 class="section-title">Featured National Memorials</h2>
+      <p class="section-desc">
+        Select any memorial to open its complete curatorial dossier, architectural breakdown, and audio narration.
+      </p>
+
+      <!-- Geographic Filter Bar -->
+      <div class="flex gap-2 items-center flex-wrap" style="margin-bottom:var(--space-6);" role="tablist" aria-label="Memorial Geographic Filter">
+        <button class="btn btn-secondary btn-sm active" data-filter="all">All Sites (8)</button>
+        <button class="btn btn-secondary btn-sm" data-filter="Delhi">New Delhi</button>
+        <button class="btn btn-secondary btn-sm" data-filter="Mumbai">Mumbai</button>
+        <button class="btn btn-secondary btn-sm" data-filter="Nagpur">Nagpur</button>
+        <button class="btn btn-secondary btn-sm" data-filter="Madhya Pradesh">Mhow</button>
+        <button class="btn btn-secondary btn-sm" data-filter="Mahad">Mahad</button>
+        <button class="btn btn-secondary btn-sm" data-filter="Nashik">Nashik</button>
+      </div>
+
+      <!-- Memorial Cards Container (populated by script from memorials.json) -->
+      <div id="memorial-grid" class="memorial-grid">
+        <div style="text-align:center;padding:var(--space-12);color:var(--text-muted);">
+          Loading national memorial catalog from archival server...
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SECTION 3: PANCHA TIRTHA
+         ═══════════════════════════════════════════════════════ -->
+    <section class="heritage-section" id="section-pancha-tirtha">
+      <div class="section-eyebrow"><span>☸️</span> SECTION 3 • SACRED PILGRIMAGE SITES</div>
+      <h2 class="section-title">The Pancha Tirtha: Five Pillars of Ambedkar's Legacy</h2>
+      <p class="section-desc">
+        Officially recognized by the Ministry of Social Justice &amp; Empowerment, the Pancha Tirtha commemorates the five critical phases of Babasaheb's life journey.
+      </p>
+
+      <div class="pancha-grid">
+        <div class="pancha-card">
+          <div class="pancha-num">TIRTHA 1 · JANMA BHOOMI</div>
+          <h3 class="pancha-title">Bhim Janmabhoomi</h3>
+          <div class="pancha-loc">📍 Mhow, Madhya Pradesh</div>
+          <p class="pancha-desc">Birthplace on April 14, 1891 in the military cantonment. Features a monumental Buddhist stupa and perpetual flame of emancipation.</p>
+        </div>
+
+        <div class="pancha-card">
+          <div class="pancha-num">TIRTHA 2 · SHIKSHA BHOOMI</div>
+          <h3 class="pancha-title">King Henry's Road House</h3>
+          <div class="pancha-loc">📍 London, United Kingdom</div>
+          <p class="pancha-desc">His residence while studying at the London School of Economics and Gray's Inn (1921–1922). Preserved as an international memorial museum.</p>
+        </div>
+
+        <div class="pancha-card">
+          <div class="pancha-num">TIRTHA 3 · DEEKSHA BHOOMI</div>
+          <h3 class="pancha-title">The Conversion Stupa</h3>
+          <div class="pancha-loc">📍 Nagpur, Maharashtra</div>
+          <p class="pancha-desc">Site of the mass conversion to Buddhism on October 14, 1956, where 500,000+ citizens embraced the 22 vows and renounced caste hierarchy.</p>
+        </div>
+
+        <div class="pancha-card">
+          <div class="pancha-num">TIRTHA 4 · MAHAPARINIRVAN</div>
+          <h3 class="pancha-title">26 Alipur Road (DANM)</h3>
+          <div class="pancha-loc">📍 Civil Lines, New Delhi</div>
+          <p class="pancha-desc">His final residence where he completed *The Buddha and His Dhamma* and achieved Mahaparinirvan on December 6, 1956. Designed like an open book.</p>
+        </div>
+
+        <div class="pancha-card">
+          <div class="pancha-num">TIRTHA 5 · CHAITYA BHOOMI</div>
+          <h3 class="pancha-title">Dadar Cremation Stupa</h3>
+          <div class="pancha-loc">📍 Dadar Chowpatty, Mumbai</div>
+          <p class="pancha-desc">The sacred cremation site where over two million people gathered on December 7, 1956. Annual site of the solemn Mahaparinirvan Diwas assembly.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SECTION 4: INTERACTIVE HERITAGE TIMELINE
+         ═══════════════════════════════════════════════════════ -->
+    <section class="heritage-section" id="section-heritage-timeline">
+      <div class="section-eyebrow"><span>📅</span> SECTION 4 • GEOGRAPHICAL BIOGRAPHY</div>
+      <h2 class="section-title">The Chronology of Sacred Space (1891–1956)</h2>
+      <p class="section-desc">
+        Trace how Dr. Ambedkar's personal chronology shaped the map of modern Indian heritage.
+      </p>
+
+      <div class="heritage-timeline-trail">
+        <div class="timeline-step">
+          <div class="step-year">1891 · BIRTH</div>
+          <div class="step-title">Kali Paltan Cantonment</div>
+          <div class="step-place">Mhow, Central Provinces</div>
+        </div>
+        <div class="timeline-step">
+          <div class="step-year">1913–1923 · SCHOLARSHIP</div>
+          <div class="step-title">Columbia &amp; LSE</div>
+          <div class="step-place">New York &amp; London</div>
+        </div>
+        <div class="timeline-step">
+          <div class="step-year">1927 · CIVIL RIGHTS</div>
+          <div class="step-title">Chavdar Tale Water March</div>
+          <div class="step-place">Mahad, Raigad</div>
+        </div>
+        <div class="timeline-step">
+          <div class="step-year">1930 · TEMPLE ENTRY</div>
+          <div class="step-title">Kalaram Satyagraha</div>
+          <div class="step-place">Nashik, Maharashtra</div>
+        </div>
+        <div class="timeline-step">
+          <div class="step-year">1934 · SCHOLARSHIP</div>
+          <div class="step-title">Rajgruha Residence</div>
+          <div class="step-place">Dadar East, Mumbai</div>
+        </div>
+        <div class="timeline-step">
+          <div class="step-year">1947–1950 · CONSTITUTION</div>
+          <div class="step-title">Constituent Assembly</div>
+          <div class="step-place">Constitution House, Delhi</div>
+        </div>
+        <div class="timeline-step">
+          <div class="step-year">1956 · BUDDHISM</div>
+          <div class="step-title">Mass Dhamma Deeksha</div>
+          <div class="step-place">Nagpur, Maharashtra</div>
+        </div>
+        <div class="timeline-step">
+          <div class="step-year">1956 · PARINIRVAN</div>
+          <div class="step-title">Final Resting Ground</div>
+          <div class="step-place">Chaitya Bhoomi, Mumbai</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SECTION 5: EXPLORE BY LOCATION
+         ═══════════════════════════════════════════════════════ -->
+    <section class="heritage-section" id="section-explore-by-location">
+      <div class="section-eyebrow"><span>📍</span> SECTION 5 • GEOGRAPHIC EXPLORATION</div>
+      <h2 class="section-title">Explore by Location &amp; Historic Geography</h2>
+      <p class="section-desc">
+        Navigate the physical landscape of Dr. Ambedkar's life across India. Filter the memorial archive by city to explore localized monuments, preserved relics, and architectural tributes.
+      </p>
+
+      <div class="location-cards-grid">
+        <!-- Delhi -->
+        <div class="location-card-item" onclick="filterByLocationCity('Delhi', this)">
+          <div>
+            <div class="location-card-header">
+              <span class="location-city-name">🏛️ New Delhi</span>
+              <span class="location-sites-count">2 Memorials</span>
+            </div>
+            <div class="location-sites-list">
+              • Dr. Ambedkar International Centre (DAIC, 15 Janpath)<br>
+              • National Memorial (DANM, 26 Alipur Road Mahaparinirvan Sthal)
+            </div>
+          </div>
+          <div class="flex-between items-center" style="font-size:0.78rem;color:var(--gold-light);font-family:var(--font-mono);border-top:1px solid var(--border);padding-top:8px;">
+            <span>Constitutional Hub</span>
+            <span>Filter Sites →</span>
+          </div>
+        </div>
+
+        <!-- Mumbai -->
+        <div class="location-card-item" onclick="filterByLocationCity('Mumbai', this)">
+          <div>
+            <div class="location-card-header">
+              <span class="location-city-name">🌊 Mumbai</span>
+              <span class="location-sites-count">2 Memorials</span>
+            </div>
+            <div class="location-sites-list">
+              • Chaitya Bhoomi (Dadar Chowpatty Cremation Stupa)<br>
+              • Rajgruha Memorial &amp; Library (Hindu Colony, Dadar East)
+            </div>
+          </div>
+          <div class="flex-between items-center" style="font-size:0.78rem;color:var(--gold-light);font-family:var(--font-mono);border-top:1px solid var(--border);padding-top:8px;">
+            <span>Intellectual &amp; Parinirvan</span>
+            <span>Filter Sites →</span>
+          </div>
+        </div>
+
+        <!-- Nagpur -->
+        <div class="location-card-item" onclick="filterByLocationCity('Nagpur', this)">
+          <div>
+            <div class="location-card-header">
+              <span class="location-city-name">🌸 Nagpur</span>
+              <span class="location-sites-count">1 Memorial</span>
+            </div>
+            <div class="location-sites-list">
+              • Deeksha Bhoomi Stupa (Ramdaspeth)<br>
+              Epicenter of the 1956 Mass Buddhist Conversion and the 22 Vows.
+            </div>
+          </div>
+          <div class="flex-between items-center" style="font-size:0.78rem;color:var(--gold-light);font-family:var(--font-mono);border-top:1px solid var(--border);padding-top:8px;">
+            <span>Dhamma Renaissance</span>
+            <span>Filter Sites →</span>
+          </div>
+        </div>
+
+        <!-- Mhow -->
+        <div class="location-card-item" onclick="filterByLocationCity('Mhow', this)">
+          <div>
+            <div class="location-card-header">
+              <span class="location-city-name">🌟 Dr. Ambedkar Nagar (Mhow)</span>
+              <span class="location-sites-count">1 Memorial</span>
+            </div>
+            <div class="location-sites-list">
+              • Bhim Janmabhoomi Memorial (Kali Paltan Cantonment)<br>
+              Sacred birthplace where Bhimrao was born on April 14, 1891.
+            </div>
+          </div>
+          <div class="flex-between items-center" style="font-size:0.78rem;color:var(--gold-light);font-family:var(--font-mono);border-top:1px solid var(--border);padding-top:8px;">
+            <span>Birthplace Sthal</span>
+            <span>Filter Sites →</span>
+          </div>
+        </div>
+
+        <!-- Mahad -->
+        <div class="location-card-item" onclick="filterByLocationCity('Mahad', this)">
+          <div>
+            <div class="location-card-header">
+              <span class="location-city-name">💧 Mahad (Raigad)</span>
+              <span class="location-sites-count">1 Memorial</span>
+            </div>
+            <div class="location-sites-list">
+              • Chavdar Tale &amp; Kranti Stambh Obelisk<br>
+              Site of the March 20, 1927 Civil Rights Water Satyagraha.
+            </div>
+          </div>
+          <div class="flex-between items-center" style="font-size:0.78rem;color:var(--gold-light);font-family:var(--font-mono);border-top:1px solid var(--border);padding-top:8px;">
+            <span>Civil Rights Cradle</span>
+            <span>Filter Sites →</span>
+          </div>
+        </div>
+
+        <!-- Nashik -->
+        <div class="location-card-item" onclick="filterByLocationCity('Nashik', this)">
+          <div>
+            <div class="location-card-header">
+              <span class="location-city-name">🚩 Nashik</span>
+              <span class="location-sites-count">1 Memorial</span>
+            </div>
+            <div class="location-sites-list">
+              • Kalaram Mandir Satyagraha Memorial (Panchavati)<br>
+              Commemorating the 1930–1935 5-year nonviolent movement for civic equality.
+            </div>
+          </div>
+          <div class="flex-between items-center" style="font-size:0.78rem;color:var(--gold-light);font-family:var(--font-mono);border-top:1px solid var(--border);padding-top:8px;">
+            <span>Civic Equality Satyagraha</span>
+            <span>Filter Sites →</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SECTION 6: MAHAD & THE WATER SATYAGRAHA DEEP DIVE
+         ═══════════════════════════════════════════════════════ -->
+    <section class="heritage-section" id="section-mahad-deepdive">
+      <div class="section-eyebrow"><span>💧</span> SECTION 6 • HISTORIC SATYAGRAHA</div>
+      <h2 class="section-title">Mahad: Chavdar Tale &amp; The Krantistambh</h2>
+      <p class="section-desc">
+        On March 20, 1927, Dr. Ambedkar led the untouchables of Maharashtra to drink water from the public Chavdar lake in Mahad. It remains India's Magna Carta of human rights.
+      </p>
+
+      <div class="spotlight-card">
+        <div class="spotlight-grid">
+          <div>
+            <h3 style="font-family:var(--font-display);font-size:1.4rem;color:var(--text);margin-bottom:var(--space-3);">
+              "Water is Not the Issue; Human Dignity Is"
+            </h3>
+            <p style="font-size:0.95rem;color:var(--text-muted);line-height:1.75;margin-bottom:var(--space-4);">
+              Ambedkar made it clear that the march to Chavdar lake was not merely to quench physical thirst. Animals, birds, and insects drank freely from the reservoir, yet human beings deemed untouchable were barred. The act was a non-violent assertion that Dalits were human beings entitled to the fundamental rights of citizenship.
+            </p>
+            <p style="font-size:0.95rem;color:var(--text-muted);line-height:1.75;margin-bottom:var(--space-6);">
+              On December 25, 1927, during the second Mahad conference, Dr. Ambedkar publicly burned the <em>Manusmriti</em> in a specially prepared pyre, signaling the ideological burial of scriptural caste inequality. Today, the <strong>Krantistambh</strong> obelisk stands on the lakeshore.
+            </p>
+            <div class="flex gap-2">
+              <a href="reader.html?vol=17" class="btn btn-primary btn-sm">Read Mahad Speeches (Vol. 17) →</a>
+              <a href="assistant.html?q=Mahad+Satyagraha+History" class="btn btn-secondary btn-sm">Ask AI Assistant →</a>
+            </div>
+          </div>
+
+          <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius-xl);padding:var(--space-6);">
+            <h4 style="font-family:var(--font-mono);font-size:0.8rem;color:var(--gold);text-transform:uppercase;margin-bottom:var(--space-3);">Archival Significance Summary</h4>
+            <div style="font-size:0.88rem;color:var(--text-muted);line-height:1.7;">
+              <div style="margin-bottom:8px;"><strong style="color:var(--text);">Event Date:</strong> March 20, 1927 (Celebrated as Social Empowerment Day)</div>
+              <div style="margin-bottom:8px;"><strong style="color:var(--text);">Manusmriti Dahan:</strong> December 25, 1927</div>
+              <div style="margin-bottom:8px;"><strong style="color:var(--text);">Monument:</strong> Krantistambh Obelisk at Chavdar Tale</div>
+              <div><strong style="color:var(--text);">Legal Milestone:</strong> Bombay High Court judgment (1937) upholding right of Untouchables to public water.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SECTION 7: NAGPUR & DEEKSHA BHOOMI DEEP DIVE
+         ═══════════════════════════════════════════════════════ -->
+    <section class="heritage-section" id="section-nagpur-deepdive">
+      <div class="section-eyebrow"><span>🌸</span> SECTION 7 • SPIRITUAL RENAISSANCE</div>
+      <h2 class="section-title">Nagpur: Deeksha Bhoomi &amp; The Buddhist Renaissance</h2>
+      <p class="section-desc">
+        On October 14, 1956 (Ashoka Vijaya Dashami), Dr. Ambedkar fulfilled his historic 1935 Yeola declaration ("I will not die a Hindu") by embracing Buddhism along with over 500,000 followers.
+      </p>
+
+      <div class="spotlight-card">
+        <div class="spotlight-grid">
+          <div>
+            <h3 style="font-family:var(--font-display);font-size:1.4rem;color:var(--text);margin-bottom:var(--space-3);">
+              The 22 Vows &amp; The Rebirth of the Dhamma
+            </h3>
+            <p style="font-size:0.95rem;color:var(--text-muted);line-height:1.75;margin-bottom:var(--space-4);">
+              Taking refuge in the Buddha, Dhamma, and Sangha from the venerable monk Mahasthavir Chandramani, Dr. Ambedkar administered the historic <strong>22 Vows (Pratigyas)</strong> to the assembly. The vows categorically renounced belief in the Hindu pantheon, rejected caste rituals, and mandated an ethical life of compassion, equality, and rational morality.
+            </p>
+            <p style="font-size:0.95rem;color:var(--text-muted);line-height:1.75;margin-bottom:var(--space-6);">
+              The massive Deeksha Bhoomi Stupa, inaugurated in 2001, is one of Asia's largest hollow domed structures, designed with granite and marble inspired by Sanchi.
+            </p>
+            <div class="flex gap-2">
+              <a href="vows.html" class="btn btn-primary btn-sm">Explore the 22 Vows in 4 Languages →</a>
+              <a href="reader.html?vol=11" class="btn btn-secondary btn-sm">Read Buddha and His Dhamma →</a>
+            </div>
+          </div>
+
+          <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius-xl);padding:var(--space-6);">
+            <h4 style="font-family:var(--font-mono);font-size:0.8rem;color:var(--gold);text-transform:uppercase;margin-bottom:var(--space-3);">Monumental Stupa Details</h4>
+            <div style="font-size:0.88rem;color:var(--text-muted);line-height:1.7;">
+              <div style="margin-bottom:8px;"><strong style="color:var(--text);">Height:</strong> 120 feet domed stupa</div>
+              <div style="margin-bottom:8px;"><strong style="color:var(--text);">Capacity:</strong> Hollow central hall hosting 5,000+ devotees</div>
+              <div style="margin-bottom:8px;"><strong style="color:var(--text);">Annual Gathering:</strong> Over 2 million assemble on Dhamma Chakra Pravartan Din</div>
+              <div><strong style="color:var(--text);">Relics:</strong> Holy relics of Lord Buddha and Dr. Ambedkar enshrined inside.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SECTION 8: RAJGRUHA & INTELLECTUAL HERITAGE
+         ═══════════════════════════════════════════════════════ -->
+    <section class="heritage-section" id="section-rajgruha-deepdive">
+      <div class="section-eyebrow"><span>📚</span> SECTION 8 • INTELLECTUAL SANCTUARY</div>
+      <h2 class="section-title">Rajgruha: The 50,000-Volume Fortress of Knowledge</h2>
+      <p class="section-desc">
+        Constructed in 1934 at Hindu Colony, Dadar East, Mumbai, Rajgruha was built with one overriding objective: to house Dr. Ambedkar's legendary personal library.
+      </p>
+
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-xl);padding:var(--space-8);line-height:1.8;">
+        <p style="font-size:1rem;color:var(--text);margin-bottom:var(--space-4);">
+          Named after the ancient capital of the Magadha kingdom associated with the Buddha and King Bimbisara, Rajgruha was a three-story sanctuary designed by architect K. B. Joshi. The entire ground floor and part of the upper floors were custom-fitted with bookshelves holding over 50,000 rare volumes in law, history, philosophy, Sanskrit, Pali, sociology, and economics.
+        </p>
+        <blockquote class="quote-box" style="margin:var(--space-4) 0;">
+          "I have an extraordinary collection of books... I cannot live without my books. They are my real companions."
+          <div style="font-family:var(--font-mono);font-size:0.75rem;color:var(--gold);margin-top:6px;">— Dr. B. R. Ambedkar in correspondence</div>
+        </blockquote>
+        <p style="font-size:0.92rem;color:var(--text-muted);margin-bottom:0;">
+          It was in his second-floor study at Rajgruha that Ambedkar wrote seminal classics including <em>Annihilation of Caste</em> (1936), <em>Who Were the Shudras?</em> (1946), and prepared his speeches for the Round Table Conferences.
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SECTION 9: NEW DELHI & CONSTITUTIONAL LEGACY
+         ═══════════════════════════════════════════════════════ -->
+    <section class="heritage-section" id="section-delhi-memorials">
+      <div class="section-eyebrow"><span>🏛️</span> SECTION 9 • THE CAPITAL'S TRIBUTE</div>
+      <h2 class="section-title">New Delhi: DAIC &amp; 26 Alipur Road</h2>
+      <p class="section-desc">
+        India's capital houses two premier national monuments: the research center at 15 Janpath and the Mahaparinirvan memorial at 26 Alipur Road.
+      </p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6);">
+        <div class="perspective-card" style="background:var(--surface);">
+          <span class="badge badge-gold" style="margin-bottom:var(--space-2);">15 JANPATH</span>
+          <h3 style="font-family:var(--font-display);font-size:1.3rem;color:var(--text);margin-bottom:var(--space-2);">Dr. Ambedkar International Centre (DAIC)</h3>
+          <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.7;margin-bottom:var(--space-4);">
+            Inaugurated by the Prime Minister in 2017, DAIC serves as a premier institutional think tank for socioeconomic research, Buddhist studies, and democratic statecraft, housing a state-of-the-art automated archival library.
+          </p>
+          <a href="admin.html" class="btn btn-secondary btn-sm">View Institutional Portal →</a>
+        </div>
+
+        <div class="perspective-card" style="background:var(--surface);">
+          <span class="badge badge-gold" style="margin-bottom:var(--space-2);">26 ALIPUR ROAD</span>
+          <h3 style="font-family:var(--font-display);font-size:1.3rem;color:var(--text);margin-bottom:var(--space-2);">National Memorial (DANM)</h3>
+          <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.7;margin-bottom:var(--space-4);">
+            Built on the site of his final bungalow in Civil Lines, this memorial is architecturally designed like an open book, symbolizing the Constitution of India. It features holographic installations and his personal relics.
+          </p>
+          <a href="assistant.html?q=26+Alipur+Road+History" class="btn btn-secondary btn-sm">Explore History →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SECTION 10: MEMORIAL STORY CARDS
+         ═══════════════════════════════════════════════════════ -->
+    <section class="heritage-section" id="section-story-cards">
+      <div class="section-eyebrow"><span>📖</span> SECTION 10 • HERITAGE DOSSIERS</div>
+      <h2 class="section-title">Memorial Story Cards: Verified Archival Chronicles</h2>
+      <p class="section-desc">
+        Every sacred site is an enduring chapter in India's struggle for equality. Click any memorial to expand its comprehensive 6-point historical dossier, primary-source citations, and timeline connections.
+      </p>
+
+      <div class="story-cards-container">
+
+        <!-- 1. DAIC Delhi -->
+        <article class="story-card-item open" id="story-daic">
+          <div class="story-card-header" onclick="toggleStoryCard(this.parentElement)">
+            <div>
+              <span class="badge badge-gold">NEW DELHI · JANPATH</span>
+              <h3 class="story-card-title">1. Dr. Ambedkar International Centre (DAIC)</h3>
+              <div style="font-size:0.85rem;color:var(--text-muted);">Apex Institutional Think-Tank &amp; National Research Library</div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation();speakStoryText('Dr. Ambedkar International Centre', 'Located on Janpath, New Delhi, DAIC serves as an apex research academy and digital library devoted to socio-economic studies and constitutional democracy.');" title="Listen to narration">🔊 Listen</button>
+              <span class="story-toggle-indicator" style="color:var(--gold);font-size:1.1rem;">▴</span>
+            </div>
+          </div>
+          <div class="story-card-body">
+            <div class="story-step-grid">
+              <div class="story-step-box">
+                <div class="story-step-label"><span>💡</span> Why This Place Matters</div>
+                <div class="story-step-text">
+                  Serves as the nation's premier institutional bridge translating Dr. Ambedkar's philosophical ideas into 21st-century public policy, research fellowships, and inclusive development paradigms.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>📜</span> Historical Context</div>
+                <div class="story-step-text">
+                  Established under the Ministry of Social Justice and Empowerment and dedicated on December 7, 2017. Built with modern classical architectural elements incorporating Buddhist Torana gates from Sanchi.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>📅</span> Key Events</div>
+                <div class="story-step-text">
+                  • 2015: Foundation stone laid for national centre of social justice.<br>
+                  • Dec 7, 2017: Dedicated by Prime Minister Narendra Modi.<br>
+                  • Annual: National Social Justice Memorial Lectures.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>🤝</span> Ambedkar's Connection</div>
+                <div class="story-step-text">
+                  Houses the Dr. Ambedkar National Library with comprehensive digital access to all 22 volumes of Babasaheb's Writings &amp; Speeches and parliamentary debates.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>📚</span> Archival Sources</div>
+                <div class="story-step-text">
+                  BAWS Volumes 1, 6, 10, and 13; Ministry of Social Justice and Empowerment Gazette Notifications; National Library Catalog.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>⌛</span> Related Timeline Events</div>
+                <div class="story-step-text">
+                  • 1947: Drafting Committee chairmanship.<br>
+                  • 1950: Formal enactment of the Republic of India's Constitution.
+                </div>
+              </div>
+            </div>
+            <div class="flex gap-2">
+              <a href="reader.html?vol=13" class="btn btn-secondary btn-sm">Read Constituent Assembly Debates (Vol. 13) →</a>
+              <a href="assistant.html?q=Dr+Ambedkar+International+Centre+Janpath" class="btn btn-primary btn-sm">Ask AI Assistant →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2. Chaitya Bhoomi Mumbai -->
+        <article class="story-card-item" id="story-chaitya-bhoomi">
+          <div class="story-card-header" onclick="toggleStoryCard(this.parentElement)">
+            <div>
+              <span class="badge badge-gold">MUMBAI · DADAR CHOWPATTY</span>
+              <h3 class="story-card-title">2. Chaitya Bhoomi Memorial Stupa</h3>
+              <div style="font-size:0.85rem;color:var(--text-muted);">Sacred Mahaparinirvan Cremation Grounds</div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation();speakStoryText('Chaitya Bhoomi Mumbai', 'Chaitya Bhoomi in Dadar, Mumbai, is the sacred site where Dr. Ambedkar was cremated with Buddhist rites on December 7, 1956. Millions gather here every December 6 on Mahaparinirvan Diwas.');" title="Listen to narration">🔊 Listen</button>
+              <span class="story-toggle-indicator" style="color:var(--gold);font-size:1.1rem;">▾</span>
+            </div>
+          </div>
+          <div class="story-card-body">
+            <div class="story-step-grid">
+              <div class="story-step-box">
+                <div class="story-step-label"><span>💡</span> Why This Place Matters</div>
+                <div class="story-step-text">
+                  Spiritual and emotional sanctuary for millions of citizens who assemble peacefully every December 6 in one of humanity's largest democratic pilgrimages to honor Babasaheb.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>📜</span> Historical Context</div>
+                <div class="story-step-text">
+                  Following his Mahaparinirvan in Delhi, Babasaheb's mortal remains were flown to Bombay. On December 7, 1956, over half a million grief-stricken followers attended his funeral pyre. The white marble stupa was consecrated in 1971.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>📅</span> Key Events</div>
+                <div class="story-step-text">
+                  • Dec 7, 1956: State funeral and Buddhist cremation rites.<br>
+                  • May 4, 1971: Memorial stupa inaugurated by Smt. Mai (Savita) Ambedkar.<br>
+                  • Annual: Congregation of 2.5+ million on Mahaparinirvan Din.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>🤝</span> Ambedkar's Connection</div>
+                <div class="story-step-text">
+                  The actual ground where Dr. Ambedkar was laid to rest, sanctified by the presence of his sacred urns and relics under the central Buddhist dome.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>📚</span> Archival Sources</div>
+                <div class="story-step-text">
+                  BAWS Vol. 11 (The Buddha and His Dhamma) &amp; Vol. 17; Special December 1956 memorial issues of 'Janata' and 'Prabuddha Bharat'.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>⌛</span> Related Timeline Events</div>
+                <div class="story-step-text">
+                  • Dec 6, 1956: Mahaparinirvan at 26 Alipur Road, New Delhi.<br>
+                  • Dec 7, 1956: Cremation at Dadar seashore.
+                </div>
+              </div>
+            </div>
+            <div class="flex gap-2">
+              <a href="reader.html?vol=17" class="btn btn-secondary btn-sm">Read Memorial Tributes (Vol. 17) →</a>
+              <a href="assistant.html?q=Chaitya+Bhoomi+History" class="btn btn-primary btn-sm">Ask AI Assistant →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3. Deeksha Bhoomi Nagpur -->
+        <article class="story-card-item" id="story-deeksha-bhoomi">
+          <div class="story-card-header" onclick="toggleStoryCard(this.parentElement)">
+            <div>
+              <span class="badge badge-gold">NAGPUR · RAMDASPETH</span>
+              <h3 class="story-card-title">3. Deeksha Bhoomi Monumental Stupa</h3>
+              <div style="font-size:0.85rem;color:var(--text-muted);">Birthplace of the Navayana Buddhist Renaissance</div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation();speakStoryText('Deeksha Bhoomi Nagpur', 'On October 14, 1956, Dr. Ambedkar led over five hundred thousand followers into Buddhism at Deeksha Bhoomi, administering the 22 Vows of emancipation.');" title="Listen to narration">🔊 Listen</button>
+              <span class="story-toggle-indicator" style="color:var(--gold);font-size:1.1rem;">▾</span>
+            </div>
+          </div>
+          <div class="story-card-body">
+            <div class="story-step-grid">
+              <div class="story-step-box">
+                <div class="story-step-label"><span>💡</span> Why This Place Matters</div>
+                <div class="story-step-text">
+                  The epicenter where over 500,000 untouchables cast off hereditary caste degradation in a single afternoon, reclaiming their human dignity through the moral philosophy of the Buddha.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>📜</span> Historical Context</div>
+                <div class="story-step-text">
+                  Fulfilling his 1935 Yeola declaration, Ambedkar selected Nagpur—historic land of the egalitarian Buddhist Nagas—for this conversion. Built between 1978 and 2001, the 120-foot stupa is Asia's largest hollow stupa.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>📅</span> Key Events</div>
+                <div class="story-step-text">
+                  • Oct 14, 1956: Mass Deeksha on Ashoka Vijaya Dashami.<br>
+                  • Oct 15, 1956: Historic proclamation of the 22 Vows.<br>
+                  • Dec 18, 2001: Memorial Stupa dedicated by President K. R. Narayanan.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>🤝</span> Ambedkar's Connection</div>
+                <div class="story-step-text">
+                  Where Babasaheb personally took the vows from venerable Mahasthavir Chandramani and administered them to the assembly, revitalizing Buddhism in its native land.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>📚</span> Archival Sources</div>
+                <div class="story-step-text">
+                  BAWS Vol. 11: The Buddha and His Dhamma; BAWS Vol. 17: Speeches at Nagpur; Original recordings of Dr. Ambedkar's voice on October 15, 1956.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>⌛</span> Related Timeline Events</div>
+                <div class="story-step-text">
+                  • 1935: Yeola Declaration ("I will not die a Hindu").<br>
+                  • 1956: Buddhist Conversion &amp; Promulgation of the 22 Vows.
+                </div>
+              </div>
+            </div>
+            <div class="flex gap-2">
+              <a href="vows.html" class="btn btn-secondary btn-sm">Explore the 22 Vows in 4 Languages →</a>
+              <a href="reader.html?vol=11" class="btn btn-primary btn-sm">Read Buddha and His Dhamma →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4. DANM 26 Alipur Road Delhi -->
+        <article class="story-card-item" id="story-danm">
+          <div class="story-card-header" onclick="toggleStoryCard(this.parentElement)">
+            <div>
+              <span class="badge badge-gold">NEW DELHI · CIVIL LINES</span>
+              <h3 class="story-card-title">4. Dr. Ambedkar National Memorial (DANM)</h3>
+              <div style="font-size:0.85rem;color:var(--text-muted);">26 Alipur Road Mahaparinirvan Sthal</div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation();speakStoryText('DANM 26 Alipur Road', '26 Alipur Road is the historic bungalow where Dr. Ambedkar resided in his final years and attained Mahaparinirvan on December 6, 1956. The memorial is shaped like an open book representing the Constitution.');" title="Listen to narration">🔊 Listen</button>
+              <span class="story-toggle-indicator" style="color:var(--gold);font-size:1.1rem;">▾</span>
+            </div>
+          </div>
+          <div class="story-card-body">
+            <div class="story-step-grid">
+              <div class="story-step-box">
+                <div class="story-step-label"><span>💡</span> Why This Place Matters</div>
+                <div class="story-step-text">
+                  The sanctified residence where Dr. Ambedkar penned his final intellectual masterpieces, guided the young Republic as independent statesman, and peacefully passed into history.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>📜</span> Historical Context</div>
+                <div class="story-step-text">
+                  Formerly the residence of the Maharaja of Sirohi, Babasaheb moved here in November 1951 after resigning as Law Minister. Architecturally designed in the shape of an open book to symbolize the Constitution.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>📅</span> Key Events</div>
+                <div class="story-step-text">
+                  • 1951: Shifted residence after cabinet resignation.<br>
+                  • 1956: Completed manuscript of 'The Buddha and His Dhamma'.<br>
+                  • Dec 6, 1956: Mahaparinirvan in the early morning hours.<br>
+                  • Apr 13, 2018: Dedicated as modern national memorial.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>🤝</span> Ambedkar's Connection</div>
+                <div class="story-step-text">
+                  Babasaheb's private home and final study, containing replicas of his desk, typewriter, glasses, books, and personal Buddhist shrine.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>📚</span> Archival Sources</div>
+                <div class="story-step-text">
+                  BAWS Volumes 11, 14, 15, and 17; Dr. Ambedkar's Cabinet Resignation Statement (1951); Personal correspondence preserved at DANM.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>⌛</span> Related Timeline Events</div>
+                <div class="story-step-text">
+                  • 1951: Resignation over Hindu Code Bill.<br>
+                  • 1956: Final hours and Mahaparinirvan on December 6.
+                </div>
+              </div>
+            </div>
+            <div class="flex gap-2">
+              <a href="assistant.html?q=26+Alipur+Road+History" class="btn btn-secondary btn-sm">Explore History with AI →</a>
+              <a href="reader.html?vol=14" class="btn btn-primary btn-sm">Read Hindu Code Bill Speeches →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 5. Bhim Janmabhoomi Mhow -->
+        <article class="story-card-item" id="story-mhow">
+          <div class="story-card-header" onclick="toggleStoryCard(this.parentElement)">
+            <div>
+              <span class="badge badge-gold">MADHYA PRADESH · INDORE DISTRICT</span>
+              <h3 class="story-card-title">5. Bhim Janmabhoomi Memorial (Mhow)</h3>
+              <div style="font-size:0.85rem;color:var(--text-muted);">Cantonment Birthplace of Modern India's Emancipator</div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation();speakStoryText('Bhim Janmabhoomi Mhow', 'Bhim Janmabhoomi in Mhow, Madhya Pradesh, is the birthplace where Bhimrao was born on April 14, 1891 in the military cantonment quarters.');" title="Listen to narration">🔊 Listen</button>
+              <span class="story-toggle-indicator" style="color:var(--gold);font-size:1.1rem;">▾</span>
+            </div>
+          </div>
+          <div class="story-card-body">
+            <div class="story-step-grid">
+              <div class="story-step-box">
+                <div class="story-step-label"><span>💡</span> Why This Place Matters</div>
+                <div class="story-step-text">
+                  The geographic genesis of India's constitutional revolution. Born the 14th child of an army school headmaster, Bhimrao rose from these humble cantonment quarters to draft the world's longest written constitution.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>📜</span> Historical Context</div>
+                <div class="story-step-text">
+                  Located in the Kali Paltan lines of the British Indian Army's 106th Hazara Pioneers. In 2003, the town of Mhow was officially renamed Dr. Ambedkar Nagar by the Madhya Pradesh Government.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>📅</span> Key Events</div>
+                <div class="story-step-text">
+                  • April 14, 1891: Birth of Bhimrao Ramji Ambedkar.<br>
+                  • 1991: Birth centenary foundation stone laid.<br>
+                  • April 14, 2008: Consecration of 65-foot Dholpur sandstone stupa.<br>
+                  • Annual: Over 1.2 million assemble on Ambedkar Jayanti.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>🤝</span> Ambedkar's Connection</div>
+                <div class="story-step-text">
+                  Physical birthplace where his father Subedar Ramji Maloji Sakpal served in the military and instilled discipline, literacy, and Kabir's egalitarian poetry into young Bhimrao.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>📚</span> Archival Sources</div>
+                <div class="story-step-text">
+                  BAWS Volumes 12 and 17; British Indian Army cantonment roll records; Sakpal family lineage documents.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>⌛</span> Related Timeline Events</div>
+                <div class="story-step-text">
+                  • April 14, 1891: Birth of Bhimrao.<br>
+                  • 1990: Posthumous conferral of Bharat Ratna.
+                </div>
+              </div>
+            </div>
+            <div class="flex gap-2">
+              <a href="reader.html?vol=12" class="btn btn-secondary btn-sm">Read Autobiographical Writings (Vol. 12) →</a>
+              <a href="assistant.html?q=Mhow+Birthplace+History" class="btn btn-primary btn-sm">Ask AI Assistant →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 6. Rajgruha Mumbai -->
+        <article class="story-card-item" id="story-rajgruha">
+          <div class="story-card-header" onclick="toggleStoryCard(this.parentElement)">
+            <div>
+              <span class="badge badge-gold">MUMBAI · HINDU COLONY, DADAR</span>
+              <h3 class="story-card-title">6. Rajgruha Memorial &amp; Library</h3>
+              <div style="font-size:0.85rem;color:var(--text-muted);">The 50,000-Volume Intellectual Citadel</div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation();speakStoryText('Rajgruha Mumbai', 'Rajgruha in Dadar East was built by Dr. Ambedkar in the 1930s to house his personal library of over fifty thousand books. Seminal works including Annihilation of Caste were written here.');" title="Listen to narration">🔊 Listen</button>
+              <span class="story-toggle-indicator" style="color:var(--gold);font-size:1.1rem;">▾</span>
+            </div>
+          </div>
+          <div class="story-card-body">
+            <div class="story-step-grid">
+              <div class="story-step-box">
+                <div class="story-step-label"><span>💡</span> Why This Place Matters</div>
+                <div class="story-step-text">
+                  Stands as monument to the power of self-acquired knowledge. Ambedkar designed and constructed this three-story house specifically to accommodate his titanic personal library.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>📜</span> Historical Context</div>
+                <div class="story-step-text">
+                  Named after the ancient capital of King Bimbisara where Gautama Buddha taught. Completed in 1934 with reinforced floor beams to bear the weight of 50,000 books purchased from London, Berlin, and New York.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>📅</span> Key Events</div>
+                <div class="story-step-text">
+                  • 1930–1934: Land acquisition and construction.<br>
+                  • 1936: Writing of 'Annihilation of Caste' in second-floor study.<br>
+                  • 1936: Foundation of Independent Labour Party at Rajgruha.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>🤝</span> Ambedkar's Connection</div>
+                <div class="story-step-text">
+                  Dr. Ambedkar's primary home and intellectual workshop during his most productive scholar-activist years. The ground-floor library remains preserved with his original books.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>📚</span> Archival Sources</div>
+                <div class="story-step-text">
+                  BAWS Volumes 1, 5, 7, 8, and 9; Letters to European booksellers; Architectural blueprints by K. B. Joshi (1933).
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>⌛</span> Related Timeline Events</div>
+                <div class="story-step-text">
+                  • 1934: House completion.<br>
+                  • 1936: Annihilation of Caste published.
+                </div>
+              </div>
+            </div>
+            <div class="flex gap-2">
+              <a href="reader.html?vol=1" class="btn btn-secondary btn-sm">Read Annihilation of Caste (Vol. 1) →</a>
+              <a href="assistant.html?q=Rajgruha+Dadar+Library" class="btn btn-primary btn-sm">Ask AI Assistant →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 7. Chavdar Tale Mahad -->
+        <article class="story-card-item" id="story-mahad">
+          <div class="story-card-header" onclick="toggleStoryCard(this.parentElement)">
+            <div>
+              <span class="badge badge-gold">MAHAD · RAIGAD DISTRICT</span>
+              <h3 class="story-card-title">7. Chavdar Tale &amp; Kranti Stambh</h3>
+              <div style="font-size:0.85rem;color:var(--text-muted);">The Water Satyagraha &amp; Magna Carta of Emancipation</div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation();speakStoryText('Chavdar Tale Mahad', 'On March 20, 1927, Dr. Ambedkar led the historic Mahad Water Satyagraha at Chavdar lake, establishing the fundamental human dignity of the Depressed Classes.');" title="Listen to narration">🔊 Listen</button>
+              <span class="story-toggle-indicator" style="color:var(--gold);font-size:1.1rem;">▾</span>
+            </div>
+          </div>
+          <div class="story-card-body">
+            <div class="story-step-grid">
+              <div class="story-step-box">
+                <div class="story-step-label"><span>💡</span> Why This Place Matters</div>
+                <div class="story-step-text">
+                  The watershed event of modern Indian civil rights. It transformed passive endurance into active constitutional resistance, celebrated annually as Social Empowerment Day.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>📜</span> Historical Context</div>
+                <div class="story-step-text">
+                  Animals and beasts drank freely from Chavdar tank, yet untouchables were barred. Babasaheb marched peacefully with thousands to drink the water. Later that year, the Manusmriti was consigned to flames here.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>📅</span> Key Events</div>
+                <div class="story-step-text">
+                  • March 20, 1927: Chavdar Tale water drinking march.<br>
+                  • Dec 25, 1927: Manusmriti Dahan on ceremonial pyre.<br>
+                  • March 17, 1937: Bombay High Court verdict upholding public water rights.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>🤝</span> Ambedkar's Connection</div>
+                <div class="story-step-text">
+                  Babasaheb's first mass movement, declaring: "We are not going to the tank simply to drink water; we are going to establish our right that we are also human beings like others."
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>📚</span> Archival Sources</div>
+                <div class="story-step-text">
+                  BAWS Vol. 17: Mahad Satyagraha proceedings; Bahishkrit Bharat editorial series; Bombay High Court judgment (1937).
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>⌛</span> Related Timeline Events</div>
+                <div class="story-step-text">
+                  • March 20, 1927: Mahad Satyagraha.<br>
+                  • Dec 25, 1927: Manusmriti Dahan.
+                </div>
+              </div>
+            </div>
+            <div class="flex gap-2">
+              <a href="reader.html?vol=17" class="btn btn-secondary btn-sm">Read Mahad Speeches (Vol. 17) →</a>
+              <a href="assistant.html?q=Mahad+Water+Satyagraha" class="btn btn-primary btn-sm">Ask AI Assistant →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 8. Kalaram Mandir Nashik -->
+        <article class="story-card-item" id="story-nashik">
+          <div class="story-card-header" onclick="toggleStoryCard(this.parentElement)">
+            <div>
+              <span class="badge badge-gold">NASHIK · PANCHAVATI</span>
+              <h3 class="story-card-title">8. Kalaram Mandir Satyagraha Memorial</h3>
+              <div style="font-size:0.85rem;color:var(--text-muted);">Five-Year Non-Violent Struggle for Civic Equality</div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation();speakStoryText('Kalaram Mandir Nashik', 'Beginning March 2, 1930, Dr. Ambedkar and Karmaveer Bhaurao Gaikwad led a five-year satyagraha at Kalaram temple, exposing orthodox hypocrisy and turning towards legal and political rights.');" title="Listen to narration">🔊 Listen</button>
+              <span class="story-toggle-indicator" style="color:var(--gold);font-size:1.1rem;">▾</span>
+            </div>
+          </div>
+          <div class="story-card-body">
+            <div class="story-step-grid">
+              <div class="story-step-box">
+                <div class="story-step-label"><span>💡</span> Why This Place Matters</div>
+                <div class="story-step-text">
+                  A decisive 5-year ideological struggle demonstrating that the denial of temple entry was an assault on human civic equality, directly catalyzing Babasaheb's resolve to seek political sovereignty.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>📜</span> Historical Context</div>
+                <div class="story-step-text">
+                  Launched on March 2, 1930 with over 15,000 disciplined volunteers. The orthodox closed temple gates for years, violently attacked peaceful protesters, and confirmed that Hindu society was unreformable through moral appeals alone.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>📅</span> Key Events</div>
+                <div class="story-step-text">
+                  • March 2, 1930: Satyagraha launch in Panchavati.<br>
+                  • April 1930: Chariot procession confrontation.<br>
+                  • Oct 13, 1935: Yeola conference declaration marking end of temple struggles.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>🤝</span> Ambedkar's Connection</div>
+                <div class="story-step-text">
+                  Led by Babasaheb alongside Karmaveer Dadasaheb Gaikwad. Ambedkar used the struggle as a school of political mobilization, legal resilience, and non-violent discipline for his followers.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>📚</span> Archival Sources</div>
+                <div class="story-step-text">
+                  BAWS Volumes 17 and 20; Nashik District Magistrate correspondence (1930–1935); Historical editions of 'Janata'.
+                </div>
+              </div>
+              <div class="story-step-box">
+                <div class="story-step-label"><span>⌛</span> Related Timeline Events</div>
+                <div class="story-step-text">
+                  • March 2, 1930: Kalaram Satyagraha began.<br>
+                  • October 1935: Historic Yeola Declaration.
+                </div>
+              </div>
+            </div>
+            <div class="flex gap-2">
+              <a href="reader.html?vol=20" class="btn btn-secondary btn-sm">Read Movements and Speeches (Vol. 20) →</a>
+              <a href="assistant.html?q=Kalaram+Temple+Satyagraha+Nashik" class="btn btn-primary btn-sm">Ask AI Assistant →</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SECTION 11: CONNECT TO ARCHIVE REPOSITORY
+         ═══════════════════════════════════════════════════════ -->
+    <section class="heritage-section" id="section-archive-crosslinks">
+      <div class="section-eyebrow"><span>🔗</span> SECTION 11 • INTEGRATED PLATFORM</div>
+      <h2 class="section-title">Connect the Memorials to the Archive</h2>
+      <p class="section-desc">
+        Explore related primary sources, digitized correspondence, speeches, and video documentaries associated with each sacred memorial.
+      </p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--space-4);">
+        <a href="archive.html" class="btn btn-secondary" style="padding:var(--space-5);text-align:center;display:flex;flex-direction:column;gap:6px;">
+          <span style="font-size:1.8rem;">📚</span>
+          <strong style="color:var(--text);">Read BAWS Volumes</strong>
+          <span style="font-size:0.75rem;color:var(--text-muted);">17 Complete Writings Volumes</span>
+        </a>
+
+        <a href="media.html" class="btn btn-secondary" style="padding:var(--space-5);text-align:center;display:flex;flex-direction:column;gap:6px;">
+          <span style="font-size:1.8rem;">🎬</span>
+          <strong style="color:var(--text);">Audio-Visual Archive</strong>
+          <span style="font-size:0.75rem;color:var(--text-muted);">Original Speeches &amp; Footage</span>
+        </a>
+
+        <a href="letters.html" class="btn btn-secondary" style="padding:var(--space-5);text-align:center;display:flex;flex-direction:column;gap:6px;">
+          <span style="font-size:1.8rem;">✉️</span>
+          <strong style="color:var(--text);">Letters &amp; Telegrams</strong>
+          <span style="font-size:0.75rem;color:var(--text-muted);">361 Historical Documents</span>
+        </a>
+
+        <a href="timeline.html" class="btn btn-secondary" style="padding:var(--space-5);text-align:center;display:flex;flex-direction:column;gap:6px;">
+          <span style="font-size:1.8rem;">📅</span>
+          <strong style="color:var(--text);">Historical Timeline</strong>
+          <span style="font-size:0.75rem;color:var(--text-muted);">23 Milestone Moments</span>
+        </a>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Memorial Deep Dive Modal (Preserved) -->
+  <div class="memorial-modal-backdrop" id="memorial-modal" role="dialog" aria-modal="true">
+    <div class="memorial-modal-dialog">
+      <div class="flex-between items-center" style="margin-bottom:var(--space-4);">
+        <div class="flex gap-2 items-center">
+          <span class="badge badge-gold" id="modal-memorial-location"></span>
+          <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-muted);" id="modal-memorial-year"></span>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="closeMemorialModal()" style="font-size:1.2rem;line-height:1;" aria-label="Close modal">✕</button>
+      </div>
+
+      <h2 id="modal-memorial-title" style="font-family:var(--font-display);font-size:2rem;color:var(--text);margin-bottom:var(--space-2);"></h2>
+      <div id="modal-memorial-native" style="font-family:'Noto Serif Devanagari',serif;font-size:1.1rem;color:var(--gold-light);margin-bottom:var(--space-4);"></div>
+
+      <!-- Audio Player Bar -->
+      <div class="audio-bar" style="margin-bottom:var(--space-6);">
+        <button class="audio-btn" id="modal-audio-btn" title="Listen to narration">🔊</button>
+        <div style="flex:1;">
+          <div style="font-size:0.85rem;font-weight:600;color:var(--text);" id="audio-status">Listen to Curatorial Audio Narration</div>
+          <div style="font-size:0.75rem;color:var(--text-muted);">Web Speech Synthesis · Accessible Playback</div>
+        </div>
+        <div class="flex gap-1 items-center">
+          <label for="speed-select" style="font-size:0.75rem;color:var(--text-muted);">Speed:</label>
+          <select id="speed-select" style="background:var(--surface);border:1px solid var(--border);color:var(--text);border-radius:var(--radius-sm);font-size:0.75rem;padding:2px 6px;">
+            <option value="0.85">0.85x</option>
+            <option value="1" selected>1.0x</option>
+            <option value="1.2">1.2x</option>
+          </select>
+          <button id="modal-stop-btn" class="btn btn-ghost btn-sm" style="padding:4px 8px;font-size:0.75rem;">Stop</button>
+        </div>
+      </div>
+
+      <h3 style="font-size:0.8rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);font-family:var(--font-mono);margin-bottom:var(--space-2);">Historical Significance</h3>
+      <p id="modal-memorial-significance" style="font-size:1rem;color:var(--text);line-height:1.7;margin-bottom:var(--space-4);font-weight:500;"></p>
+
+      <h3 style="font-size:0.8rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);font-family:var(--font-mono);margin-bottom:var(--space-2);">Architectural &amp; Heritage Context</h3>
+      <p id="modal-memorial-context" style="font-size:0.95rem;color:var(--text-muted);line-height:1.75;margin-bottom:var(--space-6);"></p>
+
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-xl);padding:var(--space-5);margin-bottom:var(--space-6);">
+        <h4 style="font-size:0.9rem;font-family:var(--font-display);color:var(--gold-light);margin-bottom:var(--space-3);">🏛️ Key Architectural Features</h4>
+        <ul id="modal-memorial-features" style="padding-left:var(--space-5);color:var(--text-muted);font-size:0.9rem;line-height:1.7;"></ul>
+      </div>
+
+      <!-- Visitor Information Strip -->
+      <div style="background:rgba(212,175,55,0.06);border:1px solid var(--border-gold);border-radius:var(--radius-xl);padding:var(--space-5);margin-bottom:var(--space-6);">
+        <h4 style="font-size:0.9rem;font-family:var(--font-display);color:var(--gold);margin-bottom:var(--space-3);">📍 Visitor Information &amp; Access</h4>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--space-3);font-size:0.85rem;">
+          <div><strong style="color:var(--text);">Address:</strong> <span id="modal-visitor-address" style="color:var(--text-muted);"></span></div>
+          <div><strong style="color:var(--text);">Visiting Hours:</strong> <span id="modal-visitor-timings" style="color:var(--text-muted);"></span></div>
+          <div><strong style="color:var(--text);">Entry:</strong> <span id="modal-visitor-entry" style="color:var(--text-muted);"></span></div>
+          <div><strong style="color:var(--text);">Transit:</strong> <span id="modal-visitor-metro" style="color:var(--text-muted);"></span></div>
+        </div>
+      </div>
+
+      <div class="flex gap-3" style="flex-wrap:wrap;">
+        <a id="modal-ask-ai" href="assistant.html" class="btn btn-primary" style="flex:1;">
+          <span>🤖 Inquire with AI Assistant</span>
+        </a>
+        <a id="modal-baws-link" href="archive.html" class="btn btn-secondary" style="flex:1;">
+          <span>📖 Read Connected BAWS Volumes</span>
+        </a>
+      </div>
     </div>
   </div>
-</nav>
 
-<!-- Mobile Navigation Drawer -->
-<div id="mobile-menu" class="mobile-menu" role="dialog" aria-label="Mobile navigation">
-  <a href="index.html" class="nav-link">🏠 Home</a>
-  <a href="archive.html" class="nav-link">📚 Complete Works (60 Vol)</a>
-  <a href="memorials.html" class="nav-link active">🏛️ Memorials &amp; Heritage</a>
-  <a href="debates.html" class="nav-link">⚖️ Historical Debates</a>
-  <a href="constitution.html" class="nav-link">📜 Constitution</a>
-  <a href="ideas.html" class="nav-link">💡 Thematic Ideas</a>
-  <a href="timeline.html" class="nav-link">📅 Timeline</a>
-  <a href="assistant.html" class="nav-link">🤖 AI Assistant</a>
-  <a href="kiosk.html" class="nav-link">🖥️ Kiosk Mode</a>
-  <a href="exhibition.html" class="nav-link">📺 Smart Display</a>
-  <div style="height:1px;background:rgba(255,255,255,0.08);margin:var(--space-4) 0;"></div>
-  <a href="login.html" class="btn btn-primary btn-full">Sign In</a>
-</div>
+  <div id="toast-container" class="toast-container"></div>
 
-<!-- ─── Vertical Left Dock: Curated Exploration Hubs ─── -->
-<aside class="side-dock" role="navigation" aria-label="Curated exploration hubs">
-  <div class="side-dock-inner">
-    <div class="side-dock-header">
-      <span class="side-dock-badge">Heritage Hubs</span>
-    </div>
-    <div class="side-dock-links">
-      <a href="memorials.html" class="side-dock-link active" title="Memorials &amp; Heritage">
-        <span class="side-dock-icon">🏛️</span>
-        <span class="side-dock-label">Memorials</span>
-      </a>
-      <a href="debates.html" class="side-dock-link" title="Political Thought &amp; Debates">
-        <span class="side-dock-icon">⚖️</span>
-        <span class="side-dock-label">Debates</span>
-      </a>
-      <a href="kiosk.html" class="side-dock-link" title="Institutional Kiosk Mode">
-        <span class="side-dock-icon">🖥️</span>
-        <span class="side-dock-label">Kiosk</span>
-      </a>
-      <a href="exhibition.html" class="side-dock-link" title="Smart Display Ambient Mode">
-        <span class="side-dock-icon">📺</span>
-        <span class="side-dock-label">Exhibition</span>
-      </a>
-      <a href="slides.html" class="side-dock-link" title="Visual Exhibition Deck (16:9)">
-        <span class="side-dock-icon">📽️</span>
-        <span class="side-dock-label">Deck 16:9</span>
-      </a>
-    </div>
-  </div>
-</aside>
+  <script src="js/api.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/app.js"></script>
 
-<!-- ─── Hero Section ─── -->
-<section class="memorials-hero">
-  <div class="section-eyebrow" style="margin-bottom:var(--space-2);">INSTITUTIONAL HERITAGE &amp; SACRED LANDMARKS</div>
-  <h1>Memorials of Dr. B. R. Ambedkar</h1>
-  <p class="section-desc" style="max-width:760px;margin:0 auto var(--space-6);color:var(--text-muted);">
-    Journey through the iconic memorials, historical residences, and sacred monuments commemorating Babasaheb's life — from his birthplace in Mhow to the Mahad satyagraha grounds, Rajgruha, Deeksha Bhoomi, and the Dr. Ambedkar International Centre in New Delhi.
-  </p>
-  
-  <div class="flex gap-2 justify-center" style="flex-wrap:wrap;">
-    <button class="chip active" data-filter="all">🌟 All Memorials (8)</button>
-    <button class="chip" data-filter="Delhi">🏛️ New Delhi</button>
-    <button class="chip" data-filter="Mumbai">🌊 Mumbai</button>
-    <button class="chip" data-filter="Nagpur">☸️ Nagpur</button>
-    <button class="chip" data-filter="Mhow">🌟 Mhow</button>
-    <button class="chip" data-filter="Mahad">💧 Mahad</button>
-  </div>
-</section>
+  <script>
+    let memorials = [];
+    let activeFilter = 'all';
+    let currentSpeechUtterance = null;
+    let isPlayingAudio = false;
 
-<!-- ─── Main Content ─── -->
-<main class="container section" style="padding-top:var(--space-8);">
-  <div class="memorial-grid" id="memorial-grid">
-    <!-- Rendered via JavaScript -->
-  </div>
-</main>
+    async function loadMemorials() {
+      try {
+        const res = await fetch('/api/memorials');
+        const json = await res.json();
+        if (json.success) {
+          memorials = json.data;
+          renderMemorials();
+        }
+      } catch (err) {
+        console.error('Error fetching memorials:', err);
+      }
+    }
 
-<!-- ─── Memorial Detail Modal ─── -->
-<div id="memorial-modal" class="memorial-modal" role="dialog" aria-modal="true" aria-labelledby="modal-memorial-title">
-  <div class="memorial-modal-box">
-    <button class="modal-close-btn" id="modal-close-btn" aria-label="Close modal" style="position:absolute;top:20px;right:20px;background:none;border:none;color:var(--text);font-size:1.5rem;cursor:pointer;">&times;</button>
-    
-    <div class="flex gap-2 items-center" style="margin-bottom:var(--space-2);">
-      <span class="badge badge-gold" id="modal-memorial-location">Location</span>
-      <span class="badge" id="modal-memorial-year" style="font-family:var(--font-mono);">Est. Year</span>
-    </div>
+    function getMemorialIcon(id) {
+      const map = {
+        'daic-delhi': '🏛️',
+        'chaitya-bhoomi-mumbai': '☸️',
+        'deeksha-bhoomi-nagpur': '🌸',
+        'danm-alipur-delhi': '📖',
+        'bhim-janmabhoomi-mhow': '🌟',
+        'rajgruha-mumbai': '📚',
+        'chavdar-tale-mahad': '💧',
+        'kalaram-mandir-nashik': '🚩'
+      };
+      return map[id] || '🏛️';
+    }
 
-    <h2 id="modal-memorial-title" style="font-family:var(--font-display);font-size:2rem;color:var(--text);margin-bottom:var(--space-2);"></h2>
-    <div id="modal-memorial-native" style="font-family:'Noto Serif Devanagari',serif;font-size:1.1rem;color:var(--gold-light);margin-bottom:var(--space-4);"></div>
+    function renderMemorials() {
+      const container = document.getElementById('memorial-grid');
+      const filtered = activeFilter === 'all'
+        ? memorials
+        : memorials.filter(m => m.city.includes(activeFilter) || m.state.includes(activeFilter) || m.name.includes(activeFilter));
 
-    <!-- Audio Player Bar -->
-    <div class="audio-bar" style="margin-bottom:var(--space-6);">
-      <button class="audio-btn" id="modal-audio-btn" title="Listen to narration">🔊</button>
-      <div style="flex:1;">
-        <div style="font-size:0.85rem;font-weight:600;color:var(--text);" id="audio-status">Listen to Curatorial Audio Narration</div>
-        <div style="font-size:0.75rem;color:var(--text-muted);">Web Speech Synthesis · Accessible Playback</div>
-      </div>
-      <div class="flex gap-1 items-center">
-        <label for="speed-select" style="font-size:0.75rem;color:var(--text-muted);">Speed:</label>
-        <select id="speed-select" style="background:var(--surface);border:1px solid var(--border);color:var(--text);border-radius:var(--radius-sm);font-size:0.75rem;padding:2px 6px;">
-          <option value="0.85">0.85x</option>
-          <option value="1" selected>1.0x</option>
-          <option value="1.2">1.2x</option>
-        </select>
-        <button id="modal-stop-btn" class="btn btn-ghost btn-sm" style="padding:4px 8px;font-size:0.75rem;">Stop</button>
-      </div>
-    </div>
+      container.innerHTML = filtered.map(m => `
+        <article class="memorial-card" onclick="openMemorialModal('${m.id}')">
+          <div class="memorial-thumb-wrap">
+            <span class="memorial-emblem">${getMemorialIcon(m.id)}</span>
+            <span class="memorial-badge">Est. ${m.establishedYear}</span>
+          </div>
+          <div class="memorial-body">
+            <div>
+              <div class="memorial-sub">📍 ${m.city}, ${m.state}</div>
+              <h2 class="memorial-title">${m.name}</h2>
+              <p class="memorial-desc">${m.significance}</p>
+            </div>
+            <div class="flex-between items-center" style="margin-top:var(--space-4);padding-top:var(--space-3);border-top:1px solid var(--border);">
+              <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-muted);">
+                Connected: BAWS Vol. ${m.relatedVolumes ? m.relatedVolumes.join(', ') : '17'}
+              </span>
+              <span style="color:var(--gold-light);font-size:0.85rem;font-weight:600;">Explore Story →</span>
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
 
-    <h3 style="font-size:0.8rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);font-family:var(--font-mono);margin-bottom:var(--space-2);">Historical Significance</h3>
-    <p id="modal-memorial-significance" style="font-size:1rem;color:var(--text);line-height:1.7;margin-bottom:var(--space-4);font-weight:500;"></p>
+    // Filter button clicks
+    document.querySelectorAll('[data-filter]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeFilter = btn.dataset.filter;
+        renderMemorials();
+      });
+    });
 
-    <h3 style="font-size:0.8rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);font-family:var(--font-mono);margin-bottom:var(--space-2);">Architectural &amp; Heritage Context</h3>
-    <p id="modal-memorial-context" style="font-size:0.95rem;color:var(--text-muted);line-height:1.75;margin-bottom:var(--space-6);"></p>
+    // Modal Logic
+    function openMemorialModal(id) {
+      const m = memorials.find(item => item.id === id);
+      if (!m) return;
 
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-xl);padding:var(--space-5);margin-bottom:var(--space-6);">
-      <h4 style="font-size:0.9rem;font-family:var(--font-display);color:var(--gold-light);margin-bottom:var(--space-3);">🏛️ Key Architectural Features</h4>
-      <ul id="modal-memorial-features" style="padding-left:var(--space-5);color:var(--text-muted);font-size:0.9rem;line-height:1.7;"></ul>
-    </div>
+      stopNarration();
 
-    <!-- Visitor Information Strip -->
-    <div style="background:rgba(212,175,55,0.06);border:1px solid var(--border-gold);border-radius:var(--radius-xl);padding:var(--space-5);margin-bottom:var(--space-6);">
-      <h4 style="font-size:0.9rem;font-family:var(--font-display);color:var(--gold);margin-bottom:var(--space-3);">📍 Visitor Information &amp; Access</h4>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--space-3);font-size:0.85rem;">
-        <div><strong style="color:var(--text);">Address:</strong> <span id="modal-visitor-address" style="color:var(--text-muted);"></span></div>
-        <div><strong style="color:var(--text);">Visiting Hours:</strong> <span id="modal-visitor-timings" style="color:var(--text-muted);"></span></div>
-        <div><strong style="color:var(--text);">Entry:</strong> <span id="modal-visitor-entry" style="color:var(--text-muted);"></span></div>
-        <div><strong style="color:var(--text);">Transit:</strong> <span id="modal-visitor-metro" style="color:var(--text-muted);"></span></div>
-      </div>
-    </div>
+      document.getElementById('modal-memorial-location').textContent = `📍 ${m.city}, ${m.state}`;
+      document.getElementById('modal-memorial-year').textContent = `Inaugurated: ${m.establishedYear}`;
+      document.getElementById('modal-memorial-title').textContent = m.name;
+      document.getElementById('modal-memorial-native').textContent = `${m.hindiName || ''} · ${m.marathiName || ''}`;
+      document.getElementById('modal-memorial-significance').textContent = m.significance;
+      document.getElementById('modal-memorial-context').textContent = m.historicalContext;
+      
+      const featuresList = document.getElementById('modal-memorial-features');
+      featuresList.innerHTML = (m.architecturalFeatures || []).map(f => `<li>${f}</li>`).join('');
 
-    <div class="flex gap-3" style="flex-wrap:wrap;">
-      <a id="modal-ask-ai" href="assistant.html" class="btn btn-primary" style="flex:1;">
-        <span>🤖 Inquire with AI Assistant</span>
-      </a>
-      <a id="modal-baws-link" href="archive.html" class="btn btn-secondary" style="flex:1;">
-        <span>📖 Read Connected BAWS Volumes</span>
-      </a>
-    </div>
-  </div>
-</div>
+      const v = m.visitorInfo || {};
+      document.getElementById('modal-visitor-address').textContent = m.location || 'Central Location';
+      document.getElementById('modal-visitor-timings').textContent = v.timings || '9:00 AM – 5:30 PM';
+      document.getElementById('modal-visitor-entry').textContent = v.entryFee || 'Free and Open to Public';
+      document.getElementById('modal-visitor-metro').textContent = v.nearestMetro || v.nearestTransit || 'City Transit Accessible';
 
-<script src="js/api.js"></script>
-<script src="js/toast.js"></script>
-<script src="js/app.js"></script>
+      document.getElementById('modal-ask-ai').href = `assistant.html?q=${encodeURIComponent('Tell me about the history and architecture of ' + m.name)}`;
+      document.getElementById('modal-baws-link').href = `archive.html?search=${encodeURIComponent(m.city)}`;
 
-<script>
-let memorials = [];
-let activeFilter = 'all';
-let currentSpeechUtterance = null;
-let isPlayingAudio = false;
+      // Setup Narration
+      const audioBtn = document.getElementById('modal-audio-btn');
+      audioBtn.onclick = () => toggleAudioNarration(m);
 
-async function loadMemorials() {
-  try {
-    const res = await fetch('/api/memorials');
-    const json = await res.json();
-    if (json.success) {
-      memorials = json.data;
+      const stopBtn = document.getElementById('modal-stop-btn');
+      stopBtn.onclick = stopNarration;
+
+      document.getElementById('memorial-modal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMemorialModal() {
+      stopNarration();
+      document.getElementById('memorial-modal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('memorial-modal').addEventListener('click', (e) => {
+      if (e.target.id === 'memorial-modal') closeMemorialModal();
+    });
+
+    // Web Speech API Narration
+    function toggleAudioNarration(m) {
+      if (!('speechSynthesis' in window)) {
+        alert('Web Speech Synthesis is not supported in your browser.');
+        return;
+      }
+
+      if (isPlayingAudio) {
+        window.speechSynthesis.pause();
+        isPlayingAudio = false;
+        document.getElementById('modal-audio-btn').textContent = '▶️';
+        document.getElementById('audio-status').textContent = 'Narration Paused';
+        return;
+      }
+
+      if (window.speechSynthesis.paused) {
+        window.speechSynthesis.resume();
+        isPlayingAudio = true;
+        document.getElementById('modal-audio-btn').textContent = '⏸️';
+        document.getElementById('audio-status').textContent = 'Playing Curatorial Audio Narration';
+        return;
+      }
+
+      window.speechSynthesis.cancel();
+      const scriptText = m.audioNarrationScript || `${m.name}. Located in ${m.city}, ${m.state}. ${m.significance}. ${m.historicalContext}`;
+      currentSpeechUtterance = new SpeechSynthesisUtterance(scriptText);
+      const speed = parseFloat(document.getElementById('speed-select').value || '1.0');
+      currentSpeechUtterance.rate = speed;
+
+      currentSpeechUtterance.onstart = () => {
+        isPlayingAudio = true;
+        document.getElementById('modal-audio-btn').textContent = '⏸️';
+        document.getElementById('audio-status').textContent = 'Playing Curatorial Audio Narration';
+      };
+
+      currentSpeechUtterance.onend = () => {
+        isPlayingAudio = false;
+        document.getElementById('modal-audio-btn').textContent = '🔊';
+        document.getElementById('audio-status').textContent = 'Narration Finished';
+      };
+
+      window.speechSynthesis.speak(currentSpeechUtterance);
+    }
+
+    function stopNarration() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      isPlayingAudio = false;
+      const btn = document.getElementById('modal-audio-btn');
+      if (btn) btn.textContent = '🔊';
+      const status = document.getElementById('audio-status');
+      if (status) status.textContent = 'Listen to Curatorial Audio Narration';
+    }
+
+    // Section 5 Location Card Filter
+    function filterByLocationCity(city, cardEl) {
+      document.querySelectorAll('.location-card-item').forEach(c => c.classList.remove('active'));
+      if (cardEl) cardEl.classList.add('active');
+      activeFilter = city;
       renderMemorials();
+      const grid = document.getElementById('section-featured-memorials');
+      if (grid) grid.scrollIntoView({ behavior: 'smooth' });
     }
-  } catch (err) {
-    console.error('Error fetching memorials:', err);
-  }
-}
 
-function getMemorialIcon(id) {
-  const map = {
-    'daic-delhi': '🏛️',
-    'chaitya-bhoomi-mumbai': '☸️',
-    'deeksha-bhoomi-nagpur': '🌸',
-    'danm-alipur-delhi': '📖',
-    'bhim-janmabhoomi-mhow': '🌟',
-    'rajgruha-mumbai': '📚',
-    'chavdar-tale-mahad': '💧',
-    'kalaram-mandir-nashik': '🚩'
-  };
-  return map[id] || '🏛️';
-}
-
-function renderMemorials() {
-  const container = document.getElementById('memorial-grid');
-  const filtered = activeFilter === 'all'
-    ? memorials
-    : memorials.filter(m => m.city.includes(activeFilter) || m.state.includes(activeFilter) || m.name.includes(activeFilter));
-
-  container.innerHTML = filtered.map(m => `
-    <article class="memorial-card" onclick="openMemorialModal('${m.id}')">
-      <div class="memorial-thumb-wrap">
-        <span class="memorial-emblem">${getMemorialIcon(m.id)}</span>
-        <span class="memorial-badge">Est. ${m.establishedYear}</span>
-      </div>
-      <div class="memorial-body">
-        <div>
-          <div class="memorial-sub">📍 ${m.city}, ${m.state}</div>
-          <h2 class="memorial-title">${m.name}</h2>
-          <p class="memorial-desc">${m.significance}</p>
-        </div>
-        <div class="flex-between items-center" style="margin-top:var(--space-4);padding-top:var(--space-3);border-top:1px solid var(--border);">
-          <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-muted);">
-            Connected: BAWS Vol. ${m.relatedVolumes ? m.relatedVolumes.join(', ') : '17'}
-          </span>
-          <span style="color:var(--gold-light);font-size:0.85rem;font-weight:600;">Explore Story →</span>
-        </div>
-      </div>
-    </article>
-  `).join('');
-}
-
-// Filter button clicks
-document.querySelectorAll('[data-filter]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    activeFilter = btn.dataset.filter;
-    renderMemorials();
-  });
-});
-
-// Modal Logic
-function openMemorialModal(id) {
-  const m = memorials.find(item => item.id === id);
-  if (!m) return;
-
-  stopNarration();
-
-  document.getElementById('modal-memorial-location').textContent = `📍 ${m.city}, ${m.state}`;
-  document.getElementById('modal-memorial-year').textContent = `Inaugurated: ${m.establishedYear}`;
-  document.getElementById('modal-memorial-title').textContent = m.name;
-  document.getElementById('modal-memorial-native').textContent = `${m.hindiName || ''} · ${m.marathiName || ''}`;
-  document.getElementById('modal-memorial-significance').textContent = m.significance;
-  document.getElementById('modal-memorial-context').textContent = m.historicalContext;
-  
-  const featuresList = document.getElementById('modal-memorial-features');
-  featuresList.innerHTML = (m.architecturalFeatures || []).map(f => `<li>${f}</li>`).join('');
-
-  const v = m.visitorInfo || {};
-  document.getElementById('modal-visitor-address').textContent = m.location || 'Central Location';
-  document.getElementById('modal-visitor-timings').textContent = v.timings || 'Daily Viewing Hours';
-  document.getElementById('modal-visitor-entry').textContent = v.entry || 'Free Public Entry';
-  document.getElementById('modal-visitor-metro').textContent = v.nearestMetro || 'Central Transit Line';
-
-  document.getElementById('modal-ask-ai').href = `assistant.html?q=${encodeURIComponent('Tell me about ' + m.name)}`;
-  document.getElementById('modal-baws-link').href = `archive.html?search=${encodeURIComponent(m.name)}`;
-
-  // Store narration text on button
-  document.getElementById('modal-audio-btn').dataset.narration = m.audioNarration || m.historicalContext;
-
-  document.getElementById('memorial-modal').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeModal() {
-  stopNarration();
-  document.getElementById('memorial-modal').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-document.getElementById('modal-close-btn').addEventListener('click', closeModal);
-document.getElementById('memorial-modal').addEventListener('click', (e) => {
-  if (e.target.id === 'memorial-modal') closeModal();
-});
-
-// Accessible Web Speech API Narration
-function toggleNarration() {
-  if (!('speechSynthesis' in window)) {
-    alert('Speech Synthesis not supported in this browser.');
-    return;
-  }
-
-  if (isPlayingAudio) {
-    if (window.speechSynthesis.paused) {
-      window.speechSynthesis.resume();
-      document.getElementById('modal-audio-btn').textContent = '⏸️';
-      document.getElementById('audio-status').textContent = 'Playing Curatorial Audio Narration...';
-    } else {
-      window.speechSynthesis.pause();
-      document.getElementById('modal-audio-btn').textContent = '▶️';
-      document.getElementById('audio-status').textContent = 'Audio Narration Paused';
+    // Section 10 Story Card Accordion Toggle
+    function toggleStoryCard(cardEl) {
+      if (!cardEl) return;
+      const isOpen = cardEl.classList.contains('open');
+      document.querySelectorAll('.story-card-item').forEach(c => {
+        c.classList.remove('open');
+        const indicator = c.querySelector('.story-toggle-indicator');
+        if (indicator) indicator.textContent = '▾';
+      });
+      if (!isOpen) {
+        cardEl.classList.add('open');
+        const indicator = cardEl.querySelector('.story-toggle-indicator');
+        if (indicator) indicator.textContent = '▴';
+      }
     }
-  } else {
-    const text = document.getElementById('modal-audio-btn').dataset.narration || '';
-    if (!text) return;
 
-    window.speechSynthesis.cancel();
-    currentSpeechUtterance = new SpeechSynthesisUtterance(text);
-    const speed = parseFloat(document.getElementById('speed-select').value) || 1.0;
-    currentSpeechUtterance.rate = speed;
-
-    currentSpeechUtterance.onstart = () => {
-      isPlayingAudio = true;
-      document.getElementById('modal-audio-btn').textContent = '⏸️';
-      document.getElementById('audio-status').textContent = 'Playing Curatorial Audio Narration...';
-    };
-
-    currentSpeechUtterance.onend = () => {
-      stopNarration();
-    };
-
-    currentSpeechUtterance.onerror = () => {
-      stopNarration();
-    };
-
-    window.speechSynthesis.speak(currentSpeechUtterance);
-  }
-}
-
-function stopNarration() {
-  if ('speechSynthesis' in window) {
-    window.speechSynthesis.cancel();
-  }
-  isPlayingAudio = false;
-  const audioBtn = document.getElementById('modal-audio-btn');
-  if (audioBtn) audioBtn.textContent = '🔊';
-  const audioStatus = document.getElementById('audio-status');
-  if (audioStatus) audioStatus.textContent = 'Listen to Curatorial Audio Narration';
-}
-
-document.getElementById('modal-audio-btn').addEventListener('click', toggleNarration);
-document.getElementById('modal-stop-btn').addEventListener('click', stopNarration);
-
-// Check if URL has hash (e.g. #daic-delhi)
-window.addEventListener('load', () => {
-  loadMemorials().then(() => {
-    if (window.location.hash) {
-      const id = window.location.hash.replace('#', '');
-      openMemorialModal(id);
+    // Audio narration for story cards
+    function speakStoryText(title, text) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(`${title}. ${text}`);
+      utter.rate = 1.0;
+      window.speechSynthesis.speak(utter);
     }
-  });
-});
-</script>
+
+    window.addEventListener('load', loadMemorials);
+  </script>
 </body>
 </html>

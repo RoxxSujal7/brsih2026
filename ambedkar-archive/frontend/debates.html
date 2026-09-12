@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Political Thought &amp; Historical Debates — Dr. B. R. Ambedkar Digital Heritage Archive</title>
-  <meta name="description" content="Explore Dr. B. R. Ambedkar's core political thought and seminal historical debates: Ambedkar vs Gandhi on Caste &amp; Village Swaraj, Critiques of Congress, Muslim League &amp; Pakistan Debates, Round Table Conferences, and Social Democracy." />
+  <meta name="description" content="Comprehensive digital archive and scholarly research platform exploring Dr. B. R. Ambedkar's political thought: Ambedkar vs Gandhi on Caste &amp; Village Swaraj, Critiques of Congress, Muslim League &amp; Pakistan Debates, Round Table Conferences, and Social Democracy." />
   
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,6 +14,7 @@
   <script>(function(){const t=localStorage.getItem('site_theme')||localStorage.getItem('reader_theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
 
   <style>
+    /* Hero Preservation */
     .debates-hero {
       background: radial-gradient(ellipse 70% 50% at 50% -10%, rgba(212,175,55,0.12) 0%, transparent 70%),
                   linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
@@ -28,13 +29,79 @@
       letter-spacing: -0.02em;
       margin-bottom: var(--space-4);
     }
-    .debates-grid {
+
+    /* Long-Scroll Layout Containers */
+    .debates-page-wrap {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 var(--space-6) var(--space-24);
+    }
+    .archival-section {
+      padding: var(--space-16) 0 var(--space-12);
+      border-bottom: 1px solid var(--border);
+    }
+    .archival-section:last-of-type {
+      border-bottom: none;
+    }
+    .section-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: var(--space-2);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      color: var(--text);
+      margin-bottom: var(--space-4);
+      line-height: 1.25;
+    }
+    .section-desc {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+      max-width: 820px;
+      margin-bottom: var(--space-8);
+    }
+
+    /* Methodology Badges */
+    .methodology-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: var(--space-4);
+      margin-top: var(--space-6);
+    }
+    .methodology-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-5);
+      border-top: 3px solid var(--border);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .methodology-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--border-gold);
+    }
+    .methodology-card.fact { border-top-color: #10b981; }
+    .methodology-card.source { border-top-color: var(--gold); }
+    .methodology-card.scholarly { border-top-color: #6366f1; }
+    .methodology-card.educational { border-top-color: #0ea5e9; }
+    .methodology-icon { font-size: 1.4rem; margin-bottom: var(--space-2); }
+    .methodology-title { font-family: var(--font-mono); font-size: 0.85rem; font-weight: 700; color: var(--text); margin-bottom: var(--space-2); }
+    .methodology-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* Core Debates Cards */
+    .debates-list {
       display: flex;
       flex-direction: column;
-      gap: var(--space-12);
-      max-width: 1040px;
-      margin: var(--space-8) auto var(--space-20);
-      padding: 0 var(--space-6);
+      gap: var(--space-10);
+      margin-top: var(--space-8);
     }
     .debate-article {
       background: var(--surface);
@@ -52,21 +119,6 @@
       border-bottom: 1px solid var(--border);
       background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, transparent 100%);
     }
-    .debate-eyebrow {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      letter-spacing: 0.14em;
-      color: var(--gold);
-      text-transform: uppercase;
-      margin-bottom: var(--space-2);
-    }
-    .debate-title {
-      font-family: var(--font-display);
-      font-size: clamp(1.4rem, 3vw, 2rem);
-      color: var(--text);
-      margin-bottom: var(--space-4);
-      line-height: 1.25;
-    }
     .topics-pill-deck {
       display: flex;
       gap: var(--space-2);
@@ -82,9 +134,7 @@
       border-radius: var(--radius-full);
       font-family: var(--font-mono);
     }
-    .debate-body {
-      padding: var(--space-8);
-    }
+    .debate-body { padding: var(--space-8); }
     .context-block {
       font-size: 1.05rem;
       line-height: 1.8;
@@ -100,9 +150,8 @@
       margin-bottom: var(--space-8);
     }
     @media (max-width: 768px) {
-      .comparison-grid {
-        grid-template-columns: 1fr;
-      }
+      .comparison-grid { grid-template-columns: 1fr; }
+      .debate-header, .debate-body { padding: var(--space-6); }
     }
     .perspective-card {
       background: var(--bg-2);
@@ -138,313 +187,1609 @@
       font-style: italic;
       font-size: 0.88rem;
       line-height: 1.6;
-      color: var(--text);
       margin-bottom: var(--space-3);
+      color: var(--text);
     }
     .fact-analysis-split {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: var(--space-6);
-      background: var(--surface-glass);
+      background: var(--bg-2);
       border: 1px solid var(--border);
       border-radius: var(--radius-xl);
       padding: var(--space-6);
       margin-bottom: var(--space-8);
     }
     @media (max-width: 768px) {
-      .fact-analysis-split {
-        grid-template-columns: 1fr;
-      }
+      .fact-analysis-split { grid-template-columns: 1fr; }
     }
     .fact-col h4, .analysis-col h4 {
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.1em;
       margin-bottom: var(--space-3);
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
     .fact-col h4 { color: #10b981; }
-    .analysis-col h4 { color: #3b82f6; }
+    .analysis-col h4 { color: #818cf8; }
     .fact-list, .analysis-list {
       padding-left: var(--space-4);
       font-size: 0.88rem;
       line-height: 1.7;
       color: var(--text-muted);
     }
+    .fact-list li, .analysis-list li { margin-bottom: var(--space-2); }
     .source-strip {
-      display: flex;
-      gap: var(--space-3);
-      align-items: center;
-      flex-wrap: wrap;
-      background: rgba(255,255,255,0.03);
+      background: var(--surface-glass);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
-      padding: 10px 16px;
+      padding: var(--space-4) var(--space-6);
+    }
+
+    /* Comparison Table Layout */
+    .matrix-table-wrap {
+      overflow-x: auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-2xl);
+      margin-top: var(--space-6);
+    }
+    .matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    .matrix-table th, .matrix-table td {
+      padding: 16px 20px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .matrix-table th {
+      background: var(--bg-2);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+    }
+    .matrix-table td strong { color: var(--text); font-weight: 600; }
+    .matrix-table td p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; margin-top: 4px; }
+
+    /* Timeline Stepper */
+    .rtc-timeline {
+      position: relative;
+      margin-top: var(--space-8);
+      padding-left: var(--space-8);
+    }
+    .rtc-timeline::before {
+      content: '';
+      position: absolute;
+      left: 10px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--gold) 0%, rgba(212,175,55,0.1) 100%);
+    }
+    .rtc-node {
+      position: relative;
+      margin-bottom: var(--space-10);
+    }
+    .rtc-dot {
+      position: absolute;
+      left: calc(-1 * var(--space-8) + 2px);
+      top: 4px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 3px solid var(--gold);
+      box-shadow: 0 0 10px rgba(212,175,55,0.5);
+    }
+    .rtc-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+      transition: border-color 0.2s;
+    }
+    .rtc-card:hover { border-color: var(--border-gold); }
+
+    /* Concepts Grid */
+    .concepts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: var(--space-5);
+      margin-top: var(--space-6);
+    }
+    .concept-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .concept-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--border-gold);
+    }
+    .concept-icon { font-size: 2rem; margin-bottom: var(--space-3); }
+    .concept-title { font-family: var(--font-display); font-size: 1.2rem; color: var(--text); margin-bottom: var(--space-2); }
+    .concept-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; margin-bottom: var(--space-4); }
+
+    /* Cross-links Library */
+    .library-cross-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--space-4);
+      margin-top: var(--space-6);
+    }
+    .library-item {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      text-decoration: none;
+      display: block;
+      transition: all 0.2s;
+    }
+    .library-item:hover {
+      border-color: var(--gold);
+      background: rgba(212,175,55,0.04);
+      transform: translateY(-2px);
+    }
+    .library-vol { font-family: var(--font-mono); font-size: 0.75rem; color: var(--gold); margin-bottom: 4px; }
+    .library-title { font-size: 0.92rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .library-action { font-size: 0.78rem; color: var(--text-muted); display: flex; align-items: center; gap: 4px; }
+
+    /* Interactive Timeline Section 11 */
+    .timeline-filter-deck {
+      display: flex;
+      gap: var(--space-2);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-8);
+    }
+    .timeline-filter-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .timeline-filter-btn:hover,
+    .timeline-filter-btn.active {
+      background: rgba(212,175,55,0.12);
+      border-color: var(--gold);
+      color: var(--gold-light);
+    }
+    .interactive-timeline-stream {
+      position: relative;
+      padding-left: var(--space-10);
+      margin-top: var(--space-6);
+    }
+    .interactive-timeline-stream::before {
+      content: '';
+      position: absolute;
+      left: 14px;
+      top: 10px;
+      bottom: 20px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--gold) 0%, rgba(212,175,55,0.2) 100%);
+    }
+    .timeline-stream-event {
+      position: relative;
+      margin-bottom: var(--space-8);
+      transition: opacity 0.3s ease;
+    }
+    .timeline-stream-event.hidden {
+      display: none;
+    }
+    .timeline-marker-dot {
+      position: absolute;
+      left: calc(-1 * var(--space-10) + 5px);
+      top: 8px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 3px solid var(--gold);
+      box-shadow: 0 0 12px rgba(212,175,55,0.4);
+      z-index: 2;
+    }
+    .timeline-stream-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .timeline-stream-card:hover {
+      border-color: var(--border-gold);
+      box-shadow: var(--shadow-md);
+      transform: translateX(4px);
+    }
+    .timeline-stream-card.open {
+      border-color: var(--gold);
+      background: rgba(255,255,255,0.02);
+    }
+    .timeline-event-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+    }
+    .timeline-event-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-2);
+    }
+    .timeline-category-tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      background: rgba(212,175,55,0.08);
+      border: 1px solid var(--border-gold);
+      color: var(--gold);
+    }
+    .timeline-year-tag {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--gold-light);
+    }
+    .timeline-event-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      color: var(--text);
+      margin-bottom: var(--space-2);
+    }
+    .timeline-event-teaser {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .timeline-event-details {
+      display: none;
+      margin-top: var(--space-5);
+      padding-top: var(--space-5);
+      border-top: 1px solid var(--border);
+      animation: fadeIn 0.25s ease;
+    }
+    .timeline-stream-card.open .timeline-event-details {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Expandable Debate Module Styles */
+    .debate-expander-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(212,175,55,0.1);
+      border: 1px solid var(--border-gold);
+      color: var(--gold-light);
+      padding: 6px 14px;
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      cursor: pointer;
+      font-family: var(--font-mono);
+      transition: all 0.2s;
+    }
+    .debate-expander-btn:hover {
+      background: var(--gold);
+      color: var(--bg);
+    }
+    .debate-collapsible-body {
+      display: none;
+    }
+    .debate-collapsible-body.expanded {
+      display: block;
+    }
+    .debate-summary-strip {
+      padding: var(--space-6) var(--space-8);
+      background: rgba(0,0,0,0.15);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--space-4);
+      border-bottom: 1px solid var(--border);
     }
   </style>
 </head>
 <body>
 
-<!-- ─── Navigation ─── -->
-<nav class="nav" role="navigation" aria-label="Main navigation">
-  <div class="nav-inner">
-    <a href="index.html" class="nav-logo" aria-label="Ambedkar Archive Home">
-      <div class="nav-logo-icon" aria-hidden="true">⚖️</div>
-      <div class="nav-logo-text">
-        <span>AMBEDKAR ARCHIVE</span>
-        <span class="nav-logo-sub">Political Thought &amp; Debates</span>
+  <!-- Top Navigation -->
+  <header class="site-header" role="banner">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo" aria-label="Ambedkar Digital Heritage Archive">
+        <span class="logo-mark">BA</span>
+        <span class="logo-text">Ambedkar Archive</span>
+      </a>
+
+      <nav class="nav-links" role="navigation" aria-label="Main Navigation">
+        <a href="archive.html" class="nav-link">Volumes</a>
+        <a href="memorials.html" class="nav-link">Memorials</a>
+        <a href="debates.html" class="nav-link active">Debates</a>
+        <a href="timeline.html" class="nav-link">Timeline</a>
+        <a href="ideas.html" class="nav-link">Ideas</a>
+        <a href="assistant.html" class="nav-link">AI Assistant</a>
+        <a href="transparency.html" class="nav-link">Transparency</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="assistant.html?q=historical-debates" class="btn btn-secondary btn-sm" style="display:flex;align-items:center;gap:6px;">
+          <span>🤖</span><span>Ask AI Assistant</span>
+        </a>
       </div>
-    </a>
-    <div class="nav-links" role="list">
-      <a href="index.html" class="nav-link" role="listitem">Home</a>
-      <a href="archive.html" class="nav-link" role="listitem">Volumes &amp; Books</a>
-      <a href="memorials.html" class="nav-link" role="listitem">Memorials</a>
-      <a href="debates.html" class="nav-link active" role="listitem">Historical Debates</a>
-      <a href="ideas.html" class="nav-link" role="listitem">Philosophy</a>
-      <a href="timeline.html" class="nav-link" role="listitem">Timeline</a>
     </div>
-    <div class="nav-actions">
-      <div class="nav-theme" role="group" aria-label="Atmosphere selection">
-        <button class="theme-toggle-btn active" data-theme="dark" title="Dark Slate Atmosphere">🌙</button>
-        <button class="theme-toggle-btn" data-theme="paper" title="Ivory Paper Sanctuary">📜</button>
-        <button class="theme-toggle-btn" data-theme="sepia" title="Historical Sepia Sanctuary">🏺</button>
-      </div>
-      <div class="nav-lang" role="group" aria-label="Language selection">
-        <button class="lang-btn active" data-lang="en">EN</button>
-        <button class="lang-btn" data-lang="hi">हिन्दी</button>
-        <button class="lang-btn" data-lang="mr">मराठी</button>
-      </div>
-      <a href="kiosk.html" class="btn btn-secondary btn-sm"><span>🖥️ Kiosk</span></a>
-      <a id="nav-login-btn" href="login.html" class="btn btn-primary btn-sm">Sign In</a>
-      <div id="nav-user-menu" style="display:none;" class="flex gap-2 items-center">
-        <a href="dashboard.html" class="btn btn-secondary btn-sm"><span>👤</span> <span id="nav-user-name">User</span></a>
-        <button data-action="logout" class="btn btn-ghost btn-sm">Logout</button>
-      </div>
-      <button id="hamburger" class="hamburger" aria-label="Open menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
+  </header>
+
+  <!-- Hero Section (Preserved Exactly) -->
+  <section class="debates-hero">
+    <div class="container">
+      <div class="badge badge-gold" style="margin-bottom:var(--space-3);">ARCHIVAL RESEARCH &amp; HISTORICAL INQUIRY</div>
+      <h1>Political Thought &amp; Historical Debates</h1>
+      <p style="font-size:1.15rem;color:var(--text-muted);max-width:760px;margin:0 auto;line-height:1.7;">
+        Scholarly analysis of Dr. B. R. Ambedkar's foundational dialogues, ideological confrontations, and constitutional deliberations with contemporary leaders and political movements.
+      </p>
     </div>
+  </section>
+
+  <!-- Main Scrollable Archive Body -->
+  <div class="debates-page-wrap">
+
+    <!-- ═══════════════════════════════════════════════════════
+         SECTION 1: INTRODUCTION TO AMBEDKAR'S POLITICAL THOUGHT
+         ═══════════════════════════════════════════════════════ -->
+    <section class="archival-section" id="section-introduction">
+      <div class="section-eyebrow"><span>⚖️</span> SECTION 1 • EPISTEMOLOGICAL FOUNDATIONS</div>
+      <h2 class="section-title">Introduction to Ambedkar's Political Thought</h2>
+      <p class="section-desc">
+        Dr. Bhimrao Ramji Ambedkar (1891–1956) was not merely a constitutional draftsman, but one of the twentieth century's most original political philosophers. His intellectual project redefined modern democracy by demonstrating that political democracy is a fragile shell unless founded upon substantive <strong>social and economic democracy</strong>.
+      </p>
+
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-xl);padding:var(--space-6);margin-bottom:var(--space-8);line-height:1.8;color:var(--text);">
+        <p style="margin-bottom:var(--space-4);">
+          Unlike classical European liberal theorists who took the autonomous individual for granted, Ambedkar diagnosed the Indian social structure as a <strong>system of graded inequality</strong>, where society was compartmentalized into non-communicating caste silos. Freedom from British colonial rule, he insisted, could never be synonymous with genuine emancipation if it simply transferred unchecked sovereign power to a domestic caste-feudal oligarchy.
+        </p>
+        <p style="margin-bottom:0;color:var(--text-muted);">
+          His political thought unites enlightenment rationalism, John Dewey's pragmatist philosophy of communicative democracy, the egalitarian Buddhist dhamma, and an unyielding commitment to legal constitutionalism as an instrument of social transformation.
+        </p>
+      </div>
+
+      <!-- Epistemological Classification Standard -->
+      <h3 style="font-family:var(--font-mono);font-size:0.85rem;color:var(--gold-light);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:var(--space-3);">
+        Archival Hermeneutics &amp; Fact-Checking Standard
+      </h3>
+      <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:var(--space-4);">
+        To prevent historical distortion, this platform enforces a strict four-layer evidentiary hierarchy:
+      </p>
+
+      <div class="methodology-grid">
+        <div class="methodology-card fact">
+          <div class="methodology-icon">🏛️</div>
+          <div class="methodology-title">Documented Fact</div>
+          <div class="methodology-desc">Events, dates, and official acts recorded in legislative gazettes, RTC proceedings, and government minutes.</div>
+        </div>
+        <div class="methodology-card source">
+          <div class="methodology-icon">📜</div>
+          <div class="methodology-title">Primary Source</div>
+          <div class="methodology-desc">Direct writings, published treatises, telegrams, and addresses cataloged in the 21-volume BAWS corpus.</div>
+        </div>
+        <div class="methodology-card scholarly">
+          <div class="methodology-icon">🧠</div>
+          <div class="methodology-title">Scholarly Interpretation</div>
+          <div class="methodology-desc">Peer-reviewed historiographical perspectives (e.g. Zelliot, Jaffrelot, Omvedt, Rodrigues).</div>
+        </div>
+        <div class="methodology-card educational">
+          <div class="methodology-icon">💡</div>
+          <div class="methodology-title">Educational Synthesis</div>
+          <div class="methodology-desc">Conceptual frameworks designed for pedagogical clarity, clearly distinguished from historical quotes.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SECTION 2: EXPLORE THE CORE DEBATES (LIVE MODULES)
+         ═══════════════════════════════════════════════════════ -->
+    <section class="archival-section" id="section-core-debates">
+      <div class="section-eyebrow"><span>⚡</span> SECTION 2 • SEMINAL DIALOGUES</div>
+      <h2 class="section-title">Explore the Core Historical Debates</h2>
+      <p class="section-desc">
+        Explore the primary debate records cataloged in the institutional archive. Each module provides primary-source quotes, contemporary viewpoints, documented facts, and academic interpretations.
+      </p>
+
+      <!-- Category Filter Bar -->
+      <div class="flex gap-2 items-center flex-wrap" style="margin-bottom:var(--space-8);" role="tablist" aria-label="Debate Topic Categories">
+        <button class="btn btn-secondary btn-sm active" data-filter="all">All Debates (6)</button>
+        <button class="btn btn-secondary btn-sm" data-filter="ideological-debates">Ambedkar vs Gandhi</button>
+        <button class="btn btn-secondary btn-sm" data-filter="political-debates">Congress Critiques</button>
+        <button class="btn btn-secondary btn-sm" data-filter="constitutional-debates">Muslim League &amp; Pakistan</button>
+        <button class="btn btn-secondary btn-sm" data-filter="historical-events">Round Table Conferences &amp; 1932</button>
+        <button class="btn btn-secondary btn-sm" data-filter="political-thought">Social Democracy</button>
+      </div>
+
+      <!-- Dynamic Debates Container (populated by script from debates.json) -->
+      <div id="debates-container" class="debates-list">
+        <div style="text-align:center;padding:var(--space-12);color:var(--text-muted);">
+          Loading curated debate modules from institutional archive...
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SECTION 3: AMBEDKAR & GANDHI IN-DEPTH ARCHIVAL STUDY
+         ═══════════════════════════════════════════════════════ -->
+    <section class="archival-section" id="section-gandhi-deepdive">
+      <div class="section-eyebrow"><span>🤝</span> SECTION 3 • HISTORICAL ENCOUNTER</div>
+      <h2 class="section-title">Ambedkar &amp; Gandhi: Agreements, Differences &amp; Historical Debates</h2>
+      <p class="section-desc">
+        The encounter between Dr. Ambedkar and Mahatma Gandhi was not a petty personal feud, but the clash of two coherent philosophies of Indian modernization and moral renewal.
+      </p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6);margin-bottom:var(--space-8);">
+        <div class="perspective-card ambedkar">
+          <h4 style="font-family:var(--font-mono);font-size:0.85rem;color:var(--gold);margin-bottom:var(--space-3);text-transform:uppercase;">Ambedkar's Diagnoses &amp; Demands</h4>
+          <ul style="padding-left:var(--space-4);font-size:0.9rem;line-height:1.7;color:var(--text-muted);">
+            <li><strong style="color:var(--text);">Caste as Structural Tyranny:</strong> Caste is not a division of labour; it is a division of labourers sanctified by religious Shastras.</li>
+            <li><strong style="color:var(--text);">Political Power as Precondition:</strong> Depressed Classes cannot rely on caste Hindu moral charity; they require guaranteed autonomous legislative seats.</li>
+            <li><strong style="color:var(--text);">Modernity &amp; Industrialization:</strong> Emancipation requires leaving feudal village settlements, obtaining modern higher education, and state industrialization.</li>
+          </ul>
+        </div>
+        <div class="perspective-card">
+          <h4 style="font-family:var(--font-mono);font-size:0.85rem;color:var(--text);margin-bottom:var(--space-3);text-transform:uppercase;">Gandhi's Diagnoses &amp; Demands</h4>
+          <ul style="padding-left:var(--space-4);font-size:0.9rem;line-height:1.7;color:var(--text-muted);">
+            <li><strong style="color:var(--text);">Untouchability as Spiritual Sin:</strong> Viewed untouchability as an excrescence that violated the spirit of Sanatana Dharma, calling on caste Hindus to do penance (*prayashchitta*).</li>
+            <li><strong style="color:var(--text);">Idealized Varnashrama:</strong> Desired the reform of Hinduism while defending the classical division of societal duties without hierarchy.</li>
+            <li><strong style="color:var(--text);">Village Republics (*Gram Swaraj*):</strong> Saw the self-sufficient village as the moral core of Indian civilization, opposing Western industrialization.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Chronology Strip -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-xl);padding:var(--space-6);">
+        <h4 style="font-family:var(--font-display);font-size:1.1rem;color:var(--gold-light);margin-bottom:var(--space-4);">Key Milestones in the Gandhi-Ambedkar Dialogue</h4>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--space-4);font-size:0.85rem;">
+          <div style="background:var(--bg-2);padding:var(--space-4);border-radius:var(--radius-md);border-left:2px solid var(--gold);">
+            <strong style="color:var(--text);">Aug 14, 1931 · Mani Bhavan</strong>
+            <p style="color:var(--text-muted);margin-top:4px;">First personal meeting in Bombay prior to the 2nd Round Table Conference.</p>
+          </div>
+          <div style="background:var(--bg-2);padding:var(--space-4);border-radius:var(--radius-md);border-left:2px solid var(--gold);">
+            <strong style="color:var(--text);">Autumn 1931 · London RTC</strong>
+            <p style="color:var(--text-muted);margin-top:4px;">Direct confrontation in the Minorities Committee on separate electorates.</p>
+          </div>
+          <div style="background:var(--bg-2);padding:var(--space-4);border-radius:var(--radius-md);border-left:2px solid var(--gold);">
+            <strong style="color:var(--text);">Sept 20–24, 1932 · Yerwada Jail</strong>
+            <p style="color:var(--text-muted);margin-top:4px;">Gandhi's fast unto death resolved by the signing of the historic Poona Pact.</p>
+          </div>
+          <div style="background:var(--bg-2);padding:var(--space-4);border-radius:var(--radius-md);border-left:2px solid var(--gold);">
+            <strong style="color:var(--text);">July 1936 · The Harijan Exchange</strong>
+            <p style="color:var(--text-muted);margin-top:4px;">Gandhi's reviews of <em>Annihilation of Caste</em> and Ambedkar's detailed rebuttal.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SECTION 4: AMBEDKAR & THE INDIAN NATIONAL CONGRESS
+         ═══════════════════════════════════════════════════════ -->
+    <section class="archival-section" id="section-congress">
+      <div class="section-eyebrow"><span>🏛️</span> SECTION 4 • PARTY POLITICS &amp; REPRESENTATION</div>
+      <h2 class="section-title">Ambedkar and the Indian National Congress</h2>
+      <p class="section-desc">
+        Throughout his career, Dr. Ambedkar maintained an autonomous political stance from the Indian National Congress, culminating in his masterwork <em>What Congress and Gandhi Have Done to the Untouchables</em> (1945, BAWS Vol. 9).
+      </p>
+
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-xl);padding:var(--space-6);margin-bottom:var(--space-6);line-height:1.8;">
+        <h4 style="color:var(--gold-light);font-size:1.05rem;margin-bottom:var(--space-2);">The Core Constitutional Critique</h4>
+        <p style="color:var(--text-muted);font-size:0.95rem;margin-bottom:var(--space-4);">
+          Ambedkar questioned the claim that the Congress was an all-inclusive national umbrella. He demonstrated through voting data that the Congress leadership was dominated by caste Hindus who consistently subordinated social reform to political independence.
+        </p>
+        <blockquote class="quote-box">
+          "The Congress has created a delusion that it has liberated the Untouchables. In reality, it has captured their representation through the mechanism of joint electorates, ensuring that only those candidates who serve caste Hindu interests can win."
+          <div style="font-family:var(--font-mono);font-size:0.75rem;color:var(--gold);margin-top:6px;">— BAWS Vol. 9, Chapter IX</div>
+        </blockquote>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--space-4);">
+        <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--space-4);">
+          <strong style="color:var(--text);font-size:0.95rem;">Majoritarian Rule vs. Democracy</strong>
+          <p style="font-size:0.85rem;color:var(--text-muted);margin-top:4px;line-height:1.6;">
+            Ambedkar distinguished between a political majority (which changes from election to election) and a communal majority (which is fixed perpetually by birth). Rule by a permanent communal majority is not democracy; it is tyranny.
+          </p>
+        </div>
+        <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--space-4);">
+          <strong style="color:var(--text);font-size:0.95rem;">States and Minorities (1947)</strong>
+          <p style="font-size:0.85rem;color:var(--text-muted);margin-top:4px;line-height:1.6;">
+            His constitutional memorandum presented to the Constituent Assembly demanded that fundamental rights and economic safeguards for minorities be enshrined directly in the Constitution beyond the reach of parliamentary majorities.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SECTION 5: MUSLIM LEAGUE, PAKISTAN & PARTITION
+         ═══════════════════════════════════════════════════════ -->
+    <section class="archival-section" id="section-pakistan-debates">
+      <div class="section-eyebrow"><span>📜</span> SECTION 5 • NATIONHOOD &amp; MINORITY SOVEREIGNTY</div>
+      <h2 class="section-title">Ambedkar, the Muslim League &amp; The Pakistan Debates</h2>
+      <p class="section-desc">
+        In 1940, following the Muslim League's Lahore Resolution, Dr. Ambedkar published <em>Thoughts on Pakistan</em> (expanded in 1945 as <em>Pakistan or the Partition of India</em>, BAWS Vol. 8). It stands as the most thorough and dispassionate constitutional analysis of the Pakistan question ever penned.
+      </p>
+
+      <div class="comparison-grid">
+        <div class="perspective-card ambedkar">
+          <div class="perspective-header" style="color:var(--gold);">
+            <span>Ambedkar's Analytical Framework (BAWS Vol. 8)</span>
+          </div>
+          <p class="perspective-thesis">
+            Ambedkar urged both Hindus and Muslims to replace emotional polemics with rational political calculations. If the Muslims of the northwestern and eastern provinces had developed a distinct national consciousness, holding them inside an unwilling union would paralyze the central government and imperil India's military defense.
+          </p>
+          <blockquote class="quote-box">
+            "A safe Army is better than a safe frontier... An army consisting of personnel who look across the border for political inspiration is a danger to the country."
+          </blockquote>
+        </div>
+
+        <div class="perspective-card">
+          <div class="perspective-header" style="color:var(--text);">
+            <span>Constitutional Solution Proposed</span>
+          </div>
+          <p class="perspective-thesis">
+            Unlike Congress which denied the legitimacy of partition, or the Muslim League which demanded whole provinces, Ambedkar proposed a <strong>boundary adjustment mechanism</strong> and a plebiscite of the affected peoples.
+          </p>
+          <ul style="padding-left:var(--space-4);font-size:0.88rem;color:var(--text-muted);line-height:1.7;">
+            <li>Separate Hindu-majority areas of Bengal and Punjab before partition.</li>
+            <li>Enforce reciprocal minority treaties guaranteeing religious and civil rights.</li>
+            <li>Prevent an unstable federation where the center was too weak to carry out social transformation.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SECTION 6: COMMUNALISM & POLITICAL REPRESENTATION
+         ═══════════════════════════════════════════════════════ -->
+    <section class="archival-section" id="section-communalism">
+      <div class="section-eyebrow"><span>🛡️</span> SECTION 6 • CONSTITUTIONAL SAFEGUARDS</div>
+      <h2 class="section-title">Communalism, Religious Identity &amp; Minority Representation</h2>
+      <p class="section-desc">
+        Ambedkar drew a rigorous theoretical distinction between reactionary communal politics and the legitimate constitutional representation of vulnerable minority communities.
+      </p>
+
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-xl);padding:var(--space-6);line-height:1.8;">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--space-6);margin-bottom:var(--space-6);">
+          <div>
+            <h4 style="color:#ef4444;font-size:0.95rem;margin-bottom:var(--space-2);">Reactionary Communalism</h4>
+            <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.6;">
+              The mobilization of religious identity for political dominance, sectarian privilege, or the suppression of equal citizenship. Ambedkar vigorously opposed majoritarian religious hegemony as incompatible with constitutional democracy.
+            </p>
+          </div>
+          <div>
+            <h4 style="color:#10b981;font-size:0.95rem;margin-bottom:var(--space-2);">Constitutional Minority Safeguards</h4>
+            <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.6;">
+              Affirmative institutional protections (such as reservation in legislatures, public services, and educational institutions) required to ensure that historically subjugated groups are not extinguished by numerical majoritarian voting.
+            </p>
+          </div>
+        </div>
+
+        <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--space-5);">
+          <h4 style="color:var(--gold-light);font-size:0.9rem;font-family:var(--font-display);margin-bottom:var(--space-2);">
+            ⚖️ Communal Majority vs. Political Majority: The Foundational Distinction
+          </h4>
+          <p style="font-size:0.88rem;color:var(--text);line-height:1.7;margin-bottom:0;">
+            In his 1945 treatise and Constituent Assembly speeches, Ambedkar made an indispensable jurisprudential contribution:
+            <em>"A political majority is a fluid majority; it is made and unmade on shifting political opinions. A communal majority is born and unchangeable. In a country where the majority is a communal majority and the minority is a communal minority, democracy without minority safeguards is not democracy at all; it is a permanent communal oligarchy."</em>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SECTION 7: IDEOLOGICAL COMPARISON MATRIX
+         ═══════════════════════════════════════════════════════ -->
+    <section class="archival-section" id="section-comparison-matrix">
+      <div class="section-eyebrow"><span>📊</span> SECTION 7 • PHILOSOPHICAL DIVERGENCES</div>
+      <h2 class="section-title">Comparative Matrix: Ambedkar, Gandhi &amp; Congress</h2>
+      <p class="section-desc">
+        A structured thematic comparison across seven core axes of modern Indian political thought.
+      </p>
+
+      <div class="matrix-table-wrap">
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th style="width:22%;">Philosophical Axis</th>
+              <th style="width:39%;color:var(--gold);">Dr. B. R. Ambedkar</th>
+              <th style="width:39%;">Mahatma Gandhi &amp; Congress</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Caste &amp; Varna</strong></td>
+              <td>
+                <strong style="color:var(--gold);">Total Annihilation</strong>
+                <p>Caste must be dynamited by legal rights, intermarriage, and rejection of scriptural infallibility.</p>
+              </td>
+              <td>
+                <strong>Spiritual Purification</strong>
+                <p>Abolition of untouchability through Hindu repentance while defending non-hierarchical Varnashrama.</p>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Modernity &amp; Village</strong></td>
+              <td>
+                <strong style="color:var(--gold);">Enlightenment Rationalism</strong>
+                <p>Villages are a "sink of localism". Emancipation requires modern urbanization, science, and state industry.</p>
+              </td>
+              <td>
+                <strong>Moral Agrarianism (Gram Swaraj)</strong>
+                <p>Self-contained village republics represent the spiritual and moral soul of authentic Indian civilization.</p>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Political Representation</strong></td>
+              <td>
+                <strong style="color:var(--gold);">Autonomous Political Power</strong>
+                <p>Guaranteed legislative reservations and separate electorates to ensure authentic Dalit voice.</p>
+              </td>
+              <td>
+                <strong>Moral Trusteeship</strong>
+                <p>Opposed separate electorates at Yerwada; advocated moral trusteeship and unified Hindu joint electorates.</p>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>State &amp; Economy</strong></td>
+              <td>
+                <strong style="color:var(--gold);">Democratic State Socialism</strong>
+                <p>Nationalization of key industries, collective agriculture, and insurance mandated in the Constitution.</p>
+              </td>
+              <td>
+                <strong>Trusteeship &amp; Decentralization</strong>
+                <p>Wealthy hold capital as trustees for the poor; cottage industries (Khadi) over centralized state capital.</p>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Conception of Freedom</strong></td>
+              <td>
+                <strong style="color:var(--gold);">Social Democracy as Way of Life</strong>
+                <p>Political independence is meaningless without the equal distribution of social dignity and economic power.</p>
+              </td>
+              <td>
+                <strong>Swaraj (Self-Rule &amp; Self-Control)</strong>
+                <p>National liberation from British rule coupled with individual spiritual conquest of desires.</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SECTION 8: AMBEDKAR'S VIEW ON INDEPENDENCE & FREEDOM
+         ═══════════════════════════════════════════════════════ -->
+    <section class="archival-section" id="section-independence">
+      <div class="section-eyebrow"><span>🇮🇳</span> SECTION 8 • MEANINGFUL FREEDOM</div>
+      <h2 class="section-title">Ambedkar's Views on Independence: Political Freedom vs. Social Democracy</h2>
+      <p class="section-desc">
+        On November 25, 1949, delivering his final address to the Constituent Assembly on the eve of adopting the Constitution, Dr. Ambedkar delivered his legendary warning on the contradictions of mere political independence.
+      </p>
+
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-xl);padding:var(--space-8);margin-bottom:var(--space-8);">
+        <blockquote class="quote-box" style="font-size:1.05rem;line-height:1.8;padding:var(--space-4) var(--space-6);">
+          "On the 26th of January 1950, we are going to enter into a life of contradictions. In politics we will have equality and in social and economic life we will have inequality. In politics we will be recognizing the principle of one man one vote and one vote one value. In our social and economic life, we shall, by reason of our social and economic structure, continue to deny the principle of one man one value.<br /><br />
+          How long shall we continue to live this life of contradictions? How long shall we continue to deny equality in our social and economic life? If we continue to deny it for long, we will do so only by putting our political democracy in peril."
+          <div style="font-family:var(--font-mono);font-size:0.8rem;color:var(--gold);margin-top:10px;font-style:normal;">
+            — Dr. B. R. Ambedkar, Final Address to the Constituent Assembly (BAWS Vol. 13, pp. 1216)
+          </div>
+        </blockquote>
+      </div>
+
+      <!-- Educational Framework Formula -->
+      <div style="background:rgba(212,175,55,0.06);border:1px solid var(--border-gold);border-radius:var(--radius-xl);padding:var(--space-6);text-align:center;">
+        <span class="badge badge-gold" style="margin-bottom:var(--space-2);">EDUCATIONAL SYNTHESIS FRAMEWORK</span>
+        <div style="font-family:var(--font-display);font-size:clamp(1.1rem,2.5vw,1.6rem);color:var(--text);margin:var(--space-2) 0;">
+          POLITICAL FREEDOM &nbsp;+&nbsp; SOCIAL EQUALITY &nbsp;+&nbsp; CONSTITUTIONAL MORALITY &nbsp;=&nbsp; GENUINE DEMOCRACY
+        </div>
+        <p style="font-size:0.85rem;color:var(--text-muted);max-width:680px;margin:0 auto;">
+          In Ambedkar's philosophy, democracy is not merely a form of government; it is a mode of associated living, of conjoint communicated experience.
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SECTION 9: ROUND TABLE CONFERENCES & 1932 TIMELINE
+         ═══════════════════════════════════════════════════════ -->
+    <section class="archival-section" id="section-rtc-timeline">
+      <div class="section-eyebrow"><span>⌛</span> SECTION 9 • HISTORICAL CHRONOLOGY</div>
+      <h2 class="section-title">The Round Table Conferences (1930–1932) &amp; The 1932 Political Crisis</h2>
+      <p class="section-desc">
+        Between 1930 and 1932, the British government convened three Round Table Conferences in London to negotiate India's future constitutional status. The events of this period decisively shaped modern Indian representation.
+      </p>
+
+      <div class="rtc-timeline">
+        
+        <!-- 1st RTC -->
+        <div class="rtc-node">
+          <div class="rtc-dot"></div>
+          <div class="rtc-card">
+            <div class="flex-between items-center" style="margin-bottom:8px;flex-wrap:wrap;">
+              <span class="badge badge-gold">NOVEMBER 1930 – JANUARY 1931</span>
+              <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-muted);">London, St. James's Palace</span>
+            </div>
+            <h3 style="font-family:var(--font-display);font-size:1.25rem;color:var(--text);margin-bottom:8px;">First Round Table Conference</h3>
+            <p style="font-size:0.9rem;color:var(--text-muted);line-height:1.7;margin-bottom:12px;">
+              Dr. Ambedkar and Rao Bahadur R. Srinivasan represented the Depressed Classes (Congress boycotted). Ambedkar declared in his keynote address that the Depressed Classes demanded self-governance alongside guaranteed fundamental constitutional rights and political safeguards.
+            </p>
+            <div style="font-family:var(--font-mono);font-size:0.75rem;color:var(--gold-light);">
+              📌 Primary Record: BAWS Vol. 2, pp. 503–534 · Proceedings of the Sub-Committees
+            </div>
+          </div>
+        </div>
+
+        <!-- 2nd RTC -->
+        <div class="rtc-node">
+          <div class="rtc-dot"></div>
+          <div class="rtc-card">
+            <div class="flex-between items-center" style="margin-bottom:8px;flex-wrap:wrap;">
+              <span class="badge badge-gold">SEPTEMBER – DECEMBER 1931</span>
+              <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-muted);">London, St. James's Palace</span>
+            </div>
+            <h3 style="font-family:var(--font-display);font-size:1.25rem;color:var(--text);margin-bottom:8px;">Second Round Table Conference</h3>
+            <p style="font-size:0.9rem;color:var(--text-muted);line-height:1.7;margin-bottom:12px;">
+              Mahatma Gandhi attended as the sole representative of the Indian National Congress. In the Minorities Committee, Gandhi vehemently opposed Ambedkar's demand for separate electorates for the Depressed Classes, claiming that Congress alone represented all Indians. The deadlock remained unresolved.
+            </p>
+            <div style="font-family:var(--font-mono);font-size:0.75rem;color:var(--gold-light);">
+              📌 Primary Record: BAWS Vol. 2, pp. 598–660 · Minorities Committee Minutes
+            </div>
+          </div>
+        </div>
+
+        <!-- Communal Award & Poona Pact -->
+        <div class="rtc-node">
+          <div class="rtc-dot" style="border-color:#ef4444;box-shadow:0 0 10px rgba(239,68,68,0.5);"></div>
+          <div class="rtc-card" style="border-color:rgba(239,68,68,0.4);">
+            <div class="flex-between items-center" style="margin-bottom:8px;flex-wrap:wrap;">
+              <span class="badge" style="background:#dc2626;color:#fff;">AUGUST – SEPTEMBER 1932</span>
+              <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-muted);">Yerwada Jail, Pune</span>
+            </div>
+            <h3 style="font-family:var(--font-display);font-size:1.25rem;color:var(--text);margin-bottom:8px;">The Communal Award &amp; The Poona Pact</h3>
+            <p style="font-size:0.9rem;color:var(--text-muted);line-height:1.7;margin-bottom:12px;">
+              On August 17, British PM Ramsay MacDonald announced the Communal Award granting 71 separate electorate seats to the Depressed Classes. Gandhi commenced a fast unto death at Yerwada Jail on September 20. Faced with Gandhi's declining health, Ambedkar negotiated the Poona Pact (Sept 24), replacing separate electorates with 148 reserved seats under joint electorates.
+            </p>
+            <div style="font-family:var(--font-mono);font-size:0.75rem;color:var(--gold-light);">
+              📌 Primary Record: BAWS Vol. 9, pp. 88–102 · What Congress and Gandhi Have Done
+            </div>
+          </div>
+        </div>
+
+        <!-- 3rd RTC Historical Fact -->
+        <div class="rtc-node">
+          <div class="rtc-dot" style="border-color:#38bdf8;box-shadow:0 0 10px rgba(56,189,248,0.5);"></div>
+          <div class="rtc-card">
+            <div class="flex-between items-center" style="margin-bottom:8px;flex-wrap:wrap;">
+              <span class="badge" style="background:#0284c7;color:#fff;">NOVEMBER – DECEMBER 1932</span>
+              <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-muted);">London (46 Delegates)</span>
+            </div>
+            <h3 style="font-family:var(--font-display);font-size:1.25rem;color:var(--text);margin-bottom:8px;">Third Round Table Conference</h3>
+            <div style="background:rgba(2,132,199,0.1);border:1px solid #0284c7;border-radius:var(--radius-md);padding:10px 14px;margin-bottom:10px;font-size:0.85rem;color:#bae6fd;">
+              <strong>Historical Fact Verification:</strong> This conference was a truncated 46-delegate session boycotted by the Congress and British Labour Party. Dr. Ambedkar did NOT attend the main 3rd RTC plenary in London as he remained in India dealing with the fallout of the Poona Pact.
+            </div>
+            <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.6;">
+              The conference led directly to the Joint Select Committee and the enactment of the Government of India Act, 1935.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SECTION 10: PRIMARY SOURCE ARCHIVE CROSS-LINKS
+         ═══════════════════════════════════════════════════════ -->
+    <section class="archival-section" id="section-primary-sources">
+      <div class="section-eyebrow"><span>📚</span> SECTION 10 • VERIFIED REPOSITORY</div>
+      <h2 class="section-title">Primary Source Archive &amp; Connected BAWS Volumes</h2>
+      <p class="section-desc">
+        Read the unabridged historical texts directly in the archive's digital reader. Every claim in this section is traceable to these verified volumes.
+      </p>
+
+      <div class="library-cross-grid">
+        <a href="reader.html?vol=1" class="library-item">
+          <div class="library-vol">BAWS VOLUME 1</div>
+          <div class="library-title">Annihilation of Caste &amp; States and Minorities</div>
+          <div class="library-action"><span>Read in Archive</span> <span>→</span></div>
+        </a>
+        <a href="reader.html?vol=2" class="library-item">
+          <div class="library-vol">BAWS VOLUME 2</div>
+          <div class="library-title">Round Table Conferences &amp; Simon Commission</div>
+          <div class="library-action"><span>Read in Archive</span> <span>→</span></div>
+        </a>
+        <a href="reader.html?vol=8" class="library-item">
+          <div class="library-vol">BAWS VOLUME 8</div>
+          <div class="library-title">Pakistan or the Partition of India</div>
+          <div class="library-action"><span>Read in Archive</span> <span>→</span></div>
+        </a>
+        <a href="reader.html?vol=9" class="library-item">
+          <div class="library-vol">BAWS VOLUME 9</div>
+          <div class="library-title">What Congress &amp; Gandhi Have Done</div>
+          <div class="library-action"><span>Read in Archive</span> <span>→</span></div>
+        </a>
+        <a href="reader.html?vol=13" class="library-item">
+          <div class="library-vol">BAWS VOLUME 13</div>
+          <div class="library-title">Constituent Assembly Debates &amp; Drafting</div>
+          <div class="library-action"><span>Read in Archive</span> <span>→</span></div>
+        </a>
+        <a href="letters.html" class="library-item">
+          <div class="library-vol">CORRESPONDENCE</div>
+          <div class="library-title">361 Historical Letters &amp; Telegrams</div>
+          <div class="library-action"><span>Explore Letters</span> <span>→</span></div>
+        </a>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SECTION 11: INTERACTIVE HISTORICAL TIMELINE
+         ═══════════════════════════════════════════════════════ -->
+    <section class="archival-section" id="section-interactive-timeline">
+      <div class="section-eyebrow"><span>⌛</span> SECTION 11 • CHRONOLOGICAL SYNTHESIS</div>
+      <h2 class="section-title">Interactive Historical Timeline (1919–1956)</h2>
+      <p class="section-desc">
+        Trace the decisive milestones of Dr. Ambedkar's political engagement. Select a historical category to isolate key epochs, or click any event card to reveal primary citations and outcomes.
+      </p>
+
+      <!-- Category Filter Deck -->
+      <div class="timeline-filter-deck" role="tablist" aria-label="Timeline Categories">
+        <button class="timeline-filter-btn active" onclick="filterTimeline('all', this)">All Events (10)</button>
+        <button class="timeline-filter-btn" onclick="filterTimeline('representation', this)">Political Representation</button>
+        <button class="timeline-filter-btn" onclick="filterTimeline('rtc', this)">Round Table Conferences</button>
+        <button class="timeline-filter-btn" onclick="filterTimeline('communal-award', this)">Communal Award</button>
+        <button class="timeline-filter-btn" onclick="filterTimeline('poona-pact', this)">Poona Pact</button>
+        <button class="timeline-filter-btn" onclick="filterTimeline('independence', this)">Independence</button>
+        <button class="timeline-filter-btn" onclick="filterTimeline('constitution', this)">Constitutional Development</button>
+      </div>
+
+      <div class="interactive-timeline-stream" id="timeline-stream-container">
+
+        <!-- Event 1: Southborough -->
+        <div class="timeline-stream-event" data-cat="representation">
+          <div class="timeline-marker-dot"></div>
+          <div class="timeline-stream-card" onclick="toggleTimelineEvent(this)">
+            <div class="timeline-event-header">
+              <div>
+                <div class="timeline-event-meta">
+                  <span class="timeline-year-tag">1919</span>
+                  <span class="timeline-category-tag">Political Representation</span>
+                </div>
+                <h3 class="timeline-event-title">Southborough Committee Evidence</h3>
+              </div>
+              <span class="badge badge-gold" style="font-size:0.75rem;">Click to Inspect ▾</span>
+            </div>
+            <p class="timeline-event-teaser">
+              First documented submission by Dr. Ambedkar before a British constitutional commission demanding separate electorates and adult franchise for Depressed Classes.
+            </p>
+            <div class="timeline-event-details">
+              <div style="background:var(--bg-2);padding:var(--space-4);border-radius:var(--radius-lg);margin-bottom:var(--space-3);font-size:0.88rem;line-height:1.7;">
+                <strong style="color:var(--gold-light);display:block;margin-bottom:4px;">Primary Thesis:</strong>
+                "The Depressed Classes are not a sub-section of the Hindus; they are a distinct and separate element in the national life of India... Political power without independent representation will only consolidate upper-caste hegemony."
+              </div>
+              <div class="flex-between items-center" style="font-size:0.8rem;color:var(--text-muted);flex-wrap:wrap;gap:8px;">
+                <span>Source: BAWS Vol. 1, pp. 247–278</span>
+                <a href="reader.html?vol=1" class="btn btn-secondary btn-sm">Read in Archive →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event 2: Simon Commission -->
+        <div class="timeline-stream-event" data-cat="representation">
+          <div class="timeline-marker-dot"></div>
+          <div class="timeline-stream-card" onclick="toggleTimelineEvent(this)">
+            <div class="timeline-event-header">
+              <div>
+                <div class="timeline-event-meta">
+                  <span class="timeline-year-tag">1928</span>
+                  <span class="timeline-category-tag">Political Representation</span>
+                </div>
+                <h3 class="timeline-event-title">Simon Commission Deposition</h3>
+              </div>
+              <span class="badge badge-gold" style="font-size:0.75rem;">Click to Inspect ▾</span>
+            </div>
+            <p class="timeline-event-teaser">
+              As Member of the Bombay Provincial Committee, Ambedkar submitted a 40-page memorandum advocating universal adult franchise and statutory education/employment reservations.
+            </p>
+            <div class="timeline-event-details">
+              <div style="background:var(--bg-2);padding:var(--space-4);border-radius:var(--radius-lg);margin-bottom:var(--space-3);font-size:0.88rem;line-height:1.7;">
+                <strong style="color:var(--gold-light);display:block;margin-bottom:4px;">Historical Consequence:</strong>
+                While mainstream nationalist parties boycotted the Simon Commission, Ambedkar utilized the opportunity to register the Depressed Classes as an undeniable constitutional category under imperial law.
+              </div>
+              <div class="flex-between items-center" style="font-size:0.8rem;color:var(--text-muted);flex-wrap:wrap;gap:8px;">
+                <span>Source: BAWS Vol. 2, pp. 315–480</span>
+                <a href="reader.html?vol=2" class="btn btn-secondary btn-sm">Read in Archive →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event 3: First RTC -->
+        <div class="timeline-stream-event" data-cat="rtc">
+          <div class="timeline-marker-dot"></div>
+          <div class="timeline-stream-card" onclick="toggleTimelineEvent(this)">
+            <div class="timeline-event-header">
+              <div>
+                <div class="timeline-event-meta">
+                  <span class="timeline-year-tag">NOV 1930 – JAN 1931</span>
+                  <span class="timeline-category-tag">Round Table Conferences</span>
+                </div>
+                <h3 class="timeline-event-title">First Round Table Conference (London)</h3>
+              </div>
+              <span class="badge badge-gold" style="font-size:0.75rem;">Click to Inspect ▾</span>
+            </div>
+            <p class="timeline-event-teaser">
+              Ambedkar delivers his historic plenary address declaring that the bureaucratic British Raj had failed to emancipate the untouchables, demanding responsible government with explicit safeguards.
+            </p>
+            <div class="timeline-event-details">
+              <div style="background:var(--bg-2);padding:var(--space-4);border-radius:var(--radius-lg);margin-bottom:var(--space-3);font-size:0.88rem;line-height:1.7;">
+                <strong style="color:var(--gold-light);display:block;margin-bottom:4px;">Documented Plenary Speech:</strong>
+                "We must have a government in which men in power will not be afraid to amend the social code of the country... We do not wish to be used as pawns in a political game."
+              </div>
+              <div class="flex-between items-center" style="font-size:0.8rem;color:var(--text-muted);flex-wrap:wrap;gap:8px;">
+                <span>Source: BAWS Vol. 2, pp. 503–534</span>
+                <a href="reader.html?vol=2" class="btn btn-secondary btn-sm">Read in Archive →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event 4: Second RTC -->
+        <div class="timeline-stream-event" data-cat="rtc">
+          <div class="timeline-marker-dot"></div>
+          <div class="timeline-stream-card" onclick="toggleTimelineEvent(this)">
+            <div class="timeline-event-header">
+              <div>
+                <div class="timeline-event-meta">
+                  <span class="timeline-year-tag">SEP – DEC 1931</span>
+                  <span class="timeline-category-tag">Round Table Conferences</span>
+                </div>
+                <h3 class="timeline-event-title">Second Round Table Conference &amp; The Gandhi Clash</h3>
+              </div>
+              <span class="badge badge-gold" style="font-size:0.75rem;">Click to Inspect ▾</span>
+            </div>
+            <p class="timeline-event-teaser">
+              Mahatma Gandhi attended as the sole representative of Congress, clashing directly with Ambedkar in the Minorities Committee over separate electorates for Depressed Classes.
+            </p>
+            <div class="timeline-event-details">
+              <div style="background:var(--bg-2);padding:var(--space-4);border-radius:var(--radius-lg);margin-bottom:var(--space-3);font-size:0.88rem;line-height:1.7;">
+                <strong style="color:var(--gold-light);display:block;margin-bottom:4px;">The Stalemate:</strong>
+                Gandhi insisted that untouchables were an integral part of Hindu society and separate electorates would cause a permanent vivisection. Ambedkar maintained that moral goodwill could not replace constitutional weapons of self-defense.
+              </div>
+              <div class="flex-between items-center" style="font-size:0.8rem;color:var(--text-muted);flex-wrap:wrap;gap:8px;">
+                <span>Source: BAWS Vol. 2, pp. 535–664</span>
+                <a href="reader.html?vol=2" class="btn btn-secondary btn-sm">Read in Archive →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event 5: Communal Award -->
+        <div class="timeline-stream-event" data-cat="communal-award">
+          <div class="timeline-marker-dot"></div>
+          <div class="timeline-stream-card" onclick="toggleTimelineEvent(this)">
+            <div class="timeline-event-header">
+              <div>
+                <div class="timeline-event-meta">
+                  <span class="timeline-year-tag">AUGUST 16, 1932</span>
+                  <span class="timeline-category-tag">Communal Award</span>
+                </div>
+                <h3 class="timeline-event-title">Ramsay MacDonald's Communal Award</h3>
+              </div>
+              <span class="badge badge-gold" style="font-size:0.75rem;">Click to Inspect ▾</span>
+            </div>
+            <p class="timeline-event-teaser">
+              British Prime Minister Ramsay MacDonald formally granted the Depressed Classes 71 separate electorate seats alongside the right to vote in general constituencies for 20 years.
+            </p>
+            <div class="timeline-event-details">
+              <div style="background:var(--bg-2);padding:var(--space-4);border-radius:var(--radius-lg);margin-bottom:var(--space-3);font-size:0.88rem;line-height:1.7;">
+                <strong style="color:var(--gold-light);display:block;margin-bottom:4px;">Dual Voting Franchise:</strong>
+                Untouchables were given two votes: one to elect their own authentic community representative, and a second vote in the general constituency to influence majority politics.
+              </div>
+              <div class="flex-between items-center" style="font-size:0.8rem;color:var(--text-muted);flex-wrap:wrap;gap:8px;">
+                <span>Source: BAWS Vol. 9, Appendix III</span>
+                <a href="reader.html?vol=9" class="btn btn-secondary btn-sm">Read in Archive →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event 6: Poona Pact -->
+        <div class="timeline-stream-event" data-cat="poona-pact">
+          <div class="timeline-marker-dot"></div>
+          <div class="timeline-stream-card" onclick="toggleTimelineEvent(this)">
+            <div class="timeline-event-header">
+              <div>
+                <div class="timeline-event-meta">
+                  <span class="timeline-year-tag">SEPTEMBER 24, 1932</span>
+                  <span class="timeline-category-tag">Poona Pact</span>
+                </div>
+                <h3 class="timeline-event-title">The Poona Pact (Yerwada Central Jail)</h3>
+              </div>
+              <span class="badge badge-gold" style="font-size:0.75rem;">Click to Inspect ▾</span>
+            </div>
+            <p class="timeline-event-teaser">
+              Following Gandhi's fast unto death, Ambedkar conceded separate electorates to save Gandhi's life, negotiating 148 reserved seats under joint electorates with a primary electoral system.
+            </p>
+            <div class="timeline-event-details">
+              <div style="background:var(--bg-2);padding:var(--space-4);border-radius:var(--radius-lg);margin-bottom:var(--space-3);font-size:0.88rem;line-height:1.7;">
+                <strong style="color:var(--gold-light);display:block;margin-bottom:4px;">Terms &amp; Long-term Legacy:</strong>
+                Reserved seats were more than doubled (from 71 to 148 in provincial assemblies), but the joint electorate system allowed caste-majority votes to determine which Dalit candidates won, a dilemma Ambedkar lamented in later writings.
+              </div>
+              <div class="flex-between items-center" style="font-size:0.8rem;color:var(--text-muted);flex-wrap:wrap;gap:8px;">
+                <span>Source: BAWS Vol. 9, Chapter III</span>
+                <a href="reader.html?vol=9" class="btn btn-secondary btn-sm">Read in Archive →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event 7: What Congress and Gandhi Have Done -->
+        <div class="timeline-stream-event" data-cat="representation">
+          <div class="timeline-marker-dot"></div>
+          <div class="timeline-stream-card" onclick="toggleTimelineEvent(this)">
+            <div class="timeline-event-header">
+              <div>
+                <div class="timeline-event-meta">
+                  <span class="timeline-year-tag">1945</span>
+                  <span class="timeline-category-tag">Political Representation</span>
+                </div>
+                <h3 class="timeline-event-title">Publication: What Congress &amp; Gandhi Have Done</h3>
+              </div>
+              <span class="badge badge-gold" style="font-size:0.75rem;">Click to Inspect ▾</span>
+            </div>
+            <p class="timeline-event-teaser">
+              Ambedkar publishes his definitive 400-page empirical critique documenting Congress policies toward untouchables from 1885 to 1945, warning against constitutional betrayal.
+            </p>
+            <div class="timeline-event-details">
+              <div style="background:var(--bg-2);padding:var(--space-4);border-radius:var(--radius-lg);margin-bottom:var(--space-3);font-size:0.88rem;line-height:1.7;">
+                <strong style="color:var(--gold-light);display:block;margin-bottom:4px;">Core Proposition:</strong>
+                "To leave the untouchables to the tender mercies of the Hindu majority without statutory safeguards is to invite disaster. Freedom must belong to all, not to an oligarchy."
+              </div>
+              <div class="flex-between items-center" style="font-size:0.8rem;color:var(--text-muted);flex-wrap:wrap;gap:8px;">
+                <span>Source: BAWS Vol. 9</span>
+                <a href="reader.html?vol=9" class="btn btn-secondary btn-sm">Read in Archive →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event 8: Independence & Drafting -->
+        <div class="timeline-stream-event" data-cat="independence">
+          <div class="timeline-marker-dot"></div>
+          <div class="timeline-stream-card" onclick="toggleTimelineEvent(this)">
+            <div class="timeline-event-header">
+              <div>
+                <div class="timeline-event-meta">
+                  <span class="timeline-year-tag">AUG 15–29, 1947</span>
+                  <span class="timeline-category-tag">Independence &amp; Drafting</span>
+                </div>
+                <h3 class="timeline-event-title">Independence &amp; Chairman of Drafting Committee</h3>
+              </div>
+              <span class="badge badge-gold" style="font-size:0.75rem;">Click to Inspect ▾</span>
+            </div>
+            <p class="timeline-event-teaser">
+              Upon independence, Dr. Ambedkar was appointed India's first Law Minister and elected unanimously as Chairman of the Constitution Drafting Committee on August 29, 1947.
+            </p>
+            <div class="timeline-event-details">
+              <div style="background:var(--bg-2);padding:var(--space-4);border-radius:var(--radius-lg);margin-bottom:var(--space-3);font-size:0.88rem;line-height:1.7;">
+                <strong style="color:var(--gold-light);display:block;margin-bottom:4px;">Historic Synthesis:</strong>
+                Ambedkar brought together his decades of study at Columbia, LSE, and Gray's Inn to enshrine Fundamental Rights, the abolition of Untouchability (Article 17), and affirmative action mechanisms.
+              </div>
+              <div class="flex-between items-center" style="font-size:0.8rem;color:var(--text-muted);flex-wrap:wrap;gap:8px;">
+                <span>Source: BAWS Vol. 13</span>
+                <a href="reader.html?vol=13" class="btn btn-secondary btn-sm">Read in Archive →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event 9: Final CAD Speech -->
+        <div class="timeline-stream-event" data-cat="constitution">
+          <div class="timeline-marker-dot"></div>
+          <div class="timeline-stream-card" onclick="toggleTimelineEvent(this)">
+            <div class="timeline-event-header">
+              <div>
+                <div class="timeline-event-meta">
+                  <span class="timeline-year-tag">NOVEMBER 25, 1949</span>
+                  <span class="timeline-category-tag">Constitutional Development</span>
+                </div>
+                <h3 class="timeline-event-title">The "Life of Contradictions" Address</h3>
+              </div>
+              <span class="badge badge-gold" style="font-size:0.75rem;">Click to Inspect ▾</span>
+            </div>
+            <p class="timeline-event-teaser">
+              Ambedkar delivers his final masterwork to the Constituent Assembly, articulating the grammar of anarchy, hero-worship in politics, and the imperative of social democracy.
+            </p>
+            <div class="timeline-event-details">
+              <div style="background:var(--bg-2);padding:var(--space-4);border-radius:var(--radius-lg);margin-bottom:var(--space-3);font-size:0.88rem;line-height:1.7;">
+                <strong style="color:var(--gold-light);display:block;margin-bottom:4px;">The Unforgettable Warning:</strong>
+                "On the 26th of January 1950, we are going to enter into a life of contradictions. In politics we will have equality and in social and economic life we will have inequality... How long shall we continue to deny equality in our social and economic life? If we continue to deny it for long, we will do so only by putting our political democracy in peril."
+              </div>
+              <div class="flex-between items-center" style="font-size:0.8rem;color:var(--text-muted);flex-wrap:wrap;gap:8px;">
+                <span>Source: BAWS Vol. 13, pp. 1205–1218</span>
+                <a href="reader.html?vol=13" class="btn btn-secondary btn-sm">Read in Archive →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event 10: Resignation over Hindu Code Bill -->
+        <div class="timeline-stream-event" data-cat="constitution">
+          <div class="timeline-marker-dot"></div>
+          <div class="timeline-stream-card" onclick="toggleTimelineEvent(this)">
+            <div class="timeline-event-header">
+              <div>
+                <div class="timeline-event-meta">
+                  <span class="timeline-year-tag">SEPTEMBER 1951</span>
+                  <span class="timeline-category-tag">Constitutional Development</span>
+                </div>
+                <h3 class="timeline-event-title">Resignation over the Hindu Code Bill</h3>
+              </div>
+              <span class="badge badge-gold" style="font-size:0.75rem;">Click to Inspect ▾</span>
+            </div>
+            <p class="timeline-event-teaser">
+              Ambedkar resigns from Jawaharlal Nehru's cabinet after conservative opposition stalls the Hindu Code Bill, which sought equal inheritance, marriage, and divorce rights for women.
+            </p>
+            <div class="timeline-event-details">
+              <div style="background:var(--bg-2);padding:var(--space-4);border-radius:var(--radius-lg);margin-bottom:var(--space-3);font-size:0.88rem;line-height:1.7;">
+                <strong style="color:var(--gold-light);display:block;margin-bottom:4px;">Principled Stand on Gender Equality:</strong>
+                "I measure the progress of a community by the degree of progress which women have achieved... To leave personal law untouched while preaching constitutional equality was a betrayal of modern justice."
+              </div>
+              <div class="flex-between items-center" style="font-size:0.8rem;color:var(--text-muted);flex-wrap:wrap;gap:8px;">
+                <span>Source: BAWS Vol. 14, Part II</span>
+                <a href="reader.html?vol=14" class="btn btn-secondary btn-sm">Read in Archive →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SECTION 12: KEY CONCEPTS IN AMBEDKAR'S THOUGHT
+         ═══════════════════════════════════════════════════════ -->
+    <section class="archival-section" id="section-key-concepts">
+      <div class="section-eyebrow"><span>💡</span> SECTION 12 • CONCEPTUAL ARCHITECTURE</div>
+      <h2 class="section-title">Foundational Concepts in Ambedkar's Political Philosophy</h2>
+      <p class="section-desc">
+        Explore the core philosophical categories synthesized across Dr. Ambedkar's speeches, published treatises, and constitutional jurisprudence. Each concept directly cross-references related archival sources.
+      </p>
+
+      <div class="concepts-grid">
+
+        <!-- 1. Democracy -->
+        <div class="concept-card">
+          <div>
+            <div class="concept-icon">🏛️</div>
+            <h3 class="concept-title">Democracy</h3>
+            <p class="concept-desc">
+              "Democracy is not merely a form of Government. It is primarily a mode of associated living, of conjoint communicated experience. It is essentially an attitude of respect and reverence towards one's fellow men."
+            </p>
+            <div style="font-family:var(--font-mono);font-size:0.75rem;color:var(--gold-light);margin-bottom:var(--space-4);">
+              Citation: Annihilation of Caste (BAWS Vol. 1)
+            </div>
+          </div>
+          <div class="flex gap-2">
+            <a href="reader.html?vol=1" class="btn btn-secondary btn-sm">Read Vol. 1</a>
+            <a href="assistant.html?q=Ambedkar+concept+of+Democracy" class="btn btn-primary btn-sm">Ask AI →</a>
+          </div>
+        </div>
+
+        <!-- 2. Social Democracy -->
+        <div class="concept-card">
+          <div>
+            <div class="concept-icon">🤝</div>
+            <h3 class="concept-title">Social Democracy</h3>
+            <p class="concept-desc">
+              "A way of life which recognizes liberty, equality and fraternity as the principles of life. They are not to be treated as separate items in a trinity. To divorce one from the other is to defeat the very purpose of democracy."
+            </p>
+            <div style="font-family:var(--font-mono);font-size:0.75rem;color:var(--gold-light);margin-bottom:var(--space-4);">
+              Citation: CAD Speech, Nov 25, 1949 (BAWS Vol. 13)
+            </div>
+          </div>
+          <div class="flex gap-2">
+            <a href="reader.html?vol=13" class="btn btn-secondary btn-sm">Read Vol. 13</a>
+            <a href="assistant.html?q=Social+Democracy+Definition" class="btn btn-primary btn-sm">Ask AI →</a>
+          </div>
+        </div>
+
+        <!-- 3. Constitutional Morality -->
+        <div class="concept-card">
+          <div>
+            <div class="concept-icon">⚖️</div>
+            <h3 class="concept-title">Constitutional Morality</h3>
+            <p class="concept-desc">
+              Borrowing from historian George Grote, Ambedkar defined constitutional morality not as natural sentiment, but as a cultivated reverence for constitutional forms, supremacy of law, and restraint against majoritarian passions.
+            </p>
+            <div style="font-family:var(--font-mono);font-size:0.75rem;color:var(--gold-light);margin-bottom:var(--space-4);">
+              Citation: CAD Speech, Nov 4, 1948 (BAWS Vol. 13)
+            </div>
+          </div>
+          <div class="flex gap-2">
+            <a href="reader.html?vol=13" class="btn btn-secondary btn-sm">Read Vol. 13</a>
+            <a href="assistant.html?q=Constitutional+Morality+George+Grote" class="btn btn-primary btn-sm">Ask AI →</a>
+          </div>
+        </div>
+
+        <!-- 4. Liberty -->
+        <div class="concept-card">
+          <div>
+            <div class="concept-icon">🕊️</div>
+            <h3 class="concept-title">Liberty</h3>
+            <p class="concept-desc">
+              Liberty must encompass both physical freedom and economic independence. Ambedkar warned that unregulated formal liberty in an unequal society merely allows the strong to oppress the weak.
+            </p>
+            <div style="font-family:var(--font-mono);font-size:0.75rem;color:var(--gold-light);margin-bottom:var(--space-4);">
+              Citation: States and Minorities (BAWS Vol. 1)
+            </div>
+          </div>
+          <div class="flex gap-2">
+            <a href="reader.html?vol=1" class="btn btn-secondary btn-sm">Read Vol. 1</a>
+            <a href="assistant.html?q=Ambedkar+concept+of+Liberty" class="btn btn-primary btn-sm">Ask AI →</a>
+          </div>
+        </div>
+
+        <!-- 5. Equality -->
+        <div class="concept-card">
+          <div>
+            <div class="concept-icon">⚖️</div>
+            <h3 class="concept-title">Equality</h3>
+            <p class="concept-desc">
+              "One man, one vote, and one value." Equality requires affirmative eradication of graded caste inequality, not mere non-discrimination. Real equality demands equal social standing and equal human dignity.
+            </p>
+            <div style="font-family:var(--font-mono);font-size:0.75rem;color:var(--gold-light);margin-bottom:var(--space-4);">
+              Citation: Annihilation of Caste &amp; CAD Speeches
+            </div>
+          </div>
+          <div class="flex gap-2">
+            <a href="reader.html?vol=1" class="btn btn-secondary btn-sm">Read Vol. 1</a>
+            <a href="assistant.html?q=One+man+one+vote+one+value+Ambedkar" class="btn btn-primary btn-sm">Ask AI →</a>
+          </div>
+        </div>
+
+        <!-- 6. Fraternity -->
+        <div class="concept-card">
+          <div>
+            <div class="concept-icon">🌸</div>
+            <h3 class="concept-title">Fraternity (Maitri)</h3>
+            <p class="concept-desc">
+              "Fraternity means a sense of common brotherhood of all Indians — if Indians being one people. It is the principle which gives unity and solidarity to social life." Rooted deeply in Buddhist Maitri (universal goodwill).
+            </p>
+            <div style="font-family:var(--font-mono);font-size:0.75rem;color:var(--gold-light);margin-bottom:var(--space-4);">
+              Citation: The Buddha and His Dhamma (BAWS Vol. 11)
+            </div>
+          </div>
+          <div class="flex gap-2">
+            <a href="reader.html?vol=11" class="btn btn-secondary btn-sm">Read Vol. 11</a>
+            <a href="assistant.html?q=Fraternity+in+Ambedkar+Philosophy" class="btn btn-primary btn-sm">Ask AI →</a>
+          </div>
+        </div>
+
+        <!-- 7. Representation -->
+        <div class="concept-card">
+          <div>
+            <div class="concept-icon">🗳️</div>
+            <h3 class="concept-title">Representation</h3>
+            <p class="concept-desc">
+              Representation must be autonomous and authentic. Ambedkar held that an oppressed class must be represented by legislators accountable to that community, rather than stooges subservient to majority parties.
+            </p>
+            <div style="font-family:var(--font-mono);font-size:0.75rem;color:var(--gold-light);margin-bottom:var(--space-4);">
+              Citation: What Congress and Gandhi Have Done (BAWS Vol. 9)
+            </div>
+          </div>
+          <div class="flex gap-2">
+            <a href="reader.html?vol=9" class="btn btn-secondary btn-sm">Read Vol. 9</a>
+            <a href="assistant.html?q=Ambedkar+concept+of+Representation" class="btn btn-primary btn-sm">Ask AI →</a>
+          </div>
+        </div>
+
+        <!-- 8. Minority Rights -->
+        <div class="concept-card">
+          <div>
+            <div class="concept-icon">🛡️</div>
+            <h3 class="concept-title">Minority Rights</h3>
+            <p class="concept-desc">
+              "Minorities are an explosive force which, if it erupts, can blow up the whole fabric of the state." Majority rule in a communal society without minority vetoes and constitutional protections is naked tyranny.
+            </p>
+            <div style="font-family:var(--font-mono);font-size:0.75rem;color:var(--gold-light);margin-bottom:var(--space-4);">
+              Citation: States and Minorities (BAWS Vol. 1)
+            </div>
+          </div>
+          <div class="flex gap-2">
+            <a href="reader.html?vol=1" class="btn btn-secondary btn-sm">Read Vol. 1</a>
+            <a href="assistant.html?q=Minority+Rights+Ambedkar" class="btn btn-primary btn-sm">Ask AI →</a>
+          </div>
+        </div>
+
+        <!-- 9. Social Justice -->
+        <div class="concept-card">
+          <div>
+            <div class="concept-icon">✨</div>
+            <h3 class="concept-title">Social Justice</h3>
+            <p class="concept-desc">
+              Social justice is the structural reordering of society to dismantle hereditary hierarchy. It requires state intervention in economics, affirmative representation in public service, and universal education.
+            </p>
+            <div style="font-family:var(--font-mono);font-size:0.75rem;color:var(--gold-light);margin-bottom:var(--space-4);">
+              Citation: Writings and Speeches (BAWS Vol. 17)
+            </div>
+          </div>
+          <div class="flex gap-2">
+            <a href="reader.html?vol=17" class="btn btn-secondary btn-sm">Read Vol. 17</a>
+            <a href="assistant.html?q=Ambedkar+theory+of+Social+Justice" class="btn btn-primary btn-sm">Ask AI →</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
   </div>
-</nav>
 
-<!-- Mobile Navigation Drawer -->
-<div id="mobile-menu" class="mobile-menu" role="dialog" aria-label="Mobile navigation">
-  <a href="index.html" class="nav-link">🏠 Home</a>
-  <a href="archive.html" class="nav-link">📚 Complete Works (60 Vol)</a>
-  <a href="memorials.html" class="nav-link">🏛️ Memorials &amp; Heritage</a>
-  <a href="debates.html" class="nav-link active">⚖️ Historical Debates</a>
-  <a href="constitution.html" class="nav-link">📜 Constitution</a>
-  <a href="ideas.html" class="nav-link">💡 Thematic Ideas</a>
-  <a href="timeline.html" class="nav-link">📅 Timeline</a>
-  <a href="assistant.html" class="nav-link">🤖 AI Assistant</a>
-  <a href="kiosk.html" class="nav-link">🖥️ Kiosk Mode</a>
-  <a href="exhibition.html" class="nav-link">📺 Smart Display</a>
-  <div style="height:1px;background:rgba(255,255,255,0.08);margin:var(--space-4) 0;"></div>
-  <a href="login.html" class="btn btn-primary btn-full">Sign In</a>
-</div>
+  <div id="toast-container" class="toast-container"></div>
 
-<!-- ─── Vertical Left Dock: Curated Exploration Hubs ─── -->
-<aside class="side-dock" role="navigation" aria-label="Curated exploration hubs">
-  <div class="side-dock-inner">
-    <div class="side-dock-header">
-      <span class="side-dock-badge">Heritage Hubs</span>
-    </div>
-    <div class="side-dock-links">
-      <a href="memorials.html" class="side-dock-link" title="Memorials &amp; Heritage">
-        <span class="side-dock-icon">🏛️</span>
-        <span class="side-dock-label">Memorials</span>
-      </a>
-      <a href="debates.html" class="side-dock-link active" title="Political Thought &amp; Debates">
-        <span class="side-dock-icon">⚖️</span>
-        <span class="side-dock-label">Debates</span>
-      </a>
-      <a href="kiosk.html" class="side-dock-link" title="Institutional Kiosk Mode">
-        <span class="side-dock-icon">🖥️</span>
-        <span class="side-dock-label">Kiosk</span>
-      </a>
-      <a href="exhibition.html" class="side-dock-link" title="Smart Display Ambient Mode">
-        <span class="side-dock-icon">📺</span>
-        <span class="side-dock-label">Exhibition</span>
-      </a>
-      <a href="slides.html" class="side-dock-link" title="Visual Exhibition Deck (16:9)">
-        <span class="side-dock-icon">📽️</span>
-        <span class="side-dock-label">Deck 16:9</span>
-      </a>
-    </div>
-  </div>
-</aside>
+  <script src="js/api.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/app.js"></script>
 
-<!-- ─── Hero Section ─── -->
-<section class="debates-hero">
-  <div class="section-eyebrow" style="margin-bottom:var(--space-2);">PRIMARY-SOURCE POLITICAL ENCOUNTERS</div>
-  <h1>Political Thought &amp; Historical Debates</h1>
-  <p class="section-desc" style="max-width:800px;margin:0 auto var(--space-6);color:var(--text-muted);">
-    Rigorous, primary-source exploration of Dr. B. R. Ambedkar's most contentious political and historical encounters — distinguishing documented historical facts from scholarly interpretations, with direct citations to the 21-volume BAWS corpus and archival correspondence.
-  </p>
+  <script>
+    let debateModules = [];
+    let activeCategory = 'all';
 
-  <div class="flex gap-2 justify-center" style="flex-wrap:wrap;">
-    <button class="chip active" data-filter="all">🌟 All Debates (6 Core Modules)</button>
-    <button class="chip" data-filter="ideological-debates">⚡ Ambedkar &amp; Gandhi</button>
-    <button class="chip" data-filter="political-debates">🏛️ Ambedkar &amp; Congress</button>
-    <button class="chip" data-filter="constitutional-debates">📜 Muslim League &amp; Partition</button>
-    <button class="chip" data-filter="historical-events">⏳ Round Table Conferences &amp; 1932</button>
-    <button class="chip" data-filter="political-thought">🤝 Social Democracy &amp; Freedom</button>
-  </div>
-</section>
-
-<!-- ─── Debates Stream ─── -->
-<main class="debates-grid" id="debates-stream">
-  <!-- Rendered dynamically from /api/debates -->
-</main>
-
-<script src="js/api.js"></script>
-<script src="js/toast.js"></script>
-<script src="js/app.js"></script>
-
-<script>
-let debateModules = [];
-let activeCategory = 'all';
-
-async function loadDebates() {
-  try {
-    const res = await fetch('/api/debates');
-    const json = await res.json();
-    if (json.success) {
-      debateModules = json.data;
-      renderDebates();
+    async function loadDebates() {
+      try {
+        const res = await fetch('/api/debates');
+        const json = await res.json();
+        if (json.success) {
+          debateModules = json.data;
+          renderDebates();
+        }
+      } catch (err) {
+        console.error('Failed to load debates:', err);
+      }
     }
-  } catch (err) {
-    console.error('Error fetching debates:', err);
-  }
-}
 
-function renderDebates() {
-  const container = document.getElementById('debates-stream');
-  const filtered = activeCategory === 'all'
-    ? debateModules
-    : debateModules.filter(d => d.category === activeCategory);
+    // Key people map for modules
+    const keyPeopleMap = {
+      'ambedkar-gandhi-debates': ['Dr. B. R. Ambedkar', 'M. K. Gandhi', 'Harijan Sevak Sangh', 'Untouchables of India'],
+      'ambedkar-congress-debates': ['Dr. B. R. Ambedkar', 'Indian National Congress', 'Jawaharlal Nehru', 'Sardar Patel', 'Depressed Classes'],
+      'ambedkar-pakistan-partition-debates': ['Dr. B. R. Ambedkar', 'M. A. Jinnah', 'All-India Muslim League', 'British Cabinet Mission'],
+      'rtc-communal-award-poona-pact': ['Dr. B. R. Ambedkar', 'M. K. Gandhi', 'Ramsay MacDonald', 'Rao Bahadur M. C. Rajah', 'M. M. Malaviya'],
+      'social-democracy-freedom-debates': ['Dr. B. R. Ambedkar', 'Constituent Assembly of India', 'Independent Labour Party'],
+      'communalism-minority-representation-debates': ['Dr. B. R. Ambedkar', 'Minorities Committee', 'Simon Commission', 'Southborough Committee']
+    };
 
-  container.innerHTML = filtered.map(d => `
-    <article class="debate-article" id="${d.id}">
-      <header class="debate-header">
-        <div class="flex-between items-center" style="margin-bottom:var(--space-2);flex-wrap:wrap;gap:8px;">
-          <div class="debate-eyebrow">HISTORICAL DIALOGUE &amp; CONSTITUTIONAL ANALYSIS · ${d.period}</div>
-          <button class="btn btn-ghost btn-sm" onclick="speakDebateSummary('${d.id}')" title="Listen to summary">
-            <span>🔊 Listen</span>
-          </button>
-        </div>
-        <h2 class="debate-title">${d.title}</h2>
-        <div class="topics-pill-deck">
-          ${(d.topicsCovered || []).map(t => `<span class="topic-pill"># ${t}</span>`).join('')}
-        </div>
-      </header>
+    // Why it matters map
+    const whyItMattersMap = {
+      'ambedkar-gandhi-debates': 'Determined whether independent India would pursue agrarian moral reform or constitutional-rights based modernization and caste eradication.',
+      'ambedkar-congress-debates': 'Established the necessity of counter-majoritarian constitutional safeguards to prevent democracy from deteriorating into majoritarian dominance.',
+      'ambedkar-pakistan-partition-debates': 'Provided the most rigorous dispassionate constitutional and sociological analysis of religious nationalism, boundary demarcation, and defense prior to 1947.',
+      'rtc-communal-award-poona-pact': 'Secured permanent statutory reservations for Scheduled Castes in legislative assemblies, shaping modern Indian affirmative action jurisprudence.',
+      'social-democracy-freedom-debates': 'Articulated that political democracy cannot survive without social and economic equality, giving birth to India\'s constitutional directive principles.',
+      'communalism-minority-representation-debates': 'Pioneered the profound distinction between a fluid political majority and a permanent hereditary communal majority in constitutional theory.'
+    };
 
-      <div class="debate-body">
-        <div class="context-block">
-          <h3 style="font-family:var(--font-mono);font-size:0.75rem;text-transform:uppercase;color:var(--gold);letter-spacing:0.12em;margin-bottom:var(--space-2);">Historical Context &amp; Genesis</h3>
-          <p>${d.historicalContext}</p>
-        </div>
+    function renderDebates() {
+      const container = document.getElementById('debates-container');
+      const filtered = activeCategory === 'all'
+        ? debateModules
+        : debateModules.filter(d => d.category === activeCategory);
 
-        <div class="comparison-grid">
-          <!-- Ambedkar's Documented Position -->
-          <div class="perspective-card ambedkar">
-            <div class="perspective-header" style="color:var(--gold);">
-              <span>⚖️ Dr. B. R. Ambedkar's Documented Position</span>
+      container.innerHTML = filtered.map((d, index) => {
+        const people = keyPeopleMap[d.id] || ['Dr. B. R. Ambedkar', 'Constitutional Scholars'];
+        const whyMatters = whyItMattersMap[d.id] || 'Seminal milestone in Indian constitutional democracy and social justice history.';
+        const isFirst = index === 0;
+
+        return `
+        <article class="debate-article" id="${d.id}">
+          <div class="debate-header">
+            <div class="flex-between items-center" style="margin-bottom:var(--space-2);flex-wrap:wrap;gap:8px;">
+              <span class="debate-eyebrow">${d.category.replace(/-/g, ' ')} · ${d.period || 'Historical Era'}</span>
+              <div class="flex items-center gap-2">
+                <button class="btn btn-secondary btn-sm" onclick="speakDebateSummary('${d.id}')" title="Listen to audio summary">
+                  🔊 Listen
+                </button>
+                <button class="debate-expander-btn" onclick="toggleDebateArticle('${d.id}')" id="btn-toggle-${d.id}" aria-expanded="${isFirst ? 'true' : 'false'}">
+                  <span>${isFirst ? 'Collapse Details ▴' : 'Expand / Explore ▾'}</span>
+                </button>
+              </div>
             </div>
-            <p class="perspective-thesis">${d.ambedkarPosition ? d.ambedkarPosition.thesis : ''}</p>
-            ${(d.ambedkarPosition && d.ambedkarPosition.keyQuotes || []).map(q => `
-              <blockquote class="quote-box">"${q}"</blockquote>
-            `).join('')}
-            <div style="font-family:var(--font-mono);font-size:0.75rem;color:var(--gold-light);margin-top:var(--space-3);">
-              📌 Citation: ${d.ambedkarPosition ? d.ambedkarPosition.bawsReference : 'BAWS Corpus'}
+            <h2 class="debate-title">${d.title}</h2>
+            <div class="topics-pill-deck">
+              ${(d.topicsCovered || []).map(t => `<span class="topic-pill">${t}</span>`).join('')}
             </div>
           </div>
 
-          <!-- Counter Position / Historical Context -->
-          <div class="perspective-card">
-            <div class="perspective-header" style="color:var(--text);">
-              <span>🏛️ Counter-Perspective / Contemporary Viewpoint</span>
+          <!-- Summary Strip (Always Visible) -->
+          <div class="debate-summary-strip">
+            <div>
+              <div style="font-family:var(--font-mono);font-size:0.75rem;color:var(--gold);margin-bottom:4px;text-transform:uppercase;">Historical Period</div>
+              <div style="font-size:0.92rem;color:var(--text);font-weight:600;">${d.period || '1919–1956'}</div>
             </div>
-            <p class="perspective-thesis">${
-              d.gandhiPosition ? d.gandhiPosition.thesis :
-              d.congressPosition ? d.congressPosition.thesis :
-              d.muslimLeaguePosition ? d.muslimLeaguePosition.thesis :
-              d.educationalFramework ? d.educationalFramework.explanation : 'Contemporary political discourse'
-            }</p>
-            ${
-              d.gandhiPosition && d.gandhiPosition.keyQuotes ? d.gandhiPosition.keyQuotes.map(q => `<blockquote class="quote-box" style="border-color:var(--text-muted);">"${q}"</blockquote>`).join('') :
-              d.congressPosition && d.congressPosition.keyQuotes ? d.congressPosition.keyQuotes.map(q => `<blockquote class="quote-box" style="border-color:var(--text-muted);">"${q}"</blockquote>`).join('') :
-              d.muslimLeaguePosition && d.muslimLeaguePosition.keyQuotes ? d.muslimLeaguePosition.keyQuotes.map(q => `<blockquote class="quote-box" style="border-color:var(--text-muted);">"${q}"</blockquote>`).join('') :
-              d.educationalFramework ? `<div class="quote-box" style="border-color:var(--accent-blue);font-style:normal;font-weight:700;">${d.educationalFramework.formula}</div>` : ''
-            }
+            <div>
+              <div style="font-family:var(--font-mono);font-size:0.75rem;color:var(--gold);margin-bottom:4px;text-transform:uppercase;">Key People &amp; Organizations</div>
+              <div style="font-size:0.85rem;color:var(--text-muted);">${people.join(', ')}</div>
+            </div>
+            <div>
+              <div style="font-family:var(--font-mono);font-size:0.75rem;color:var(--gold);margin-bottom:4px;text-transform:uppercase;">Why This Debate Matters</div>
+              <div style="font-size:0.85rem;color:var(--text-muted);line-height:1.5;">${whyMatters}</div>
+            </div>
           </div>
-        </div>
 
-        <!-- Documented Facts vs Scholarly Interpretations -->
-        <div class="fact-analysis-split">
-          <div class="fact-col">
-            <h4>✅ Verified Documented Facts</h4>
-            <ul class="fact-list">
-              ${(d.scholarlyInterpretationVsFact && d.scholarlyInterpretationVsFact.documentedFacts || []).map(f => `<li>${f}</li>`).join('')}
-            </ul>
+          <!-- Collapsible Deep Archival Body -->
+          <div class="debate-collapsible-body ${isFirst ? 'expanded' : ''}" id="body-${d.id}">
+            <div class="debate-body">
+              <!-- Historical Context -->
+              <div class="context-block">
+                <strong style="color:var(--gold-light);font-family:var(--font-mono);font-size:0.8rem;text-transform:uppercase;display:block;margin-bottom:var(--space-2);">
+                  📜 Historical Context &amp; Significance
+                </strong>
+                ${d.historicalContext}
+              </div>
+
+              <!-- Positions Grid -->
+              <div class="comparison-grid">
+                <div class="perspective-card ambedkar">
+                  <div class="perspective-header" style="color:var(--gold);">
+                    <span>⚖️ Dr. B. R. Ambedkar's Documented Position</span>
+                  </div>
+                  <p class="perspective-thesis">${d.ambedkarPosition ? d.ambedkarPosition.thesis : ''}</p>
+                  ${(d.ambedkarPosition && d.ambedkarPosition.keyQuotes || []).map(q => `
+                    <blockquote class="quote-box">"${q}"</blockquote>
+                  `).join('')}
+                  <div style="font-family:var(--font-mono);font-size:0.75rem;color:var(--gold-light);margin-top:var(--space-3);">
+                    📌 Citation: ${d.ambedkarPosition ? d.ambedkarPosition.bawsReference : 'BAWS Corpus'}
+                  </div>
+                </div>
+
+                <div class="perspective-card">
+                  <div class="perspective-header" style="color:var(--text);">
+                    <span>🏛️ Counter-Perspective / Contemporary Viewpoint</span>
+                  </div>
+                  <p class="perspective-thesis">${
+                    d.gandhiPosition ? d.gandhiPosition.thesis :
+                    d.congressPosition ? d.congressPosition.thesis :
+                    d.muslimLeaguePosition ? d.muslimLeaguePosition.thesis :
+                    d.educationalFramework ? d.educationalFramework.explanation : 'Contemporary political discourse'
+                  }</p>
+                  ${
+                    d.gandhiPosition && d.gandhiPosition.keyQuotes ? d.gandhiPosition.keyQuotes.map(q => `<blockquote class="quote-box" style="border-color:var(--text-muted);">"${q}"</blockquote>`).join('') :
+                    d.congressPosition && d.congressPosition.keyQuotes ? d.congressPosition.keyQuotes.map(q => `<blockquote class="quote-box" style="border-color:var(--text-muted);">"${q}"</blockquote>`).join('') :
+                    d.muslimLeaguePosition && d.muslimLeaguePosition.keyQuotes ? d.muslimLeaguePosition.keyQuotes.map(q => `<blockquote class="quote-box" style="border-color:var(--text-muted);">"${q}"</blockquote>`).join('') :
+                    d.educationalFramework ? `<div class="quote-box" style="border-color:var(--accent-blue);font-style:normal;font-weight:700;">${d.educationalFramework.formula}</div>` : ''
+                  }
+                </div>
+              </div>
+
+              <!-- Facts vs Interpretations -->
+              <div class="fact-analysis-split">
+                <div class="fact-col">
+                  <h4>✅ Verified Documented Facts</h4>
+                  <ul class="fact-list">
+                    ${(d.scholarlyInterpretationVsFact && d.scholarlyInterpretationVsFact.documentedFacts || []).map(f => `<li>${f}</li>`).join('')}
+                  </ul>
+                </div>
+                <div class="analysis-col">
+                  <h4>🧠 Scholarly &amp; Academic Interpretations</h4>
+                  <ul class="analysis-list">
+                    ${(d.scholarlyInterpretationVsFact && d.scholarlyInterpretationVsFact.scholarlyInterpretations || []).map(a => `<li>${a}</li>`).join('')}
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Primary Source Strip -->
+              <div class="source-strip flex-between items-center" style="flex-wrap:wrap;gap:var(--space-3);">
+                <div style="display:flex;gap:var(--space-2);align-items:center;flex-wrap:wrap;">
+                  <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--gold-light);">Primary Sources:</span>
+                  ${(d.primarySources || []).map(s => `
+                    <a href="reader.html?vol=${s.volNo || 1}" class="chip" style="font-size:0.75rem;">
+                      📖 ${s.citation}
+                    </a>
+                  `).join('')}
+                </div>
+                <a href="assistant.html?q=${encodeURIComponent('Explain: ' + d.title)}" class="btn btn-primary btn-sm">
+                  <span>🤖 Inquire with AI</span>
+                </a>
+              </div>
+            </div>
           </div>
-          <div class="analysis-col">
-            <h4>🧠 Scholarly &amp; Academic Interpretations</h4>
-            <ul class="analysis-list">
-              ${(d.scholarlyInterpretationVsFact && d.scholarlyInterpretationVsFact.scholarlyInterpretations || []).map(a => `<li>${a}</li>`).join('')}
-            </ul>
-          </div>
-        </div>
-
-        <!-- Primary Source Strip -->
-        <div class="source-strip flex-between items-center" style="flex-wrap:wrap;gap:var(--space-3);">
-          <div style="display:flex;gap:var(--space-2);align-items:center;flex-wrap:wrap;">
-            <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--gold-light);">Primary Sources:</span>
-            ${(d.primarySources || []).map(s => `
-              <a href="archive.html?search=${encodeURIComponent(s.volNo ? 'Volume ' + s.volNo : d.title)}" class="chip" style="font-size:0.75rem;">
-                📖 ${s.citation}
-              </a>
-            `).join('')}
-          </div>
-          <a href="assistant.html?q=${encodeURIComponent('Explain: ' + d.title)}" class="btn btn-primary btn-sm">
-            <span>🤖 Ask AI About This Debate</span>
-          </a>
-        </div>
-      </div>
-    </article>
-  `).join('');
-}
-
-// Filter button clicks
-document.querySelectorAll('[data-filter]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    activeCategory = btn.dataset.filter;
-    renderDebates();
-  });
-});
-
-// Speech narration helper
-function speakDebateSummary(id) {
-  const d = debateModules.find(item => item.id === id);
-  if (!d || !('speechSynthesis' in window)) return;
-
-  window.speechSynthesis.cancel();
-  const text = `${d.title}. ${d.historicalContext}. Dr. Ambedkar's documented position: ${d.ambedkarPosition ? d.ambedkarPosition.thesis : ''}`;
-  const utter = new SpeechSynthesisUtterance(text);
-  utter.rate = 1.0;
-  window.speechSynthesis.speak(utter);
-}
-
-window.addEventListener('load', () => {
-  loadDebates().then(() => {
-    if (window.location.hash) {
-      const el = document.querySelector(window.location.hash);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
+        </article>
+        `;
+      }).join('');
     }
-  });
-});
-</script>
+
+    // Toggle debate article expand/collapse
+    function toggleDebateArticle(id) {
+      const body = document.getElementById('body-' + id);
+      const btn = document.getElementById('btn-toggle-' + id);
+      if (!body || !btn) return;
+      const isExpanded = body.classList.contains('expanded');
+      if (isExpanded) {
+        body.classList.remove('expanded');
+        btn.innerHTML = '<span>Expand / Explore ▾</span>';
+        btn.setAttribute('aria-expanded', 'false');
+      } else {
+        body.classList.add('expanded');
+        btn.innerHTML = '<span>Collapse Details ▴</span>';
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    }
+
+    // Filter handling
+    document.querySelectorAll('[data-filter]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeCategory = btn.dataset.filter;
+        renderDebates();
+      });
+    });
+
+    // Timeline event toggle
+    function toggleTimelineEvent(card) {
+      card.classList.toggle('open');
+      const badge = card.querySelector('.badge');
+      if (badge) {
+        badge.textContent = card.classList.contains('open') ? 'Close Details ▴' : 'Click to Inspect ▾';
+      }
+    }
+
+    // Timeline filtering
+    function filterTimeline(cat, btn) {
+      document.querySelectorAll('.timeline-filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const events = document.querySelectorAll('.timeline-stream-event');
+      events.forEach(ev => {
+        if (cat === 'all' || ev.dataset.cat === cat) {
+          ev.classList.remove('hidden');
+        } else {
+          ev.classList.add('hidden');
+        }
+      });
+    }
+
+    // Speech narration
+    function speakDebateSummary(id) {
+      const d = debateModules.find(item => item.id === id);
+      if (!d || !('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const text = `${d.title}. ${d.historicalContext}. Dr. Ambedkar's documented position: ${d.ambedkarPosition ? d.ambedkarPosition.thesis : ''}`;
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.rate = 1.0;
+      window.speechSynthesis.speak(utter);
+    }
+
+    window.addEventListener('load', () => {
+      loadDebates().then(() => {
+        if (window.location.hash) {
+          const el = document.querySelector(window.location.hash);
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
 </body>
 </html>
