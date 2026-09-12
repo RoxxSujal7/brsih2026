@@ -9,8 +9,26 @@ const inMemoryUsers = new Map();
 // Seed initial in-memory accounts for offline / development resilience (with SHA-256 pre-hashing)
 (async () => {
   try {
+    const hashVisitor = await cryptoUtil.hashPassword('Visitor@1234', 10);
     const hashResearcher = await cryptoUtil.hashPassword('Research@1234', 10);
+    const hashEditor = await cryptoUtil.hashPassword('Editor@1234', 10);
+    const hashArchivist = await cryptoUtil.hashPassword('Archivist@1234', 10);
     const hashAdmin = await cryptoUtil.hashPassword('Admin@1234', 10);
+    const hashSuperAdmin = await cryptoUtil.hashPassword('SuperAdmin@1234', 10);
+
+    inMemoryUsers.set('visitor@ambedkar-archive.in', {
+      _id: 'mock-user-visitor-000',
+      name: 'Public Visitor',
+      email: 'visitor@ambedkar-archive.in',
+      password: hashVisitor,
+      role: 'visitor',
+      language: 'en',
+      institution: 'General Public',
+      avatar: '',
+      isActive: true,
+      lastActiveAt: new Date(),
+      createdAt: new Date(),
+    });
 
     inMemoryUsers.set('researcher@ambedkar-archive.in', {
       _id: 'mock-user-researcher-001',
@@ -26,6 +44,34 @@ const inMemoryUsers = new Map();
       createdAt: new Date(),
     });
 
+    inMemoryUsers.set('editor@ambedkar-archive.in', {
+      _id: 'mock-user-editor-003',
+      name: 'Content Editor',
+      email: 'editor@ambedkar-archive.in',
+      password: hashEditor,
+      role: 'content_editor',
+      language: 'en',
+      institution: 'DAIC Editorial Board',
+      avatar: '',
+      isActive: true,
+      lastActiveAt: new Date(),
+      createdAt: new Date(),
+    });
+
+    inMemoryUsers.set('archivist@ambedkar-archive.in', {
+      _id: 'mock-user-archivist-004',
+      name: 'Senior Archivist',
+      email: 'archivist@ambedkar-archive.in',
+      password: hashArchivist,
+      role: 'archivist',
+      language: 'en',
+      institution: 'Dr. Ambedkar International Centre',
+      avatar: '',
+      isActive: true,
+      lastActiveAt: new Date(),
+      createdAt: new Date(),
+    });
+
     inMemoryUsers.set('admin@ambedkar-archive.in', {
       _id: 'mock-user-admin-002',
       name: 'Archive Administrator',
@@ -34,6 +80,20 @@ const inMemoryUsers = new Map();
       role: 'admin',
       language: 'en',
       institution: 'National Archives',
+      avatar: '',
+      isActive: true,
+      lastActiveAt: new Date(),
+      createdAt: new Date(),
+    });
+
+    inMemoryUsers.set('superadmin@ambedkar-archive.in', {
+      _id: 'mock-user-superadmin-005',
+      name: 'Super Administrator',
+      email: 'superadmin@ambedkar-archive.in',
+      password: hashSuperAdmin,
+      role: 'super_admin',
+      language: 'en',
+      institution: 'DAIC Technology Governance Council',
       avatar: '',
       isActive: true,
       lastActiveAt: new Date(),

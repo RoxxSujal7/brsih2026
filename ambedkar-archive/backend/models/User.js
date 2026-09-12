@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ['visitor', 'researcher', 'admin'],
+      enum: ['visitor', 'researcher', 'content_editor', 'archivist', 'super_admin', 'admin'],
       default: 'visitor',
     },
     language: {

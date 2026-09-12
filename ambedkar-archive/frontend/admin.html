@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Institutional Archivist Portal — Dr. Ambedkar International Centre</title>
-  <meta name="description" content="Institutional archivist and curator administration console for Dr. Ambedkar International Centre digital preservation, checksum verification, and catalog governance." />
+  <title>Institutional Administration Portal — Dr. Ambedkar International Centre</title>
+  <meta name="description" content="Protected institutional administration portal for curatorial management, OCR verification, and role governance at Dr. Ambedkar International Centre." />
   
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,14 +15,14 @@
 
   <style>
     .admin-hero {
-      background: radial-gradient(ellipse 70% 50% at 50% -10%, rgba(212,175,55,0.1) 0%, transparent 70%),
+      background: radial-gradient(ellipse 70% 50% at 50% -10%, rgba(212,175,55,0.12) 0%, transparent 70%),
                   linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
       padding: calc(var(--nav-height) + var(--space-12)) var(--space-6) var(--space-8);
       border-bottom: 1px solid var(--border);
     }
     .admin-grid {
       display: grid;
-      grid-template-columns: 260px 1fr;
+      grid-template-columns: 280px 1fr;
       gap: var(--space-8);
       max-width: var(--container);
       margin: var(--space-8) auto var(--space-20);
@@ -75,230 +75,584 @@
     .admin-panel.active {
       display: block;
     }
-    .manifest-table {
+    .admin-gate-card {
+      max-width: 520px;
+      margin: var(--space-12) auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-2xl);
+      padding: var(--space-8);
+      text-align: center;
+    }
+    .admin-form-group {
+      margin-bottom: var(--space-4);
+      text-align: left;
+    }
+    .admin-form-group label {
+      display: block;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    .admin-input {
+      width: 100%;
+      padding: 10px 14px;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      color: var(--text);
+      font-size: 0.9rem;
+      box-sizing: border-box;
+    }
+    .admin-input:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+    .admin-table {
       width: 100%;
       border-collapse: collapse;
       margin-top: var(--space-4);
       font-size: 0.85rem;
     }
-    .manifest-table th, .manifest-table td {
-      padding: 12px 16px;
+    .admin-table th, .admin-table td {
+      padding: 10px 14px;
       text-align: left;
       border-bottom: 1px solid var(--border);
     }
-    .manifest-table th {
+    .admin-table th {
       font-family: var(--font-mono);
       color: var(--gold);
       font-size: 0.75rem;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
       background: rgba(255,255,255,0.02);
-    }
-    .hash-code {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      background: rgba(0,0,0,0.3);
-      padding: 4px 8px;
-      border-radius: var(--radius-sm);
-      color: var(--gold-light);
-      word-break: break-all;
     }
   </style>
 </head>
 <body>
 
-<!-- Navigation -->
-<nav class="nav" role="navigation" aria-label="Main navigation">
-  <div class="nav-inner">
-    <a href="index.html" class="nav-logo" aria-label="Ambedkar Archive Home">
-      <div class="nav-logo-icon" aria-hidden="true">🏛️</div>
-      <div class="nav-logo-text">
-        <span>AMBEDKAR ARCHIVE</span>
-        <span class="nav-logo-sub">Archivist Portal · DAIC</span>
+  <!-- Header -->
+  <header class="site-header" role="banner">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo" aria-label="Ambedkar Digital Heritage Archive">
+        <span class="logo-mark">BA</span>
+        <span class="logo-text">Ambedkar Archive</span>
+      </a>
+
+      <nav class="nav-links" role="navigation" aria-label="Main Navigation">
+        <a href="archive.html" class="nav-link">Volumes</a>
+        <a href="memorials.html" class="nav-link">Memorials</a>
+        <a href="debates.html" class="nav-link">Debates</a>
+        <a href="transparency.html" class="nav-link">Transparency</a>
+        <a href="admin.html" class="nav-link active">Admin Portal</a>
+      </nav>
+
+      <div class="nav-actions">
+        <span id="nav-user-badge" class="badge badge-gold" style="display:none;"></span>
+        <button id="nav-logout-btn" class="btn btn-secondary btn-sm" style="display:none;" onclick="handleLogout()">Logout</button>
       </div>
-    </a>
-    <div class="nav-links">
-      <a href="index.html" class="nav-link">Home</a>
-      <a href="archive.html" class="nav-link">Volumes</a>
-      <a href="memorials.html" class="nav-link">Memorials</a>
-      <a href="debates.html" class="nav-link">Debates</a>
-      <a href="admin.html" class="nav-link active">Archivist Console</a>
     </div>
-    <div class="nav-actions">
-      <span class="badge badge-gold" id="role-badge">Institutional Curator</span>
-      <a href="dashboard.html" class="btn btn-secondary btn-sm">Research Hub</a>
+  </header>
+
+  <!-- Hero -->
+  <section class="admin-hero">
+    <div style="max-width:var(--container);margin:0 auto;text-align:center;">
+      <span class="badge" style="background:#d97706;color:#fff;margin-bottom:var(--space-3);letter-spacing:0.1em;">PROTECTED INSTITUTIONAL CONSOLE</span>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);color:var(--text);margin-bottom:var(--space-3);">
+        Institutional Administration &amp; Curatorial Portal
+      </h1>
+      <p style="font-size:1.05rem;color:var(--text-muted);max-width:700px;margin:0 auto;line-height:1.6;">
+        Dr. Ambedkar International Centre (DAIC) archival ingestion, metadata governance, OCR verification, and role-based access management.
+      </p>
+    </div>
+  </section>
+
+  <!-- Gate / Login Section (Shown if unauthenticated or unauthorized) -->
+  <div id="admin-auth-gate" class="admin-gate-card" style="display:none;">
+    <span style="font-size:3rem;display:block;margin-bottom:var(--space-3);">🔒</span>
+    <h2 id="gate-title" style="font-family:var(--font-display);font-size:1.4rem;color:var(--text);margin-bottom:var(--space-2);">
+      Institutional Authentication Required
+    </h2>
+    <p id="gate-desc" style="font-size:0.88rem;color:var(--text-muted);margin-bottom:var(--space-6);line-height:1.5;">
+      This portal is restricted to authorized curators, archivists, and administrators. Please log in with your institutional credentials.
+    </p>
+
+    <div id="gate-login-form">
+      <div class="admin-form-group">
+        <label>Institutional Email</label>
+        <input type="email" id="gate-email" class="admin-input" placeholder="archivist@ambedkar-archive.in" value="archivist@ambedkar-archive.in" />
+      </div>
+      <div class="admin-form-group">
+        <label>Password</label>
+        <input type="password" id="gate-password" class="admin-input" placeholder="Archivist@1234" value="Archivist@1234" />
+      </div>
+      <div id="gate-error" style="display:none;color:var(--danger);font-size:0.82rem;margin-bottom:var(--space-4);"></div>
+      <button class="btn btn-primary w-full" onclick="handleGateLogin()" style="width:100%;padding:12px;">Sign In to Institutional Console</button>
+
+      <div style="margin-top:var(--space-4);font-size:0.8rem;color:var(--text-muted);">
+        Demo Credentials: <code>archivist@ambedkar-archive.in</code> (Pass: <code>Archivist@1234</code>) or <code>superadmin@ambedkar-archive.in</code> (Pass: <code>SuperAdmin@1234</code>)
+      </div>
+    </div>
+
+    <div id="gate-forbidden" style="display:none;">
+      <div style="background:rgba(239,68,68,0.1);border:1px solid var(--danger);border-radius:var(--radius-lg);padding:var(--space-4);margin-bottom:var(--space-4);color:#fca5a5;font-size:0.85rem;">
+        <strong>403 Forbidden:</strong> Your account role is <code id="gate-role">visitor</code>. This portal requires an <code>archivist</code>, <code>content_editor</code>, or <code>super_admin</code> account.
+      </div>
+      <button class="btn btn-secondary" onclick="handleLogout()">Switch Account</button>
+      <a href="index.html" class="btn btn-primary" style="margin-left:8px;">Return to Archive</a>
     </div>
   </div>
-</nav>
 
-<!-- Admin Hero -->
-<header class="admin-hero">
-  <div class="container">
-    <div class="flex-between items-center" style="flex-wrap:wrap;gap:var(--space-4);">
-      <div>
-        <div class="section-eyebrow" style="margin-bottom:var(--space-2);">INSTITUTIONAL CURATORIAL GOVERNANCE</div>
-        <h1 style="font-family:var(--font-display);font-size:2.2rem;color:var(--text);margin-bottom:var(--space-2);">Archivist Management Portal</h1>
-        <p style="color:var(--text-muted);font-size:0.95rem;">
-          Dr. Ambedkar International Centre digital preservation, PREMIS integrity verification, and metadata auditing.
-        </p>
+  <!-- Main Authenticated Portal -->
+  <div id="admin-main-portal" class="admin-grid" style="display:none;">
+    
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <div style="padding:var(--space-3) var(--space-4) var(--space-4);border-bottom:1px solid var(--border);margin-bottom:var(--space-3);">
+        <div id="curator-name" style="font-weight:700;color:var(--text);font-size:0.95rem;">Archivist</div>
+        <div id="curator-role-badge" class="badge" style="background:#d97706;color:#fff;margin-top:4px;">ARCHIVIST</div>
+        <div id="curator-inst" style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">DAIC</div>
       </div>
-      <div class="flex gap-2">
-        <button class="btn btn-secondary btn-sm" onclick="fetchPreservationManifest()">
-          <span>🔄 Re-verify Checksums</span>
-        </button>
-      </div>
-    </div>
-  </div>
-</header>
 
-<!-- Main Admin Layout -->
-<div class="admin-grid">
-  <!-- Left Navigation -->
-  <aside class="admin-sidebar">
-    <button class="admin-tab-btn active" data-tab="preservation">
-      <span>🛡️</span> Digital Preservation
-    </button>
-    <button class="admin-tab-btn" data-tab="metadata">
-      <span>🏷️</span> Dublin Core Metadata
-    </button>
-    <button class="admin-tab-btn" data-tab="ocr-queue">
-      <span>📜</span> OCR Transcription Review
-    </button>
-    <button class="admin-tab-btn" data-tab="roles">
-      <span>👥</span> Roles &amp; Permissions
-    </button>
-  </aside>
+      <nav style="display:flex;flex-direction:column;gap:4px;">
+        <button class="admin-tab-btn active" data-tab="overview">📊 Overview &amp; Health</button>
+        <button class="admin-tab-btn" data-tab="ingest">📥 Ingest Document</button>
+        <button class="admin-tab-btn" data-tab="metadata">🏷️ Metadata &amp; Publishing</button>
+        <button class="admin-tab-btn" data-tab="ocr-verify">📜 OCR Review Queue</button>
+        <button class="admin-tab-btn" id="tab-users-btn" data-tab="users" style="display:none;">👥 User Governance</button>
+        <button class="admin-tab-btn" data-tab="audit">📝 Audit Trail</button>
+      </nav>
+    </aside>
 
-  <!-- Right Panels -->
-  <main>
-    <!-- Panel 1: Digital Preservation Manifest -->
-    <section class="admin-panel active" id="panel-preservation">
-      <div class="flex-between items-center" style="margin-bottom:var(--space-4);">
-        <div>
-          <h2 style="font-family:var(--font-display);font-size:1.4rem;color:var(--text);">PREMIS Bitstream Preservation Manifest</h2>
-          <p style="font-size:0.85rem;color:var(--text-muted);">Real-time cryptographic SHA-256 verification of repository files.</p>
+    <!-- Content Panels -->
+    <main>
+      <!-- Panel 1: Overview -->
+      <section class="admin-panel active" id="panel-overview">
+        <h2 style="font-family:var(--font-display);font-size:1.4rem;color:var(--text);margin-bottom:var(--space-2);">Archival Operations Overview</h2>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:var(--space-6);">Institutional system health and collection ingestion metrics.</p>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:var(--space-4);margin-bottom:var(--space-6);">
+          <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--space-4);text-align:center;">
+            <div id="stat-vol" style="font-size:1.8rem;font-weight:800;color:var(--gold);">17</div>
+            <div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;">Writings Volumes</div>
+          </div>
+          <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--space-4);text-align:center;">
+            <div id="stat-let" style="font-size:1.8rem;font-weight:800;color:var(--gold);">361</div>
+            <div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;">Archival Letters</div>
+          </div>
+          <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--space-4);text-align:center;">
+            <div id="stat-mem" style="font-size:1.8rem;font-weight:800;color:var(--gold);">8</div>
+            <div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;">National Memorials</div>
+          </div>
+          <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--space-4);text-align:center;">
+            <div id="stat-ocr" style="font-size:1.8rem;font-weight:800;color:#93c5fd;">2</div>
+            <div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;">Pending OCR Reviews</div>
+          </div>
         </div>
-        <span class="badge" id="manifest-health" style="background:#065f46;color:#a7f3d0;">VERIFIED HEALTHY</span>
-      </div>
 
-      <div style="overflow-x:auto;">
-        <table class="manifest-table">
+        <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius-xl);padding:var(--space-6);">
+          <h3 style="font-size:1rem;color:var(--text);margin-bottom:var(--space-2);">Digital Preservation Status</h3>
+          <p style="font-size:0.85rem;color:var(--text-muted);line-height:1.6;">
+            Cryptographic bitstream verification is active. Live SHA-256 hashes are continuously audited against Git multi-remote replicas (<a href="transparency.html" style="color:var(--gold);">View Public Transparency Manifest</a>).
+          </p>
+        </div>
+      </section>
+
+      <!-- Panel 2: Document Ingestion -->
+      <section class="admin-panel" id="panel-ingest">
+        <h2 style="font-family:var(--font-display);font-size:1.4rem;color:var(--text);margin-bottom:var(--space-2);">Archival Document Ingestion</h2>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:var(--space-6);">Catalog and register historical manuscripts into the primary archive.</p>
+
+        <form id="ingest-form" onsubmit="handleIngest(event)">
+          <div class="admin-form-group">
+            <label>Document Title</label>
+            <input type="text" id="ingest-title" class="admin-input" required placeholder="e.g. Address to the All India Depressed Classes Congress (1930)" />
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+            <div class="admin-form-group">
+              <label>Category</label>
+              <select id="ingest-category" class="admin-input">
+                <option value="speeches">Speeches &amp; Addresses</option>
+                <option value="manuscripts">Historical Manuscript</option>
+                <option value="letters">Correspondence / Letter</option>
+                <option value="constitutional">Constitutional Draft</option>
+                <option value="memorials">Memorial Heritage</option>
+              </select>
+            </div>
+            <div class="admin-form-group">
+              <label>Associated Volume #</label>
+              <input type="number" id="ingest-volume" class="admin-input" placeholder="e.g. 2" />
+            </div>
+          </div>
+          <div class="admin-form-group">
+            <label>Curatorial Summary</label>
+            <textarea id="ingest-summary" class="admin-input" rows="4" placeholder="Brief summary of document provenance and historical context..."></textarea>
+          </div>
+          <div id="ingest-feedback" style="display:none;margin-bottom:var(--space-4);font-size:0.85rem;"></div>
+          <button type="submit" class="btn btn-primary">Catalog Archival Document</button>
+        </form>
+      </section>
+
+      <!-- Panel 3: Metadata & Publishing -->
+      <section class="admin-panel" id="panel-metadata">
+        <h2 style="font-family:var(--font-display);font-size:1.4rem;color:var(--text);margin-bottom:var(--space-2);">Metadata &amp; Publishing Controls</h2>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:var(--space-6);">Manage publication state and update Dublin Core tags.</p>
+
+        <div style="border:1px solid var(--border);border-radius:var(--radius-xl);padding:var(--space-6);margin-bottom:var(--space-4);">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <strong style="color:var(--text);">Draft Article 14 Marginalia Annotation</strong>
+              <div style="font-size:0.75rem;color:var(--text-muted);">ID: ARCH-DOC-1948-004 • Category: constitutional</div>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <button class="btn btn-secondary btn-sm" onclick="handlePublishToggle('ARCH-DOC-1948-004', true)">Publish</button>
+              <button class="btn btn-secondary btn-sm" onclick="handlePublishToggle('ARCH-DOC-1948-004', false)">Withdraw</button>
+              <button class="btn btn-sm" id="btn-del-sample" style="background:#dc2626;color:#fff;" onclick="handleDeleteRecord('ARCH-DOC-1948-004')">Delete</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Panel 4: OCR Review Queue -->
+      <section class="admin-panel" id="panel-ocr-verify">
+        <h2 style="font-family:var(--font-display);font-size:1.4rem;color:var(--text);margin-bottom:var(--space-2);">OCR Verification Queue</h2>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:var(--space-6);">Review and commit human-verified OCR transcriptions.</p>
+
+        <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius-xl);padding:var(--space-6);">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-4);">
+            <div>
+              <strong style="color:var(--text);">Scan Sample: AIC-MANU-1948-004</strong>
+              <div style="font-size:0.75rem;color:var(--gold);">Confidence: 98.4% • Engine: Tesseract.js v5</div>
+            </div>
+            <span class="badge" style="background:#065f46;color:#a7f3d0;">READY FOR SIGN-OFF</span>
+          </div>
+
+          <div class="admin-form-group">
+            <label>Extracted &amp; Corrected Text</label>
+            <textarea id="ocr-corrected-text" class="admin-input" rows="5">Draft Article 14 [State Equality]
+"The State shall not deny to any person equality before the law or the equal protection of the laws within the territory of India."
+
+[Handwritten Marginalia by Dr. Ambedkar]:
+Ensure equal protection applies to all persons regardless of citizenship status.</textarea>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="handleVerifyOcr('AIC-MANU-1948-004')">Verify &amp; Sign Off Transcription</button>
+        </div>
+      </section>
+
+      <!-- Panel 5: User Governance (Super Admin only) -->
+      <section class="admin-panel" id="panel-users">
+        <h2 style="font-family:var(--font-display);font-size:1.4rem;color:var(--text);margin-bottom:var(--space-2);">User Directory &amp; Role Governance</h2>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:var(--space-6);">Super-admin role provisioning and privilege enforcement.</p>
+
+        <table class="admin-table">
           <thead>
             <tr>
-              <th>Artifact Dataset</th>
-              <th>Category</th>
-              <th>Status</th>
-              <th>Size</th>
-              <th>SHA-256 Cryptographic Hash</th>
+              <th>User</th>
+              <th>Current Role</th>
+              <th>Change Role</th>
             </tr>
           </thead>
-          <tbody id="manifest-tbody">
-            <tr><td colspan="5" style="text-align:center;color:var(--text-muted);">Loading live checksums...</td></tr>
+          <tbody id="user-table-tbody">
+            <tr><td colspan="3">Loading user directory...</td></tr>
           </tbody>
         </table>
-      </div>
+      </section>
 
-      <div style="margin-top:var(--space-6);background:rgba(212,175,55,0.05);border:1px solid var(--border-gold);border-radius:var(--radius-lg);padding:var(--space-4);font-size:0.82rem;color:var(--text-muted);line-height:1.6;">
-        <strong style="color:var(--gold);">Preservation Policy:</strong> Level 3 Bitstream Retention. All primary source catalogs and transcripts are replicated across immutable Git history, local canonical storage, and geo-redundant remotes in compliance with UNESCO Guidelines for Digital Preservation.
-      </div>
-    </section>
+      <!-- Panel 6: Audit Trail -->
+      <section class="admin-panel" id="panel-audit">
+        <h2 style="font-family:var(--font-display);font-size:1.4rem;color:var(--text);margin-bottom:var(--space-2);">Curatorial Audit Trail</h2>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:var(--space-6);">Immutable record of administrative operations and access logs.</p>
 
-    <!-- Panel 2: Dublin Core Metadata -->
-    <section class="admin-panel" id="panel-metadata">
-      <h2 style="font-family:var(--font-display);font-size:1.4rem;color:var(--text);margin-bottom:var(--space-2);">Dublin Core ISO 15836 Metadata Inspector</h2>
-      <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:var(--space-6);">Institutional schema standards enforced across all archival records.</p>
-      
-      <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius-xl);padding:var(--space-6);font-family:var(--font-mono);font-size:0.8rem;line-height:1.8;color:var(--text);">
-        <div><strong style="color:var(--gold);">dc:title:</strong> Babasaheb Ambedkar Writings and Speeches (BAWS)</div>
-        <div><strong style="color:var(--gold);">dc:creator:</strong> Dr. Bhimrao Ramji Ambedkar (1891–1956)</div>
-        <div><strong style="color:var(--gold);">dc:publisher:</strong> Dr. Ambedkar Foundation / Ministry of Social Justice &amp; Empowerment</div>
-        <div><strong style="color:var(--gold);">dc:date:</strong> 1979–2026 (Continuous Archival Edition)</div>
-        <div><strong style="color:var(--gold);">dc:language:</strong> eng, hin, mar, pli, san</div>
-        <div><strong style="color:var(--gold);">dc:rights:</strong> Open Access / Public Archival Heritage for Educational and Research Use</div>
-        <div><strong style="color:var(--gold);">dc:format:</strong> application/pdf, text/html, application/json</div>
-      </div>
-    </section>
-
-    <!-- Panel 3: OCR Review Queue -->
-    <section class="admin-panel" id="panel-ocr-queue">
-      <h2 style="font-family:var(--font-display);font-size:1.4rem;color:var(--text);margin-bottom:var(--space-2);">OCR Transcription Verification Queue</h2>
-      <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:var(--space-6);">Review manuscript scans digitized via Tesseract.js client OCR.</p>
-
-      <div style="border:1px dashed var(--border);border-radius:var(--radius-xl);padding:var(--space-8);text-align:center;color:var(--text-muted);">
-        <span style="font-size:2.5rem;display:block;margin-bottom:var(--space-2);">📜</span>
-        <div style="font-weight:600;color:var(--text);margin-bottom:var(--space-1);">All OCR Submissions Audited</div>
-        <p style="font-size:0.85rem;">Scans processed via <a href="ocr.html" style="color:var(--gold);">Manuscript OCR Explorer</a> are preserved in browser cache or submitted for curatorial approval.</p>
-      </div>
-    </section>
-
-    <!-- Panel 4: Roles -->
-    <section class="admin-panel" id="panel-roles">
-      <h2 style="font-family:var(--font-display);font-size:1.4rem;color:var(--text);margin-bottom:var(--space-2);">Institutional Role Hierarchy</h2>
-      <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:var(--space-6);">Role-based access matrix enforcing least-privilege security.</p>
-
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--space-4);">
-        <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--space-4);">
-          <span class="badge" style="background:#334155;">visitor</span>
-          <h4 style="margin-top:var(--space-2);color:var(--text);">Visitor</h4>
-          <p style="font-size:0.8rem;color:var(--text-muted);margin-top:var(--space-1);">Public browsing, reading volumes, AI assistant, kiosk access.</p>
+        <div id="audit-log-container" style="display:flex;flex-direction:column;gap:8px;">
+          <!-- Populated by script -->
         </div>
-        <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--space-4);">
-          <span class="badge badge-gold">researcher</span>
-          <h4 style="margin-top:var(--space-2);color:var(--text);">Researcher</h4>
-          <p style="font-size:0.8rem;color:var(--text-muted);margin-top:var(--space-1);">Personal bookmarking, research collection compilation, citation exports.</p>
-        </div>
-        <div style="background:var(--bg-2);border:1px solid var(--border-gold);border-radius:var(--radius-lg);padding:var(--space-4);">
-          <span class="badge" style="background:#d97706;color:#fff;">archivist</span>
-          <h4 style="margin-top:var(--space-2);color:var(--gold-light);">Archivist / Curator</h4>
-          <p style="font-size:0.8rem;color:var(--text-muted);margin-top:var(--space-1);">PREMIS checksum auditing, metadata tagging, OCR transcript review.</p>
-        </div>
-        <div style="background:var(--bg-2);border:1px solid var(--danger);border-radius:var(--radius-lg);padding:var(--space-4);">
-          <span class="badge" style="background:#dc2626;color:#fff;">superadmin</span>
-          <h4 style="margin-top:var(--space-2);color:var(--text);">Super Admin</h4>
-          <p style="font-size:0.8rem;color:var(--text-muted);margin-top:var(--space-1);">Full database backups, user access provisioning, security configuration.</p>
-        </div>
-      </div>
-    </section>
-  </main>
-</div>
+      </section>
+    </main>
+  </div>
 
-<script>
-// Tab Switching
-document.querySelectorAll('.admin-tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
-    btn.classList.add('active');
-    const tabId = `panel-${btn.dataset.tab}`;
-    const panel = document.getElementById(tabId);
-    if (panel) panel.classList.add('active');
-  });
-});
+  <div id="toast-container" class="toast-container"></div>
 
-async function fetchPreservationManifest() {
-  const tbody = document.getElementById('manifest-tbody');
-  tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--gold);">Verifying cryptographic checksums across storage...</td></tr>';
+  <script src="js/toast.js"></script>
+  <script>
+    let currentAdminUser = null;
 
-  try {
-    const res = await fetch('/api/preservation/manifest');
-    const data = await res.json();
-    if (data.success) {
-      tbody.innerHTML = data.manifest.map(item => `
-        <tr>
-          <td><strong>${item.label}</strong><div style="font-size:0.75rem;color:var(--text-muted);">${item.filename}</div></td>
-          <td><span class="chip" style="font-size:0.75rem;">${item.category}</span></td>
-          <td><span class="badge" style="background:#065f46;color:#a7f3d0;">${item.status}</span></td>
-          <td style="font-family:var(--font-mono);font-size:0.8rem;">${(item.sizeBytes / 1024).toFixed(1)} KB</td>
-          <td><span class="hash-code">${item.sha256 ? item.sha256.slice(0, 32) + '…' : 'Pending'}</span></td>
-        </tr>
+    // Tab switching
+    document.querySelectorAll('.admin-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        const panel = document.getElementById(`panel-${btn.dataset.tab}`);
+        if (panel) panel.classList.add('active');
+      });
+    });
+
+    async function checkAdminAuth() {
+      const token = localStorage.getItem('token');
+      const gate = document.getElementById('admin-auth-gate');
+      const portal = document.getElementById('admin-main-portal');
+
+      if (!token) {
+        showGate('login');
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/admin/dashboard', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+
+        if (res.status === 401) {
+          showGate('login');
+          return;
+        }
+
+        if (res.status === 403) {
+          showGate('forbidden', data.currentRole);
+          return;
+        }
+
+        if (data.success) {
+          currentAdminUser = data.data.curator;
+          renderAdminPortal(data.data);
+        }
+      } catch (err) {
+        showGate('login');
+      }
+    }
+
+    function showGate(mode, role = 'visitor') {
+      document.getElementById('admin-auth-gate').style.display = 'block';
+      document.getElementById('admin-main-portal').style.display = 'none';
+
+      if (mode === 'login') {
+        document.getElementById('gate-login-form').style.display = 'block';
+        document.getElementById('gate-forbidden').style.display = 'none';
+      } else {
+        document.getElementById('gate-login-form').style.display = 'none';
+        document.getElementById('gate-forbidden').style.display = 'block';
+        document.getElementById('gate-role').textContent = role;
+      }
+    }
+
+    function renderAdminPortal(dashData) {
+      document.getElementById('admin-auth-gate').style.display = 'none';
+      document.getElementById('admin-main-portal').style.display = 'grid';
+
+      // Header actions
+      const navBadge = document.getElementById('nav-user-badge');
+      const logoutBtn = document.getElementById('nav-logout-btn');
+      navBadge.style.display = 'inline-block';
+      navBadge.textContent = `${dashData.curator.role.toUpperCase()}: ${dashData.curator.name}`;
+      logoutBtn.style.display = 'inline-block';
+
+      // Sidebar info
+      document.getElementById('curator-name').textContent = dashData.curator.name;
+      document.getElementById('curator-role-badge').textContent = dashData.curator.role.toUpperCase();
+      document.getElementById('curator-inst').textContent = dashData.curator.institution;
+
+      // Stats
+      document.getElementById('stat-vol').textContent = dashData.stats.totalVolumes;
+      document.getElementById('stat-let').textContent = dashData.stats.totalLetters;
+      document.getElementById('stat-mem').textContent = dashData.stats.totalMemorials;
+
+      // Super admin controls
+      if (dashData.curator.role === 'super_admin' || dashData.curator.role === 'admin') {
+        document.getElementById('tab-users-btn').style.display = 'flex';
+        loadUsersTable();
+      }
+
+      // Audit logs
+      renderAuditLogs(dashData.recentAuditLog || []);
+    }
+
+    async function handleGateLogin() {
+      const email = document.getElementById('gate-email').value;
+      const password = document.getElementById('gate-password').value;
+      const errEl = document.getElementById('gate-error');
+      errEl.style.display = 'none';
+
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+
+        if (data.success && data.token) {
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('user', JSON.stringify(data.data.user));
+          checkAdminAuth();
+        } else {
+          errEl.textContent = data.message || 'Login failed. Please check credentials.';
+          errEl.style.display = 'block';
+        }
+      } catch (err) {
+        errEl.textContent = 'Server connection error.';
+        errEl.style.display = 'block';
+      }
+    }
+
+    function handleLogout() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      window.location.reload();
+    }
+
+    async function handleIngest(e) {
+      e.preventDefault();
+      const token = localStorage.getItem('token');
+      const title = document.getElementById('ingest-title').value;
+      const category = document.getElementById('ingest-category').value;
+      const volumeNo = document.getElementById('ingest-volume').value;
+      const summary = document.getElementById('ingest-summary').value;
+      const feedback = document.getElementById('ingest-feedback');
+
+      try {
+        const res = await fetch('/api/admin/documents', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ title, category, volumeNo, summary })
+        });
+        const data = await res.json();
+        feedback.style.display = 'block';
+        if (data.success) {
+          feedback.style.color = '#a7f3d0';
+          feedback.textContent = `✅ ${data.message}`;
+          document.getElementById('ingest-form').reset();
+        } else {
+          feedback.style.color = 'var(--danger)';
+          feedback.textContent = `❌ ${data.message}`;
+        }
+      } catch (err) {
+        feedback.style.color = 'var(--danger)';
+        feedback.textContent = 'Network error cataloging document.';
+      }
+    }
+
+    async function handlePublishToggle(id, publish) {
+      const token = localStorage.getItem('token');
+      try {
+        const res = await fetch(`/api/admin/documents/${id}/publish`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ published: publish })
+        });
+        const data = await res.json();
+        alert(data.message || (data.success ? 'Success' : 'Failed'));
+      } catch (err) {
+        alert('Action failed.');
+      }
+    }
+
+    async function handleDeleteRecord(id) {
+      if (!confirm(`Are you sure you want to permanently delete record ${id}?`)) return;
+      const token = localStorage.getItem('token');
+      try {
+        const res = await fetch(`/api/admin/documents/${id}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+        alert(data.message || (data.success ? 'Record deleted' : 'Deletion failed'));
+      } catch (err) {
+        alert('Deletion failed.');
+      }
+    }
+
+    async function handleVerifyOcr(manuscriptId) {
+      const token = localStorage.getItem('token');
+      const text = document.getElementById('ocr-corrected-text').value;
+      try {
+        const res = await fetch('/api/admin/ocr/verify', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ manuscriptId, correctedText: text, confidence: '99.5%' })
+        });
+        const data = await res.json();
+        alert(data.message || (data.success ? 'Verified' : 'Verification failed'));
+      } catch (err) {
+        alert('OCR sign-off failed.');
+      }
+    }
+
+    async function loadUsersTable() {
+      const token = localStorage.getItem('token');
+      const tbody = document.getElementById('user-table-tbody');
+      try {
+        const res = await fetch('/api/admin/users', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+        if (data.success) {
+          tbody.innerHTML = data.users.map(u => `
+            <tr>
+              <td><strong>${u.name}</strong><div style="font-size:0.75rem;color:var(--text-muted);">${u.email}</div></td>
+              <td><span class="badge" style="background:#334155;">${u.role}</span></td>
+              <td>
+                <select onchange="handleRoleChange('${u.id}', this.value)" class="admin-input" style="padding:4px 8px;font-size:0.8rem;width:auto;">
+                  <option value="visitor" ${u.role==='visitor'?'selected':''}>visitor</option>
+                  <option value="researcher" ${u.role==='researcher'?'selected':''}>researcher</option>
+                  <option value="content_editor" ${u.role==='content_editor'?'selected':''}>content_editor</option>
+                  <option value="archivist" ${u.role==='archivist'?'selected':''}>archivist</option>
+                  <option value="super_admin" ${u.role==='super_admin'?'selected':''}>super_admin</option>
+                </select>
+              </td>
+            </tr>
+          `).join('');
+        }
+      } catch (err) {
+        tbody.innerHTML = '<tr><td colspan="3">Failed to load user directory.</td></tr>';
+      }
+    }
+
+    async function handleRoleChange(userId, newRole) {
+      const token = localStorage.getItem('token');
+      try {
+        const res = await fetch(`/api/admin/users/${userId}/role`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ role: newRole })
+        });
+        const data = await res.json();
+        alert(data.message || 'Role updated');
+      } catch (err) {
+        alert('Failed to update role');
+      }
+    }
+
+    function renderAuditLogs(logs) {
+      const container = document.getElementById('audit-log-container');
+      if (!logs.length) {
+        container.innerHTML = '<div style="color:var(--text-muted);font-size:0.85rem;">No recent audit records.</div>';
+        return;
+      }
+      container.innerHTML = logs.map(l => `
+        <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius-md);padding:10px 14px;font-size:0.82rem;display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <span class="chip" style="font-size:0.7rem;margin-right:6px;">${l.action}</span>
+            <span style="color:var(--text);">${l.details}</span>
+          </div>
+          <div style="color:var(--text-muted);font-family:var(--font-mono);font-size:0.75rem;">${new Date(l.timestamp).toLocaleTimeString()}</div>
+        </div>
       `).join('');
     }
-  } catch (err) {
-    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--danger);">Error loading preservation manifest.</td></tr>';
-  }
-}
 
-window.addEventListener('load', fetchPreservationManifest);
-</script>
+    window.addEventListener('load', checkAdminAuth);
+  </script>
 </body>
 </html>
