@@ -1,8 +1,11 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useMemo, useRef, useState, Suspense } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import { Html, Float, Line } from '@react-three/drei';
+import { Html, Line } from '@react-three/drei';
 import * as THREE from 'three';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 import { TIMELINE_CATEGORIES } from '../../data/timelineData';
+import ArtifactNode from './artifacts/ArtifactNode';
 
 function MilestoneNode({
   event,
@@ -12,74 +15,42 @@ function MilestoneNode({
   onSelect
 }) {
   const [hovered, setHovered] = useState(false);
-  const meshRef = useRef();
-  const ringRef = useRef();
   const category = TIMELINE_CATEGORIES[event.category] || TIMELINE_CATEGORIES.all;
 
-  useFrame((state, delta) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.y += delta * (isActive ? 1.2 : 0.4);
-      meshRef.current.rotation.x += delta * 0.2;
-    }
-    if (ringRef.current && isActive) {
-      ringRef.current.rotation.z += delta * 0.8;
-      const pulse = 1 + Math.sin(state.clock.elapsedTime * 3) * 0.08;
-      ringRef.current.scale.set(pulse, pulse, pulse);
-    }
-  });
-
-  const nodeColor = isActive ? '#f59e0b' : hovered ? '#38bdf8' : category.color;
-
   return (
-    <group position={position}>
-      {/* 3D Interactive Faceted Crystal Pylon */}
-      <Float speed={2} rotationIntensity={0.2} floatIntensity={0.4}>
-        <mesh
-          ref={meshRef}
-          onClick={(e) => {
-            e.stopPropagation();
-            onSelect(index);
-          }}
-          onPointerOver={(e) => {
-            e.stopPropagation();
-            setHovered(true);
-            document.body.style.cursor = 'pointer';
-          }}
-          onPointerOut={() => {
-            setHovered(false);
-            document.body.style.cursor = 'auto';
-          }}
-          castShadow
-        >
-          <octahedronGeometry args={[isActive ? 0.9 : 0.65, 0]} />
-          <meshStandardMaterial
-            color={nodeColor}
-            emissive={nodeColor}
-            emissiveIntensity={isActive ? 0.7 : hovered ? 0.4 : 0.15}
-            roughness={0.2}
-            metalness={0.8}
-            wireframe={false}
-          />
-        </mesh>
-      </Float>
+    <group
+      position={position}
+      onClick={(e) => {
+        e.stopPropagation();
+        onSelect(index);
+      }}
+      onPointerOver={(e) => {
+        e.stopPropagation();
+        setHovered(true);
+        document.body.style.cursor = 'pointer';
+      }}
+      onPointerOut={() => {
+        setHovered(false);
+        document.body.style.cursor = 'auto';
+      }}
+    >
+      {/* Museum-Grade 3D Historical Artifact */}
+      <Suspense fallback={null}>
+        <ArtifactNode
+          event={event}
+          isActive={isActive}
+          isHovered={hovered}
+        />
+      </Suspense>
 
-      {/* Radiant Glowing Ground Ring for Active Milestone */}
-      {isActive && (
-        <mesh ref={ringRef} position={[0, -1.2, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-          <ringGeometry args={[1.1, 1.35, 32]} />
-          <meshBasicMaterial
-            color="#f59e0b"
-            transparent
-            opacity={0.85}
-            side={THREE.DoubleSide}
-          />
-        </mesh>
-      )}
-
-      {/* Vertical Golden Pillar Beacon */}
-      <mesh position={[0, -0.6, 0]}>
-        <cylinderGeometry args={[0.03, 0.03, 1.2, 8]} />
-        <meshBasicMaterial color={nodeColor} transparent opacity={0.5} />
+      {/* Vertical Archival Spotlight Beacon */}
+      <mesh position={[0, -0.7, 0]}>
+        <cylinderGeometry args={[0.02, 0.02, 0.8, 8]} />
+        <meshBasicMaterial
+          color={isActive ? '#f59e0b' : category.color}
+          transparent
+          opacity={isActive ? 0.8 : 0.3}
+        />
       </mesh>
 
       {/* Floating 3D Year & Title Tag */}
@@ -162,25 +133,32 @@ export default function TimelineScene({
     return curve.getPoints(nodePositions.length * 16);
   }, [nodePositions]);
 
-  // Update target camera position when active index changes
-  useFrame((_, delta) => {
+  // Animate target camera coordinates using GSAP on activeIndex change
+  useGSAP(() => {
     const activePos = nodePositions[activeIndex];
-    if (activePos) {
-      targetCamPos.current.set(
-        activePos[0] + 1.2,
-        activePos[1] + 1.1,
-        activePos[2] + 5.6
-      );
-      targetLookAt.current.set(
-        activePos[0],
-        activePos[1] + 0.3,
-        activePos[2]
-      );
-    }
+    if (!activePos) return;
 
-    // Fluid Apple-style smooth camera interpolation
-    camera.position.lerp(targetCamPos.current, 0.055);
-    currentLookAt.current.lerp(targetLookAt.current, 0.055);
+    gsap.to(targetCamPos.current, {
+      x: activePos[0] + 1.2,
+      y: activePos[1] + 1.1,
+      z: activePos[2] + 5.6,
+      duration: 1.2,
+      ease: 'power2.out'
+    });
+
+    gsap.to(targetLookAt.current, {
+      x: activePos[0],
+      y: activePos[1] + 0.3,
+      z: activePos[2],
+      duration: 1.2,
+      ease: 'power2.out'
+    });
+  }, [activeIndex, nodePositions]);
+
+  // Continuously orient camera along lookAt
+  useFrame(() => {
+    camera.position.lerp(targetCamPos.current, 0.08);
+    currentLookAt.current.lerp(targetLookAt.current, 0.08);
     camera.lookAt(currentLookAt.current);
   });
 
@@ -194,6 +172,21 @@ export default function TimelineScene({
           lineWidth={2.2}
           transparent
           opacity={0.65}
+        />
+      )}
+
+      {/* Active Milestone Museum Gallery Spotlight */}
+      {nodePositions[activeIndex] && (
+        <spotLight
+          position={[
+            nodePositions[activeIndex][0] + 1.8,
+            nodePositions[activeIndex][1] + 3.2,
+            nodePositions[activeIndex][2] + 3.8
+          ]}
+          angle={0.65}
+          penumbra={0.8}
+          intensity={4.5}
+          color="#fffbeb"
         />
       )}
 
