@@ -35,7 +35,8 @@
     "three": "^0.186.0"
   },
   "devDependencies": {
-    "nodemon": "^3.0.2"
+    "nodemon": "^3.0.2",
+    "playwright": "^1.63.0"
   },
   "overrides": {
     "qs": "^6.15.4"
