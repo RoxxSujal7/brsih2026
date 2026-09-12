@@ -340,6 +340,7 @@ router.post('/', chatLimiter, async (req, res) => {
     if (detectPromptInjection(sanitizedMessage)) {
       return res.json({
         success: true,
+        blocked: true,
         response: {
           text: "I'm designed to assist with Dr. B. R. Ambedkar scholarship and the BAWS corpus. I cannot process that type of request. Please ask about Ambedkar's writings, philosophy, historical work, or the Constitution of India.",
           citation: "Ambedkar Digital Heritage Archive — Research Assistant",
@@ -357,20 +358,30 @@ router.post('/', chatLimiter, async (req, res) => {
         }))
       : [];
 
+    // Retrieve Grounded Archival Context via Hybrid Search Service
+    const hybridSearch = require('../services/hybridSearchService');
+    const groundedData = hybridSearch.retrieveGroundedContext(sanitizedMessage, 4);
+
     // Try Gemini API first
     const hasApiKey = !!getGeminiApiKey();
 
     if (hasApiKey) {
       try {
-        const geminiResult = await callGeminiAPI(sanitizedMessage, sanitizedHistory);
+        let augmentedMessage = sanitizedMessage;
+        if (groundedData && groundedData.contextText) {
+          augmentedMessage = `[GROUNDED ARCHIVAL SOURCES]\n${groundedData.contextText}\n\n[USER INQUIRY]\n${sanitizedMessage}`;
+        }
+        const geminiResult = await callGeminiAPI(augmentedMessage, sanitizedHistory);
 
         return res.json({
           success: true,
           response: {
             text: geminiResult.text,
-            citation: 'Ambedkar Digital Heritage Archive — Powered by Google Gemini',
+            citation: groundedData && groundedData.topItem ? `BAWS Vol. ${groundedData.topItem.volumeNo || 'Primary'} — ${groundedData.topItem.title}` : 'Ambedkar Digital Heritage Archive — Grounded AI',
             source: 'gemini',
             blocked: geminiResult.blocked || false,
+            groundedSources: groundedData ? groundedData.primarySources : [],
+            relatedConcepts: ['Social Democracy', 'Constitutional Morality', 'Equality', 'Representation'],
             related: extractRelatedTopics(sanitizedMessage)
           }
         });
@@ -380,14 +391,19 @@ router.post('/', chatLimiter, async (req, res) => {
       }
     }
 
-    // Offline / fallback response
+    // Offline / fallback response with grounded primary sources
     const fallback = generateFallbackResponse(sanitizedMessage);
+    const primaryGrounded = groundedData ? groundedData.primarySources : [];
+
     return res.json({
       success: true,
       response: {
         text: fallback.answer,
         citation: fallback.citation,
-        source: 'offline-index',
+        source: 'offline-grounded-index',
+        groundedSources: primaryGrounded,
+        evidenceFromArchive: primaryGrounded.map(s => s.snippet).slice(0, 2),
+        relatedConcepts: ['Social Democracy', 'Constitutional Morality', 'Fundamental Rights', 'Castes in India'],
         related: extractRelatedTopics(sanitizedMessage)
       }
     });

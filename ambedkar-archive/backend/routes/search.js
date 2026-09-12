@@ -28,6 +28,44 @@ function loadJsonData(relPath) {
 }
 
 /**
+ * GET /api/search/suggestions?q=prefix
+ * Instant query autocomplete and related concept suggestion
+ */
+router.get('/suggestions', (req, res) => {
+  const query = (req.query.q || '').toLowerCase().trim();
+  if (!query || query.length < 2) {
+    return res.json({ success: true, suggestions: [] });
+  }
+
+  const SUGGESTION_CORPUS = [
+    'Annihilation of Caste',
+    'Castes in India: Their Mechanism, Genesis and Development',
+    'The Problem of the Rupee: Its Origin and Its Solution',
+    'Constituent Assembly Debates',
+    'Article 32 Fundamental Rights',
+    'Poona Pact 1932',
+    'Mahad Satyagraha Chavdar Tale',
+    'Who Were the Shudras?',
+    'The Buddha and His Dhamma',
+    '22 Vows of Deeksha Bhoomi',
+    'States and Minorities',
+    'Ranade, Gandhi and Jinnah',
+    'Pakistan or the Partition of India',
+    'Dr. Ambedkar International Centre (DAIC)',
+    'Chaitya Bhoomi Memorial Mumbai',
+    'Social Democracy and Constitutional Morality'
+  ];
+
+  const matched = SUGGESTION_CORPUS.filter(s => s.toLowerCase().includes(query)).slice(0, 6);
+
+  res.json({
+    success: true,
+    query,
+    suggestions: matched
+  });
+});
+
+/**
  * GET /api/search?q=query&type=all|volumes|memorials|debates|letters|vows
  * Cross-archive unified search across documents, memorials, debates, letters, and vows
  */
@@ -210,16 +248,43 @@ router.get('/', searchLimiter, async (req, res, next) => {
     // Sort by score descending
     results.sort((a, b) => (b.score || 0) - (a.score || 0));
 
+    // Enrich with Hybrid Search Semantic Intelligence
+    const hybridSearchService = require('../services/hybridSearchService');
+    const hybridMatches = hybridSearchService.searchHybrid(query, { type: filterType, volume: targetVol, limit: 15 });
+
+    // Merge hybrid findings that may not have matched raw substring
+    hybridMatches.forEach(hm => {
+      if (!results.some(r => r.id === hm.id || r.title === hm.title)) {
+        results.push({
+          id: hm.id,
+          type: hm.type,
+          title: hm.title,
+          volumeNo: hm.volumeNo,
+          year: hm.year,
+          category: hm.category,
+          source: hm.source,
+          excerpt: hm.snippet.replace(/<\/?mark>/g, ''),
+          link: hm.link,
+          score: hm.score,
+          matchType: hm.matchType
+        });
+      }
+    });
+
+    // Re-sort after hybrid inclusion
+    results.sort((a, b) => (b.score || 0) - (a.score || 0));
+
     res.json({
       success: true,
       count: results.length,
+      searchMode: 'hybrid',
       data: {
         results: results.slice(0, 30),
         facets: {
           total: results.length,
-          volumes: results.filter(r => r.type.includes('Volume')).length,
+          volumes: results.filter(r => String(r.type).includes('Volume')).length,
           memorials: results.filter(r => r.type === 'Memorial').length,
-          debates: results.filter(r => r.type === 'Historical Debate').length,
+          debates: results.filter(r => r.type === 'Historical Debate' || r.type === 'Debate').length,
           letters: results.filter(r => r.type === 'Letter').length,
           vows: results.filter(r => r.type === '22 Vows').length
         }
@@ -229,5 +294,5 @@ router.get('/', searchLimiter, async (req, res, next) => {
     next(err);
   }
 });
-
 module.exports = router;
+
