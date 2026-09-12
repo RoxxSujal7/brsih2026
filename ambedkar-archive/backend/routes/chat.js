@@ -82,7 +82,8 @@ async function callGeminiAPI(userMessage, conversationHistory = []) {
   }
 
   const modelName = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
-  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
+  // Send API key via x-goog-api-key header instead of URL query parameter to prevent key exposure in logs
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent`;
 
   // Build conversation contents for Gemini
   const contents = [];
@@ -124,14 +125,18 @@ async function callGeminiAPI(userMessage, conversationHistory = []) {
 
   const response = await fetch(endpoint, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'x-goog-api-key': apiKey,
+    },
     body: JSON.stringify(requestBody),
     signal: AbortSignal.timeout(15000), // 15 second timeout
   });
 
   if (!response.ok) {
     const errBody = await response.text();
-    throw new Error(`Gemini API error ${response.status}: ${errBody.slice(0, 200)}`);
+    const sanitizedErr = errBody.replace(/[A-Za-z0-9_-]{25,}/g, '[REDACTED]');
+    throw new Error(`Gemini API error ${response.status}: ${sanitizedErr.slice(0, 200)}`);
   }
 
   const data = await response.json();

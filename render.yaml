@@ -3,17 +3,24 @@ services:
     name: ambedkar-digital-archive
     runtime: node
     plan: free
-    region: oregon
-    rootDir: ambedkar-archive
-    buildCommand: npm install
-    startCommand: npm start
+    buildCommand: npm install --prefix ambedkar-archive
+    startCommand: npm start --prefix ambedkar-archive
+    healthCheckPath: /api/health
     autoDeploy: true
     envVars:
       - key: NODE_ENV
         value: production
+      - key: PORT
+        value: 5000
+      - key: MONGO_URI
+        sync: false
       - key: JWT_SECRET
         generateValue: true
-      - key: GEMINI_API_KEY
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: GOOGLE_CLIENT_ID
         sync: false
-      - key: MONGODB_URI
+      - key: GOOGLE_AI_API_KEY
         sync: false
+      - key: FRONTEND_URL
+        value: https://ambedkar-digital-archive.onrender.com

@@ -40,11 +40,20 @@ app.use(helmet({
       connectSrc: ["'self'", "https://accounts.google.com", "https://accounts.google.com/gsi/", "https://generativelanguage.googleapis.com"],
       frameSrc: ["'self'", "https://accounts.google.com"],
       objectSrc: ["'none'"],
+      baseUri: ["'self'"],
+      formAction: ["'self'"],
+      frameAncestors: ["'self'"],
       upgradeInsecureRequests: process.env.NODE_ENV === 'production' ? [] : null,
     },
   },
   frameguard: { action: 'sameorigin' },
 }));
+
+// Permissions-Policy (disables unused browser sensor/hardware APIs)
+app.use((req, res, next) => {
+  res.setHeader('Permissions-Policy', 'geolocation=(), camera=(), microphone=(), payment=()');
+  next();
+});
 
 // CORS with strict origin validation
 const allowedOrigins = [
