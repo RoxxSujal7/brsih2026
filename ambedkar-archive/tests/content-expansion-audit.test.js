@@ -69,7 +69,7 @@ assert(debatesHtml.includes('Political Freedom vs. Social Democracy') || debates
 // Section 9: Round Table Conferences Timeline
 assert(debatesHtml.includes('id="section-rtc-timeline"'), 'debates.html: Section 9 (RTC Timeline) exists');
 assert(debatesHtml.includes('First Round Table Conference') && debatesHtml.includes('Second Round Table Conference') && debatesHtml.includes('Third Round Table Conference'), 'debates.html: Section 9 covers all three RTCs');
-assert(debatesHtml.includes('Ambedkar did NOT attend the main 3rd RTC plenary'), 'debates.html: Section 9 preserves critical historical accuracy rule on 3rd RTC');
+assert(debatesHtml.includes('Third Round Table Conference') && (debatesHtml.includes('attended the Third Round Table Conference') || debatesHtml.includes('attended as the official delegate')), 'debates.html: Section 9 accurately documents Ambedkar attended the 3rd RTC in London');
 
 // Section 10: Primary Source Archive
 assert(debatesHtml.includes('id="section-primary-sources"'), 'debates.html: Section 10 (Primary Sources) exists');

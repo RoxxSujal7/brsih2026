@@ -602,9 +602,10 @@ function initGlobalSideDock() {
     });
   }
 
-  // 2. Ensure .side-dock exists on every page (except specialized reader and auth views)
+  // 2. Ensure .side-dock exists on curated portal pages (except specialized reader, auth views, and deep-scroll research archives)
   let sideDock = document.querySelector('.side-dock');
-  if (!sideDock && !document.querySelector('.reader-layout') && !document.querySelector('.auth-card')) {
+  const isDeepResearch = currentPath.includes('memorials.html') || currentPath.includes('debates.html') || document.querySelector('.memorials-page-wrap') || document.querySelector('.debates-page-wrap');
+  if (!sideDock && !document.querySelector('.reader-layout') && !document.querySelector('.auth-card') && !isDeepResearch) {
     sideDock = document.createElement('aside');
     sideDock.className = 'side-dock';
     sideDock.setAttribute('role', 'navigation');

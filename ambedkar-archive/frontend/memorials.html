@@ -422,30 +422,51 @@
 </head>
 <body>
 
-  <!-- Top Navigation -->
-  <header class="site-header" role="banner">
-    <div class="nav-container">
-      <a href="index.html" class="nav-logo" aria-label="Ambedkar Digital Heritage Archive">
-        <span class="logo-mark">BA</span>
-        <span class="logo-text">Ambedkar Archive</span>
+  <!-- Floating Island Navigation (Standard Institutional Platform) -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Ambedkar Archive Home">
+        <div class="nav-logo-icon" aria-hidden="true">🏛️</div>
+        <div class="nav-logo-text">
+          <span>AMBEDKAR ARCHIVE</span>
+          <span class="nav-logo-sub">Digital Heritage Platform</span>
+        </div>
       </a>
 
-      <nav class="nav-links" role="navigation" aria-label="Main Navigation">
-        <a href="archive.html" class="nav-link">Volumes</a>
-        <a href="memorials.html" class="nav-link active">Memorials</a>
-        <a href="debates.html" class="nav-link">Debates</a>
-        <a href="timeline.html" class="nav-link">Timeline</a>
-        <a href="ideas.html" class="nav-link">Ideas</a>
-        <a href="transparency.html" class="nav-link">Transparency</a>
-      </nav>
+      <div class="nav-links" role="list">
+        <a href="index.html" class="nav-link" role="listitem">Home</a>
+        <a href="archive.html" class="nav-link" role="listitem">Complete Works (60 Vol)</a>
+        <a href="memorials.html" class="nav-link active" role="listitem">Memorials</a>
+        <a href="debates.html" class="nav-link" role="listitem">Debates</a>
+        <a href="letters.html" class="nav-link" role="listitem">Letters (361)</a>
+        <a href="vows.html" class="nav-link" role="listitem">22 Vows</a>
+        <a href="timeline.html" class="nav-link" role="listitem">Timeline</a>
+      </div>
 
       <div class="nav-actions">
-        <a href="assistant.html?q=national-memorials" class="btn btn-secondary btn-sm" style="display:flex;align-items:center;gap:6px;">
-          <span>🤖</span><span>Ask AI Assistant</span>
+        <!-- Reading Atmosphere Switcher -->
+        <div class="nav-theme" role="group" aria-label="Atmosphere selection">
+          <button class="theme-toggle-btn active" data-theme="dark" title="Dark Slate Atmosphere">🌙</button>
+          <button class="theme-toggle-btn" data-theme="paper" title="Ivory Paper Sanctuary">📜</button>
+          <button class="theme-toggle-btn" data-theme="sepia" title="Historical Sepia Sanctuary">🏺</button>
+        </div>
+        <div class="nav-lang" role="group" aria-label="Language selection">
+          <button class="lang-btn active" data-lang="en" aria-pressed="true">EN</button>
+          <button class="lang-btn" data-lang="hi" aria-pressed="false">हिन्दी</button>
+          <button class="lang-btn" data-lang="mr" aria-pressed="false">मराठी</button>
+        </div>
+
+        <a href="archive.html#search" class="btn btn-outline btn-sm" title="Search Library (Press /)">
+          <span>🔍 Search</span>
+          <span class="btn-icon-bubble">/</span>
+        </a>
+
+        <a href="assistant.html?q=national-memorials" class="btn btn-secondary btn-sm" title="Ask AI Research Assistant">
+          <span>🤖 AI Assistant</span>
         </a>
       </div>
     </div>
-  </header>
+  </nav>
 
   <!-- Hero Section (Preserved Exactly) -->
   <section class="memorials-hero">
@@ -1704,5 +1725,71 @@
 
     window.addEventListener('load', loadMemorials);
   </script>
+
+  <!-- Museum Archival Footer -->
+  <footer style="background:var(--bg);border-top:1px solid var(--border);padding:var(--space-16) 0 var(--space-8);margin-top:var(--space-16);" role="contentinfo">
+    <div class="container">
+      <div class="grid grid-4 gap-8" style="margin-bottom:var(--space-12);">
+        <div>
+          <div class="flex gap-3 items-center" style="margin-bottom:var(--space-4);">
+            <div class="nav-logo-icon">⚜️</div>
+            <div>
+              <span style="font-family:var(--font-display);font-weight:700;font-size:1.1rem;color:var(--text);display:block;">Ambedkar Archive</span>
+              <span style="font-size:0.7rem;color:var(--gold-light);letter-spacing:0.08em;text-transform:uppercase;font-weight:600;">Digital Heritage Platform</span>
+            </div>
+          </div>
+          <p style="font-size:0.875rem;color:var(--text-muted);line-height:1.7;">
+            Preserving and digitizing the complete intellectual heritage of Bharat Ratna Dr. Bhimrao Ramji Ambedkar for scholars, researchers, and citizens worldwide.
+          </p>
+        </div>
+
+        <div>
+          <h4 style="font-size:0.85rem;margin-bottom:var(--space-4);color:var(--gold-light);text-transform:uppercase;letter-spacing:0.08em;font-weight:700;">Collections</h4>
+          <div style="display:flex;flex-direction:column;gap:var(--space-2);">
+            <a href="archive.html" style="font-size:0.875rem;color:var(--text-muted);">All 60 BAWS Volumes</a>
+            <a href="archive.html?edition=english" style="font-size:0.875rem;color:var(--text-muted);">English Volumes (1–21)</a>
+            <a href="archive.html?edition=hindi" style="font-size:0.875rem;color:var(--text-muted);">Hindi Volumes (1–40)</a>
+            <a href="media.html" style="font-size:0.875rem;color:var(--text-muted);">Speeches &amp; Audio Gallery</a>
+            <a href="ocr.html" style="font-size:0.875rem;color:var(--text-muted);">Manuscript Digitization</a>
+          </div>
+        </div>
+
+        <div>
+          <h4 style="font-size:0.85rem;margin-bottom:var(--space-4);color:var(--gold-light);text-transform:uppercase;letter-spacing:0.08em;font-weight:700;">Interactive Tools</h4>
+          <div style="display:flex;flex-direction:column;gap:var(--space-2);">
+            <a href="assistant.html" style="font-size:0.875rem;color:var(--text-muted);">AI Research Assistant</a>
+            <a href="reader.html?id=doc-en-1" style="font-size:0.875rem;color:var(--text-muted);">Scholarly Reader</a>
+            <a href="timeline.html" style="font-size:0.875rem;color:var(--text-muted);">Chronological Timeline</a>
+            <a href="dashboard.html" style="font-size:0.875rem;color:var(--text-muted);">Bookmarks &amp; Progress</a>
+            <a href="transparency.html" style="font-size:0.875rem;color:var(--text-muted);">Archive Transparency</a>
+            <a href="admin.html" style="font-size:0.875rem;color:var(--text-muted);">🔒 Archivist Admin Portal</a>
+          </div>
+        </div>
+
+        <div>
+          <h4 style="font-size:0.85rem;margin-bottom:var(--space-4);color:var(--gold-light);text-transform:uppercase;letter-spacing:0.08em;font-weight:700;">Heritage Authority</h4>
+          <p style="font-size:0.8rem;color:var(--text-faint);line-height:1.7;margin-bottom:var(--space-3);">
+            Content curated from official publications of Dr. Ambedkar Foundation, Ministry of Social Justice and Empowerment, and Ministry of External Affairs (MEA), Government of India.
+          </p>
+          <span class="badge badge-gold">Official BAWS Repository</span>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="flex-between items-center" style="flex-wrap:wrap;gap:var(--space-4);padding-top:var(--space-4);">
+        <p style="font-size:0.8rem;color:var(--text-faint);">
+          © 2024 Ambedkar Digital Heritage Archive. Built for National Preservation &amp; Research.
+        </p>
+        <p style="font-size:0.8rem;color:var(--gold-dim);font-family:var(--font-display);letter-spacing:0.04em;">
+          "Educate • Agitate • Organize"
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/apple-design.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
