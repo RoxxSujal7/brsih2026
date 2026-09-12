@@ -179,5 +179,136 @@
     ],
     "createdAt": "2026-09-12T18:34:51.525Z",
     "updatedAt": "2026-09-12T18:34:51.534Z"
+  },
+  {
+    "id": "col-fce5e29092eef683",
+    "userId": "mock-user-researcher-001",
+    "title": "Constitutional Morality & Social Democracy",
+    "description": "Primary source excerpts from BAWS Vol. 13 and speeches on November 25, 1949.",
+    "tags": [
+      "Constitution",
+      "Democracy",
+      "Morality"
+    ],
+    "items": [
+      {
+        "id": "item-efb85a013656",
+        "type": "passage",
+        "sourceId": "baws-vol-13",
+        "sourceTitle": "Constituent Assembly Debates (Nov 25, 1949)",
+        "archivalQuote": "Democracy in India is only a top-dressing on an Indian soil which is essentially undemocratic.",
+        "citation": "Ambedkar, B. R. (1949). CAD Vol. 11, p. 972.",
+        "userNote": "Crucial concept: Constitutional morality as cultivated habit rather than innate default.",
+        "tags": [
+          "Democracy",
+          "Constitutionalism"
+        ],
+        "createdAt": "2026-09-12T18:39:35.710Z"
+      }
+    ],
+    "createdAt": "2026-09-12T18:39:35.704Z",
+    "updatedAt": "2026-09-12T18:39:35.710Z"
+  },
+  {
+    "id": "col-2d2943bde4ae08ac",
+    "userId": "mock-user-researcher-001",
+    "title": "E2E Social Justice Thesis",
+    "description": "Primary sources for dissertation",
+    "tags": [],
+    "items": [
+      {
+        "id": "item-d0f9db6a0db0",
+        "type": "passage",
+        "sourceId": "BAWS-VOL-01",
+        "sourceTitle": "Castes in India: Their Mechanism, Genesis and Development",
+        "archivalQuote": "A caste is an enclosed class.",
+        "citation": "",
+        "userNote": "",
+        "tags": [],
+        "createdAt": "2026-09-12T18:41:57.764Z"
+      }
+    ],
+    "createdAt": "2026-09-12T18:41:57.756Z",
+    "updatedAt": "2026-09-12T18:41:57.764Z"
+  },
+  {
+    "id": "col-f36958bc793c9954",
+    "userId": "mock-user-researcher-001",
+    "title": "Constitutional Morality & Social Democracy",
+    "description": "Primary source excerpts from BAWS Vol. 13 and speeches on November 25, 1949.",
+    "tags": [
+      "Constitution",
+      "Democracy",
+      "Morality"
+    ],
+    "items": [
+      {
+        "id": "item-c6c481c1bd1a",
+        "type": "passage",
+        "sourceId": "baws-vol-13",
+        "sourceTitle": "Constituent Assembly Debates (Nov 25, 1949)",
+        "archivalQuote": "Democracy in India is only a top-dressing on an Indian soil which is essentially undemocratic.",
+        "citation": "Ambedkar, B. R. (1949). CAD Vol. 11, p. 972.",
+        "userNote": "Crucial concept: Constitutional morality as cultivated habit rather than innate default.",
+        "tags": [
+          "Democracy",
+          "Constitutionalism"
+        ],
+        "createdAt": "2026-09-12T18:42:10.008Z"
+      }
+    ],
+    "createdAt": "2026-09-12T18:42:10.001Z",
+    "updatedAt": "2026-09-12T18:42:10.009Z"
+  },
+  {
+    "id": "col-bf21d463c31b55f0",
+    "userId": "mock-user-researcher-001",
+    "title": "E2E Social Justice Thesis",
+    "description": "Primary sources for dissertation",
+    "tags": [],
+    "items": [
+      {
+        "id": "item-9378cae5b621",
+        "type": "passage",
+        "sourceId": "BAWS-VOL-01",
+        "sourceTitle": "Castes in India: Their Mechanism, Genesis and Development",
+        "archivalQuote": "A caste is an enclosed class.",
+        "citation": "",
+        "userNote": "",
+        "tags": [],
+        "createdAt": "2026-09-12T18:43:00.706Z"
+      }
+    ],
+    "createdAt": "2026-09-12T18:43:00.700Z",
+    "updatedAt": "2026-09-12T18:43:00.706Z"
+  },
+  {
+    "id": "col-4f9cc634eed5321f",
+    "userId": "mock-user-researcher-001",
+    "title": "Constitutional Morality & Social Democracy",
+    "description": "Primary source excerpts from BAWS Vol. 13 and speeches on November 25, 1949.",
+    "tags": [
+      "Constitution",
+      "Democracy",
+      "Morality"
+    ],
+    "items": [
+      {
+        "id": "item-a3b92fefa846",
+        "type": "passage",
+        "sourceId": "baws-vol-13",
+        "sourceTitle": "Constituent Assembly Debates (Nov 25, 1949)",
+        "archivalQuote": "Democracy in India is only a top-dressing on an Indian soil which is essentially undemocratic.",
+        "citation": "Ambedkar, B. R. (1949). CAD Vol. 11, p. 972.",
+        "userNote": "Crucial concept: Constitutional morality as cultivated habit rather than innate default.",
+        "tags": [
+          "Democracy",
+          "Constitutionalism"
+        ],
+        "createdAt": "2026-09-12T18:43:11.537Z"
+      }
+    ],
+    "createdAt": "2026-09-12T18:43:11.531Z",
+    "updatedAt": "2026-09-12T18:43:11.537Z"
   }
 ]

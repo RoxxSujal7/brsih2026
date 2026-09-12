@@ -66,6 +66,7 @@
       { href: 'assistant.html', label: 'AI Research Assistant', icon: '🤖', id: 'assistant' },
       { href: 'ocr.html', label: 'Manuscript OCR', icon: '📜', id: 'ocr' },
       { href: 'dashboard.html', label: 'My Research Dashboard', icon: '👤', id: 'dashboard' },
+      { href: 'compare.html', label: 'Comparative Reader', icon: '⚖️', id: 'compare' },
       { href: 'transparency.html', label: 'Archive Transparency', icon: '🛡️', id: 'transparency' },
       { href: 'about.html', label: 'About the Creator', icon: '✨', id: 'about' }
     ]

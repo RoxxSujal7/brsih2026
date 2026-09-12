@@ -3,6 +3,108 @@
   "letters": [],
   "debates": [
     {
+      "id": "REC-DEB-1789238581946",
+      "type": "debates",
+      "title": "Archival Commentary on 1932 Poona Deliberations",
+      "summary": "Updated scholarly overview with verified BAWS Vol. 9 citations.",
+      "category": "electoral-representation",
+      "bawsVolumeNo": 9,
+      "contentText": "Historical analysis of the settlement between Dr. Ambedkar and M. K. Gandhi.",
+      "metadata": {},
+      "status": "active",
+      "isArchived": false,
+      "version": 2,
+      "versionHistory": [
+        {
+          "version": 2,
+          "updatedBy": "editor@ambedkar-archive.in",
+          "updatedAt": "2026-09-12T18:43:01.958Z",
+          "action": "UPDATED"
+        },
+        {
+          "version": 1,
+          "updatedBy": "editor@ambedkar-archive.in",
+          "updatedAt": "2026-09-12T18:43:01.946Z",
+          "action": "CREATED"
+        }
+      ],
+      "createdBy": "editor@ambedkar-archive.in",
+      "createdAt": "2026-09-12T18:43:01.946Z",
+      "updatedAt": "2026-09-12T18:43:01.958Z",
+      "archivedBy": "editor@ambedkar-archive.in",
+      "archivedAt": "2026-09-12T18:43:01.969Z",
+      "restoredBy": "editor@ambedkar-archive.in",
+      "restoredAt": "2026-09-12T18:43:01.978Z"
+    },
+    {
+      "id": "REC-DEB-1789238519328",
+      "type": "debates",
+      "title": "Archival Commentary on 1932 Poona Deliberations",
+      "summary": "Updated scholarly overview with verified BAWS Vol. 9 citations.",
+      "category": "electoral-representation",
+      "bawsVolumeNo": 9,
+      "contentText": "Historical analysis of the settlement between Dr. Ambedkar and M. K. Gandhi.",
+      "metadata": {},
+      "status": "active",
+      "isArchived": false,
+      "version": 2,
+      "versionHistory": [
+        {
+          "version": 2,
+          "updatedBy": "editor@ambedkar-archive.in",
+          "updatedAt": "2026-09-12T18:41:59.338Z",
+          "action": "UPDATED"
+        },
+        {
+          "version": 1,
+          "updatedBy": "editor@ambedkar-archive.in",
+          "updatedAt": "2026-09-12T18:41:59.328Z",
+          "action": "CREATED"
+        }
+      ],
+      "createdBy": "editor@ambedkar-archive.in",
+      "createdAt": "2026-09-12T18:41:59.328Z",
+      "updatedAt": "2026-09-12T18:41:59.338Z",
+      "archivedBy": "editor@ambedkar-archive.in",
+      "archivedAt": "2026-09-12T18:41:59.348Z",
+      "restoredBy": "editor@ambedkar-archive.in",
+      "restoredAt": "2026-09-12T18:41:59.361Z"
+    },
+    {
+      "id": "REC-DEB-1789238366573",
+      "type": "debates",
+      "title": "Archival Commentary on 1932 Poona Deliberations",
+      "summary": "Updated scholarly overview with verified BAWS Vol. 9 citations.",
+      "category": "electoral-representation",
+      "bawsVolumeNo": 9,
+      "contentText": "Historical analysis of the settlement between Dr. Ambedkar and M. K. Gandhi.",
+      "metadata": {},
+      "status": "active",
+      "isArchived": false,
+      "version": 2,
+      "versionHistory": [
+        {
+          "version": 2,
+          "updatedBy": "editor@ambedkar-archive.in",
+          "updatedAt": "2026-09-12T18:39:26.581Z",
+          "action": "UPDATED"
+        },
+        {
+          "version": 1,
+          "updatedBy": "editor@ambedkar-archive.in",
+          "updatedAt": "2026-09-12T18:39:26.573Z",
+          "action": "CREATED"
+        }
+      ],
+      "createdBy": "editor@ambedkar-archive.in",
+      "createdAt": "2026-09-12T18:39:26.573Z",
+      "updatedAt": "2026-09-12T18:39:26.581Z",
+      "archivedBy": "editor@ambedkar-archive.in",
+      "archivedAt": "2026-09-12T18:39:26.589Z",
+      "restoredBy": "editor@ambedkar-archive.in",
+      "restoredAt": "2026-09-12T18:39:26.597Z"
+    },
+    {
       "id": "REC-DEB-1789238082095",
       "type": "debates",
       "title": "Archival Commentary on 1932 Poona Deliberations",
@@ -211,6 +313,87 @@
   "quotes": [],
   "timeline": [],
   "manuscripts": [
+    {
+      "id": "INGEST-1789238581998",
+      "title": "Dr. Ambedkar Address to All-India Depressed Classes Conference (1942)",
+      "category": "speeches",
+      "volumeNo": 10,
+      "description": "",
+      "originalFilename": "Ambedkar_Address_1942.pdf",
+      "storedFilename": "1789238581997-618b5874541b.pdf",
+      "mimeType": "application/pdf",
+      "fileSizeBytes": 168,
+      "sha256Checksum": "cc4af409cf57c9557b5b0ff0d38360a074fd51b6c50da069ae429b0482f60e59",
+      "checksumAlgorithm": "SHA-256",
+      "preservationStatus": "INGESTED_VERIFIED",
+      "dublinCore": {
+        "title": "Dr. Ambedkar Address to All-India Depressed Classes Conference (1942)",
+        "creator": "Senior Archivist",
+        "date": "2026-09-12",
+        "format": "application/pdf",
+        "identifier": "cc4af409cf57c9557b5b0ff0d38360a074fd51b6c50da069ae429b0482f60e59",
+        "source": "Institutional Upload Pipeline",
+        "rights": "Public Domain Educational / Fair Use"
+      },
+      "metadata": {},
+      "status": "draft",
+      "uploadedBy": "archivist@ambedkar-archive.in",
+      "uploadedAt": "2026-09-12T18:43:01.998Z"
+    },
+    {
+      "id": "INGEST-1789238519388",
+      "title": "Dr. Ambedkar Address to All-India Depressed Classes Conference (1942)",
+      "category": "speeches",
+      "volumeNo": 10,
+      "description": "",
+      "originalFilename": "Ambedkar_Address_1942.pdf",
+      "storedFilename": "1789238519387-4668f56feb83.pdf",
+      "mimeType": "application/pdf",
+      "fileSizeBytes": 168,
+      "sha256Checksum": "cc4af409cf57c9557b5b0ff0d38360a074fd51b6c50da069ae429b0482f60e59",
+      "checksumAlgorithm": "SHA-256",
+      "preservationStatus": "INGESTED_VERIFIED",
+      "dublinCore": {
+        "title": "Dr. Ambedkar Address to All-India Depressed Classes Conference (1942)",
+        "creator": "Senior Archivist",
+        "date": "2026-09-12",
+        "format": "application/pdf",
+        "identifier": "cc4af409cf57c9557b5b0ff0d38360a074fd51b6c50da069ae429b0482f60e59",
+        "source": "Institutional Upload Pipeline",
+        "rights": "Public Domain Educational / Fair Use"
+      },
+      "metadata": {},
+      "status": "draft",
+      "uploadedBy": "archivist@ambedkar-archive.in",
+      "uploadedAt": "2026-09-12T18:41:59.388Z"
+    },
+    {
+      "id": "INGEST-1789238366620",
+      "title": "Dr. Ambedkar Address to All-India Depressed Classes Conference (1942)",
+      "category": "speeches",
+      "volumeNo": 10,
+      "description": "",
+      "originalFilename": "Ambedkar_Address_1942.pdf",
+      "storedFilename": "1789238366618-9e7cf0e4b944.pdf",
+      "mimeType": "application/pdf",
+      "fileSizeBytes": 168,
+      "sha256Checksum": "cc4af409cf57c9557b5b0ff0d38360a074fd51b6c50da069ae429b0482f60e59",
+      "checksumAlgorithm": "SHA-256",
+      "preservationStatus": "INGESTED_VERIFIED",
+      "dublinCore": {
+        "title": "Dr. Ambedkar Address to All-India Depressed Classes Conference (1942)",
+        "creator": "Senior Archivist",
+        "date": "2026-09-12",
+        "format": "application/pdf",
+        "identifier": "cc4af409cf57c9557b5b0ff0d38360a074fd51b6c50da069ae429b0482f60e59",
+        "source": "Institutional Upload Pipeline",
+        "rights": "Public Domain Educational / Fair Use"
+      },
+      "metadata": {},
+      "status": "draft",
+      "uploadedBy": "archivist@ambedkar-archive.in",
+      "uploadedAt": "2026-09-12T18:39:26.620Z"
+    },
     {
       "id": "INGEST-1789238082143",
       "title": "Dr. Ambedkar Address to All-India Depressed Classes Conference (1942)",
