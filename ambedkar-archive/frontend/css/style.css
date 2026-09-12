@@ -1253,8 +1253,8 @@ body.mode-sepia .theme-toggle-btn.active {
     top: 64px;
     left: 8px;
     right: 8px;
-    max-height: calc(100dvh - 76px);
-    padding: var(--space-4) var(--space-3);
+    max-height: calc(100dvh - 64px - var(--bottom-bar-height, 62px) - env(safe-area-inset-bottom, 0px) - 12px);
+    padding: var(--space-4) var(--space-3) calc(var(--space-4) + 8px);
     border-radius: var(--radius-xl);
   }
 }
@@ -2142,22 +2142,26 @@ html[data-theme="sepia"] .hero-portrait-actions .btn-outline {
 }
 
 /* ═══════════════════════════════════════════════════
-   MOBILE BOTTOM BAR
+   MOBILE BOTTOM BAR & SAFE AREA CLEARANCE
 ═══════════════════════════════════════════════════ */
 .bottom-bar {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  height: var(--bottom-bar-height);
+  height: calc(var(--bottom-bar-height) + env(safe-area-inset-bottom, 0px));
   background: rgba(7, 9, 14, 0.94);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-top: 1px solid var(--border);
   display: flex;
-  align-items: stretch;
+  align-items: flex-start;
+  padding-top: 5px;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
   z-index: 1000;
-  padding: 0 var(--space-2);
+  padding-left: var(--space-2);
+  padding-right: var(--space-2);
+  box-sizing: border-box;
 }
 
 @media (min-width: 960px) {
@@ -2178,7 +2182,8 @@ html[data-theme="sepia"] .hero-portrait-actions .btn-outline {
   font-weight: 600;
   text-decoration: none;
   transition: color var(--duration-fast);
-  min-height: var(--min-tap);
+  height: calc(var(--bottom-bar-height) - 10px);
+  min-height: calc(var(--bottom-bar-height) - 10px);
 }
 
 .tab-item:hover,
@@ -2191,12 +2196,25 @@ html[data-theme="sepia"] .hero-portrait-actions .btn-outline {
   line-height: 1;
 }
 
+/* Global Mobile Viewport Bottom Clearance:
+   Ensures cards, footers, and interactive controls are never covered behind the bottom bar */
+@media (max-width: 960px) {
+  body:not(.no-bottom-nav-pad) {
+    padding-bottom: calc(var(--bottom-bar-height) + env(safe-area-inset-bottom, 0px));
+  }
+  
+  .site-footer,
+  footer {
+    padding-bottom: calc(var(--space-8) + var(--bottom-bar-height) + env(safe-area-inset-bottom, 0px)) !important;
+  }
+}
+
 /* ═══════════════════════════════════════════════════
    TOASTS & NOTIFICATIONS (Ask-Sonner & Emil Physics)
 ═══════════════════════════════════════════════════ */
 .toast-container {
   position: fixed;
-  bottom: calc(var(--bottom-bar-height) + var(--space-4));
+  bottom: calc(var(--bottom-bar-height) + env(safe-area-inset-bottom, 0px) + var(--space-4));
   right: var(--space-4);
   display: flex;
   flex-direction: column;
@@ -2355,6 +2373,12 @@ html[data-theme="sepia"] .hero-portrait-actions .btn-outline {
   opacity: 0;
   visibility: hidden;
   transition: opacity 220ms var(--ease-spring), visibility 220ms var(--ease-spring);
+}
+
+@media (max-width: 640px) {
+  .cmd-backdrop {
+    padding: calc(var(--nav-height, 60px) + 8px) var(--space-3) calc(var(--bottom-bar-height, 62px) + env(safe-area-inset-bottom, 0px) + 12px);
+  }
 }
 
 .cmd-backdrop.cmd-active {
@@ -3117,6 +3141,13 @@ html[data-theme="sepia"] .card-header p {
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), 0 0 35px rgba(212, 175, 55, 0.25);
   transform: scale(0.96) translateY(-12px);
   transition: transform 0.28s var(--ease-spring);
+}
+
+@media (max-width: 640px) {
+  .timeline-modal-dialog {
+    max-height: calc(100dvh - 32px);
+    margin-bottom: env(safe-area-inset-bottom, 0px);
+  }
 }
 
 .timeline-modal-backdrop.active .timeline-modal-dialog {

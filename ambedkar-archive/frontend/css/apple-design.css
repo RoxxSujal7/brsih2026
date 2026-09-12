@@ -461,7 +461,7 @@ button:active,
 
 @media (max-width: 768px) {
   .apple-quick-pill {
-    bottom: 84px;
+    bottom: calc(var(--bottom-bar-height, 62px) + env(safe-area-inset-bottom, 0px) + 14px);
     right: 16px;
     padding: 7px 12px;
     font-size: 0.775rem;

@@ -259,7 +259,18 @@ inputEl?.addEventListener('keydown', (e) => {
 // Dynamic auto-expanding textarea
 inputEl?.addEventListener('input', () => {
   inputEl.style.height = 'auto';
-  inputEl.style.height = Math.min(inputEl.scrollHeight, 140) + 'px';
+  inputEl.style.height = Math.min(inputEl.scrollHeight, 120) + 'px';
+});
+
+// Mobile visual viewport and keyboard adaptation
+if (window.visualViewport) {
+  window.visualViewport.addEventListener('resize', () => {
+    scrollToBottom();
+  });
+}
+
+inputEl?.addEventListener('focus', () => {
+  setTimeout(scrollToBottom, 250);
 });
 
 // Initial suggestion chips
