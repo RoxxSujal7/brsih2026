@@ -1,5 +1,137 @@
 [
   {
+    "id": "LOG-173669-4672",
+    "action": "SYSTEM_CONFIG",
+    "actor": "superadmin@ambedkar-archive.in",
+    "role": "super_admin",
+    "resourceType": "system",
+    "resourceId": "config",
+    "details": "Updated institutional settings",
+    "ip": "127.0.0.1",
+    "timestamp": "2026-09-12T18:52:53.669Z"
+  },
+  {
+    "id": "LOG-173661-d813",
+    "action": "RECORD_DELETE",
+    "actor": "superadmin@ambedkar-archive.in",
+    "role": "super_admin",
+    "resourceType": "document",
+    "resourceId": "ARCH-DOC-TEST-DEL",
+    "details": "Deleted archival record ARCH-DOC-TEST-DEL",
+    "ip": "127.0.0.1",
+    "timestamp": "2026-09-12T18:52:53.661Z"
+  },
+  {
+    "id": "LOG-173648-1751",
+    "action": "OCR_VERIFY",
+    "actor": "archivist@ambedkar-archive.in",
+    "role": "archivist",
+    "resourceType": "ocr",
+    "resourceId": "AIC-TEST-001",
+    "details": "Verified OCR for manuscript AIC-TEST-001",
+    "ip": "127.0.0.1",
+    "timestamp": "2026-09-12T18:52:53.648Z"
+  },
+  {
+    "id": "LOG-173641-67fa",
+    "action": "DOCUMENT_INGEST",
+    "actor": "archivist@ambedkar-archive.in",
+    "role": "archivist",
+    "resourceType": "document",
+    "resourceId": "ARCH-DOC-1789239173641",
+    "details": "Archived document: \"Draft Resolution on Social Rights (1928)\"",
+    "ip": "127.0.0.1",
+    "timestamp": "2026-09-12T18:52:53.641Z"
+  },
+  {
+    "id": "LOG-162618-e45c",
+    "action": "ROLE_MODIFY",
+    "actor": "superadmin@ambedkar-archive.in",
+    "role": "super_admin",
+    "resourceType": "user",
+    "resourceId": "user-001",
+    "details": "Changed role of user user-001 to archivist",
+    "ip": "127.0.0.1",
+    "timestamp": "2026-09-12T18:52:42.618Z"
+  },
+  {
+    "id": "LOG-162589-1af2",
+    "action": "OCR_VERIFY",
+    "actor": "archivist@ambedkar-archive.in",
+    "role": "archivist",
+    "resourceType": "ocr",
+    "resourceId": "OCR-JOB-101",
+    "details": "Reviewed and approved OCR transcription for OCR-JOB-101",
+    "ip": "127.0.0.1",
+    "timestamp": "2026-09-12T18:52:42.589Z"
+  },
+  {
+    "id": "LOG-162572-9037",
+    "action": "METADATA_UPDATE",
+    "actor": "archivist@ambedkar-archive.in",
+    "role": "archivist",
+    "resourceType": "metadata",
+    "resourceId": "DOC-PREMIS-01",
+    "details": "Updated metadata schema for document DOC-PREMIS-01",
+    "ip": "127.0.0.1",
+    "timestamp": "2026-09-12T18:52:42.572Z"
+  },
+  {
+    "id": "LOG-162560-67c9",
+    "action": "DOCUMENT_INGEST",
+    "actor": "archivist@ambedkar-archive.in",
+    "role": "archivist",
+    "resourceType": "document",
+    "resourceId": "INGEST-1789239162558",
+    "details": "Ingested file: \"Ambedkar_Address_1942.pdf\" (SHA-256: cc4af409cf57...)",
+    "ip": "127.0.0.1",
+    "timestamp": "2026-09-12T18:52:42.561Z"
+  },
+  {
+    "id": "LOG-162525-c7ce",
+    "action": "CONTENT_RESTORE",
+    "actor": "editor@ambedkar-archive.in",
+    "role": "content_editor",
+    "resourceType": "debates",
+    "resourceId": "REC-DEB-1789239162497",
+    "details": "Restored debates record: \"Archival Commentary on 1932 Poona Deliberations\"",
+    "ip": "127.0.0.1",
+    "timestamp": "2026-09-12T18:52:42.525Z"
+  },
+  {
+    "id": "LOG-162516-b275",
+    "action": "CONTENT_ARCHIVE",
+    "actor": "editor@ambedkar-archive.in",
+    "role": "content_editor",
+    "resourceType": "debates",
+    "resourceId": "REC-DEB-1789239162497",
+    "details": "Archived debates record: \"Archival Commentary on 1932 Poona Deliberations\" (Soft delete)",
+    "ip": "127.0.0.1",
+    "timestamp": "2026-09-12T18:52:42.516Z"
+  },
+  {
+    "id": "LOG-162508-54e9",
+    "action": "CONTENT_UPDATE",
+    "actor": "editor@ambedkar-archive.in",
+    "role": "content_editor",
+    "resourceType": "debates",
+    "resourceId": "REC-DEB-1789239162497",
+    "details": "Updated debates record: \"Archival Commentary on 1932 Poona Deliberations\" (v2)",
+    "ip": "127.0.0.1",
+    "timestamp": "2026-09-12T18:52:42.508Z"
+  },
+  {
+    "id": "LOG-162499-4932",
+    "action": "CONTENT_CREATE",
+    "actor": "editor@ambedkar-archive.in",
+    "role": "content_editor",
+    "resourceType": "debates",
+    "resourceId": "REC-DEB-1789239162497",
+    "details": "Created debates record: \"Archival Commentary on 1932 Poona Deliberations\"",
+    "ip": "127.0.0.1",
+    "timestamp": "2026-09-12T18:52:42.500Z"
+  },
+  {
     "id": "LOG-591223-7a92",
     "action": "SYSTEM_CONFIG",
     "actor": "superadmin@ambedkar-archive.in",
