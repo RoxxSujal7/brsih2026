@@ -198,11 +198,13 @@ app.use((err, req, res, next) => {
   });
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-  console.log(`📚 Ambedkar Digital Heritage Archive — API ready`);
-  console.log(`🔑 Environment: ${process.env.NODE_ENV || 'development'}`);
-});
+if (process.env.NODE_ENV !== 'test' && !process.env.VERCEL) {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`🚀 Server running on port ${PORT}`);
+    console.log(`📚 Ambedkar Digital Heritage Archive — API ready`);
+    console.log(`🔑 Environment: ${process.env.NODE_ENV || 'development'}`);
+  });
+}
 
 module.exports = app;

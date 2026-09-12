@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "outputDirectory": "frontend",
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "backend/data/**"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api"
+    }
+  ]
+}
