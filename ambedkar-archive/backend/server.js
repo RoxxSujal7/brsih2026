@@ -24,6 +24,7 @@ const memorialRoutes = require('./routes/memorials');
 const debateRoutes = require('./routes/debates');
 const preservationRoutes = require('./routes/preservation');
 const adminRoutes = require('./routes/admin');
+const workspaceRoutes = require('./routes/workspace');
 
 const app = express();
 
@@ -128,6 +129,7 @@ app.use('/api/memorials', memorialRoutes);
 app.use('/api/debates', debateRoutes);
 app.use('/api/preservation', preservationRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/workspace', workspaceRoutes);
 
 
 // Serve volume PDFs directly from canonical frontend/pdfs

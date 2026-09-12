@@ -1,0 +1,60 @@
+[
+  {
+    "id": "col-172579559b598b3b",
+    "userId": "mock-user-researcher-001",
+    "title": "Constitutional Morality & Social Democracy",
+    "description": "Primary source excerpts from BAWS Vol. 13 and speeches on November 25, 1949.",
+    "tags": [
+      "Constitution",
+      "Democracy",
+      "Morality"
+    ],
+    "items": [
+      {
+        "id": "item-4c8d71c41d08",
+        "type": "passage",
+        "sourceId": "baws-vol-13",
+        "sourceTitle": "Constituent Assembly Debates (Nov 25, 1949)",
+        "archivalQuote": "Democracy in India is only a top-dressing on an Indian soil which is essentially undemocratic.",
+        "citation": "Ambedkar, B. R. (1949). CAD Vol. 11, p. 972.",
+        "userNote": "Crucial concept: Constitutional morality as cultivated habit rather than innate default.",
+        "tags": [
+          "Democracy",
+          "Constitutionalism"
+        ],
+        "createdAt": "2026-09-12T18:20:27.818Z"
+      }
+    ],
+    "createdAt": "2026-09-12T18:20:27.811Z",
+    "updatedAt": "2026-09-12T18:20:27.818Z"
+  },
+  {
+    "id": "col-9bf70340c426b36d",
+    "userId": "mock-user-researcher-001",
+    "title": "Constitutional Morality & Social Democracy",
+    "description": "Primary source excerpts from BAWS Vol. 13 and speeches on November 25, 1949.",
+    "tags": [
+      "Constitution",
+      "Democracy",
+      "Morality"
+    ],
+    "items": [
+      {
+        "id": "item-b02be992b8d1",
+        "type": "passage",
+        "sourceId": "baws-vol-13",
+        "sourceTitle": "Constituent Assembly Debates (Nov 25, 1949)",
+        "archivalQuote": "Democracy in India is only a top-dressing on an Indian soil which is essentially undemocratic.",
+        "citation": "Ambedkar, B. R. (1949). CAD Vol. 11, p. 972.",
+        "userNote": "Crucial concept: Constitutional morality as cultivated habit rather than innate default.",
+        "tags": [
+          "Democracy",
+          "Constitutionalism"
+        ],
+        "createdAt": "2026-09-12T18:20:44.242Z"
+      }
+    ],
+    "createdAt": "2026-09-12T18:20:44.217Z",
+    "updatedAt": "2026-09-12T18:20:44.242Z"
+  }
+]

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scholarly Comparative Analysis — Ambedkar Digital Heritage Archive</title>
+  <meta name="description" content="Side-by-side comparative analysis of historical texts, BAWS passages, and historical debates including Ambedkar vs Gandhi on caste, electorates, and democracy." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <script>(function(){const t=localStorage.getItem('site_theme')||localStorage.getItem('reader_theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+
+  <style>
+    /* ══════════════════════════════════════════════════════════════════════
+       SCHOLARLY COMPARATIVE ANALYSIS STYLING (Phase 4.4)
+       Double-bezel luxury architecture with synchronized dual-pane reader
+       ══════════════════════════════════════════════════════════════════════ */
+    
+    .compare-hero {
+      background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(212,175,55,0.12) 0%, transparent 70%),
+                  linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+      padding: calc(var(--nav-height) + var(--space-8)) var(--space-6) var(--space-8);
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .compare-controls-bar {
+      position: sticky;
+      top: var(--nav-height);
+      z-index: 40;
+      background: rgba(12, 14, 20, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: var(--space-3) var(--space-6);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    [data-theme="light"] .compare-controls-bar {
+      background: rgba(248, 246, 240, 0.92);
+    }
+
+    .dual-pane-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-6);
+      padding: var(--space-8) var(--space-6);
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 960px) {
+      .dual-pane-container {
+        grid-template-columns: 1fr;
+        gap: var(--space-6);
+      }
+    }
+
+    .compare-pane {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 1px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .compare-pane-inner {
+      background: var(--card-inner-bg);
+      border-radius: calc(var(--radius-xl) - 1px);
+      padding: var(--space-6);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pane-header {
+      padding-bottom: var(--space-4);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: var(--space-4);
+    }
+
+    .pane-scrollable-body {
+      flex: 1;
+      overflow-y: auto;
+      max-height: 560px;
+      padding-right: var(--space-2);
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--text);
+    }
+
+    .pane-scrollable-body::-webkit-scrollbar {
+      width: 6px;
+    }
+    .pane-scrollable-body::-webkit-scrollbar-thumb {
+      background: var(--border-gold);
+      border-radius: 4px;
+    }
+
+    .pane-citation-box {
+      margin-top: var(--space-5);
+      padding: var(--space-3) var(--space-4);
+      background: rgba(0, 0, 0, 0.25);
+      border-left: 3px solid var(--gold);
+      border-radius: var(--radius-md);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    [data-theme="light"] .pane-citation-box {
+      background: rgba(212, 175, 55, 0.08);
+    }
+
+    .thematic-tag {
+      display: inline-block;
+      padding: 2px 8px;
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      border-radius: 4px;
+      background: rgba(212, 175, 55, 0.12);
+      color: var(--gold-light);
+      margin-right: 6px;
+      margin-bottom: 6px;
+    }
+
+    .focus-reading-btn {
+      cursor: pointer;
+      padding: 6px 12px;
+      font-size: 0.85rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .focus-reading-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold-light);
+    }
+
+    .focus-reading-btn.active {
+      background: var(--gold);
+      color: #0b0c10;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero Banner -->
+  <section class="compare-hero">
+    <div class="container">
+      <span class="badge badge-gold" style="margin-bottom:var(--space-3);text-transform:uppercase;letter-spacing:0.1em;font-size:0.75rem;">
+        Phase 4: Advanced Research Experience
+      </span>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.9rem, 4vw, 3rem);margin-bottom:var(--space-3);color:var(--text);">
+        Scholarly Comparative Analysis
+      </h1>
+      <p style="max-width:760px;margin:0 auto;color:var(--text-muted);font-size:0.95rem;line-height:1.6;">
+        Parallel primary source reader comparing historical doctrines, Constituent Assembly interventions, BAWS treatises, and ideological debates between Dr. B. R. Ambedkar and historical contemporaries.
+      </p>
+    </div>
+  </section>
+
+  <!-- Sticky Comparison Controls -->
+  <section class="compare-controls-bar">
+    <div style="display:flex;align-items:center;gap:var(--space-3);flex-wrap:wrap;">
+      <label for="compare-preset-select" style="font-size:0.8rem;font-family:var(--font-mono);color:var(--gold-light);">
+        Historical Debate:
+      </label>
+      <select id="compare-preset-select" class="input" style="padding:6px 12px;font-size:0.85rem;border-radius:var(--radius-md);min-width:300px;">
+        <option value="poona-pact-1932">Poona Pact (1932): Separate vs Joint Electorates</option>
+        <option value="caste-annihilation-vs-varna">Social Order (1936): Annihilation of Caste vs Idealized Varna</option>
+        <option value="industrialization-vs-village">State Architecture (1948): Constitutional Modernity vs Village Swaraj</option>
+      </select>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:var(--space-3);flex-wrap:wrap;">
+      <button class="focus-reading-btn" id="btn-sync-scroll" title="Toggle Synchronized Scrolling">
+        <span>🔗</span> <span id="sync-scroll-label">Sync Scroll: On</span>
+      </button>
+
+      <button class="focus-reading-btn" id="btn-font-toggle" title="Toggle Typography Size">
+        <span>🗚</span> <span>Font Size</span>
+      </button>
+
+      <button class="focus-reading-btn" id="btn-copy-compare-link" title="Copy Deep Link to this Comparison">
+        <span>🔗</span> <span>Share Comparison</span>
+      </button>
+
+      <a href="dashboard.html" class="btn btn-secondary btn-sm" style="text-decoration:none;">
+        <span>📂 My Workspace</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Dual-Pane Comparative Reader -->
+  <main class="dual-pane-container" role="main">
+    
+    <!-- Left Column: Primary Source A -->
+    <article class="compare-pane" id="pane-left">
+      <div class="compare-pane-inner">
+        <div class="pane-header">
+          <div class="flex-between items-center" style="margin-bottom:var(--space-2);">
+            <span class="badge badge-gold" id="left-entity-badge">Dr. B. R. Ambedkar</span>
+            <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-muted);" id="left-source-id">PRIMARY SOURCE</span>
+          </div>
+          <h2 style="font-family:var(--font-display);font-size:1.25rem;color:var(--text);margin-bottom:var(--space-2);" id="left-work-title">
+            Evidence Before the Southborough Committee (1919)
+          </h2>
+          <div id="left-tags">
+            <span class="thematic-tag">Representation</span>
+            <span class="thematic-tag">Franchise</span>
+            <span class="thematic-tag">Minority Rights</span>
+          </div>
+        </div>
+
+        <div class="pane-scrollable-body" id="left-scroll-body">
+          <p id="left-excerpt-text">
+            Loading primary archival document...
+          </p>
+        </div>
+
+        <div class="pane-citation-box">
+          <strong style="color:var(--gold-light);display:block;margin-bottom:2px;">Archival Citation:</strong>
+          <span id="left-citation-text">BAWS Vol. 2, pp. 503-518</span>
+        </div>
+
+        <div style="margin-top:var(--space-4);display:flex;gap:var(--space-2);">
+          <button class="btn btn-secondary btn-sm" onclick="saveToWorkspace('left')" style="flex:1;">
+            <span>🔖 Save Passage to Workspace</span>
+          </button>
+          <button class="btn btn-ghost btn-sm" onclick="copyCitationText('left')">
+            <span>📋 Copy Citation</span>
+          </button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Right Column: Primary Source B -->
+    <article class="compare-pane" id="pane-right">
+      <div class="compare-pane-inner">
+        <div class="pane-header">
+          <div class="flex-between items-center" style="margin-bottom:var(--space-2);">
+            <span class="badge" style="background:rgba(99,102,241,0.15);color:#818cf8;border:1px solid rgba(99,102,241,0.3);" id="right-entity-badge">
+              M. K. Gandhi
+            </span>
+            <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-muted);" id="right-source-id">CONTEMPORARY INTERLOCUTOR</span>
+          </div>
+          <h2 style="font-family:var(--font-display);font-size:1.25rem;color:var(--text);margin-bottom:var(--space-2);" id="right-work-title">
+            Yerwada Fast Declarations (September 1932)
+          </h2>
+          <div id="right-tags">
+            <span class="thematic-tag">Joint Electorates</span>
+            <span class="thematic-tag">Religious Reform</span>
+            <span class="thematic-tag">Untouchability</span>
+          </div>
+        </div>
+
+        <div class="pane-scrollable-body" id="right-scroll-body">
+          <p id="right-excerpt-text">
+            Loading comparative interlocutor document...
+          </p>
+        </div>
+
+        <div class="pane-citation-box">
+          <strong style="color:var(--gold-light);display:block;margin-bottom:2px;">Archival Citation:</strong>
+          <span id="right-citation-text">The Collected Works of Mahatma Gandhi, Vol. 51, pp. 62-65</span>
+        </div>
+
+        <div style="margin-top:var(--space-4);display:flex;gap:var(--space-2);">
+          <button class="btn btn-secondary btn-sm" onclick="saveToWorkspace('right')" style="flex:1;">
+            <span>🔖 Save Passage to Workspace</span>
+          </button>
+          <button class="btn btn-ghost btn-sm" onclick="copyCitationText('right')">
+            <span>📋 Copy Citation</span>
+          </button>
+        </div>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- Scholarly Synthesis & Context Section -->
+  <section class="container section" style="padding-top:0;padding-bottom:var(--space-12);">
+    <div class="card">
+      <div class="card-inner" style="padding:var(--space-6);">
+        <h3 style="font-family:var(--font-display);color:var(--gold-light);font-size:1.25rem;margin-bottom:var(--space-3);">
+          🏛️ Historiographical Synthesis &amp; Academic Note
+        </h3>
+        <p id="compare-historiography" style="color:var(--text);line-height:1.7;font-size:0.92rem;margin-bottom:var(--space-4);">
+          Loading comparative analysis...
+        </p>
+
+        <div style="display:flex;flex-wrap:wrap;gap:var(--space-3);align-items:center;border-top:1px solid var(--border);padding-top:var(--space-4);">
+          <span style="font-size:0.8rem;color:var(--text-muted);font-family:var(--font-mono);">
+            Related Primary Collections:
+          </span>
+          <a href="debates.html#poona-pact" class="btn btn-ghost btn-sm">Historical Debates Hub →</a>
+          <a href="archive.html?volume=1" class="btn btn-ghost btn-sm">BAWS Vol. 1 Reader →</a>
+          <a href="archive.html?volume=9" class="btn btn-ghost btn-sm">BAWS Vol. 9 Reader →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Universal Footer -->
+  <footer style="background:var(--bg-2);border-top:1px solid var(--border);padding:var(--space-10) var(--space-6) var(--space-8);">
+    <div class="container" style="max-width:1200px;margin:0 auto;text-align:center;">
+      <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:var(--space-2);">
+        Ambedkar Digital Heritage Archive — Institutional Scholarly Research Framework
+      </p>
+      <p style="font-size:0.75rem;color:var(--text-faint);font-family:var(--font-mono);">
+        SHA-256 Verified Archival Content · Strict Source Attribution · Open Scholarly Access
+      </p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/apple-design.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/navigation-system.js"></script>
+
+  <script>
+    // Comparative Reader Logic & State
+    let currentPresets = [];
+    let activePreset = null;
+    let syncScroll = true;
+    let fontSizeState = 1; // 0: compact, 1: standard, 2: large
+
+    async function loadPresets() {
+      try {
+        const res = await fetch('/api/workspace/comparison/presets');
+        const data = await res.json();
+        if (data.success && data.presets.length > 0) {
+          currentPresets = data.presets;
+          
+          // Check URL query param ?preset=
+          const params = new URLSearchParams(window.location.search);
+          const requested = params.get('preset') || 'poona-pact-1932';
+          const found = currentPresets.find(p => p.id === requested) || currentPresets[0];
+          
+          selectPreset(found.id);
+        }
+      } catch (err) {
+        console.error('Error fetching comparison presets:', err);
+      }
+    }
+
+    function selectPreset(presetId) {
+      activePreset = currentPresets.find(p => p.id === presetId);
+      if (!activePreset) return;
+
+      document.getElementById('compare-preset-select').value = presetId;
+
+      // Left column
+      document.getElementById('left-entity-badge').textContent = activePreset.left.entity;
+      document.getElementById('left-work-title').textContent = activePreset.left.work;
+      document.getElementById('left-excerpt-text').textContent = activePreset.left.excerpt;
+      document.getElementById('left-citation-text').textContent = activePreset.left.citation;
+
+      // Right column
+      document.getElementById('right-entity-badge').textContent = activePreset.right.entity;
+      document.getElementById('right-work-title').textContent = activePreset.right.work;
+      document.getElementById('right-excerpt-text').textContent = activePreset.right.excerpt;
+      document.getElementById('right-citation-text').textContent = activePreset.right.citation;
+
+      // Synthesis
+      document.getElementById('compare-historiography').textContent = activePreset.analysis;
+    }
+
+    // Preset selector event
+    document.getElementById('compare-preset-select').addEventListener('change', (e) => {
+      selectPreset(e.target.value);
+      // Update browser URL without reload
+      const url = new URL(window.location);
+      url.searchParams.set('preset', e.target.value);
+      window.history.pushState({}, '', url);
+    });
+
+    // Synchronized scroll handler
+    const leftPane = document.getElementById('left-scroll-body');
+    const rightPane = document.getElementById('right-scroll-body');
+    let isLeftScrolling = false;
+    let isRightScrolling = false;
+
+    leftPane.addEventListener('scroll', () => {
+      if (!syncScroll || isRightScrolling) return;
+      isLeftScrolling = true;
+      const percent = leftPane.scrollTop / (leftPane.scrollHeight - leftPane.clientHeight || 1);
+      rightPane.scrollTop = percent * (rightPane.scrollHeight - rightPane.clientHeight);
+      setTimeout(() => { isLeftScrolling = false; }, 40);
+    });
+
+    rightPane.addEventListener('scroll', () => {
+      if (!syncScroll || isLeftScrolling) return;
+      isRightScrolling = true;
+      const percent = rightPane.scrollTop / (rightPane.scrollHeight - rightPane.clientHeight || 1);
+      leftPane.scrollTop = percent * (leftPane.scrollHeight - leftPane.clientHeight);
+      setTimeout(() => { isRightScrolling = false; }, 40);
+    });
+
+    // Sync scroll button
+    document.getElementById('btn-sync-scroll').addEventListener('click', () => {
+      syncScroll = !syncScroll;
+      document.getElementById('sync-scroll-label').textContent = syncScroll ? 'Sync Scroll: On' : 'Sync Scroll: Off';
+      document.getElementById('btn-sync-scroll').classList.toggle('active', syncScroll);
+    });
+
+    // Font size toggle
+    const fontSizes = ['0.88rem', '1rem', '1.18rem'];
+    document.getElementById('btn-font-toggle').addEventListener('click', () => {
+      fontSizeState = (fontSizeState + 1) % 3;
+      leftPane.style.fontSize = fontSizes[fontSizeState];
+      rightPane.style.fontSize = fontSizes[fontSizeState];
+    });
+
+    // Share link
+    document.getElementById('btn-copy-compare-link').addEventListener('click', () => {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        alert('Deep link to this scholarly comparison copied to clipboard!');
+      });
+    });
+
+    // Copy Citation Text
+    window.copyCitationText = function(side) {
+      const cite = side === 'left' ? activePreset.left.citation : activePreset.right.citation;
+      navigator.clipboard.writeText(cite).then(() => {
+        alert(`Copied citation: ${cite}`);
+      });
+    };
+
+    // Save to Workspace
+    window.saveToWorkspace = async function(side) {
+      if (!activePreset) return;
+      const token = localStorage.getItem('token');
+      if (!token) {
+        alert('Please log in to save passages to your Personal Research Workspace.');
+        window.location.href = 'login.html?redirect=' + encodeURIComponent(window.location.href);
+        return;
+      }
+
+      const itemData = side === 'left' ? {
+        sourceTitle: `${activePreset.left.entity} — ${activePreset.left.work}`,
+        archivalQuote: activePreset.left.excerpt,
+        citation: activePreset.left.citation,
+        userNote: `Saved from Comparative Reader: ${activePreset.title}`
+      } : {
+        sourceTitle: `${activePreset.right.entity} — ${activePreset.right.work}`,
+        archivalQuote: activePreset.right.excerpt,
+        citation: activePreset.right.citation,
+        userNote: `Saved from Comparative Reader: ${activePreset.title}`
+      };
+
+      try {
+        // Fetch user collections to get primary collection ID
+        const colRes = await fetch('/api/workspace/collections', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const colData = await colRes.json();
+        if (colData.success && colData.collections.length > 0) {
+          const colId = colData.collections[0].id;
+          const addRes = await fetch(`/api/workspace/collections/${colId}/items`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(itemData)
+          });
+          const addData = await addRes.json();
+          if (addData.success) {
+            alert(`Saved to research collection: "${colData.collections[0].title}"`);
+          } else {
+            alert('Could not save passage: ' + (addData.message || 'Unknown error'));
+          }
+        }
+      } catch (err) {
+        console.error('Save to workspace error:', err);
+        alert('Saved locally. Connect to backend to sync.');
+      }
+    };
+
+    // Initial load
+    document.addEventListener('DOMContentLoaded', loadPresets);
+  </script>
+</body>
+</html>
