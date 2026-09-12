@@ -131,28 +131,10 @@
 </head>
 <body>
 
-  <!-- Header -->
-  <header class="site-header" role="banner">
-    <div class="nav-container">
-      <a href="index.html" class="nav-logo" aria-label="Ambedkar Digital Heritage Archive">
-        <span class="logo-mark">BA</span>
-        <span class="logo-text">Ambedkar Archive</span>
-      </a>
-
-      <nav class="nav-links" role="navigation" aria-label="Main Navigation">
-        <a href="archive.html" class="nav-link">Volumes</a>
-        <a href="memorials.html" class="nav-link">Memorials</a>
-        <a href="debates.html" class="nav-link">Debates</a>
-        <a href="transparency.html" class="nav-link">Transparency</a>
-        <a href="admin.html" class="nav-link active">Admin Portal</a>
-      </nav>
-
-      <div class="nav-actions">
-        <span id="nav-user-badge" class="badge badge-gold" style="display:none;"></span>
-        <button id="nav-logout-btn" class="btn btn-secondary btn-sm" style="display:none;" onclick="handleLogout()">Logout</button>
-      </div>
-    </div>
-  </header>
+  <!-- Floating Island Navigation (Master System) -->
+  <nav class="nav" role="navigation" aria-label="Main navigation"></nav>
+  <div id="mobile-menu" class="mobile-menu" role="dialog" aria-label="Mobile navigation"></div>
+  <aside class="floating-dock snap-bottom-center" id="global-floating-dock" role="navigation" aria-label="Curated exploration hubs"></aside>
 
   <!-- Hero -->
   <section class="admin-hero">
@@ -654,5 +636,9 @@ Ensure equal protection applies to all persons regardless of citizenship status.
 
     window.addEventListener('load', checkAdminAuth);
   </script>
+  <script src="js/api.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/navigation-system.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>

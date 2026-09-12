@@ -587,73 +587,20 @@ function truncate(text, max = 120) {
 }
 
 // ── Global Side Dock & Clean Top Nav Engine ──────────────
-function initGlobalSideDock() {
-  const currentPath = window.location.pathname.toLowerCase();
-
-  // 1. Ensure top nav-links contains ONLY the 5 core primary links on desktop
-  const topNavLinks = document.querySelector('.nav .nav-links');
-  if (topNavLinks) {
-    const secondaryPages = ['slides.html', 'constitution.html', 'ideas.html', 'learning.html', 'quotes.html', 'ocr.html'];
-    topNavLinks.querySelectorAll('.nav-link').forEach(link => {
-      const href = (link.getAttribute('href') || '').toLowerCase();
-      if (secondaryPages.some(sp => href.includes(sp))) {
-        link.remove();
-      }
-    });
-  }
-
-  // 2. Ensure .side-dock exists on curated portal pages (except specialized reader, auth views, and deep-scroll research archives)
-  let sideDock = document.querySelector('.side-dock');
-  const isDeepResearch = currentPath.includes('memorials.html') || currentPath.includes('debates.html') || document.querySelector('.memorials-page-wrap') || document.querySelector('.debates-page-wrap');
-  if (!sideDock && !document.querySelector('.reader-layout') && !document.querySelector('.auth-card') && !isDeepResearch) {
-    sideDock = document.createElement('aside');
-    sideDock.className = 'side-dock';
-    sideDock.setAttribute('role', 'navigation');
-    sideDock.setAttribute('aria-label', 'Curated exploration hubs');
-    sideDock.innerHTML = `
-      <div class="side-dock-inner">
-        <div class="side-dock-header">
-          <span class="side-dock-badge">Curated Hubs</span>
-        </div>
-        <div class="side-dock-links">
-          <a href="slides.html" class="side-dock-link" title="Visual Exhibition Deck (16:9)">
-            <span class="side-dock-icon">📽️</span>
-            <span class="side-dock-label">Exhibition <span class="badge-16-9">16:9</span></span>
-          </a>
-          <a href="constitution.html" class="side-dock-link" title="Constitution of India">
-            <span class="side-dock-icon">⚖️</span>
-            <span class="side-dock-label">Constitution</span>
-          </a>
-          <a href="ideas.html" class="side-dock-link" title="Thematic Ideas &amp; Philosophy">
-            <span class="side-dock-icon">💡</span>
-            <span class="side-dock-label">Ideas</span>
-          </a>
-          <a href="learning.html" class="side-dock-link" title="Interactive Learning Center">
-            <span class="side-dock-icon">🎓</span>
-            <span class="side-dock-label">Learning</span>
-          </a>
-          <a href="quotes.html" class="side-dock-link" title="Verified Historical Quotes">
-            <span class="side-dock-icon">💬</span>
-            <span class="side-dock-label">Quotes</span>
-          </a>
-          <a href="ocr.html" class="side-dock-link" title="Manuscript OCR Visualizer">
-            <span class="side-dock-icon">📜</span>
-            <span class="side-dock-label">OCR</span>
-          </a>
-        </div>
-      </div>
-    `;
-    document.body.appendChild(sideDock);
-  }
-
-  // 3. Mark active side-dock link
-  if (sideDock) {
-    sideDock.querySelectorAll('.side-dock-link').forEach(link => {
-      const href = (link.getAttribute('href') || '').toLowerCase();
-      const base = href.replace('.html', '');
-      const isAct = Boolean(base && currentPath.includes(base) && !currentPath.endsWith('/index.html') && !currentPath.endsWith('\\index.html'));
-      link.classList.toggle('active', isAct);
-    });
+// ── Global Navigation & Movable Dockbar System (Master Integration) ──
+function initGlobalNavigation() {
+  if (window.NavigationSystem && typeof window.NavigationSystem.init === 'function') {
+    window.NavigationSystem.init();
+  } else {
+    const existing = document.querySelector('script[src*="navigation-system.js"]');
+    if (!existing) {
+      const script = document.createElement('script');
+      script.src = 'js/navigation-system.js';
+      script.onload = () => {
+        if (window.NavigationSystem) window.NavigationSystem.init();
+      };
+      document.head.appendChild(script);
+    }
   }
 }
 
@@ -663,8 +610,8 @@ document.addEventListener('DOMContentLoaded', () => {
   setLanguage(currentLang);
   setSiteTheme(currentTheme);
 
-  // Initialize Global Side Dock & Clean Navigation
-  initGlobalSideDock();
+  // Initialize Global Single Source of Truth Navigation & Movable Dockbar
+  initGlobalNavigation();
 
   // Language buttons
   document.querySelectorAll('.lang-btn').forEach((btn) => {

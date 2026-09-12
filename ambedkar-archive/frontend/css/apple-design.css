@@ -308,122 +308,290 @@ button:active,
 }
 
 /* ───────────────────────────────────────────────────────────────
-   4B. VERTICAL LEFT SIDE DOCK (Curated Exhibition & Hubs Rail)
+   4B. MOVABLE / FLOATING DOCKBAR SYSTEM (Apple Glass & Spring Physics)
    ─────────────────────────────────────────────────────────────── */
-.side-dock {
+.floating-dock {
   position: fixed;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 920;
-  pointer-events: none; /* Never intercept clicks outside the visible dock */
-  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.side-dock-inner {
+  z-index: 940;
   pointer-events: auto;
-  background: var(--apple-glass-toolbar);
-  backdrop-filter: var(--apple-blur-thick);
-  -webkit-backdrop-filter: var(--apple-blur-thick);
-  border: var(--apple-hairline-border);
-  border-left: none;
-  border-radius: 0 20px 20px 0;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), var(--apple-specular-top);
-  padding: 10px 10px 10px 8px;
-  width: 172px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), 
+              opacity 0.22s ease, 
+              box-shadow 0.25s ease;
+}
+
+.floating-dock.is-dragging {
+  transition: none !important;
+  cursor: grabbing !important;
+  z-index: 10000 !important;
+}
+
+.floating-dock.is-dragging .dock-shell {
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(212, 175, 55, 0.35);
+  transform: scale(1.02);
+}
+
+.floating-dock.dock-compact {
+  opacity: 0.72;
+}
+
+.floating-dock:hover,
+.floating-dock:focus-within {
+  opacity: 1 !important;
+}
+
+.dock-snap-pulse {
+  animation: dockSnapPulse 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes dockSnapPulse {
+  0% { transform: scale(0.96); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+/* Base Shell */
+.dock-shell {
+  background: rgba(13, 17, 26, 0.85);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65), 0 0 20px rgba(212, 175, 55, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.12);
   display: flex;
-  flex-direction: column;
-  gap: 4px;
-  transform: translateX(-124px); /* Sleek edge rail: peeks 48px showing icons, never covers page buttons */
-  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.side-dock:hover .side-dock-inner,
-.side-dock:focus-within .side-dock-inner {
-  transform: translateX(0);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 30px rgba(212, 175, 55, 0.25);
+/* Handle Bar & Gripper */
+.dock-handle-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: grab;
+  color: var(--text-muted);
+  transition: color 0.18s ease;
+  user-select: none;
 }
 
-@media (min-width: 1600px) {
-  .side-dock {
-    left: 8px;
-  }
-  .side-dock-inner {
-    border-left: var(--apple-hairline-border);
-    border-radius: 16px;
-    transform: translateX(-124px); /* Keep tucked as sleek edge peek rail; expands on hover */
-  }
+.dock-handle-bar:active {
+  cursor: grabbing;
 }
 
-.side-dock-header {
-  padding: 4px 8px 8px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  margin-bottom: 4px;
+.dock-handle-bar:hover {
+  color: var(--gold-light);
 }
 
-.side-dock-badge {
+.dock-handle-grip {
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  line-height: 1;
+  opacity: 0.75;
+}
+
+.dock-handle-title {
   font-size: 0.68rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: var(--tracking-caps);
   color: var(--gold-light);
-  display: block;
+  white-space: nowrap;
 }
 
-.side-dock-links {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
+.dock-reset-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.95rem;
+  line-height: 1;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: color 0.15s ease, transform 0.2s ease;
 }
 
-.side-dock-link {
+.dock-reset-btn:hover {
+  color: var(--gold);
+  transform: rotate(-45deg);
+}
+
+/* Items */
+.dock-items {
   display: flex;
   align-items: center;
-  gap: 9px;
-  padding: 8px 10px;
-  border-radius: 12px;
-  color: var(--text-muted);
+}
+
+.dock-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   text-decoration: none;
-  font-size: 0.82rem;
+  color: var(--text-muted);
+  border-radius: 12px;
+  font-size: 0.8rem;
   font-weight: 600;
+  white-space: nowrap;
   transition: background 140ms ease, color 140ms ease, transform 140ms var(--apple-instant-press);
 }
 
-.side-dock-link:hover {
+.dock-item:hover {
   background: rgba(255, 255, 255, 0.09);
   color: var(--text);
-  transform: translateX(3px);
+  transform: translateY(-2px);
 }
 
-.side-dock-link:active {
-  transform: scale(0.96) !important;
+.dock-item:active {
+  transform: scale(0.95) !important;
 }
 
-.side-dock-link.active {
-  background: rgba(212, 175, 55, 0.15) !important;
+.dock-item.active {
+  background: rgba(212, 175, 55, 0.18) !important;
   color: var(--gold-light) !important;
-  border: 1px solid rgba(212, 175, 55, 0.32) !important;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35) !important;
+  border: 1px solid rgba(212, 175, 55, 0.35) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4) !important;
 }
 
-.side-dock-icon {
+.dock-icon {
   font-size: 0.95rem;
-  width: 20px;
   display: inline-flex;
   justify-content: center;
 }
 
-.side-dock-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  white-space: nowrap;
+/* ───────────────────────────────────────────────────────────────
+   SNAP POSITIONS: Horizontal Capsule Layouts (Bottom Snap)
+   ─────────────────────────────────────────────────────────────── */
+.floating-dock.snap-bottom-center,
+.floating-dock.snap-bottom-left,
+.floating-dock.snap-bottom-right {
+  bottom: 24px;
 }
 
-/* Hide side-dock on mobile & tablet where space is restricted */
-@media (max-width: 1180px) {
-  .side-dock {
-    display: none !important;
+.floating-dock.snap-bottom-center {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.floating-dock.snap-bottom-left {
+  left: 24px;
+  transform: none;
+}
+
+.floating-dock.snap-bottom-right {
+  right: 24px;
+  left: auto;
+  transform: none;
+}
+
+.floating-dock.snap-bottom-center .dock-shell,
+.floating-dock.snap-bottom-left .dock-shell,
+.floating-dock.snap-bottom-right .dock-shell {
+  flex-direction: row;
+  align-items: center;
+  border-radius: 40px;
+  padding: 6px 10px 6px 14px;
+  gap: 8px;
+}
+
+.floating-dock.snap-bottom-center .dock-header,
+.floating-dock.snap-bottom-left .dock-header,
+.floating-dock.snap-bottom-right .dock-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-right: 8px;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.floating-dock.snap-bottom-center .dock-items,
+.floating-dock.snap-bottom-left .dock-items,
+.floating-dock.snap-bottom-right .dock-items {
+  flex-direction: row;
+  gap: 4px;
+}
+
+.floating-dock.snap-bottom-center .dock-item,
+.floating-dock.snap-bottom-left .dock-item,
+.floating-dock.snap-bottom-right .dock-item {
+  padding: 6px 10px;
+}
+
+/* ───────────────────────────────────────────────────────────────
+   SNAP POSITIONS: Vertical Rail Layouts (Middle Left & Right)
+   ─────────────────────────────────────────────────────────────── */
+.floating-dock.snap-middle-left,
+.floating-dock.snap-middle-right {
+  top: 50%;
+  bottom: auto;
+}
+
+.floating-dock.snap-middle-left {
+  left: 16px;
+  transform: translateY(-50%);
+}
+
+.floating-dock.snap-middle-right {
+  right: 16px;
+  left: auto;
+  transform: translateY(-50%);
+}
+
+.floating-dock.snap-middle-left .dock-shell,
+.floating-dock.snap-middle-right .dock-shell {
+  flex-direction: column;
+  border-radius: 20px;
+  padding: 10px 8px;
+  gap: 6px;
+  width: 172px;
+}
+
+.floating-dock.snap-middle-left .dock-header,
+.floating-dock.snap-middle-right .dock-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 2px;
+}
+
+.floating-dock.snap-middle-left .dock-items,
+.floating-dock.snap-middle-right .dock-items {
+  flex-direction: column;
+  gap: 3px;
+}
+
+.floating-dock.snap-middle-left .dock-item,
+.floating-dock.snap-middle-right .dock-item {
+  padding: 6px 10px;
+  width: 100%;
+}
+
+/* ───────────────────────────────────────────────────────────────
+   Mobile Responsive Adjustments
+   ─────────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .floating-dock.snap-bottom-center,
+  .floating-dock.snap-bottom-left,
+  .floating-dock.snap-bottom-right {
+    bottom: 74px; /* Sits cleanly above mobile bottom-bar */
+    max-width: calc(100vw - 24px);
+  }
+  .floating-dock .dock-shell {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .floating-dock .dock-shell::-webkit-scrollbar {
+    display: none;
+  }
+  .floating-dock.snap-middle-left .dock-shell,
+  .floating-dock.snap-middle-right .dock-shell {
+    width: 60px;
+  }
+  .floating-dock.snap-middle-left .dock-label,
+  .floating-dock.snap-middle-right .dock-label,
+  .floating-dock.snap-middle-left .dock-handle-title,
+  .floating-dock.snap-middle-right .dock-handle-title {
+    display: none;
   }
 }
 
