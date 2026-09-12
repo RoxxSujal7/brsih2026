@@ -44,30 +44,6 @@
 <body>
 <canvas id="spatial-bg-canvas"></canvas>
 
-<!-- Swiss Architectural Vertical Grid Lines (White Desert style) -->
-<div class="swiss-grid-overlay" aria-hidden="true">
-  <div class="swiss-grid-col"></div>
-  <div class="swiss-grid-col"></div>
-  <div class="swiss-grid-col"></div>
-  <div class="swiss-grid-col"></div>
-  <div class="swiss-grid-col"></div>
-  <div class="swiss-grid-col"></div>
-</div>
-
-<!-- Live HUD Telemetry Readout Pill (United Carriers style) -->
-<div class="spatial-hud-bar" id="spatial-hud-bar" role="status" aria-label="3D Spatial telemetry">
-  <div class="spatial-hud-speed-wrap" title="Real-time interaction &amp; scroll velocity">
-    <span class="spatial-hud-speed-val" id="spatial-hud-speed">00</span>
-    <span class="spatial-hud-unit">km/h</span>
-  </div>
-  <div class="spatial-hud-divider"></div>
-  <div class="spatial-hud-chapter" id="spatial-hud-chapter">01 // BEACON OF JUSTICE</div>
-  <div class="spatial-hud-divider"></div>
-  <div class="spatial-hud-coords" id="spatial-hud-coords">40.8075° N, 73.9626° W (NYC)</div>
-  <div class="spatial-hud-divider"></div>
-  <div style="color:#22c55e;font-size:0.7rem;font-weight:600;">● BAWS 60/60 LOADED</div>
-</div>
-
 <!-- ─── Floating Island Navigation (High-End Visual Design & Apple Physics) ─── -->
 <nav class="nav" role="navigation" aria-label="Main navigation">
   <div class="nav-inner">
@@ -250,33 +226,17 @@
           </form>
         </div>
 
-        <div class="hero-actions animate-fade-up delay-3">
-          <a href="#interactive-showcase" class="btn-pill-white">
+        <div class="hero-actions animate-fade-up delay-3" style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;">
+          <a href="#interactive-showcase" class="btn btn-primary btn-lg" style="background:linear-gradient(135deg, #c59b27, #93670c);color:#05070d;font-weight:700;box-shadow:0 8px 24px rgba(197,155,39,0.35);border-radius:9999px;padding:14px 28px;">
             <span>✨ Explore 3D Archive</span>
+            <span class="btn-icon-bubble" style="background:#05070d;color:#f59e0b;">3D</span>
           </a>
-          <a href="archive.html" class="btn-pill-outline">
-            <span>Browse 60 Volumes</span>
-          </a>
-          <button type="button" class="btn btn-primary btn-lg" data-three-experience="museum" style="background:linear-gradient(135deg, #c59b27, #855e09);color:#060913;font-weight:700;box-shadow:0 0 24px rgba(197,155,39,0.38);border-color:#e9c46a;">
-            <span>🏛️ Enter 3D Digital Museum</span>
-            <span class="btn-icon-bubble">3D</span>
-          </button>
-          <a href="archive.html" class="btn btn-secondary btn-lg">
-            <span>Browse All 60 Volumes</span>
+          <a href="archive.html" class="btn btn-outline btn-lg" style="border-radius:9999px;padding:14px 28px;border-color:rgba(255,255,255,0.25);backdrop-filter:blur(10px);background:rgba(255,255,255,0.03);">
+            <span>📚 Browse 60 Volumes</span>
             <span class="btn-icon-bubble">↗</span>
           </a>
-          <button type="button" class="btn btn-outline btn-lg" data-three-experience="journey" style="border-color:var(--border-gold);">
-            <span>🗺️ 3D Global Journey</span>
-            <span class="btn-icon-bubble">3D</span>
-          </button>
-          <a href="slides.html" class="btn btn-secondary btn-lg" style="border-color:var(--border-gold);box-shadow:0 0 24px rgba(212,175,55,0.18);">
-            <span>📽️ 16:9 Visual Exhibition Deck</span>
-          </a>
-          <a href="media.html" class="btn btn-outline btn-lg">
-            <span>🎬 Speeches &amp; Media</span>
-          </a>
-          <a href="assistant.html" class="btn btn-ghost btn-lg">
-            <span>🤖 AI Assistant</span>
+          <a href="slides.html" class="btn btn-ghost" style="color:var(--text-muted);font-size:0.92rem;text-decoration:none;margin-left:4px;">
+            <span>📽️ Visual Exhibition Deck (16:9) →</span>
           </a>
         </div>
       </div>
@@ -371,11 +331,7 @@
 
     <!-- Nike-style Exhibit Selector Dock -->
     <div class="spatial-dock" role="tablist" aria-label="Choose 3D Exhibit">
-      <button class="spatial-dock-item active" data-exhibit="globe" role="tab" aria-selected="true">
-        <span>🌐</span>
-        <span>Global Beacon</span>
-      </button>
-      <button class="spatial-dock-item" data-exhibit="constitution" role="tab" aria-selected="false">
+      <button class="spatial-dock-item active" data-exhibit="constitution" role="tab" aria-selected="true">
         <span>📜</span>
         <span>The Constitution</span>
       </button>
