@@ -247,11 +247,11 @@
           <div class="reader-toolbar" id="canvas-toolbar">
             <button class="btn btn-secondary btn-sm" id="prev-btn">◀ Previous</button>
 
-            <div class="flex items-center gap-3" style="flex:1;max-width:550px;justify-content:center;">
+            <div class="reader-scrubber-box" id="reader-scrubber-box">
               <span style="font-size:0.8rem;color:var(--text-muted);">Page</span>
               <input type="number" id="page-num-input" value="1" min="1" max="1000" class="page-input-jump" />
               <span style="font-size:0.8rem;color:var(--text-muted);" id="page-max-label">of ...</span>
-              <input type="range" id="page-slider" min="1" max="1000" value="1" style="flex:1;min-width:100px;" />
+              <input type="range" id="page-slider" min="1" max="1000" value="1" style="flex:1;min-width:80px;" />
             </div>
 
             <button class="btn btn-primary btn-sm" id="next-btn">Next ▶</button>

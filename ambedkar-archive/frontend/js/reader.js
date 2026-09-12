@@ -315,9 +315,10 @@ async function renderSingleCanvas(pageNum, canvasId, wrapperId) {
   wrapper.style.display = 'flex';
   const page = await pdfDoc.getPage(pageNum);
 
-  // Compute scale based on viewport
-  const container = document.getElementById('canvas-container');
-  const containerWidth = container ? container.clientWidth - (isTwoPageMode ? 60 : 40) : 800;
+  // Compute scale based on true available viewport to prevent horizontal blowout
+  const stage = document.getElementById('canvas-stage-wrapper');
+  const availableWidth = stage ? Math.min(stage.clientWidth, window.innerWidth - 32) : Math.min(window.innerWidth - 32, 820);
+  const containerWidth = Math.max(availableWidth - (isTwoPageMode ? 40 : 20), 260);
   const targetWidth = (isTwoPageMode ? containerWidth / 2 : Math.min(containerWidth, 820)) * zoomScale;
 
   const unscaledViewport = page.getViewport({ scale: 1.0 });
@@ -328,8 +329,10 @@ async function renderSingleCanvas(pageNum, canvasId, wrapperId) {
   const pixelRatio = window.devicePixelRatio || 1.5;
   canvas.width = Math.floor(viewport.width * pixelRatio);
   canvas.height = Math.floor(viewport.height * pixelRatio);
-  canvas.style.width = `${Math.floor(viewport.width)}px`;
-  canvas.style.height = `${Math.floor(viewport.height)}px`;
+  canvas.style.width = '100%';
+  canvas.style.maxWidth = `${Math.floor(viewport.width)}px`;
+  canvas.style.height = 'auto';
+  canvas.style.aspectRatio = `${viewport.width} / ${viewport.height}`;
 
   const ctx = canvas.getContext('2d');
   ctx.imageSmoothingEnabled = true;
@@ -666,3 +669,14 @@ function setupBookmarkModal() {
     });
   }
 }
+
+// Window resize & orientation change handler
+let resizeDebounceTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeDebounceTimer);
+  resizeDebounceTimer = setTimeout(() => {
+    if (pdfDoc && !isRendering) {
+      renderCurrentView();
+    }
+  }, 250);
+});

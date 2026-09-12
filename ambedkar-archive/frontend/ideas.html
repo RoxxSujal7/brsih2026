@@ -238,12 +238,24 @@
     }
     .ideas-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
       gap: var(--space-6);
     }
     @media (max-width: 640px) {
       .ideas-grid {
         grid-template-columns: 1fr;
+      }
+      .ideas-container {
+        padding: 0 var(--space-4);
+      }
+      .idea-modal-box {
+        padding: var(--space-5) var(--space-4) calc(var(--space-6) + env(safe-area-inset-bottom, 0px)) !important;
+        max-height: 90dvh !important;
+        border-radius: var(--radius-xl) !important;
+      }
+      .modal-close-btn {
+        top: var(--space-3) !important;
+        right: var(--space-3) !important;
       }
     }
 

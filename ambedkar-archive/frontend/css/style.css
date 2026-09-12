@@ -732,6 +732,11 @@ p {
   gap: var(--space-4);
 }
 
+.grid > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
 @media (min-width: 640px) {
   .grid {
     gap: var(--space-6);
@@ -1458,6 +1463,9 @@ body.mode-sepia .theme-toggle-btn.active {
   transition: transform var(--duration-normal) var(--ease-spring), border-color var(--duration-fast) var(--ease-out), box-shadow var(--duration-normal) var(--ease-out);
   position: relative;
   overflow: hidden;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .card:hover,
@@ -1477,6 +1485,9 @@ body.mode-sepia .theme-toggle-btn.active {
   height: 100%;
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .card-glass {
@@ -1695,6 +1706,9 @@ select.input option {
   background: rgba(13, 17, 26, 0.7);
   border: 1px solid var(--border);
   border-radius: var(--radius-full);
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 @media (max-width: 640px) {
