@@ -1,0 +1,30 @@
+# Interactive Reader — Ambedkar Digital Heritage Archive
+
+[⚜️
+        
+          AMBEDKAR ARCHIVE
+          Dr. B. R. Ambedkar Digital Heritage](http://localhost:5000/index.html)
+[Home](http://localhost:5000/index.html)
+[Library](http://localhost:5000/archive.html)
+[Timeline](http://localhost:5000/timeline.html)
+[Audio-Visual](http://localhost:5000/media.html)
+[Manuscript OCR](http://localhost:5000/ocr.html)
+[AI Assistant](http://localhost:5000/assistant.html)
+[Dashboard](http://localhost:5000/dashboard.html)
+[Login](http://localhost:5000/login.html)
+[Register](http://localhost:5000/register.html)
+[My Dashboard](http://localhost:5000/dashboard.html)
+[Logout](http://localhost:5000/reader.html?id=doc-1)
+
+## Annihilation of Caste
+[📥 Download Official MEA PDF](http://localhost:5000/reader.html?id=doc-1)
+[Library](http://localhost:5000/archive.html)
+[📥 PDF Download](http://localhost:5000/reader.html?id=doc-1)
+
+# Annihilation of Caste
+
+### Researcher Access Required for Unabridged Manuscripts
+You are currently logged in as a Visitor. Log in with a Researcher account to unlock complete archival transcripts, high-res scans, and raw text downloads.
+[Upgrade to Researcher Account](http://localhost:5000/register.html)
+
+### 📌 Add Bookmark
