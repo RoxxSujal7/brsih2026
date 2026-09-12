@@ -1,36 +1,61 @@
-name: Strix AI Security Scan
-
+name: Strix AI Security Scan & Pentest
+ 
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-
+ 
 jobs:
   security-audit:
-    name: Dependency & AppSec Review
+    name: Strix AppSec Pentest & Dependency Audit
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+      pull-requests: write
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
+ 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
-
+ 
       - name: Audit npm dependencies
         working-directory: ./ambedkar-archive
         run: npm audit --audit-level=high
-
+ 
       - name: Install Strix CLI
         run: curl -sSL https://strix.ai/install | bash
-
-      - name: Run Strix Security Review
+ 
+      - name: Run Strix Autonomous Pentest
         if: env.LLM_API_KEY != ''
         env:
           STRIX_LLM: ${{ secrets.STRIX_LLM || 'openrouter/z-ai/glm-5.3' }}
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
-        run: strix -n -t ./ambedkar-archive --scan-mode quick --max-budget 10
+        run: |
+          strix -n -t ./ambedkar-archive --scan-mode quick --max-budget 10
+ 
+      - name: Enforce Scan Completion (Fail Closed)
+        if: env.LLM_API_KEY != ''
+        run: |
+          if [ -d "strix_runs" ]; then
+            run_json=$(ls -t strix_runs/*/run.json 2>/dev/null | head -1)
+            if [ -n "$run_json" ]; then
+              status=$(jq -r .status "$run_json")
+              if [ "$status" != "completed" ]; then
+                echo "Strix run status is '$status' — scan did not complete (budget exhausted). Raise --max-budget." >&2
+                exit 1
+              fi
+            fi
+          fi
+ 
+      - name: Upload Strix SARIF to GitHub Code Scanning
+        if: always() && env.LLM_API_KEY != ''
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: strix_runs
