@@ -10,7 +10,8 @@
     "seed:media": "node backend/scripts/seedMediaData.js",
     "download:hindi": "node backend/scripts/downloadHindiPDFs.js",
     "test": "node backend/scripts/verifyArchiveAndThree.js",
-    "test:verify": "node backend/scripts/verifyArchiveAndThree.js"
+    "test:verify": "node backend/scripts/verifyArchiveAndThree.js",
+    "test:spatial": "node backend/scripts/testSpatialLanding.js"
   },
   "keywords": [
     "ambedkar",

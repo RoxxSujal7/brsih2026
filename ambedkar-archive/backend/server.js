@@ -20,6 +20,7 @@ const letterRoutes = require('./routes/letters');
 const vowRoutes = require('./routes/vows');
 const volumeRoutes = require('./routes/volumes');
 const chatRoutes = require('./routes/chat');
+const threeRoutes = require('./routes/three');
 
 
 const app = express();
@@ -111,6 +112,7 @@ app.use('/api/letters', letterRoutes);
 app.use('/api/vows', vowRoutes);
 app.use('/api/volumes', volumeRoutes);
 app.use('/api/chat', chatRoutes);
+app.use('/api/three', threeRoutes);
 
 
 // Serve volume PDFs directly from canonical frontend/pdfs
