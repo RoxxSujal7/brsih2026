@@ -149,6 +149,14 @@
         <span class="side-dock-icon">📽️</span>
         <span class="side-dock-label">Exhibition <span class="badge-16-9">16:9</span></span>
       </a>
+      <button type="button" class="side-dock-link" data-three-experience="museum" title="3D Digital Heritage Museum" style="background:none;border:none;width:100%;cursor:pointer;font-family:inherit;color:inherit;text-align:left;">
+        <span class="side-dock-icon">🏛️</span>
+        <span class="side-dock-label">3D Museum</span>
+      </button>
+      <button type="button" class="side-dock-link" data-three-experience="journey" title="3D Global Journey Map" style="background:none;border:none;width:100%;cursor:pointer;font-family:inherit;color:inherit;text-align:left;">
+        <span class="side-dock-icon">🗺️</span>
+        <span class="side-dock-label">3D Journey</span>
+      </button>
       <a href="constitution.html" class="side-dock-link" title="Constitution of India">
         <span class="side-dock-icon">⚖️</span>
         <span class="side-dock-label">Constitution</span>
@@ -217,10 +225,18 @@
         </div>
 
         <div class="hero-actions animate-fade-up delay-3">
-          <a href="archive.html" class="btn btn-primary btn-lg">
+          <button type="button" class="btn btn-primary btn-lg" data-three-experience="museum" style="background:linear-gradient(135deg, #c59b27, #855e09);color:#060913;font-weight:700;box-shadow:0 0 24px rgba(197,155,39,0.38);border-color:#e9c46a;">
+            <span>🏛️ Enter 3D Digital Museum</span>
+            <span class="btn-icon-bubble">3D</span>
+          </button>
+          <a href="archive.html" class="btn btn-secondary btn-lg">
             <span>Browse All 60 Volumes</span>
             <span class="btn-icon-bubble">↗</span>
           </a>
+          <button type="button" class="btn btn-outline btn-lg" data-three-experience="journey" style="border-color:var(--border-gold);">
+            <span>🗺️ 3D Global Journey</span>
+            <span class="btn-icon-bubble">3D</span>
+          </button>
           <a href="slides.html" class="btn btn-secondary btn-lg" style="border-color:var(--border-gold);box-shadow:0 0 24px rgba(212,175,55,0.18);">
             <span>📽️ 16:9 Visual Exhibition Deck</span>
           </a>
@@ -707,6 +723,7 @@
 <script src="js/apple-design.js"></script>
 <script src="js/app.js"></script>
 <script src="js/command-palette.js"></script>
+<script src="js/three/threeIntegrations.js"></script>
 <script>
 // ── Quote Rotator
 const quotes = [

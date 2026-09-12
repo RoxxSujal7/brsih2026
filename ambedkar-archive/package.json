@@ -11,7 +11,13 @@
     "download:hindi": "node backend/scripts/downloadHindiPDFs.js",
     "test": "echo \"No test runner configured yet\""
   },
-  "keywords": ["ambedkar", "heritage", "archive", "SIH", "digital"],
+  "keywords": [
+    "ambedkar",
+    "heritage",
+    "archive",
+    "SIH",
+    "digital"
+  ],
   "author": "SIH Team",
   "license": "MIT",
   "dependencies": {
@@ -21,10 +27,11 @@
     "express": "^4.18.2",
     "express-rate-limit": "^7.1.5",
     "express-validator": "^7.0.1",
+    "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.3",
     "morgan": "^1.10.0",
-    "helmet": "^7.1.0"
+    "three": "^0.186.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.2"
