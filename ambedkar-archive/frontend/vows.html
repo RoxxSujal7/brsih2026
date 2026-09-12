@@ -22,6 +22,7 @@
 
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/apple-design.css" />
+  <link rel="stylesheet" href="css/icons.css" />
   <script>(function(){const t=localStorage.getItem('site_theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
 
   <style>
@@ -118,176 +119,73 @@
     .vow-num-badge {
       width: 38px;
       height: 38px;
-      border-radius: var(--radius-full);
+      border-radius: 50%;
       background: rgba(212, 175, 55, 0.12);
       border: 1px solid var(--border-gold);
-      color: var(--gold);
-      font-weight: 800;
-      font-family: var(--font-heading);
+      color: var(--gold-light);
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
+      font-family: var(--font-mono);
+      font-weight: 700;
       font-size: 0.95rem;
+      flex-shrink: 0;
     }
     .vow-text {
-      font-size: 1rem;
-      line-height: 1.7;
       color: var(--text);
-      font-family: 'Noto Sans Devanagari', var(--font-body), sans-serif;
+      font-size: 0.98rem;
+      line-height: 1.65;
+      font-weight: 450;
     }
     .vow-historic-box {
-      background: rgba(212, 175, 55, 0.05);
+      background: linear-gradient(135deg, rgba(212,175,55,0.08) 0%, rgba(13,17,26,0.95) 100%);
       border: 1px solid var(--border-gold);
       border-radius: var(--radius-2xl);
       padding: var(--space-6);
       margin-bottom: var(--space-8);
       display: flex;
-      gap: var(--space-5);
       align-items: center;
+      gap: var(--space-5);
     }
   </style>
 </head>
 <body>
-  <!-- ─── Floating Island Navigation ─────────────────── -->
-  <nav class="nav" role="navigation" aria-label="Main navigation">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo" aria-label="Ambedkar Archive Home">
-        <div class="nav-logo-icon" aria-hidden="true">⚜️</div>
-        <div class="nav-logo-text">
-          <span>AMBEDKAR ARCHIVE</span>
-          <span class="nav-logo-sub">Digital Heritage Platform</span>
-        </div>
+  <!-- Header Navigation -->
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a href="index.html" class="nav-logo" aria-label="Home">
+        <span class="nav-logo-icon">⚜️</span>
+        <span class="nav-logo-text">Dr. B. R. Ambedkar Archive</span>
       </a>
 
-      <div class="nav-links" role="list">
-        <a href="index.html" class="nav-link" role="listitem">Home</a>
-        <a href="archive.html" class="nav-link" role="listitem">Volumes &amp; Books</a>
-        <a href="letters.html" class="nav-link" role="listitem">Letters (361)</a>
-        <a href="vows.html" class="nav-link active" role="listitem">22 Vows</a>
-        <a href="media.html" class="nav-link" role="listitem">Speeches &amp; Media</a>
-        <a href="timeline.html" class="nav-link" role="listitem">Timeline</a>
-        <a href="assistant.html" class="nav-link" role="listitem">AI Assistant</a>
-      </div>
+      <nav class="nav-links" role="navigation" aria-label="Main navigation">
+        <a href="index.html" class="nav-link" aria-label="Home"><span class="icon" data-icon="home"></span> Home</a>
+        <a href="archive.html" class="nav-link" aria-label="Volumes"><span class="icon" data-icon="archive"></span> Volumes</a>
+        <a href="letters.html" class="nav-link" aria-label="Letters"><span class="icon" data-icon="mail"></span> Letters</a>
+        <a href="vows.html" class="nav-link active" aria-label="22 Vows"><span class="icon" data-icon="dhamma-wheel"></span> 22 Vows</a>
+        <a href="constitution.html" class="nav-link" aria-label="Constitution"><span class="icon" data-icon="scale"></span> Constitution</a>
+        <a href="timeline.html" class="nav-link" aria-label="Timeline"><span class="icon" data-icon="calendar"></span> Timeline</a>
+        <a href="ideas.html" class="nav-link" aria-label="Ideas Graph"><span class="icon" data-icon="lightbulb"></span> Ideas</a>
+        <a href="media.html" class="nav-link" aria-label="Speeches & Media"><span class="icon" data-icon="video"></span> Speeches</a>
+        <a href="slides.html" class="nav-link" aria-label="Exhibition"><span class="icon" data-icon="presentation"></span> Exhibition</a>
+      </nav>
 
-      <div class="nav-actions">
-        <!-- Reading Atmosphere Switcher -->
-        <div class="nav-theme" role="group" aria-label="Atmosphere selection">
-          <button class="theme-toggle-btn active" data-theme="dark" title="Dark Slate Atmosphere">🌙</button>
-          <button class="theme-toggle-btn" data-theme="paper" title="Ivory Paper Sanctuary">📜</button>
-          <button class="theme-toggle-btn" data-theme="sepia" title="Historical Sepia Sanctuary">🏺</button>
+      <div class="header-controls">
+        <div class="theme-switcher" role="group" aria-label="Site Theme">
+          <button class="theme-btn" data-theme="dark" title="Dark Archive Theme" aria-label="Dark theme"><span class="icon" data-icon="moon"></span></button>
+          <button class="theme-btn" data-theme="sepia" title="Historical Sepia Parchment" aria-label="Sepia theme"><span class="icon" data-icon="scroll"></span></button>
+          <button class="theme-btn" data-theme="light" title="Modern Light Studio" aria-label="Light theme"><span class="icon" data-icon="sun"></span></button>
         </div>
-        <div class="nav-lang" role="group" aria-label="Language selection">
-          <button class="lang-btn active" data-lang="en" aria-pressed="true">EN</button>
-          <button class="lang-btn" data-lang="hi" aria-pressed="false">हिन्दी</button>
-          <button class="lang-btn" data-lang="mr" aria-pressed="false">मराठी</button>
-        </div>
-
-        <!-- Logged-out state -->
-        <a id="nav-login-btn" href="login.html" class="btn btn-primary btn-sm">Sign In</a>
-
-        <!-- Logged-in state (hidden by default) -->
-        <div id="nav-user-menu" style="display:none;" class="flex gap-2 items-center">
-          <a href="dashboard.html" class="btn btn-secondary btn-sm">
-            <span>👤</span> <span id="nav-user-name">User</span>
-          </a>
-          <button data-action="logout" class="btn btn-ghost btn-sm">Logout</button>
-        </div>
-
-        <button id="hamburger" class="hamburger" aria-label="Open menu" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
       </div>
     </div>
-  </nav>
-
-  <!-- Mobile Navigation Drawer -->
-  <div id="mobile-menu" class="mobile-menu" role="dialog" aria-label="Mobile navigation">
-    <div class="mobile-theme-row flex-between items-center" style="padding:var(--space-2) var(--space-3);margin-bottom:var(--space-2);border-bottom:1px solid var(--border);">
-      <span style="font-size:0.8rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Atmosphere</span>
-      <div class="nav-theme" role="group" aria-label="Atmosphere selection">
-        <button class="theme-toggle-btn active" data-theme="dark" title="Dark Slate">🌙</button>
-        <button class="theme-toggle-btn" data-theme="paper" title="Ivory Paper">📜</button>
-        <button class="theme-toggle-btn" data-theme="sepia" title="Historical Sepia">🏺</button>
-      </div>
-    </div>
-
-    <div class="mobile-theme-row flex-between items-center" style="padding:var(--space-2) var(--space-3);margin-bottom:var(--space-2);border-bottom:1px solid var(--border);">
-      <span style="font-size:0.8rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Language</span>
-      <div class="nav-lang" role="group" aria-label="Language selection">
-        <button class="lang-btn active" data-lang="en">EN</button>
-        <button class="lang-btn" data-lang="hi">हिन्दी</button>
-        <button class="lang-btn" data-lang="mr">मराठी</button>
-      </div>
-    </div>
-
-    <a href="index.html" class="nav-link">🏠 Home</a>
-    <a href="archive.html" class="nav-link">📚 Volumes &amp; Books</a>
-    <a href="letters.html" class="nav-link">📜 Letters &amp; Correspondence (361)</a>
-    <a href="vows.html" class="nav-link active">☸️ The 22 Vows (22 प्रतिज्ञा)</a>
-    <a href="constitution.html" class="nav-link">⚖️ Constitution</a>
-    <a href="ideas.html" class="nav-link">💡 Thematic Ideas</a>
-    <a href="learning.html" class="nav-link">🎓 Learning Center</a>
-    <a href="quotes.html" class="nav-link">💬 Verified Quotes</a>
-    <a href="media.html" class="nav-link">🎬 Speeches &amp; Audio-Visual</a>
-    <a href="timeline.html" class="nav-link">📅 Chronological Timeline</a>
-    <a href="slides.html" class="nav-link">📽️ Visual Exhibition Deck <span class="badge-16-9">16:9</span></a>
-    <a href="assistant.html" class="nav-link">🤖 AI Research Assistant</a>
-    <a href="ocr.html" class="nav-link">📜 Manuscript OCR</a>
-    <a href="dashboard.html" class="nav-link">👤 My Research Dashboard</a>
-    <div style="height:1px;background:rgba(255,255,255,0.08);margin:var(--space-4) 0;"></div>
-    <a href="login.html" class="btn btn-primary btn-full">Sign In</a>
-  </div>
-
-  <!-- ─── Vertical Left Dock: Curated Exploration Hubs ─── -->
-  <aside class="side-dock" role="navigation" aria-label="Curated exploration hubs">
-    <div class="side-dock-inner">
-      <div class="side-dock-header">
-        <span class="side-dock-badge">Curated Hubs</span>
-      </div>
-      <div class="side-dock-links">
-        <a href="slides.html" class="side-dock-link" title="Visual Exhibition Deck (16:9)">
-          <span class="side-dock-icon">📽️</span>
-          <span class="side-dock-label">Exhibition <span class="badge-16-9">16:9</span></span>
-        </a>
-        <button type="button" class="side-dock-link" data-three-experience="museum" title="3D Digital Heritage Museum" style="background:none;border:none;width:100%;cursor:pointer;font-family:inherit;color:inherit;text-align:left;">
-          <span class="side-dock-icon">🏛️</span>
-          <span class="side-dock-label">3D Museum</span>
-        </button>
-        <a href="constitution.html" class="side-dock-link" title="Constitution of India">
-          <span class="side-dock-icon">⚖️</span>
-          <span class="side-dock-label">Constitution</span>
-        </a>
-        <a href="ideas.html" class="side-dock-link" title="Thematic Ideas &amp; Philosophy">
-          <span class="side-dock-icon">💡</span>
-          <span class="side-dock-label">Ideas</span>
-        </a>
-        <a href="media.html" class="side-dock-link" title="Speeches &amp; Audio-Visual Archive">
-          <span class="side-dock-icon">🎬</span>
-          <span class="side-dock-label">Speeches</span>
-        </a>
-        <a href="learning.html" class="side-dock-link" title="Interactive Learning Center">
-          <span class="side-dock-icon">🎓</span>
-          <span class="side-dock-label">Learning</span>
-        </a>
-        <a href="quotes.html" class="side-dock-link" title="Verified Historical Quotes">
-          <span class="side-dock-icon">💬</span>
-          <span class="side-dock-label">Quotes</span>
-        </a>
-        <a href="ocr.html" class="side-dock-link" title="Manuscript OCR Visualizer">
-          <span class="side-dock-icon">📜</span>
-          <span class="side-dock-label">OCR</span>
-        </a>
-      </div>
-    </div>
-  </aside>
+  </header>
 
   <main class="page-content" role="main">
     <div class="container section">
     <!-- Hero Header -->
     <section class="vows-hero">
       <div class="badge badge-gold" style="margin-bottom: var(--space-3);">
-        <span>☸️</span> <span>Deeksha Bhoomi Nagpur • 14 October 1956</span>
+        <span class="icon" data-icon="dhamma-wheel"></span> <span>Deeksha Bhoomi Nagpur • 14 October 1956</span>
       </div>
       <h1 id="vows-main-title" style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.2rem); margin-bottom: var(--space-3); letter-spacing: -0.015em;">
         The 22 Vows (२२ प्रतिज्ञा)
@@ -298,13 +196,22 @@
 
       <!-- Language Switcher Bar -->
       <div class="lang-pills-bar" id="vows-lang-bar">
-        <!-- Injected via JS -->
+        <button class="lang-pill active" data-id="mr">मराठी</button>
+        <button class="lang-pill" data-id="en">English</button>
+        <button class="lang-pill" data-id="hi">हिन्दी</button>
+        <button class="lang-pill" data-id="gu">ગુજરાતી</button>
+        <button class="lang-pill" data-id="bn">বাংলা</button>
+        <button class="lang-pill" data-id="ta">தமிழ்</button>
+        <button class="lang-pill" data-id="te">తెలుగు</button>
+        <button class="lang-pill" data-id="kn">ಕನ್ನಡ</button>
+        <button class="lang-pill" data-id="pa">ਪੰਜਾਬੀ</button>
+        <button class="lang-pill" data-id="or">ଓଡ଼ିଆ</button>
       </div>
     </section>
 
     <!-- Historical Context Callout -->
     <div class="vow-historic-box">
-      <div style="font-size: 2.2rem;">🏛️</div>
+      <div style="font-size: 2.2rem;" class="svg-icon-gold"><span class="icon" data-icon="museum"></span></div>
       <div style="flex: 1;">
         <h3 style="font-family: var(--font-display); font-size: 1.1rem; color: var(--gold-light); margin-bottom: 4px;">
           Historical Significance of the 22 Pledges
@@ -314,40 +221,46 @@
         </p>
       </div>
       <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-        <button id="listen-vows-btn" class="btn btn-secondary btn-sm" style="white-space: nowrap;">🔊 Listen</button>
-        <button id="copy-all-vows-btn" class="btn btn-secondary btn-sm" style="white-space: nowrap;">📋 Copy All</button>
+        <button id="listen-vows-btn" class="btn btn-secondary btn-sm" style="white-space: nowrap;"><span class="icon" data-icon="volume-2"></span> Listen</button>
+        <button id="copy-all-vows-btn" class="btn btn-secondary btn-sm" style="white-space: nowrap;"><span class="icon" data-icon="copy"></span> Copy All</button>
       </div>
     </div>
 
-    <!-- Vows Grid -->
+    <!-- Vows Grid: Pre-rendered semantic 22 Vows (Marathi & English) -->
     <div id="vows-grid" class="vows-grid">
-      <!-- 22 Vows Injected via JS -->
+      <div class="vow-card"><div class="vow-num-badge">1</div><div class="vow-text">मी ब्रम्हा, विष्णू आणि महेश यांना देव मानणार नाही किंवा त्यांची उपासना करणार नाही.</div></div>
+      <div class="vow-card"><div class="vow-num-badge">2</div><div class="vow-text">मी राम व कृष्ण यांना देव मानणार नाही किंवा त्यांची उपासना करणार नाही.</div></div>
+      <div class="vow-card"><div class="vow-num-badge">3</div><div class="vow-text">मी गौरी-गणपती इत्यादी हिंदुधर्मातील कोणत्याही देवदेवतेस मानणार नाही किवा त्यांची उपासना करणार नाही.</div></div>
+      <div class="vow-card"><div class="vow-num-badge">4</div><div class="vow-text">देवाने अवतार घेतले, यावर माझा विश्‍वास नाही.</div></div>
+      <div class="vow-card"><div class="vow-num-badge">5</div><div class="vow-text">बुद्ध हा विष्णूचा अवतार आहे हा खोटा आणि खोडसाळ प्रचार होय, असे मी मानतो.</div></div>
+      <div class="vow-card"><div class="vow-num-badge">6</div><div class="vow-text">मी श्राद्धपक्ष करणार नाही , पिंडदान करणार नाही.</div></div>
+      <div class="vow-card"><div class="vow-num-badge">7</div><div class="vow-text">बौद्ध धम्माच्या विरूद्ध विसंगत असे कोणतेच आचार कर्म मी करणार नाही.</div></div>
+      <div class="vow-card"><div class="vow-num-badge">8</div><div class="vow-text">कोणतेही क्रियाकर्म ब्राह्मणांचे हातून करवून घेणार नाही.</div></div>
+      <div class="vow-card"><div class="vow-num-badge">9</div><div class="vow-text">सर्व मनुष्यमात्र समान आहेत, असे मी मानतो.</div></div>
+      <div class="vow-card"><div class="vow-num-badge">10</div><div class="vow-text">मी समता स्थापन करण्याचा प्रयत्न करीन.</div></div>
+      <div class="vow-card"><div class="vow-num-badge">11</div><div class="vow-text">मी भगवान बुद्धाने सांगितलेल्या अष्टांग मार्गाचा अवलंब करीन.</div></div>
+      <div class="vow-card"><div class="vow-num-badge">12</div><div class="vow-text">मी बुद्धाने सांगितलेल्या दहा पारमिता पाळीन.</div></div>
+      <div class="vow-card"><div class="vow-num-badge">13</div><div class="vow-text">मी सर्व प्राणीमात्रावर दया करीन, त्यांचे लालनपालन करीन.</div></div>
+      <div class="vow-card"><div class="vow-num-badge">14</div><div class="vow-text">मी चोरी करणार नाही.</div></div>
+      <div class="vow-card"><div class="vow-num-badge">15</div><div class="vow-text">मी खोटे बोलणार नाही.</div></div>
+      <div class="vow-card"><div class="vow-num-badge">16</div><div class="vow-text">मी व्यभिचार करणार नाही.</div></div>
+      <div class="vow-card"><div class="vow-num-badge">17</div><div class="vow-text">मी दारू पिणार नाही.</div></div>
+      <div class="vow-card"><div class="vow-num-badge">18</div><div class="vow-text">मी प्रज्ञा शील आणि करूणा या बोद्ध धम्माच्या तीन तत्त्वांची सांगड घालून माझे जीवन चालविन.</div></div>
+      <div class="vow-card"><div class="vow-num-badge">19</div><div class="vow-text">माझ्या जुन्या, मनुष्यमात्राच्या उत्कर्षाला हानिकारक असणाऱ्या आणि मनुष्यमात्राला असमान व नीच मानणाऱ्या हिंदू धर्माचा मी त्याग करतो व बुद्धाच्या धम्माचा स्वीकार करतो.</div></div>
+      <div class="vow-card"><div class="vow-num-badge">20</div><div class="vow-text">बुद्ध धम्म हा सद्धम्म आहे अशी माझी खात्री पटलेली आहे.</div></div>
+      <div class="vow-card"><div class="vow-num-badge">21</div><div class="vow-text">माझा नवा जन्म होत आहे, असे मी मानतो.</div></div>
+      <div class="vow-card"><div class="vow-num-badge">22</div><div class="vow-text">इतःपर मी बुद्धाच्या शिकवणीप्रमाणे वागेन अशी प्रतिज्ञा करतो.</div></div>
     </div>
     </div>
   </main>
 
   <!-- Bottom Tab Bar (Mobile) -->
   <nav class="bottom-bar" role="navigation" aria-label="Mobile navigation">
-    <a href="index.html" class="tab-item" aria-label="Home">
-      <span class="tab-icon" aria-hidden="true">🏠</span>
-      <span>Home</span>
-    </a>
-    <a href="archive.html" class="tab-item" aria-label="Volumes">
-      <span class="tab-icon" aria-hidden="true">📚</span>
-      <span>Volumes</span>
-    </a>
-    <a href="letters.html" class="tab-item" aria-label="Letters">
-      <span class="tab-icon" aria-hidden="true">📜</span>
-      <span>Letters</span>
-    </a>
-    <a href="vows.html" class="tab-item active" aria-label="Vows">
-      <span class="tab-icon" aria-hidden="true">☸️</span>
-      <span>22 Vows</span>
-    </a>
-    <a href="timeline.html" class="tab-item" aria-label="Timeline">
-      <span class="tab-icon" aria-hidden="true">📅</span>
-      <span>Timeline</span>
-    </a>
+    <a href="index.html" class="tab-item" aria-label="Home"><span class="tab-icon"><span class="icon" data-icon="home"></span></span><span>Home</span></a>
+    <a href="archive.html" class="tab-item" aria-label="Volumes"><span class="tab-icon"><span class="icon" data-icon="archive"></span></span><span>Volumes</span></a>
+    <a href="letters.html" class="tab-item" aria-label="Letters"><span class="tab-icon"><span class="icon" data-icon="mail"></span></span><span>Letters</span></a>
+    <a href="vows.html" class="tab-item active" aria-label="Vows"><span class="tab-icon"><span class="icon" data-icon="dhamma-wheel"></span></span><span>22 Vows</span></a>
+    <a href="timeline.html" class="tab-item" aria-label="Timeline"><span class="tab-icon"><span class="icon" data-icon="calendar"></span></span><span>Timeline</span></a>
   </nav>
 
   <footer class="site-footer">
@@ -361,6 +274,11 @@
   <script src="js/app.js"></script>
   <script src="js/command-palette.js"></script>
   <script src="js/three/threeIntegrations.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/vendor/lenis.min.js"></script>
+  <script src="js/vendor/gsap.min.js"></script>
+  <script src="js/vendor/ScrollTrigger.min.js"></script>
+  <script src="js/scrollytelling.js"></script>
 
   <script>
     document.addEventListener('DOMContentLoaded', async () => {
@@ -368,59 +286,152 @@
       const grid = document.getElementById('vows-grid');
       const titleEl = document.getElementById('vows-main-title');
       const descEl = document.getElementById('vows-main-desc');
-      const copyBtn = document.getElementById('copy-all-vows-btn');
       const listenBtn = document.getElementById('listen-vows-btn');
+      const copyBtn = document.getElementById('copy-all-vows-btn');
 
-      let currentLang = 'mr'; // Marathi by default
-      let currentVowsList = [];
+      let currentLang = 'mr';
       let isSpeaking = false;
-      const synth = typeof window !== 'undefined' && 'speechSynthesis' in window ? window.speechSynthesis : null;
+      const synth = window.speechSynthesis;
 
-      try {
-        const langRes = await api.vows.languages();
-        renderLangPills(langRes.languages);
-        loadVows(currentLang);
-      } catch (e) {
-        console.error('Error fetching vows languages:', e);
-      }
+      // Built-in English & Marathi vows dataset fallback for offline resilience
+      const FALLBACK_VOWS = {
+        mr: {
+          title: "The 22 Vows (२२ प्रतिज्ञा)",
+          description: "नागपुरात 14 ऑक्टोबर 1956 रोजी हिंदू धर्म सोडून बौद्ध धर्म स्वीकारल्यानंतर डॉ. बाबासाहेब आंबेडकरांनी त्यांच्या अनुयायांना 22 प्रतिज्ञा सांगितल्या.",
+          vows: [
+            "मी ब्रम्हा, विष्णू आणि महेश यांना देव मानणार नाही किंवा त्यांची उपासना करणार नाही.",
+            "मी राम व कृष्ण यांना देव मानणार नाही किंवा त्यांची उपासना करणार नाही.",
+            "मी गौरी-गणपती इत्यादी हिंदुधर्मातील कोणत्याही देवदेवतेस मानणार नाही किवा त्यांची उपासना करणार नाही.",
+            "देवाने अवतार घेतले, यावर माझा विश्‍वास नाही.",
+            "बुद्ध हा विष्णूचा अवतार आहे हा खोटा आणि खोडसाळ प्रचार होय, असे मी मानतो.",
+            "मी श्राद्धपक्ष करणार नाही , पिंडदान करणार नाही.",
+            "बौद्ध धम्माच्या विरूद्ध विसंगत असे कोणतेच आचार कर्म मी करणार नाही.",
+            "कोणतेही क्रियाकर्म ब्राह्मणांचे हातून करवून घेणार नाही.",
+            "सर्व मनुष्यमात्र समान आहेत, असे मी मानतो.",
+            "मी समता स्थापन करण्याचा प्रयत्न करीन.",
+            "मी भगवान बुद्धाने सांगितलेल्या अष्टांग मार्गाचा अवलंब करीन.",
+            "मी बुद्धाने सांगितलेल्या दहा पारमिता पाळीन.",
+            "मी सर्व प्राणीमात्रावर दया करीन, त्यांचे लालनपालन करीन.",
+            "मी चोरी करणार नाही.",
+            "मी खोटे बोलणार नाही.",
+            "मी व्यभिचार करणार नाही.",
+            "मी दारू पिणार नाही.",
+            "मी प्रज्ञा शील आणि करूणा या बोद्ध धम्माच्या तीन तत्त्वांची सांगड घालून माझे जीवन चालविन.",
+            "माझ्या जुन्या, मनुष्यमात्राच्या उत्कर्षाला हानिकारक असणाऱ्या आणि मनुष्यमात्राला असमान व नीच मानणाऱ्या हिंदू धर्माचा मी त्याग करतो व बुद्धाच्या धम्माचा स्वीकार करतो.",
+            "बुद्ध धम्म हा सद्धम्म आहे अशी माझी खात्री पटलेली आहे.",
+            "माझा नवा जन्म होत आहे, असे मी मानतो.",
+            "इतःपर मी बुद्धाच्या शिकवणीप्रमाणे वागेन अशी प्रतिज्ञा करतो."
+          ]
+        },
+        en: {
+          title: "The 22 Vows of Dr. B. R. Ambedkar (1956)",
+          description: "Administered at Deekshabhoomi, Nagpur on October 14, 1956 to establish ethical humanism and complete emancipation from ritual subjugation.",
+          vows: [
+            "I shall have no faith in Brahma, Vishnu and Mahesh nor shall I worship them.",
+            "I shall have no faith in Rama and Krishna who are believed to be incarnations of God nor shall I worship them.",
+            "I shall have no faith in ‘Gauri’, Ganapati and other gods and goddesses of Hindus nor shall I worship them.",
+            "I do not believe in the incarnation of God.",
+            "I do not and shall not believe that Lord Buddha was the incarnation of Vishnu. I believe this to be sheer madness and false propaganda.",
+            "I shall not perform ‘Shraddha’ nor shall I give ‘pind-dan’.",
+            "I shall not act in a manner violating the principles and teachings of the Buddha.",
+            "I shall not allow any ceremonies to be performed by Brahmins.",
+            "I shall believe in the equality of man.",
+            "I shall endeavour to establish equality.",
+            "I shall follow the ‘noble eightfold path’ of the Buddha.",
+            "I shall follow the ‘paramitas’ prescribed by the Buddha.",
+            "I shall have compassion and loving kindness for all living beings and protect them.",
+            "I shall not steal.",
+            "I shall not tell lies.",
+            "I shall not commit carnal sins.",
+            "I shall not take intoxicants like liquor, drugs etc.",
+            "I shall endeavour to follow the noble eightfold path and practise compassion and loving kindness in everyday life.",
+            "I renounce Hinduism which is harmful for humanity and impedes the advancement and development of humanity because it is based on inequality, and adopt Buddhism as my religion.",
+            "I firmly believe the Dhamma of the Buddha is the only true religion.",
+            "I believe that I am having a re-birth.",
+            "I solemnly declare and affirm that I shall hereafter lead my life according to the principles and teachings of the Buddha and his Dhamma."
+          ]
+        },
+        hi: {
+          title: "२२ प्रतिज्ञा (1956)",
+          description: "नागपुर में, 14 अक्टूबर 1956 को हिंदू धर्म छोड़कर बौद्ध धर्म स्वीकार करने के बाद, डॉ बाबासाहेब अम्बेडकर ने अपने अनुयायियों को 22 प्रतिज्ञाएं निर्धारित कीं।",
+          vows: [
+            "मैं ब्रह्मा, विष्णु और महेश में कोई विश्वास नहीं करुँगा और न ही मैं उनकी पूजा करुँगा.",
+            "मैं राम और कृष्ण, जो भगवान के अवतार माने जाते हैं, में कोई आस्था नहीं रखूँगा और न ही मैं उनकी पूजा करुँगा.",
+            "मैं गौरी, गणपति और हिंदुओं के अन्य देवी-देवताओं में आस्था नहीं रखूँगा और न ही मैं उनकी पूजा करुँगा.",
+            "मैं भगवान के अवतार में विश्वास नहीं करुँगा.",
+            "मैं यह नहीं मानता और न कभी मानूँगा कि भगवान बुद्ध विष्णु के अवतार थे. मैं इसे पागलपन और झूठा प्रचार-प्रसार मानता हूँ.",
+            "मैं श्राद्ध में भाग नहीं लूँगा और न ही पिंड-दान दूँगा.",
+            "मैं बुद्ध के सिद्धांतों और उपदेशों का उल्लंघन करने वाले तरीके से कार्य नहीं करुँगा.",
+            "मैं ब्राह्मणों द्वारा कोई भी कार्यक्रम नहीं कराऊँगा.",
+            "मैं मनुष्य की समानता में विश्वास करता हूँ.",
+            "मैं समानता स्थापित करने का प्रयास करुँगा.",
+            "मैं बुद्ध के आष्टांगिक मार्ग का अनुशरण करूँगा.",
+            "मैं बुद्ध द्वारा निर्धारित दस पारमिताओं का पालन करुँगा.",
+            "मैं सभी जीवित प्राणियों के प्रति दया रखूँगा तथा उनकी रक्षा करुँगा.",
+            "मैं चोरी नहीं करुँगा.",
+            "मैं झूठ नहीं बोलूँगा.",
+            "मैं कामुक पापों को नहीं करुँगा.",
+            "मैं शराब, ड्रग्स जैसे मादक पदार्थों का सेवन नहीं करुँगा.",
+            "मैं महान आष्टांगिक मार्ग के पालन का प्रयास करुँगा एवं सहानुभूति और प्यार भरी दयालुता का दैनिक जीवन में अभ्यास करुँगा.",
+            "मैं हिंदू धर्म का त्याग करता हूँ जो मानवता के लिए हानिकारक है और उन्नति और मानवता के विकास में बाधक है.",
+            "मैं ढृढ़ता के साथ यह विश्वास करता हूँ कि बुद्ध धम्म ही सच्चा मार्ग है.",
+            "मुझे विश्वास है कि मैं फिर से जन्म लें रहा हूँ.",
+            "मैं गंभीरता एवं दृढ़ता के साथ घोषित करता हूँ कि मैं अपने जीवन का बुद्ध के सिद्धांतों व शिक्षाओं के अनुसार मार्गदर्शन करुँगा."
+          ]
+        }
+      };
 
-      function renderLangPills(langs) {
-        langBar.innerHTML = langs.map(l => `
-          <button class="lang-pill ${l.id === currentLang ? 'active' : ''}" data-id="${l.id}">
-            ${l.name}
-          </button>
-        `).join('');
+      let currentVowsList = FALLBACK_VOWS.mr.vows;
 
-        langBar.querySelectorAll('.lang-pill').forEach(btn => {
-          btn.addEventListener('click', () => {
-            stopVowsSpeech();
-            langBar.querySelectorAll('.lang-pill').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            currentLang = btn.getAttribute('data-id');
-            loadVows(currentLang);
-          });
+      // Language switcher click handlers
+      langBar.querySelectorAll('.lang-pill').forEach(btn => {
+        btn.addEventListener('click', () => {
+          stopVowsSpeech();
+          langBar.querySelectorAll('.lang-pill').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentLang = btn.getAttribute('data-id');
+          loadVows(currentLang);
         });
-      }
+      });
 
       async function loadVows(lang) {
         grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px;"><span class="spinner spinner-sm"></span> Loading pledges…</div>';
         try {
-          const res = await api.vows.get(lang);
-          const data = res.data;
-          currentVowsList = data.vows || [];
+          let data = null;
+          if (window.api && api.vows && api.vows.get) {
+            try {
+              const res = await api.vows.get(lang);
+              if (res && res.data) data = res.data;
+            } catch (apiErr) {
+              console.warn('API vows fetch error, using local fallback:', apiErr);
+            }
+          }
 
+          if (!data && FALLBACK_VOWS[lang]) {
+            data = FALLBACK_VOWS[lang];
+          }
+
+          if (!data) {
+            data = FALLBACK_VOWS[lang === 'en' ? 'en' : 'mr'];
+          }
+
+          currentVowsList = data.vows || [];
           if (data.title) titleEl.textContent = data.title;
           if (data.description) descEl.textContent = data.description;
 
           grid.innerHTML = currentVowsList.map((vowText, idx) => {
-            const cleanText = vowText.replace(/^[0-9]+[\.\s\-]+/, '');
+            const cleanText = vowText.replace(/^[\(]?[0-9१२३४५६७८९०]+[\)\.\s\-]+/, '');
             return `
               <div class="vow-card">
-                <div class="vow-number">${idx + 1}</div>
+                <div class="vow-num-badge">${idx + 1}</div>
                 <div class="vow-text">${cleanText}</div>
               </div>
             `;
           }).join('');
+
+          if (window.ArchiveScrolly && ArchiveScrolly.refresh) {
+            ArchiveScrolly.refresh();
+          }
         } catch (err) {
           grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--text-faint);">Failed to load vows: ${err.message}</div>`;
         }
@@ -430,9 +441,10 @@
         if (synth) synth.cancel();
         isSpeaking = false;
         if (listenBtn) {
-          listenBtn.innerHTML = '🔊 Listen';
+          listenBtn.innerHTML = '<span class="icon" data-icon="volume-2"></span> Listen';
           listenBtn.classList.remove('btn-primary');
           listenBtn.classList.add('btn-secondary');
+          if (window.ArchiveIcons) ArchiveIcons.replace(listenBtn);
         }
       }
 
@@ -450,13 +462,12 @@
         if (!currentVowsList.length) return;
 
         const allText = currentVowsList
-          .map((v, i) => `Vow ${i + 1}: ${v.replace(/^[0-9]+[\.\s\-]+/, '')}`)
+          .map((v, i) => `Vow ${i + 1}: ${v.replace(/^[\(]?[0-9१२३४५६७८९०]+[\)\.\s\-]+/, '')}`)
           .join('. ');
 
         const utterance = new SpeechSynthesisUtterance(allText);
         utterance.rate = 0.95;
 
-        // Language code mapping
         const langMap = { mr: 'mr-IN', hi: 'hi-IN', en: 'en-IN', gu: 'gu-IN', bn: 'bn-IN', ta: 'ta-IN', te: 'te-IN', kn: 'kn-IN', pa: 'pa-IN' };
         utterance.lang = langMap[currentLang] || 'en-IN';
 
@@ -475,11 +486,11 @@
 
       copyBtn?.addEventListener('click', () => {
         if (!currentVowsList.length) return;
-        const text = currentVowsList.map((v, i) => `${i + 1}. ${v.replace(/^[0-9]+[\.\s\-]+/, '')}`).join('\n\n');
+        const text = currentVowsList.map((v, i) => `${i + 1}. ${v.replace(/^[\(]?[0-9१२३४५६७८९०]+[\)\.\s\-]+/, '')}`).join('\n\n');
         
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(text).then(() => {
-            showToast('All 22 Vows copied to clipboard! 📋', 'success');
+            showToast('All 22 Vows copied to clipboard!', 'success');
           }).catch(() => fallbackCopy(text));
         } else {
           fallbackCopy(text);
@@ -496,7 +507,7 @@
         ta.select();
         try {
           document.execCommand('copy');
-          showToast('All 22 Vows copied to clipboard! 📋', 'success');
+          showToast('All 22 Vows copied to clipboard!', 'success');
         } catch (e) {
           alert('Copied 22 Vows!');
         }

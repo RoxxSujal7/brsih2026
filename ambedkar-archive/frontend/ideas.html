@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/icons.css" />
   <script>(function(){const t=localStorage.getItem('site_theme')||localStorage.getItem('reader_theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
 
   <style>
@@ -507,35 +508,39 @@
     </div>
     <div class="side-dock-links">
       <a href="slides.html" class="side-dock-link" title="Visual Exhibition Deck (16:9)">
-        <span class="side-dock-icon">📽️</span>
+        <span class="side-dock-icon"><span class="icon" data-icon="presentation"></span></span>
         <span class="side-dock-label">Exhibition <span class="badge-16-9">16:9</span></span>
       </a>
-      <button type="button" class="side-dock-link" data-three-experience="museum" title="3D Digital Heritage Museum" style="background:none;border:none;width:100%;cursor:pointer;font-family:inherit;color:inherit;text-align:left;">
-        <span class="side-dock-icon">🏛️</span>
+      <a href="/experience/museum" class="side-dock-link" title="3D Digital Heritage Museum">
+        <span class="side-dock-icon"><span class="icon" data-icon="landmark"></span></span>
         <span class="side-dock-label">3D Museum</span>
-      </button>
+      </a>
+      <a href="/experience/journey" class="side-dock-link" title="3D Global Journey Map">
+        <span class="side-dock-icon"><span class="icon" data-icon="map"></span></span>
+        <span class="side-dock-label">3D Journey</span>
+      </a>
       <a href="constitution.html" class="side-dock-link" title="Constitution of India">
-        <span class="side-dock-icon">⚖️</span>
+        <span class="side-dock-icon"><span class="icon" data-icon="scale"></span></span>
         <span class="side-dock-label">Constitution</span>
       </a>
       <a href="ideas.html" class="side-dock-link active" title="Thematic Ideas &amp; Philosophy">
-        <span class="side-dock-icon">💡</span>
+        <span class="side-dock-icon"><span class="icon" data-icon="lightbulb"></span></span>
         <span class="side-dock-label">Ideas</span>
       </a>
       <a href="media.html" class="side-dock-link" title="Speeches &amp; Audio-Visual Archive">
-        <span class="side-dock-icon">🎬</span>
+        <span class="side-dock-icon"><span class="icon" data-icon="mic"></span></span>
         <span class="side-dock-label">Speeches</span>
       </a>
       <a href="learning.html" class="side-dock-link" title="Interactive Learning Center">
-        <span class="side-dock-icon">🎓</span>
+        <span class="side-dock-icon"><span class="icon" data-icon="graduation-cap"></span></span>
         <span class="side-dock-label">Learning</span>
       </a>
       <a href="quotes.html" class="side-dock-link" title="Verified Historical Quotes">
-        <span class="side-dock-icon">💬</span>
+        <span class="side-dock-icon"><span class="icon" data-icon="quote"></span></span>
         <span class="side-dock-label">Quotes</span>
       </a>
       <a href="ocr.html" class="side-dock-link" title="Manuscript OCR Visualizer">
-        <span class="side-dock-icon">📜</span>
+        <span class="side-dock-icon"><span class="icon" data-icon="file-text"></span></span>
         <span class="side-dock-label">OCR</span>
       </a>
     </div>
@@ -563,16 +568,19 @@
     <!-- View Switcher -->
     <div class="view-toggle" role="group" aria-label="View Mode">
       <button id="view-cards-btn" class="view-btn active" title="Switch to Cards View">
-        <span>🗂️</span> Cards View
+        <span class="icon" data-icon="book-open"></span> Cards View
       </button>
-      <button id="view-graph-btn" class="view-btn" title="Switch to Knowledge Graph View">
-        <span>🕸️</span> Knowledge Graph
+      <button id="view-3d-btn" class="view-btn" title="Switch to 3D Spatial Knowledge Graph">
+        <span class="icon" data-icon="sparkles"></span> 3D Spatial Graph
+      </button>
+      <button id="view-graph-btn" class="view-btn" title="Switch to 2D Canvas Graph">
+        <span class="icon" data-icon="share-2"></span> 2D Canvas
       </button>
     </div>
 
     <!-- Live Search -->
     <div class="search-mini">
-      <span class="search-mini-icon">🔍</span>
+      <span class="search-mini-icon"><span class="icon" data-icon="search"></span></span>
       <input type="text" id="ideas-search" placeholder="Search ideas, treatises, concepts..." aria-label="Search ideas" />
     </div>
   </div>
@@ -590,8 +598,18 @@
   <button class="domain-chip" data-domain="education">🎓 Education &amp; Journalism</button>
 </div>
 
+<!-- ─── 3D Knowledge Graph View (Three.js WebGL) ─── -->
+<div id="graph-3d-view-wrap" style="display:none;position:relative;max-width:var(--container);margin:var(--space-6) auto;padding:0 var(--space-6);">
+  <div class="graph-container" style="height:620px;position:relative;background:radial-gradient(circle at 50% 50%, rgba(212,175,55,0.06) 0%, rgba(7,10,16,0.95) 75%);border:1px solid var(--border-gold);border-radius:24px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,0.65);">
+    <div class="graph-instructions" style="position:absolute;top:16px;left:20px;z-index:10;background:rgba(7,10,16,0.8);backdrop-filter:blur(8px);padding:8px 16px;border-radius:var(--radius-full);border:1px solid var(--border-gold);font-size:0.8rem;color:var(--gold-light);font-family:var(--font-mono);">
+      <span>🌌 Drag to orbit 3D cluster • Scroll to zoom • Click node to open treatise</span>
+    </div>
+    <div id="graph-3d-container" style="width:100%;height:100%;"></div>
+  </div>
+</div>
+
 <!-- ─── Knowledge Graph View (Interactive HTML5 Canvas) ─── -->
-<div id="graph-view-wrap">
+<div id="graph-view-wrap" style="display:none;">
   <div class="graph-container">
     <div class="graph-instructions">💡 Drag nodes to reposition · Click node to open deep-dive</div>
     <canvas id="graph-canvas"></canvas>
@@ -872,7 +890,9 @@ const grid = document.getElementById('ideas-grid');
 const searchInput = document.getElementById('ideas-search');
 const cardsViewWrap = document.getElementById('cards-view-wrap');
 const graphViewWrap = document.getElementById('graph-view-wrap');
+const graph3dViewWrap = document.getElementById('graph-3d-view-wrap');
 const viewCardsBtn = document.getElementById('view-cards-btn');
+const view3dBtn = document.getElementById('view-3d-btn');
 const viewGraphBtn = document.getElementById('view-graph-btn');
 const modal = document.getElementById('idea-modal');
 const modalCloseBtn = document.getElementById('modal-close-btn');
@@ -994,16 +1014,35 @@ document.querySelectorAll('#domain-filters .domain-chip').forEach(chip => {
 // ── View Mode Toggles ──
 viewCardsBtn.addEventListener('click', () => {
   viewCardsBtn.classList.add('active');
+  if (view3dBtn) view3dBtn.classList.remove('active');
   viewGraphBtn.classList.remove('active');
   cardsViewWrap.style.display = 'block';
+  if (graph3dViewWrap) graph3dViewWrap.style.display = 'none';
   graphViewWrap.style.display = 'none';
   currentView = 'cards';
 });
 
+if (view3dBtn) {
+  view3dBtn.addEventListener('click', () => {
+    view3dBtn.classList.add('active');
+    viewCardsBtn.classList.remove('active');
+    viewGraphBtn.classList.remove('active');
+    cardsViewWrap.style.display = 'none';
+    graphViewWrap.style.display = 'none';
+    if (graph3dViewWrap) graph3dViewWrap.style.display = 'block';
+    currentView = 'graph3d';
+    if (window.init3DKnowledgeGraph) {
+      window.init3DKnowledgeGraph();
+    }
+  });
+}
+
 viewGraphBtn.addEventListener('click', () => {
   viewGraphBtn.classList.add('active');
   viewCardsBtn.classList.remove('active');
+  if (view3dBtn) view3dBtn.classList.remove('active');
   cardsViewWrap.style.display = 'none';
+  if (graph3dViewWrap) graph3dViewWrap.style.display = 'none';
   graphViewWrap.style.display = 'block';
   currentView = 'graph';
   initKnowledgeGraph();
@@ -1188,5 +1227,14 @@ function runGraphSimulation(ctx, canvas) {
 // Initial render
 renderCards();
 </script>
+
+<!-- Icons, Scrollytelling, & 3D Knowledge Graph -->
+<script src="js/icons.js"></script>
+<script src="js/vendor/lenis.min.js"></script>
+<script src="js/vendor/gsap.min.js"></script>
+<script src="js/vendor/ScrollTrigger.min.js"></script>
+<script src="js/scrollytelling.js"></script>
+<script src="js/three/threeIntegrations.js"></script>
+<script type="module" src="js/knowledgeGraph3D.js"></script>
 </body>
 </html>

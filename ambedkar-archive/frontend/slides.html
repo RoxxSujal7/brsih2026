@@ -10,6 +10,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/icons.css" />
+  <link rel="stylesheet" href="css/slidesScrollytelling.css" />
   <script>(function(){const t=localStorage.getItem('site_theme')||localStorage.getItem('reader_theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
 
   <style>
@@ -1018,27 +1020,27 @@
       <div class="deck-top-actions">
         <!-- Curated Hubs Dock Toggle -->
         <button class="top-action-btn" id="hubsToggleBtn" title="Toggle Curated Hubs Dock (H)">
-          <span>🧭</span> <span>Hubs</span>
+          <span class="icon" data-icon="compass"></span> <span>Hubs</span>
         </button>
 
         <!-- Atmosphere Selector in Deck -->
         <div class="deck-theme-selector" role="group" aria-label="Deck atmosphere" style="display:flex;gap:4px;background:rgba(7,10,16,0.85);border:1px solid var(--card-border-gold);border-radius:9999px;padding:3px 6px;">
-          <button class="theme-deck-btn" data-theme="dark" title="Dark Slate Atmosphere" style="background:none;border:none;cursor:pointer;font-size:15px;padding:3px 6px;border-radius:9999px;">🌙</button>
-          <button class="theme-deck-btn" data-theme="paper" title="Ivory Paper Sanctuary" style="background:none;border:none;cursor:pointer;font-size:15px;padding:3px 6px;border-radius:9999px;">📜</button>
-          <button class="theme-deck-btn" data-theme="sepia" title="Historical Sepia Sanctuary" style="background:none;border:none;cursor:pointer;font-size:15px;padding:3px 6px;border-radius:9999px;">🏺</button>
+          <button class="theme-deck-btn" data-theme="dark" title="Dark Slate Atmosphere" style="background:none;border:none;cursor:pointer;padding:3px 6px;border-radius:9999px;"><span class="icon" data-icon="moon"></span></button>
+          <button class="theme-deck-btn" data-theme="paper" title="Ivory Paper Sanctuary" style="background:none;border:none;cursor:pointer;padding:3px 6px;border-radius:9999px;"><span class="icon" data-icon="scroll"></span></button>
+          <button class="theme-deck-btn" data-theme="sepia" title="Historical Sepia Sanctuary" style="background:none;border:none;cursor:pointer;padding:3px 6px;border-radius:9999px;"><span class="icon" data-icon="palette"></span></button>
         </div>
 
         <button class="top-action-btn" id="audioNarrationBtn" title="Listen to slide narration (A)">
-          <span id="audioIcon">🔊</span> <span>Narrate</span>
+          <span id="audioIcon" class="icon" data-icon="volume-2"></span> <span>Narrate</span>
         </button>
         <button class="top-action-btn" id="notesToggleBtn" title="Toggle Presenter Notes (N)">
-          <span>📝</span> <span>Notes</span>
+          <span class="icon" data-icon="file-text"></span> <span>Notes</span>
         </button>
         <button class="top-action-btn" id="fullscreenBtn" title="Toggle Fullscreen (F)">
-          <span>⛶</span> <span>Fullscreen</span>
+          <span class="icon" data-icon="maximize"></span> <span>Fullscreen</span>
         </button>
         <a href="archive.html" class="top-action-btn">
-          <span>📚</span> <span>Archive</span>
+          <span class="icon" data-icon="book"></span> <span>Archive</span>
         </a>
       </div>
     </header>
@@ -1051,27 +1053,39 @@
         </div>
         <div class="side-dock-links">
           <a href="slides.html" class="side-dock-link active" title="Visual Exhibition Deck (16:9)">
-            <span class="side-dock-icon">📽️</span>
+            <span class="side-dock-icon"><span class="icon" data-icon="presentation"></span></span>
             <span class="side-dock-label">Exhibition <span class="badge-16-9">16:9</span></span>
           </a>
+          <a href="/experience/museum" class="side-dock-link" title="3D Digital Heritage Museum">
+            <span class="side-dock-icon"><span class="icon" data-icon="landmark"></span></span>
+            <span class="side-dock-label">3D Museum</span>
+          </a>
+          <a href="/experience/journey" class="side-dock-link" title="3D Global Journey Map">
+            <span class="side-dock-icon"><span class="icon" data-icon="map"></span></span>
+            <span class="side-dock-label">3D Journey</span>
+          </a>
           <a href="constitution.html" class="side-dock-link" title="Constitution of India">
-            <span class="side-dock-icon">⚖️</span>
+            <span class="side-dock-icon"><span class="icon" data-icon="scale"></span></span>
             <span class="side-dock-label">Constitution</span>
           </a>
           <a href="ideas.html" class="side-dock-link" title="Thematic Ideas &amp; Philosophy">
-            <span class="side-dock-icon">💡</span>
+            <span class="side-dock-icon"><span class="icon" data-icon="lightbulb"></span></span>
             <span class="side-dock-label">Ideas</span>
           </a>
+          <a href="media.html" class="side-dock-link" title="Speeches &amp; Audio-Visual Archive">
+            <span class="side-dock-icon"><span class="icon" data-icon="mic"></span></span>
+            <span class="side-dock-label">Speeches</span>
+          </a>
           <a href="learning.html" class="side-dock-link" title="Interactive Learning Center">
-            <span class="side-dock-icon">🎓</span>
+            <span class="side-dock-icon"><span class="icon" data-icon="graduation-cap"></span></span>
             <span class="side-dock-label">Learning</span>
           </a>
           <a href="quotes.html" class="side-dock-link" title="Verified Historical Quotes">
-            <span class="side-dock-icon">💬</span>
+            <span class="side-dock-icon"><span class="icon" data-icon="quote"></span></span>
             <span class="side-dock-label">Quotes</span>
           </a>
           <a href="ocr.html" class="side-dock-link" title="Manuscript OCR Visualizer">
-            <span class="side-dock-icon">📜</span>
+            <span class="side-dock-icon"><span class="icon" data-icon="file-text"></span></span>
             <span class="side-dock-label">OCR</span>
           </a>
         </div>
@@ -2011,6 +2025,15 @@
 
     // Initialize Deck Controller
     const deck = new DeckPresentation();
+    window.deck = deck;
   </script>
+
+  <!-- Scrollytelling, Three Integrations & Icons Engine -->
+  <script src="js/icons.js"></script>
+  <script src="js/vendor/lenis.min.js"></script>
+  <script src="js/vendor/gsap.min.js"></script>
+  <script src="js/vendor/ScrollTrigger.min.js"></script>
+  <script src="js/three/threeIntegrations.js"></script>
+  <script src="js/slidesScrollytelling.js"></script>
 </body>
 </html>

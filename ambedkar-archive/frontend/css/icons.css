@@ -1,0 +1,82 @@
+/* icons.css — Unified SVG Icon Styles for Ambedkar Digital Heritage Archive */
+.svg-icon {
+  display: inline-block;
+  width: 1.15em;
+  height: 1.15em;
+  stroke-width: 1.75;
+  stroke: currentColor;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vertical-align: -0.15em;
+  transition: transform var(--duration-fast, 180ms) var(--ease-spring, ease), stroke var(--duration-fast, 180ms) ease;
+  flex-shrink: 0;
+}
+
+.svg-icon-gold {
+  stroke: var(--gold, #d4af37);
+  color: var(--gold, #d4af37);
+}
+
+.svg-icon-sm {
+  width: 0.95em;
+  height: 0.95em;
+  stroke-width: 1.8;
+}
+
+.svg-icon-lg {
+  width: 1.5em;
+  height: 1.5em;
+  stroke-width: 1.75;
+}
+
+.svg-icon-xl {
+  width: 2.2em;
+  height: 2.2em;
+  stroke-width: 1.6;
+}
+
+/* Nav & Tab specific icon styling */
+.nav-link .svg-icon,
+.side-dock-link .svg-icon {
+  width: 1.25em;
+  height: 1.25em;
+  margin-right: 0.35rem;
+  color: var(--gold-light, #f5c842);
+}
+
+.bottom-bar .tab-item .svg-icon {
+  width: 1.4em;
+  height: 1.4em;
+  margin-bottom: 2px;
+}
+
+.bottom-bar .tab-item.active .svg-icon {
+  stroke: var(--gold, #d4af37);
+}
+
+/* Button with icon */
+.btn .svg-icon {
+  width: 1.1em;
+  height: 1.1em;
+  margin-right: 0.4rem;
+}
+
+.btn-icon-bubble .svg-icon {
+  width: 1em;
+  height: 1em;
+  margin-right: 0;
+}
+
+/* Theme buttons */
+.theme-btn .svg-icon {
+  width: 1.15em;
+  height: 1.15em;
+}
+
+/* Hover effects */
+.nav-link:hover .svg-icon,
+.side-dock-link:hover .svg-icon,
+.btn:hover .svg-icon {
+  transform: scale(1.08);
+}

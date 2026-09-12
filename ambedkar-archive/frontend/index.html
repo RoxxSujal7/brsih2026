@@ -37,6 +37,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css?v=2.2" />
+  <link rel="stylesheet" href="css/apple-design.css" />
+  <link rel="stylesheet" href="css/icons.css" />
   <link rel="stylesheet" href="css/spatial3D.css" />
   <script>(function(){const t=localStorage.getItem('site_theme')||localStorage.getItem('reader_theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
 
@@ -67,11 +69,11 @@
 
 
     <div class="nav-actions">
-            <!-- Reading Atmosphere Switcher -->
+      <!-- Reading Atmosphere Switcher -->
       <div class="nav-theme" role="group" aria-label="Atmosphere selection">
-        <button class="theme-toggle-btn active" data-theme="dark" title="Dark Slate Atmosphere">🌙</button>
-        <button class="theme-toggle-btn" data-theme="paper" title="Ivory Paper Sanctuary">📜</button>
-        <button class="theme-toggle-btn" data-theme="sepia" title="Historical Sepia Sanctuary">🏺</button>
+        <button class="theme-toggle-btn active" data-theme="dark" title="Dark Slate Atmosphere" aria-label="Dark theme"><span class="icon" data-icon="moon"></span></button>
+        <button class="theme-toggle-btn" data-theme="paper" title="Ivory Paper Sanctuary" aria-label="Paper theme"><span class="icon" data-icon="scroll"></span></button>
+        <button class="theme-toggle-btn" data-theme="sepia" title="Historical Sepia Sanctuary" aria-label="Sepia theme"><span class="icon" data-icon="palette"></span></button>
       </div>
       <div class="nav-lang" role="group" aria-label="Language selection">
         <button class="lang-btn active" data-lang="en" aria-pressed="true">EN</button>
@@ -81,7 +83,7 @@
 
       <!-- Quick Search Shortcut Trigger -->
       <a href="archive.html#search" class="btn btn-outline btn-sm" title="Search Library (Press /)">
-        <span>🔍 Search</span>
+        <span class="icon" data-icon="search"></span> <span>Search</span>
         <span class="btn-icon-bubble">/</span>
       </a>
 
@@ -90,7 +92,7 @@
 
       <div id="nav-user-menu" style="display:none;" class="flex gap-2 items-center">
         <a href="dashboard.html" class="btn btn-secondary btn-sm">
-          <span>👤</span> <span id="nav-user-name">User</span>
+          <span class="icon" data-icon="user"></span> <span id="nav-user-name">User</span>
         </a>
         <button data-action="logout" class="btn btn-ghost btn-sm">Logout</button>
       </div>
@@ -107,9 +109,9 @@
   <div class="mobile-theme-row flex-between items-center" style="padding:var(--space-2) var(--space-3);margin-bottom:var(--space-2);border-bottom:1px solid var(--border);">
     <span style="font-size:0.8rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Atmosphere</span>
     <div class="nav-theme" role="group" aria-label="Atmosphere selection">
-      <button class="theme-toggle-btn active" data-theme="dark" title="Dark Slate">🌙</button>
-      <button class="theme-toggle-btn" data-theme="paper" title="Ivory Paper">📜</button>
-      <button class="theme-toggle-btn" data-theme="sepia" title="Historical Sepia">🏺</button>
+      <button class="theme-toggle-btn active" data-theme="dark" title="Dark Slate" aria-label="Dark theme"><span class="icon" data-icon="moon"></span></button>
+      <button class="theme-toggle-btn" data-theme="paper" title="Ivory Paper" aria-label="Paper theme"><span class="icon" data-icon="scroll"></span></button>
+      <button class="theme-toggle-btn" data-theme="sepia" title="Historical Sepia" aria-label="Sepia theme"><span class="icon" data-icon="palette"></span></button>
     </div>
   </div>
 
@@ -122,20 +124,22 @@
     </div>
   </div>
 
-  <a href="index.html" class="nav-link active">🏠 Home</a>
-  <a href="archive.html" class="nav-link">📚 Complete Works (60 Volumes)</a>
-  <a href="letters.html" class="nav-link">📜 Letters & Correspondence (361)</a>
-  <a href="vows.html" class="nav-link">☸️ The 22 Vows (22 प्रतिज्ञा)</a>
-  <a href="constitution.html" class="nav-link">⚖️ Constitution</a>
-  <a href="ideas.html" class="nav-link">💡 Thematic Ideas</a>
-  <a href="learning.html" class="nav-link">🎓 Learning Center</a>
-  <a href="quotes.html" class="nav-link">💬 Verified Quotes</a>
-  <a href="media.html" class="nav-link">🎬 Speeches &amp; Audio-Visual</a>
-  <a href="timeline.html" class="nav-link">📅 Chronological Timeline</a>
-  <a href="slides.html" class="nav-link">📽️ Visual Exhibition Deck <span class="badge-16-9">16:9</span></a>
-  <a href="assistant.html" class="nav-link">🤖 AI Research Assistant</a>
-  <a href="ocr.html" class="nav-link">📜 Manuscript OCR</a>
-  <a href="dashboard.html" class="nav-link">👤 My Research Dashboard</a>
+  <a href="index.html" class="nav-link active"><span class="icon" data-icon="home"></span> Home</a>
+  <a href="archive.html" class="nav-link"><span class="icon" data-icon="book"></span> Complete Works (60 Volumes)</a>
+  <a href="letters.html" class="nav-link"><span class="icon" data-icon="mail"></span> Letters &amp; Correspondence (361)</a>
+  <a href="vows.html" class="nav-link"><span class="icon" data-icon="shield"></span> The 22 Vows (22 प्रतिज्ञा)</a>
+  <a href="constitution.html" class="nav-link"><span class="icon" data-icon="scale"></span> Constitution</a>
+  <a href="ideas.html" class="nav-link"><span class="icon" data-icon="lightbulb"></span> Thematic Ideas</a>
+  <a href="learning.html" class="nav-link"><span class="icon" data-icon="graduation-cap"></span> Learning Center</a>
+  <a href="quotes.html" class="nav-link"><span class="icon" data-icon="quote"></span> Verified Quotes</a>
+  <a href="media.html" class="nav-link"><span class="icon" data-icon="mic"></span> Speeches &amp; Audio-Visual</a>
+  <a href="timeline.html" class="nav-link"><span class="icon" data-icon="clock"></span> Chronological Timeline</a>
+  <a href="slides.html" class="nav-link"><span class="icon" data-icon="presentation"></span> Visual Exhibition Deck <span class="badge-16-9">16:9</span></a>
+  <a href="/experience/museum" class="nav-link"><span class="icon" data-icon="landmark"></span> 3D Heritage Museum</a>
+  <a href="/experience/journey" class="nav-link"><span class="icon" data-icon="map"></span> 3D Global Journey</a>
+  <a href="assistant.html" class="nav-link"><span class="icon" data-icon="sparkles"></span> AI Research Assistant</a>
+  <a href="ocr.html" class="nav-link"><span class="icon" data-icon="file-text"></span> Manuscript OCR</a>
+  <a href="dashboard.html" class="nav-link"><span class="icon" data-icon="user"></span> My Research Dashboard</a>
   <div style="height:1px;background:rgba(255,255,255,0.08);margin:var(--space-4) 0;"></div>
   <a href="login.html" class="btn btn-primary btn-full">Sign In</a>
 </div>
@@ -148,39 +152,39 @@
     </div>
     <div class="side-dock-links">
       <a href="slides.html" class="side-dock-link" title="Visual Exhibition Deck (16:9)">
-        <span class="side-dock-icon">📽️</span>
+        <span class="side-dock-icon"><span class="icon" data-icon="presentation"></span></span>
         <span class="side-dock-label">Exhibition <span class="badge-16-9">16:9</span></span>
       </a>
-      <button type="button" class="side-dock-link" data-three-experience="museum" title="3D Digital Heritage Museum" style="background:none;border:none;width:100%;cursor:pointer;font-family:inherit;color:inherit;text-align:left;">
-        <span class="side-dock-icon">🏛️</span>
+      <a href="/experience/museum" class="side-dock-link" title="3D Digital Heritage Museum">
+        <span class="side-dock-icon"><span class="icon" data-icon="landmark"></span></span>
         <span class="side-dock-label">3D Museum</span>
-      </button>
-      <button type="button" class="side-dock-link" data-three-experience="journey" title="3D Global Journey Map" style="background:none;border:none;width:100%;cursor:pointer;font-family:inherit;color:inherit;text-align:left;">
-        <span class="side-dock-icon">🗺️</span>
+      </a>
+      <a href="/experience/journey" class="side-dock-link" title="3D Global Journey Map">
+        <span class="side-dock-icon"><span class="icon" data-icon="map"></span></span>
         <span class="side-dock-label">3D Journey</span>
-      </button>
+      </a>
       <a href="constitution.html" class="side-dock-link" title="Constitution of India">
-        <span class="side-dock-icon">⚖️</span>
+        <span class="side-dock-icon"><span class="icon" data-icon="scale"></span></span>
         <span class="side-dock-label">Constitution</span>
       </a>
       <a href="ideas.html" class="side-dock-link" title="Thematic Ideas &amp; Philosophy">
-        <span class="side-dock-icon">💡</span>
+        <span class="side-dock-icon"><span class="icon" data-icon="lightbulb"></span></span>
         <span class="side-dock-label">Ideas</span>
       </a>
       <a href="media.html" class="side-dock-link" title="Speeches &amp; Audio-Visual Archive">
-        <span class="side-dock-icon">🎬</span>
+        <span class="side-dock-icon"><span class="icon" data-icon="mic"></span></span>
         <span class="side-dock-label">Speeches</span>
       </a>
       <a href="learning.html" class="side-dock-link" title="Interactive Learning Center">
-        <span class="side-dock-icon">🎓</span>
+        <span class="side-dock-icon"><span class="icon" data-icon="graduation-cap"></span></span>
         <span class="side-dock-label">Learning</span>
       </a>
       <a href="quotes.html" class="side-dock-link" title="Verified Historical Quotes">
-        <span class="side-dock-icon">💬</span>
+        <span class="side-dock-icon"><span class="icon" data-icon="quote"></span></span>
         <span class="side-dock-label">Quotes</span>
       </a>
       <a href="ocr.html" class="side-dock-link" title="Manuscript OCR Visualizer">
-        <span class="side-dock-icon">📜</span>
+        <span class="side-dock-icon"><span class="icon" data-icon="file-text"></span></span>
         <span class="side-dock-label">OCR</span>
       </a>
     </div>
@@ -295,74 +299,46 @@
   </div>
 </section>
 
-<!-- ─── 3D Spatial Interactive Exhibit Showcase (Nike Studio & Apple Fluid Interface) ─── -->
-<section id="interactive-showcase" class="spatial-showcase-section" aria-label="Interactive 3D Exhibits">
+<!-- ─── 3D Archival Vitrine (Three.js Constitution Folio & Scrollytelling Scrub) ─── -->
+<section id="interactive-showcase" class="spatial-showcase-section" aria-label="3D Archival Vitrine">
   <div class="spatial-showcase-header">
     <div class="spatial-badge">
-      <span>✨ WebGL 3D Spatial Masterpiece</span>
+      <span class="icon" data-icon="landmark"></span>
+      <span>National Archival Vitrine • Three.js WebGL</span>
     </div>
-    <h2 class="spatial-showcase-title">Interactive 3D Heritage Studio</h2>
+    <h2 class="spatial-showcase-title">The Constitution of India • 3D Archival Folio</h2>
     <p class="spatial-showcase-subtitle">
-      Drag to rotate 360°, inspect calligraphed parchment & bronze patinas, and explore real-time spatial annotations from scholars worldwide.
+      A reverent digital reproduction of the original 1950 manuscript folio on a solid mahogany plinth. Drag horizontally to inspect the gold filigree binding, or scroll down as GSAP ScrollTrigger reveals the historical gravitas.
     </p>
   </div>
 
-  <div class="spatial-stage-container" id="spatial-stage-container">
-    <!-- Viewport for pointer drag and orbit -->
-    <div class="spatial-stage-viewport" id="spatial-stage-viewport" role="region" aria-label="3D Exhibit Stage - Drag to rotate 360 degrees"></div>
+  <div class="spatial-stage-container" id="spatial-stage-container" style="max-width:1100px;margin:0 auto;position:relative;">
+    <!-- Three.js Stage Viewport -->
+    <div id="hero-3d-canvas-container" style="width:100%;height:520px;position:relative;border-radius:24px;overflow:hidden;background:radial-gradient(circle at 50% 45%, rgba(212,175,55,0.06) 0%, rgba(7,9,14,0.95) 75%);border:1px solid rgba(212,175,55,0.22);box-shadow:0 30px 80px rgba(0,0,0,0.8), inset 0 1px 0 rgba(212,175,55,0.2);">
+      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:var(--gold-light);font-size:0.9rem;font-family:var(--font-mono);">
+        Loading Three.js Archival Folio...
+      </div>
+    </div>
 
-    <!-- Apple-style Translucent HUD Top -->
-    <div class="spatial-hud-top">
-      <div class="spatial-artifact-info">
-        <div class="spatial-artifact-name" id="spatial-hud-name">Constitution of India (1950)</div>
-        <div class="spatial-artifact-meta" id="spatial-hud-meta">1947–1950 • Hand-Calligraphed Parchment</div>
-        <div id="spatial-hud-desc" style="font-size:0.8rem;color:#cbd5e1;margin-top:6px;line-height:1.5;">
-          Crafted under Dr. Ambedkar's chairmanship of the Drafting Committee. Weighs 13 kg with 251 pages.
+    <!-- Archival Vitrine HUD -->
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-top:16px;padding:16px 24px;background:rgba(18,24,38,0.7);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.08);border-radius:16px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span class="icon" data-icon="book" style="color:var(--gold);"></span>
+        <div>
+          <div style="font-family:var(--font-display);font-size:1.05rem;font-weight:700;color:#fff;">Constitution of India (1950)</div>
+          <div style="font-size:0.8rem;color:var(--text-muted);font-family:var(--font-mono);">Calligraphed by Prem Behari Narain Raizada • Illustrated by Nandalal Bose</div>
         </div>
       </div>
-
-      <!-- Quick Action: Drop a 3D Pin -->
-      <div>
-        <button id="spatial-btn-drop-pin" class="btn btn-sm btn-primary" style="backdrop-filter:blur(16px);border-radius:9999px;box-shadow:0 0 20px rgba(245,158,11,0.3);">
-          <span>📍 Pin Reflection in 3D</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Nike-style Exhibit Selector Dock -->
-    <div class="spatial-dock" role="tablist" aria-label="Choose 3D Exhibit">
-      <button class="spatial-dock-item active" data-exhibit="constitution" role="tab" aria-selected="true">
-        <span>📜</span>
-        <span>The Constitution</span>
-      </button>
-      <button class="spatial-dock-item" data-exhibit="bust" role="tab" aria-selected="false">
-        <span>🗿</span>
-        <span>Memorial Bust</span>
-      </button>
-      <button class="spatial-dock-item" data-exhibit="mahad" role="tab" aria-selected="false">
-        <span>💧</span>
-        <span>Mahad Pillar</span>
-      </button>
-      <button class="spatial-dock-item" data-exhibit="quill" role="tab" aria-selected="false">
-        <span>✒️</span>
-        <span>Drafting Suite</span>
-      </button>
-    </div>
-
-    <!-- Right-Hand Controls (Rotate, Wireframe, Lighting, Sound) -->
-    <div class="spatial-controls-sidebar">
-      <button class="spatial-control-btn active" id="spatial-btn-rotate" title="Toggle Auto-Spin (360°)" aria-label="Auto Rotate">🔄</button>
-      <button class="spatial-control-btn" id="spatial-btn-light" title="Cycle Studio Lighting Preset" aria-label="Lighting Preset">💡</button>
-      <button class="spatial-control-btn" id="spatial-btn-wireframe" title="Toggle Mesh Wireframe CAD View" aria-label="Wireframe">📐</button>
-      <button class="spatial-control-btn active" id="spatial-btn-sound" title="Toggle Spatial Audio Feedback" aria-label="Sound">🔊</button>
-    </div>
-
-    <!-- Hotspot Drawer Card -->
-    <div class="spatial-drawer" id="spatial-drawer">
-      <div class="spatial-drawer-title" id="spatial-drawer-title">Historical Hotspot</div>
-      <div class="spatial-drawer-desc" id="spatial-drawer-desc">Description of the artifact component and Dr. Ambedkar's contribution.</div>
-      <div class="spatial-drawer-actions">
-        <button class="btn btn-sm btn-outline" id="spatial-drawer-close">Close</button>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <a href="/experience/constitution" class="btn btn-sm btn-primary" style="border-radius:9999px;">
+          <span class="icon" data-icon="sparkles"></span> <span>Full 3D Room</span>
+        </a>
+        <a href="/experience/museum" class="btn btn-sm btn-outline" style="border-radius:9999px;">
+          <span class="icon" data-icon="landmark"></span> <span>3D Museum</span>
+        </a>
+        <a href="/experience/journey" class="btn btn-sm btn-outline" style="border-radius:9999px;">
+          <span class="icon" data-icon="map"></span> <span>3D Journey</span>
+        </a>
       </div>
     </div>
   </div>
@@ -783,14 +759,18 @@
 
 <div id="toast-container" class="toast-container" aria-live="polite" aria-label="Notifications"></div>
 
+<script src="js/icons.js"></script>
 <script src="js/api.js"></script>
 <script src="js/toast.js"></script>
 <script src="js/apple-design.js"></script>
 <script src="js/app.js"></script>
 <script src="js/command-palette.js"></script>
+<script src="js/vendor/lenis.min.js"></script>
+<script src="js/vendor/gsap.min.js"></script>
+<script src="js/vendor/ScrollTrigger.min.js"></script>
+<script src="js/scrollytelling.js"></script>
 <script src="js/three/threeIntegrations.js"></script>
-<script src="js/three/spatialBackendClient.js"></script>
-<script src="js/three/spatialLandingEngine.js" type="module"></script>
+<script type="module" src="js/hero3d.js"></script>
 <script>
 // ── Quote Rotator
 const quotes = [
@@ -899,96 +879,6 @@ if (tp) {
     <a href="archive.html" style="color:var(--text-faint);font-size:0.8rem;text-decoration:none;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text-faint)'">All 60 Volumes</a>
   </div>
 </footer>
-<!-- 3D Reflection Pin Modal -->
-<div id="spatial-pin-modal" class="spatial-modal" role="dialog" aria-modal="true" aria-labelledby="pin-modal-title">
-  <div class="spatial-modal-card">
-    <div class="flex-between items-center" style="margin-bottom:16px;">
-      <h3 id="pin-modal-title" style="font-family:'Cinzel',serif;font-size:1.25rem;color:#f59e0b;">📍 Drop Spatial Reflection</h3>
-      <button id="spatial-modal-close" class="btn btn-ghost btn-sm" aria-label="Close">✕</button>
-    </div>
-    <form id="spatial-pin-form">
-      <div style="margin-bottom:12px;">
-        <label style="display:block;font-size:0.85rem;color:#94a3b8;margin-bottom:4px;">Your Name / Scholar Title</label>
-        <input type="text" id="pin-author" class="form-input" placeholder="e.g. Research Scholar, Delhi University" required style="width:100%;padding:10px 14px;background:#1e293b;border:1px solid #334155;border-radius:10px;color:#fff;" />
-      </div>
-      <div style="margin-bottom:12px;">
-        <label style="display:block;font-size:0.85rem;color:#94a3b8;margin-bottom:4px;">Reflection Title</label>
-        <input type="text" id="pin-title" class="form-input" placeholder="e.g. On Constitutional Morality" required style="width:100%;padding:10px 14px;background:#1e293b;border:1px solid #334155;border-radius:10px;color:#fff;" />
-      </div>
-      <div style="margin-bottom:16px;">
-        <label style="display:block;font-size:0.85rem;color:#94a3b8;margin-bottom:4px;">Historical Note or Quote</label>
-        <textarea id="pin-content" rows="4" class="form-input" placeholder="Share your insight or quote linked to this exhibit in 3D..." required style="width:100%;padding:10px 14px;background:#1e293b;border:1px solid #334155;border-radius:10px;color:#fff;resize:vertical;"></textarea>
-      </div>
-      <div class="flex gap-2 justify-end">
-        <button type="button" id="spatial-pin-cancel" class="btn btn-ghost">Cancel</button>
-        <button type="submit" class="btn btn-primary">Publish to 3D Space</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<script>
-// Wire 3D Pin Modal Interactions
-(function() {
-  const btnPin = document.getElementById('spatial-btn-drop-pin');
-  const modal = document.getElementById('spatial-pin-modal');
-  const btnClose = document.getElementById('spatial-modal-close');
-  const btnCancel = document.getElementById('spatial-pin-cancel');
-  const form = document.getElementById('spatial-pin-form');
-
-  if (btnPin && modal) {
-    btnPin.addEventListener('click', () => {
-      modal.classList.add('active');
-    });
-  }
-
-  const closeModal = () => {
-    if (modal) modal.classList.remove('active');
-  };
-
-  if (btnClose) btnClose.addEventListener('click', closeModal);
-  if (btnCancel) btnCancel.addEventListener('click', closeModal);
-  if (modal) {
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeModal();
-    });
-  }
-
-  if (form) {
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const author = document.getElementById('pin-author').value;
-      const title = document.getElementById('pin-title').value;
-      const content = document.getElementById('pin-content').value;
-      const activeDock = document.querySelector('.spatial-dock-item.active');
-      const exhibitId = activeDock ? activeDock.dataset.exhibit : 'constitution';
-
-      const payload = {
-        exhibitId,
-        position: { x: (Math.random() - 0.5) * 0.4, y: 0.5 + Math.random() * 0.5, z: 0.3 },
-        author,
-        title,
-        content,
-        category: 'visitor_reflection'
-      };
-
-      if (window.SpatialBackendClient) {
-        const res = await window.SpatialBackendClient.createAnnotation(payload);
-        if (res.success) {
-          if (window.showToast) window.showToast('📍 Reflection saved to 3D space!', 'success');
-          if (window.SpatialLandingEngine && window.SpatialLandingEngine.playHapticSound) {
-            window.SpatialLandingEngine.playHapticSound('pin');
-          }
-          form.reset();
-          closeModal();
-        } else {
-          if (window.showToast) window.showToast('Error saving reflection', 'error');
-        }
-      }
-    });
-  }
-})();
-</script>
 
 </body>
 </html>
