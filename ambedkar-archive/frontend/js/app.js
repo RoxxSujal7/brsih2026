@@ -669,11 +669,13 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', toggleKioskMode);
   });
 
-  // Ensure Apple Design engine is loaded
-  if (!window.ApplePhysics && !document.querySelector('script[src*="apple-design.js"]')) {
-    const script = document.createElement('script');
-    script.src = 'js/apple-design.js';
-    document.head.appendChild(script);
+  // Register Service Worker for Mobile PWA and Offline Speed
+  if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').catch((err) => {
+        console.debug('ServiceWorker registration skipped:', err.message);
+      });
+    });
   }
 });
 
