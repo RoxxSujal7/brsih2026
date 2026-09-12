@@ -46,20 +46,34 @@ app.use(helmet({
   frameguard: { action: 'sameorigin' },
 }));
 
-// CORS with origin validation
+// CORS with strict origin validation
 const allowedOrigins = [
   process.env.FRONTEND_URL,
+  'https://ambedkar-digital-archive.onrender.com',
   'http://localhost:5000',
   'http://127.0.0.1:5000',
   'http://localhost:3000',
+  'http://127.0.0.1:3000',
 ].filter(Boolean);
 
 app.use(cors({
   origin: (origin, callback) => {
     // Allow requests with no origin (like mobile apps, curl, server-to-server)
-    if (!origin || allowedOrigins.includes(origin) || allowedOrigins.includes('*') || origin.endsWith('.onrender.com') || origin.includes('localhost')) {
-      return callback(null, true);
+    if (!origin) return callback(null, true);
+    
+    // Strict whitelist check
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+
+    // Development local origins only permitted in non-production
+    if (process.env.NODE_ENV !== 'production') {
+      try {
+        const parsed = new URL(origin);
+        if (parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1') {
+          return callback(null, true);
+        }
+      } catch (e) {}
     }
+
     return callback(null, false);
   },
   methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS'],

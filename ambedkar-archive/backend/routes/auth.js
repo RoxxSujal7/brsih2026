@@ -2,6 +2,7 @@ const crypto = require('crypto');
 const express = require('express');
 const { body, validationResult } = require('express-validator');
 const rateLimit = require('express-rate-limit');
+const cryptoUtil = require('../utils/cryptoUtil');
 const userService = require('../services/userService');
 const { signToken } = require('../config/jwt');
 const { protect } = require('../middleware/auth');
@@ -280,8 +281,9 @@ router.post('/send-otp', authLimiter, async (req, res, next) => {
     }
 
     const otp = generateOTP();
+    const otpHash = cryptoUtil.hashOtp(otp);
     const expiresAt = Date.now() + 5 * 60 * 1000; // 5 minutes validity
-    otpStore.set(cleanTarget, { code: otp, expiresAt, attempts: 0 });
+    otpStore.set(cleanTarget, { hash: otpHash, expiresAt, attempts: 0 });
 
     // Only log OTP to server console in development — never in production logs
     if (process.env.NODE_ENV !== 'production') {
@@ -289,6 +291,7 @@ router.post('/send-otp', authLimiter, async (req, res, next) => {
       console.log(`🔐 [AMBEDKAR ARCHIVE SECURE OTP DISPATCH — DEV ONLY]`);
       console.log(`📱 Destination: ${cleanTarget} (${type || 'direct'})`);
       console.log(`🔑 Verification OTP: >>> ${otp} <<<`);
+      console.log(`🔒 SHA-256 Digest: ${otpHash.slice(0, 16)}...`);
       console.log(`⏳ Valid for: 5 Minutes (Expires at: ${new Date(expiresAt).toLocaleTimeString()})`);
       console.log(`======================================================\n`);
     }
@@ -334,11 +337,16 @@ router.post('/verify-otp', authLimiter, async (req, res, next) => {
       return res.status(429).json({ success: false, message: 'Too many incorrect attempts. Please request a new OTP.' });
     }
 
-    if (String(record.code).trim() !== String(otp).trim()) {
+    // Constant-time SHA-256 verification (protects against timing attacks)
+    const isValidOtp = record.hash
+      ? cryptoUtil.verifyOtp(record.hash, otp)
+      : (record.code && String(record.code).trim() === String(otp).trim());
+
+    if (!isValidOtp) {
       return res.status(400).json({ success: false, message: 'Invalid OTP code. Please try again.' });
     }
 
-    // OTP is valid — consume it
+    // OTP is valid — consume it immediately
     otpStore.delete(cleanTarget);
 
     let user;

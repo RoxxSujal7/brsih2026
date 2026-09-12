@@ -75,6 +75,64 @@ router.get('/writings', volumesLimiter, (req, res) => {
   });
 });
 
+const cryptoUtil = require('../utils/cryptoUtil');
+
+// In-memory cache for computed SHA-256 checksums of local volume PDFs
+const volumeChecksumCache = new Map();
+
+// GET /api/volumes/:code/checksum — Cryptographic SHA-256 volume verification
+router.get('/:code/checksum', volumesLimiter, async (req, res) => {
+  try {
+    const { code } = req.params;
+    const vol = volumesCache.find((v) => v.code === code || v.file.replace('.pdf', '') === code);
+
+    if (!vol) {
+      return res.status(404).json({ success: false, message: 'Volume not found.' });
+    }
+
+    const localFile = path.join(booksDir, vol.file);
+    if (!fs.existsSync(localFile) || fs.statSync(localFile).size < 500000) {
+      // PDF is stored in remote cloud archive
+      return res.json({
+        success: true,
+        volume: vol.code,
+        title: vol.title,
+        filename: vol.file,
+        status: 'remote_hosted',
+        remoteUrl: vol.remoteUrl,
+        algorithm: 'SHA-256',
+        message: 'Archival PDF is hosted remotely. Download file locally to verify SHA-256 byte integrity.',
+      });
+    }
+
+    // Check memory cache first
+    if (volumeChecksumCache.has(vol.code)) {
+      return res.json(volumeChecksumCache.get(vol.code));
+    }
+
+    const stat = fs.statSync(localFile);
+    const sha256Hash = await cryptoUtil.calculateFileSHA256(localFile);
+
+    const result = {
+      success: true,
+      volume: vol.code,
+      title: vol.title,
+      filename: vol.file,
+      status: 'verified_local',
+      algorithm: 'SHA-256',
+      sha256: sha256Hash,
+      sizeBytes: stat.size,
+      sizeMb: (stat.size / 1024 / 1024).toFixed(2),
+      verifiedAt: new Date().toISOString(),
+    };
+
+    volumeChecksumCache.set(vol.code, result);
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Failed to compute cryptographic checksum', error: err.message });
+  }
+});
+
 // GET /api/volumes/:code/download — Download or stream PDF
 router.get('/:code/download', (req, res) => {
   const { code } = req.params;
@@ -95,3 +153,4 @@ router.get('/:code/download', (req, res) => {
 });
 
 module.exports = router;
+

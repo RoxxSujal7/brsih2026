@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const cryptoUtil = require('../utils/cryptoUtil');
 
 const userSchema = new mongoose.Schema(
   {
@@ -68,16 +69,16 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Hash password before saving
+// Hash password before saving (with SHA-256 pre-hashing)
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
-  this.password = await bcrypt.hash(this.password, 12);
+  this.password = await cryptoUtil.hashPassword(this.password, 12);
   next();
 });
 
-// Compare plain password to hashed
+// Compare plain password to hashed (verifies SHA-256 pre-hash with legacy bcrypt fallback)
 userSchema.methods.comparePassword = async function (candidatePassword) {
-  return await bcrypt.compare(candidatePassword, this.password);
+  return await cryptoUtil.comparePassword(candidatePassword, this.password);
 };
 
 // Update lastActiveAt on login

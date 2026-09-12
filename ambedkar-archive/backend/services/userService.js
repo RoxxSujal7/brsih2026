@@ -1,15 +1,16 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
+const cryptoUtil = require('../utils/cryptoUtil');
 const User = require('../models/User');
 
 const inMemoryUsers = new Map();
 
-// Seed initial in-memory accounts for offline / development resilience
+// Seed initial in-memory accounts for offline / development resilience (with SHA-256 pre-hashing)
 (async () => {
   try {
-    const hashResearcher = await bcrypt.hash('Research@1234', 10);
-    const hashAdmin = await bcrypt.hash('Admin@1234', 10);
+    const hashResearcher = await cryptoUtil.hashPassword('Research@1234', 10);
+    const hashAdmin = await cryptoUtil.hashPassword('Admin@1234', 10);
 
     inMemoryUsers.set('researcher@ambedkar-archive.in', {
       _id: 'mock-user-researcher-001',
@@ -66,7 +67,7 @@ async function findByEmail(email, includePassword = false) {
   return {
     ...memUser,
     comparePassword: async function (candidate) {
-      return await bcrypt.compare(candidate, memUser.password);
+      return await cryptoUtil.comparePassword(candidate, memUser.password);
     },
     updateActivity: async function () {
       memUser.lastActiveAt = new Date();
@@ -116,7 +117,7 @@ async function createUser({ name, email, password, phone = '', role = 'visitor',
     }
   }
 
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const hashedPassword = await cryptoUtil.hashPassword(password, 10);
   const id = 'user-' + crypto.randomBytes(8).toString('hex');
   const user = {
     _id: id,
@@ -134,7 +135,7 @@ async function createUser({ name, email, password, phone = '', role = 'visitor',
     lastActiveAt: new Date(),
     createdAt: new Date(),
     comparePassword: async function (candidate) {
-      return await bcrypt.compare(candidate, hashedPassword);
+      return await cryptoUtil.comparePassword(candidate, hashedPassword);
     },
     updateActivity: async function () {
       user.lastActiveAt = new Date();
@@ -174,7 +175,7 @@ async function findByPhone(phone, includePassword = false) {
       return {
         ...u,
         comparePassword: async function (candidate) {
-          return await bcrypt.compare(candidate, u.password);
+          return await cryptoUtil.comparePassword(candidate, u.password);
         },
         updateActivity: async function () {
           u.lastActiveAt = new Date();
