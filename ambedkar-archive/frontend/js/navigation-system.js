@@ -37,7 +37,8 @@
       { href: 'constitution.html', label: 'Constitution', icon: '📜', page: 'constitution', title: 'Constitution of India' },
       { href: 'ideas.html', label: 'Ideas', icon: '💡', page: 'ideas', title: 'Thematic Ideas & Philosophy' },
       { href: 'media.html', label: 'Speeches', icon: '🎬', page: 'media', title: 'Speeches & Audio-Visual Archive' },
-      { href: 'ocr.html', label: 'OCR', icon: '📜', page: 'ocr', title: 'Manuscript OCR Visualizer' }
+      { href: 'ocr.html', label: 'OCR', icon: '📜', page: 'ocr', title: 'Manuscript OCR Visualizer' },
+      { href: 'about.html', label: 'About', icon: '✨', page: 'about', title: 'About the Creator & Vision' }
     ],
     bottomTabs: [
       { href: 'index.html', label: 'Home', icon: '🏠', id: 'home' },
@@ -65,7 +66,8 @@
       { href: 'assistant.html', label: 'AI Research Assistant', icon: '🤖', id: 'assistant' },
       { href: 'ocr.html', label: 'Manuscript OCR', icon: '📜', id: 'ocr' },
       { href: 'dashboard.html', label: 'My Research Dashboard', icon: '👤', id: 'dashboard' },
-      { href: 'transparency.html', label: 'Archive Transparency', icon: '🛡️', id: 'transparency' }
+      { href: 'transparency.html', label: 'Archive Transparency', icon: '🛡️', id: 'transparency' },
+      { href: 'about.html', label: 'About the Creator', icon: '✨', id: 'about' }
     ]
   };
 

@@ -147,7 +147,7 @@ async function runTests() {
     assert.ok(text.includes('BAWS Vol. 8') || text.includes('Pakistan or the Partition of India'));
   });
 
-  // 6. Frontend Pages Availability (24 pages total)
+  // 6. Frontend Pages Availability (26 pages total)
   const pages = [
     'index.html',
     'archive.html',
@@ -172,7 +172,9 @@ async function runTests() {
     'register.html',
     'privacy.html',
     'terms.html',
-    'slides.html'
+    'slides.html',
+    'transparency.html',
+    'about.html'
   ];
 
   for (const page of pages) {

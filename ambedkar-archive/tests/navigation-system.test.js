@@ -310,7 +310,7 @@ runTest('TEST 4: Drag handle #dock-drag-handle exists with tactile grip and acce
 });
 
 // ── TEST 5: Tap navigation icon works without triggering drag
-runTest('TEST 5: Dock navigation links are isolated and contain exact 9 curated hubs', () => {
+runTest('TEST 5: Dock navigation links are isolated and contain 10 curated hubs with About as final tab', () => {
   const env = createMockEnvironment('/index.html');
   const dock = env.document.querySelector('.floating-dock');
   const items = [
@@ -322,7 +322,8 @@ runTest('TEST 5: Dock navigation links are isolated and contain exact 9 curated 
     'constitution.html',
     'ideas.html',
     'media.html',
-    'ocr.html'
+    'ocr.html',
+    'about.html'
   ];
 
   items.forEach(item => {
@@ -330,6 +331,16 @@ runTest('TEST 5: Dock navigation links are isolated and contain exact 9 curated 
       throw new Error(`Dock missing required item: ${item}`);
     }
   });
+
+  // Verify about.html is strictly the last dock item
+  const matches = [...dock.innerHTML.matchAll(/href="([^"]+)"\s+class="dock-item/g)].map(m => m[1]);
+  if (matches.length !== 10) {
+    throw new Error(`Expected 10 dock items, found ${matches.length}`);
+  }
+  const lastItemHref = matches[matches.length - 1];
+  if (lastItemHref !== 'about.html') {
+    throw new Error(`Expected last dock item to be about.html, got: ${lastItemHref}`);
+  }
 });
 
 // ── TEST 6: Drag boundaries clamping
@@ -353,7 +364,7 @@ runTest('TEST 6: Boundary containment clamps coordinates within viewport', () =>
 });
 
 // ── TEST 7: Master Navbar active states across pages
-runTest('TEST 7: Page-specific active states for Home, Archive, Timeline, AI, Memorials, Debates', () => {
+runTest('TEST 7: Page-specific active states for Home, Archive, Timeline, AI, Memorials, Debates, About', () => {
   // 1. Home
   const home = createMockEnvironment('/index.html');
   const homeNav = home.document.querySelector('.nav');
@@ -395,14 +406,21 @@ runTest('TEST 7: Page-specific active states for Home, Archive, Timeline, AI, Me
   if (!debDock.innerHTML.includes('href="debates.html" class="dock-item active"')) {
     throw new Error('Debates dock item must be active on debates.html');
   }
+
+  // 7. About in Dock
+  const about = createMockEnvironment('/about.html');
+  const aboutDock = about.document.querySelector('.floating-dock');
+  if (!aboutDock.innerHTML.includes('href="about.html" class="dock-item active"')) {
+    throw new Error('About dock item must be active on about.html');
+  }
 });
 
 // ── TEST 8: All HTML Pages Consistency Audit
-runTest('TEST 8: All 25 HTML pages audited — script inclusions and master navigation compliance', () => {
+runTest('TEST 8: All 26 HTML pages audited — script inclusions and master navigation compliance', () => {
   const htmlFiles = fs.readdirSync(frontendDir).filter(f => f.endsWith('.html'));
 
-  if (htmlFiles.length < 24) {
-    throw new Error(`Expected at least 24 HTML files, found ${htmlFiles.length}`);
+  if (htmlFiles.length < 26) {
+    throw new Error(`Expected at least 26 HTML files, found ${htmlFiles.length}`);
   }
 
   htmlFiles.forEach(file => {
