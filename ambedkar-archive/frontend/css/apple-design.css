@@ -116,13 +116,20 @@ button:active,
 /* ───────────────────────────────────────────────────────────────
    3. APPLE TRANSLUCENT MATERIALS & FLOATING CHROME
    ─────────────────────────────────────────────────────────────── */
-.nav,
+.nav-inner,
 .apple-glass {
   background: var(--apple-glass-bg);
   backdrop-filter: var(--apple-blur-thick);
   -webkit-backdrop-filter: var(--apple-blur-thick);
   box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.45), var(--apple-specular-top);
   border: var(--apple-hairline-border);
+}
+
+.nav,
+.navbar {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 /* ───────────────────────────────────────────────────────────────

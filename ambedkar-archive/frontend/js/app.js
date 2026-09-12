@@ -433,12 +433,39 @@ function initHamburger() {
 
 // ── Floating Nav Scroll Dynamics (Apple Fluidity) ─────
 function initNavScrollDynamics() {
+  const navEl = document.querySelector('.nav, .navbar');
   const navInner = document.querySelector('.nav-inner, .nav-container');
   if (!navInner) return;
 
+  let lastScrollY = window.pageYOffset || 0;
+  let ticking = false;
+
   window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    navInner.classList.toggle('scrolled', currentScroll > 40);
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        const currentScroll = window.pageYOffset || 0;
+        navInner.classList.toggle('scrolled', currentScroll > 30);
+
+        if (navEl) {
+          const mobileMenu = document.getElementById('mobile-menu');
+          const isMenuOpen = mobileMenu && mobileMenu.classList.contains('open');
+
+          if (isMenuOpen || currentScroll < 80) {
+            navEl.classList.remove('nav-hidden');
+          } else if (currentScroll > lastScrollY + 8 && currentScroll > 120) {
+            // Scrolling down — hide navbar so it never covers or obstructs headings
+            navEl.classList.add('nav-hidden');
+          } else if (currentScroll < lastScrollY - 6) {
+            // Scrolling up — smoothly reveal navbar
+            navEl.classList.remove('nav-hidden');
+          }
+        }
+
+        lastScrollY = Math.max(0, currentScroll);
+        ticking = false;
+      });
+      ticking = true;
+    }
   }, { passive: true });
 }
 

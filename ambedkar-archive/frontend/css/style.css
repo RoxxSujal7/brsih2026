@@ -900,7 +900,14 @@ p {
   align-items: center;
   pointer-events: none;
   padding: 0 var(--space-4);
-  transition: all var(--duration-normal) var(--ease-out);
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+  will-change: transform;
+}
+
+.nav.nav-hidden {
+  transform: translateY(calc(-100% - 24px));
+  opacity: 0;
+  pointer-events: none !important;
 }
 
 .nav-inner,
@@ -927,7 +934,31 @@ p {
 .nav-inner.scrolled,
 .nav-container.scrolled {
   box-shadow: 0 16px 40px -4px rgba(0, 0, 0, 0.85), inset 0 1px 1px rgba(255, 255, 255, 0.2);
-  background: rgba(10, 14, 22, 0.94);
+  background: rgba(8, 11, 18, 0.98) !important;
+  backdrop-filter: blur(32px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(32px) saturate(200%) !important;
+}
+
+html[data-theme="paper"] .nav-inner.scrolled,
+html[data-theme="paper"] .nav-container.scrolled,
+body.mode-paper .nav-inner.scrolled,
+body.mode-paper .nav-container.scrolled {
+  background: rgba(246, 242, 233, 0.98) !important;
+  border-color: rgba(43, 39, 35, 0.18) !important;
+  box-shadow: 0 16px 40px -4px rgba(45, 40, 32, 0.18), inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(32px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(32px) saturate(180%) !important;
+}
+
+html[data-theme="sepia"] .nav-inner.scrolled,
+html[data-theme="sepia"] .nav-container.scrolled,
+body.mode-sepia .nav-inner.scrolled,
+body.mode-sepia .nav-container.scrolled {
+  background: rgba(238, 229, 211, 0.98) !important;
+  border-color: rgba(59, 44, 30, 0.2) !important;
+  box-shadow: 0 16px 40px -4px rgba(59, 44, 30, 0.18), inset 0 1px 1px rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(32px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(32px) saturate(180%) !important;
 }
 
 .nav-logo,
@@ -2291,8 +2322,20 @@ html[data-theme="sepia"] .hero-portrait-actions .btn-outline {
   }
 }
 
+/* Prevents anchor targets and headings from hiding behind fixed floating navbar */
+[id],
+section,
+.section,
+.path-section,
+.hero,
+.learn-hero,
+.quotes-hero,
+h1, h2, h3 {
+  scroll-margin-top: calc(var(--nav-height, 72px) + 32px);
+}
+
 .page-content {
-  padding-top: calc(var(--nav-height) + 20px);
+  padding-top: calc(var(--nav-height) + var(--space-8));
   min-height: 100dvh;
 }
 
