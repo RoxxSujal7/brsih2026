@@ -74,9 +74,21 @@ window.SpatialBackendClient = (function () {
     }
   }
 
+  async function getMilestones() {
+    try {
+      const res = await fetch(`${API_BASE}/milestones`);
+      const data = await res.json();
+      return data.success ? data : null;
+    } catch (err) {
+      console.warn('SpatialBackendClient: Failed to fetch milestones:', err);
+      return null;
+    }
+  }
+
   return {
     getExperience,
     getArtifacts,
+    getMilestones,
     getAnnotations,
     createAnnotation,
     logTelemetry,

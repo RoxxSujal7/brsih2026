@@ -52,31 +52,49 @@ const path = require('path');
     });
     console.log(`✅ SpatialLandingEngine & BackendClient loaded: ${engineLoaded}`);
 
-    // 4. Verify the Interactive 3D Showcase section
+    // 4. Verify Swiss grid overlay and HUD telemetry
+    const swissGrid = await page.$('.swiss-grid-overlay');
+    console.log(`✅ Swiss architectural grid overlay exists: ${!!swissGrid}`);
+
+    const hudBar = await page.$('#spatial-hud-bar');
+    console.log(`✅ Live HUD telemetry bar exists: ${!!hudBar}`);
+
+    // 5. Verify the Interactive 3D Showcase section
     const showcase = await page.$('#interactive-showcase');
     if (!showcase) throw new Error('#interactive-showcase section missing!');
     console.log('✅ #interactive-showcase section rendered successfully');
 
-    // 5. Test clicking dock items (switching between exhibits)
+    // 6. Test clicking all 5 dock items (including globe)
     const dockButtons = await page.$$('.spatial-dock-item');
     console.log(`✅ Found ${dockButtons.length} spatial dock items`);
     for (const btn of dockButtons) {
       const name = await btn.innerText();
       await btn.click();
-      console.log(`   - Clicked dock item: ${name.trim()}`);
-      await page.waitForTimeout(300);
+      console.log(`   - Clicked dock item: ${name.trim().replace(/\n+/g, ' ')}`);
+      await page.waitForTimeout(350);
     }
 
-    // 6. Test scrolling down to verify scrollytelling triggers
-    console.log('📜 Scrolling through page milestones...');
-    await page.evaluate(() => window.scrollTo({ top: 1200, behavior: 'instant' }));
-    await page.waitForTimeout(400);
-    await page.evaluate(() => window.scrollTo({ top: 2500, behavior: 'instant' }));
-    await page.waitForTimeout(400);
-    await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
-    await page.waitForTimeout(300);
+    // Capture showcase screenshot
+    await page.screenshot({ path: 'C:/Users/sujal/.gemini/antigravity-ide/brain/7348231b-daa3-45a6-8657-b1d33dc59405/spatial_showcase_v2.png' });
 
-    // 7. Check for critical console errors
+    // 7. Test scrolling down to verify scrollytelling triggers and speedometer
+    console.log('📜 Scrolling through page milestones...');
+    await page.evaluate(() => window.scrollTo({ top: 1400, behavior: 'smooth' }));
+    await page.waitForTimeout(500);
+
+    const speedVal = await page.evaluate(() => document.getElementById('spatial-hud-speed')?.textContent);
+    const chapterVal = await page.evaluate(() => document.getElementById('spatial-hud-chapter')?.textContent);
+    console.log(`✅ Live HUD Speedometer: ${speedVal} km/h | Chapter: ${chapterVal}`);
+
+    await page.evaluate(() => window.scrollTo({ top: 2800, behavior: 'smooth' }));
+    await page.waitForTimeout(500);
+    await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    await page.waitForTimeout(500);
+
+    // Capture hero screenshot
+    await page.screenshot({ path: 'C:/Users/sujal/.gemini/antigravity-ide/brain/7348231b-daa3-45a6-8657-b1d33dc59405/spatial_hero_v2.png' });
+
+    // 8. Check for critical console errors
     const criticalErrors = consoleErrors.filter(e => !e.includes('favicon') && !e.includes('analytics'));
     if (criticalErrors.length > 0) {
       console.warn('⚠️ Console errors recorded:', criticalErrors);
@@ -84,7 +102,7 @@ const path = require('path');
       console.log('✅ Zero console errors recorded during full spatial interaction cycle');
     }
 
-    console.log('🎉 VERIFICATION COMPLETE: Ambedkar Digital Archive is fully alive in complete 3D Apple/Nike style!');
+    console.log('🎉 VERIFICATION COMPLETE: Ambedkar Digital Archive is fully alive in complete 3D Apple/Nike/United Carriers style!');
   } catch (err) {
     console.error('❌ Verification failed:', err);
     process.exitCode = 1;

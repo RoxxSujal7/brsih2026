@@ -44,6 +44,30 @@
 <body>
 <canvas id="spatial-bg-canvas"></canvas>
 
+<!-- Swiss Architectural Vertical Grid Lines (White Desert style) -->
+<div class="swiss-grid-overlay" aria-hidden="true">
+  <div class="swiss-grid-col"></div>
+  <div class="swiss-grid-col"></div>
+  <div class="swiss-grid-col"></div>
+  <div class="swiss-grid-col"></div>
+  <div class="swiss-grid-col"></div>
+  <div class="swiss-grid-col"></div>
+</div>
+
+<!-- Live HUD Telemetry Readout Pill (United Carriers style) -->
+<div class="spatial-hud-bar" id="spatial-hud-bar" role="status" aria-label="3D Spatial telemetry">
+  <div class="spatial-hud-speed-wrap" title="Real-time interaction &amp; scroll velocity">
+    <span class="spatial-hud-speed-val" id="spatial-hud-speed">00</span>
+    <span class="spatial-hud-unit">km/h</span>
+  </div>
+  <div class="spatial-hud-divider"></div>
+  <div class="spatial-hud-chapter" id="spatial-hud-chapter">01 // BEACON OF JUSTICE</div>
+  <div class="spatial-hud-divider"></div>
+  <div class="spatial-hud-coords" id="spatial-hud-coords">40.8075° N, 73.9626° W (NYC)</div>
+  <div class="spatial-hud-divider"></div>
+  <div style="color:#22c55e;font-size:0.7rem;font-weight:600;">● BAWS 60/60 LOADED</div>
+</div>
+
 <!-- ─── Floating Island Navigation (High-End Visual Design & Apple Physics) ─── -->
 <nav class="nav" role="navigation" aria-label="Main navigation">
   <div class="nav-inner">
@@ -227,6 +251,12 @@
         </div>
 
         <div class="hero-actions animate-fade-up delay-3">
+          <a href="#interactive-showcase" class="btn-pill-white">
+            <span>✨ Explore 3D Archive</span>
+          </a>
+          <a href="archive.html" class="btn-pill-outline">
+            <span>Browse 60 Volumes</span>
+          </a>
           <button type="button" class="btn btn-primary btn-lg" data-three-experience="museum" style="background:linear-gradient(135deg, #c59b27, #855e09);color:#060913;font-weight:700;box-shadow:0 0 24px rgba(197,155,39,0.38);border-color:#e9c46a;">
             <span>🏛️ Enter 3D Digital Museum</span>
             <span class="btn-icon-bubble">3D</span>
@@ -341,7 +371,11 @@
 
     <!-- Nike-style Exhibit Selector Dock -->
     <div class="spatial-dock" role="tablist" aria-label="Choose 3D Exhibit">
-      <button class="spatial-dock-item active" data-exhibit="constitution" role="tab" aria-selected="true">
+      <button class="spatial-dock-item active" data-exhibit="globe" role="tab" aria-selected="true">
+        <span>🌐</span>
+        <span>Global Beacon</span>
+      </button>
+      <button class="spatial-dock-item" data-exhibit="constitution" role="tab" aria-selected="false">
         <span>📜</span>
         <span>The Constitution</span>
       </button>

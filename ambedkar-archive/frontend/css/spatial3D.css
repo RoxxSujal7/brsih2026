@@ -401,4 +401,141 @@
   .spatial-artifact-info {
     max-width: 260px;
   }
+  .spatial-hud-bar {
+    bottom: 12px;
+    right: 12px;
+    left: 12px;
+    justify-content: space-between;
+    padding: 8px 14px;
+    font-size: 0.68rem;
+  }
 }
+
+/* ─── 5. Swiss Architectural Vertical Grid (White Desert style) ─── */
+.swiss-grid-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  opacity: 0.2;
+}
+
+.swiss-grid-col {
+  border-right: 1px solid rgba(255, 255, 255, 0.07);
+  height: 100%;
+}
+
+/* ─── 6. Live HUD Telemetry Readout Pill (United Carriers style) ─── */
+.spatial-hud-bar {
+  position: fixed;
+  bottom: 24px;
+  right: 28px;
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 22px;
+  border-radius: 9999px;
+  background: rgba(11, 15, 25, 0.8);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: #e2e8f0;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+}
+
+.spatial-hud-speed-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.spatial-hud-speed-val {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #38bdf8;
+  font-variant-numeric: tabular-nums;
+}
+
+.spatial-hud-unit {
+  font-size: 0.68rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+}
+
+.spatial-hud-divider {
+  width: 1px;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.spatial-hud-chapter {
+  font-weight: 600;
+  color: #f59e0b;
+  text-transform: uppercase;
+}
+
+.spatial-hud-coords {
+  color: #94a3b8;
+  font-size: 0.7rem;
+}
+
+/* ─── 7. Tactile Pill Buttons (Nike & United Carriers) ─── */
+.btn-pill-white {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: 9999px;
+  background: #ffffff;
+  color: #0b0f19 !important;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.22);
+}
+
+.btn-pill-white:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.45);
+}
+
+.btn-pill-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: 9999px;
+  background: rgba(15, 23, 42, 0.65);
+  color: #ffffff !important;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(16px);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-pill-outline:hover {
+  border-color: #f59e0b;
+  color: #f59e0b !important;
+  transform: translateY(-2px);
+  background: rgba(245, 158, 11, 0.08);
+}
+

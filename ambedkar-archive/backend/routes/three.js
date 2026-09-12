@@ -125,6 +125,13 @@ router.get('/experience', (req, res) => {
         fillLight: { color: '#555555', intensity: 1.0, pos: [-7, 3, -5] },
         rimLight: { color: '#ffffff', intensity: 3.5, pos: [0, 10, -9] },
         fog: { color: '#000000', near: 12, far: 60 }
+      },
+      united_carriers_cyber: {
+        ambient: { color: '#050a18', intensity: 0.9 },
+        keyLight: { color: '#0044ff', intensity: 3.8, pos: [-8, 6, 4] },
+        fillLight: { color: '#ff6600', intensity: 2.2, pos: [8, 8, -4] },
+        rimLight: { color: '#2997ff', intensity: 4.2, pos: [0, 12, -10] },
+        fog: { color: '#020409', near: 10, far: 50 }
       }
     },
     scrollWaypoints: [
@@ -292,6 +299,112 @@ router.get('/artifacts', (req, res) => {
         ]
       }
     ]
+  });
+});
+
+/**
+ * GET /api/three/milestones
+ * Global journey milestones for the United Carriers-style 3D celestial globe
+ */
+router.get('/milestones', (req, res) => {
+  // Convert lat/lon to unit sphere 3D coordinates (R = 2.8)
+  const toSphere = (lat, lon, r = 2.8) => {
+    const phi = (90 - lat) * (Math.PI / 180);
+    const theta = (lon + 180) * (Math.PI / 180);
+    return {
+      x: -(r * Math.sin(phi) * Math.cos(theta)),
+      z: r * Math.sin(phi) * Math.sin(theta),
+      y: r * Math.cos(phi)
+    };
+  };
+
+  const milestones = [
+    {
+      id: 'm-columbia',
+      code: 'NYC',
+      city: 'NEW YORK',
+      country: 'USA',
+      location: 'Columbia University',
+      period: '1913–1916',
+      years: '1913–1916',
+      lat: 40.8075,
+      lon: -73.9626,
+      pos: toSphere(40.8075, -73.9626),
+      significance: 'Earned M.A. and Ph.D. under Edwin Seligman and John Dewey; formulated foundational theories on caste and state economy.',
+      accent: '#38bdf8'
+    },
+    {
+      id: 'm-lse',
+      code: 'LON',
+      city: 'LONDON',
+      country: 'UK',
+      location: 'London School of Economics & Gray\'s Inn',
+      period: '1916–1922',
+      years: '1916–1922',
+      lat: 51.5144,
+      lon: -0.1165,
+      pos: toSphere(51.5144, -0.1165),
+      significance: 'Completed D.Sc. in Economics ("The Problem of the Rupee") and called to the Bar at Gray\'s Inn.',
+      accent: '#60a5fa'
+    },
+    {
+      id: 'm-mahad',
+      code: 'MHD',
+      city: 'MAHAD',
+      country: 'INDIA',
+      location: 'Chavdar Tale, Maharashtra',
+      period: '1927',
+      years: '20 MAR 1927',
+      lat: 18.1818,
+      lon: 73.4215,
+      pos: toSphere(18.1818, 73.4215),
+      significance: 'Historic Mahad Satyagraha asserting civil rights to public water sources, heralding the human rights movement in India.',
+      accent: '#f59e0b'
+    },
+    {
+      id: 'm-delhi',
+      code: 'DEL',
+      city: 'NEW DELHI',
+      country: 'INDIA',
+      location: 'Parliament House Drafting Suite',
+      period: '1947–1950',
+      years: '1947–1950',
+      lat: 28.6143,
+      lon: 77.2088,
+      pos: toSphere(28.6143, 77.2088),
+      significance: 'Appointed Chairman of the Constitution Drafting Committee; authored and piloted the world\'s most comprehensive democratic constitution.',
+      accent: '#facc15'
+    },
+    {
+      id: 'm-nagpur',
+      code: 'NGP',
+      city: 'NAGPUR',
+      country: 'INDIA',
+      location: 'Deekshabhoomi',
+      period: '1956',
+      years: '14 OCT 1956',
+      lat: 21.1278,
+      lon: 79.0669,
+      pos: toSphere(21.1278, 79.0669),
+      significance: 'Historic Dhamma Diksha embracing Buddhism with 500,000 followers, establishing the 22 Vows of ethical and spiritual liberation.',
+      accent: '#fbbf24'
+    }
+  ];
+
+  // Global travel arcs connecting the milestones in chronological order
+  const arcs = [
+    { from: 'm-columbia', to: 'm-lse', label: 'Atlantic Crossing (1916)' },
+    { from: 'm-lse', to: 'm-mahad', label: 'Return to Bombay & Mahad (1923–1927)' },
+    { from: 'm-mahad', to: 'm-delhi', label: 'Constituent Assembly (1947)' },
+    { from: 'm-delhi', to: 'm-nagpur', label: 'Dhamma Diksha (1956)' }
+  ];
+
+  res.json({
+    success: true,
+    globeRadius: 2.8,
+    count: milestones.length,
+    data: milestones,
+    arcs: arcs
   });
 });
 

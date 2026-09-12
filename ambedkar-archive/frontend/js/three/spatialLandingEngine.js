@@ -26,23 +26,26 @@
     height: window.innerHeight,
     dpr: Math.min(window.devicePixelRatio || 1, 2),
     
-    // Scrollytelling
+    // Scrollytelling & Velocity HUD
     scrollProgress: 0,
-    targetCamPos: new THREE.Vector3(0, 1.2, 6.5),
-    currentCamPos: new THREE.Vector3(0, 1.2, 6.5),
-    targetLookAt: new THREE.Vector3(0, 0.4, 0),
-    currentLookAt: new THREE.Vector3(0, 0.4, 0),
+    scrollVelocity: 0,
+    lastScrollY: 0,
+    lastScrollTime: performance.now(),
+    targetCamPos: new THREE.Vector3(0.8, 1.2, 5.8),
+    currentCamPos: new THREE.Vector3(0.8, 1.2, 5.8),
+    targetLookAt: new THREE.Vector3(0.4, 0.3, 0),
+    currentLookAt: new THREE.Vector3(0.4, 0.3, 0),
     
     // Mouse Parallax
     mouse: { x: 0, y: 0, targetX: 0, targetY: 0 },
     
     // Nike-style Showcase Mode
     showcaseActive: false,
-    activeExhibitId: 'constitution',
+    activeExhibitId: 'globe',
     exhibits: {},
     particles: null,
     lights: {},
-    currentLightingPreset: 'studio_dark',
+    currentLightingPreset: 'united_carriers_cyber',
     autoRotate: true,
     wireframeMode: false,
     soundEnabled: true,
@@ -435,11 +438,158 @@
     ink.position.set(0.65, -0.75, -0.35);
     quillGroup.add(ink);
 
-    state.exhibits.quill = quillGroup;
-    state.scene.add(quillGroup);
+    // E. 3D Celestial Beacon of Justice Globe & Global Journey Arcs (United Carriers style)
+    const globeGroup = new THREE.Group();
+    globeGroup.name = 'globe';
 
-    // Hide all except initial exhibit
-    switchExhibit('constitution', false);
+    const globeRadius = 2.4;
+    // Core dark metallic sphere
+    const sphereGeo = new THREE.SphereGeometry(globeRadius * 0.98, 48, 48);
+    const sphereMat = new THREE.MeshStandardMaterial({
+      color: 0x030712,
+      roughness: 0.7,
+      metalness: 0.25
+    });
+    const coreSphere = new THREE.Mesh(sphereGeo, sphereMat);
+    coreSphere.receiveShadow = true;
+    globeGroup.add(coreSphere);
+
+    // Particle Dot-Matrix Landmasses & Grid (1,600 points)
+    const dotCount = 1600;
+    const dotGeo = new THREE.BufferGeometry();
+    const dotPositions = new Float32Array(dotCount * 3);
+    const dotColors = new Float32Array(dotCount * 3);
+    const cBlue = new THREE.Color(0x38bdf8);
+    const cGold = new THREE.Color(0xf59e0b);
+    const cWhite = new THREE.Color(0xffffff);
+
+    for (let i = 0; i < dotCount; i++) {
+      // Fibonacci sphere distribution
+      const phi = Math.acos(1 - 2 * (i + 0.5) / dotCount);
+      const theta = Math.PI * (1 + Math.sqrt(5)) * i;
+      const r = globeRadius;
+      const x = r * Math.sin(phi) * Math.cos(theta);
+      const y = r * Math.cos(phi);
+      const z = r * Math.sin(phi) * Math.sin(theta);
+
+      dotPositions[i * 3] = x;
+      dotPositions[i * 3 + 1] = y;
+      dotPositions[i * 3 + 2] = z;
+
+      // Color gradation by latitude (Golden subcontinent, Electric blue poles)
+      const latRatio = Math.abs(y) / r;
+      const col = latRatio < 0.35 ? cGold : (latRatio < 0.7 ? cBlue : cWhite);
+      dotColors[i * 3] = col.r;
+      dotColors[i * 3 + 1] = col.g;
+      dotColors[i * 3 + 2] = col.b;
+    }
+    dotGeo.setAttribute('position', new THREE.BufferAttribute(dotPositions, 3));
+    dotGeo.setAttribute('color', new THREE.BufferAttribute(dotColors, 3));
+
+    const dotMat = new THREE.PointsMaterial({
+      size: 0.08,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.9,
+      blending: THREE.AdditiveBlending
+    });
+    const globeDots = new THREE.Points(dotGeo, dotMat);
+    globeGroup.add(globeDots);
+    globeGroup.dots = globeDots;
+
+    // Dual Atmospheric Corona Glow Rings (Electric Royal Blue & Amber Saffron)
+    const ringBlueGeo = new THREE.TorusGeometry(globeRadius * 1.05, 0.045, 16, 120);
+    const ringBlueMat = new THREE.MeshBasicMaterial({
+      color: 0x0044ff,
+      transparent: true,
+      opacity: 0.85
+    });
+    const ringBlue = new THREE.Mesh(ringBlueGeo, ringBlueMat);
+    ringBlue.rotation.x = Math.PI / 3;
+    globeGroup.add(ringBlue);
+
+    const ringGoldGeo = new THREE.TorusGeometry(globeRadius * 1.08, 0.035, 16, 120);
+    const ringGoldMat = new THREE.MeshBasicMaterial({
+      color: 0xf59e0b,
+      transparent: true,
+      opacity: 0.8
+    });
+    const ringGold = new THREE.Mesh(ringGoldGeo, ringGoldMat);
+    ringGold.rotation.y = Math.PI / 4;
+    ringGold.rotation.x = -Math.PI / 6;
+    globeGroup.add(ringGold);
+    globeGroup.rings = [ringBlue, ringGold];
+
+    // 5 Glowing Historical Milestone Pins
+    const milestones = [
+      { id: 'm-columbia', label: 'NYC', lat: 40.8, lon: -74.0, col: 0x38bdf8 },
+      { id: 'm-lse', label: 'LON', lat: 51.5, lon: -0.1, col: 0x60a5fa },
+      { id: 'm-mahad', label: 'MHD', lat: 18.2, lon: 73.4, col: 0xf59e0b },
+      { id: 'm-delhi', label: 'DEL', lat: 28.6, lon: 77.2, col: 0xfacc15 },
+      { id: 'm-nagpur', label: 'NGP', lat: 21.1, lon: 79.1, col: 0xfbbf24 }
+    ];
+
+    const toSphere = (lat, lon, r = globeRadius * 1.02) => {
+      const phi = (90 - lat) * (Math.PI / 180);
+      const theta = (lon + 180) * (Math.PI / 180);
+      return new THREE.Vector3(
+        -(r * Math.sin(phi) * Math.cos(theta)),
+        r * Math.cos(phi),
+        r * Math.sin(phi) * Math.sin(theta)
+      );
+    };
+
+    const pinPoints = [];
+    milestones.forEach(m => {
+      const p = toSphere(m.lat, m.lon);
+      pinPoints.push(p);
+
+      // Pin Marker Sphere
+      const pGeo = new THREE.SphereGeometry(0.09, 16, 16);
+      const pMat = new THREE.MeshBasicMaterial({ color: m.col });
+      const pin = new THREE.Mesh(pGeo, pMat);
+      pin.position.copy(p);
+      globeGroup.add(pin);
+
+      // Outer Pulsing Halo
+      const haloGeo = new THREE.RingGeometry(0.1, 0.2, 16);
+      const haloMat = new THREE.MeshBasicMaterial({
+        color: m.col,
+        transparent: true,
+        opacity: 0.85,
+        side: THREE.DoubleSide
+      });
+      const halo = new THREE.Mesh(haloGeo, haloMat);
+      halo.position.copy(p);
+      halo.lookAt(new THREE.Vector3(0, 0, 0));
+      globeGroup.add(halo);
+    });
+
+    // Luminous 3D Bezier Journey Arcs connecting Columbia -> London -> Mahad -> Delhi -> Nagpur
+    for (let k = 0; k < pinPoints.length - 1; k++) {
+      const p1 = pinPoints[k];
+      const p2 = pinPoints[k + 1];
+      const mid = new THREE.Vector3().addVectors(p1, p2).multiplyScalar(0.5);
+      const dist = p1.distanceTo(p2);
+      mid.normalize().multiplyScalar(globeRadius + dist * 0.45);
+
+      const curve = new THREE.QuadraticBezierCurve3(p1, mid, p2);
+      const curveGeo = new THREE.BufferGeometry().setFromPoints(curve.getPoints(36));
+      const curveMat = new THREE.LineBasicMaterial({
+        color: k === 1 ? 0xf59e0b : 0x0066ff,
+        transparent: true,
+        opacity: 0.85,
+        linewidth: 2
+      });
+      const arcLine = new THREE.Line(curveGeo, curveMat);
+      globeGroup.add(arcLine);
+    }
+
+    state.exhibits.globe = globeGroup;
+    state.scene.add(globeGroup);
+
+    // Initial exhibit is globe
+    switchExhibit('globe', false);
   }
 
   // 8. Exhibit Switcher
@@ -503,10 +653,16 @@
         period: 'Circa 1947',
         material: 'Parker 51 Gold Nib & Journal',
         desc: 'Personal drafting pens and annotated journals used during constitutional deliberation sessions in Delhi.'
+      },
+      globe: {
+        name: '3D Celestial Beacon of Justice',
+        period: '1891–1956',
+        material: 'Global Trajectory Mesh & Golden Dharma Chakra',
+        desc: 'Global trajectory of Dr. Ambedkar\'s intellectual and legal journey across Columbia NYC, London LSE, Mahad, New Delhi, and Nagpur.'
       }
     };
 
-    const current = info[id] || info.constitution;
+    const current = info[id] || info.globe;
     const nameEl = document.getElementById('spatial-hud-name');
     const metaEl = document.getElementById('spatial-hud-meta');
     const descEl = document.getElementById('spatial-hud-desc');
@@ -518,13 +674,24 @@
 
   // 10. Lighting Presets Switcher
   function cycleLightingPreset() {
-    const presets = ['studio_dark', 'museum_gold', 'cyber_monochrome'];
+    const presets = ['united_carriers_cyber', 'studio_dark', 'museum_gold', 'cyber_monochrome'];
     const idx = (presets.indexOf(state.currentLightingPreset) + 1) % presets.length;
     state.currentLightingPreset = presets[idx];
 
     playHapticSound('click');
 
     const config = {
+      united_carriers_cyber: {
+        amb: 0x050a18,
+        ambI: 1.1,
+        key: 0x0044ff,
+        keyI: 3.5,
+        fill: 0xff6600,
+        fillI: 2.2,
+        rim: 0x2997ff,
+        rimI: 4.2,
+        bg: 0x020409
+      },
       studio_dark: {
         amb: 0x1e293b,
         ambI: 1.2,
@@ -709,11 +876,30 @@
     handleScroll();
   }
 
-  // 14. Scroll Handler (Choreographer)
+  // 14. Scroll Handler (Choreographer & Velocity HUD)
   function handleScroll() {
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
     const progress = docHeight > 0 ? window.scrollY / docHeight : 0;
     state.scrollProgress = progress;
+
+    // Calculate real-time scroll velocity for United Carriers HUD speedometer
+    const now = performance.now();
+    const dt = Math.max(now - state.lastScrollTime, 16);
+    const dy = Math.abs(window.scrollY - state.lastScrollY);
+    state.lastScrollY = window.scrollY;
+    state.lastScrollTime = now;
+
+    const instantVelocity = (dy / dt) * 120;
+    state.scrollVelocity = THREE.MathUtils.lerp(state.scrollVelocity, instantVelocity, 0.25);
+
+    const speedEl = document.getElementById('spatial-hud-speed');
+    if (speedEl) {
+      const speedVal = Math.min(Math.round(state.scrollVelocity * 0.75), 99);
+      speedEl.textContent = speedVal < 10 ? `0${speedVal}` : `${speedVal}`;
+    }
+
+    const chapterEl = document.getElementById('spatial-hud-chapter');
+    const coordsEl = document.getElementById('spatial-hud-coords');
 
     // Check if user is inside the Interactive Showcase section
     const showcaseSec = document.getElementById('interactive-showcase');
@@ -726,39 +912,52 @@
       }
     }
 
-    // Apple Scrollytelling Milestones
-    if (progress < 0.2) {
-      // Hero Stage: Memorial Bust
+    // United Carriers + Apple Scrollytelling Milestones
+    if (progress < 0.22) {
+      // Hero Stage: 3D Celestial Beacon of Justice Globe
+      if (!state.userManualSelection && state.activeExhibitId !== 'globe') {
+        switchExhibit('globe', false);
+      }
+      state.targetCamPos.set(0.8, 1.2, 5.8);
+      state.targetLookAt.set(0.4, 0.3, 0);
+      if (chapterEl) chapterEl.textContent = '01 // BEACON OF JUSTICE';
+      if (coordsEl) coordsEl.textContent = '40.8075° N, 73.9626° W (NYC)';
+    } else if (progress < 0.48) {
+      // Memorial Constellation Stage: Bronze Bust
       if (!state.userManualSelection && state.activeExhibitId !== 'bust') {
         switchExhibit('bust', false);
       }
-      state.targetCamPos.set(0.5, 1.4, 6.2);
-      state.targetLookAt.set(0.2, 0.5, 0);
-    } else if (progress < 0.45) {
-      // Archive Library Stage: Historical Drafting Suite
-      if (!state.userManualSelection && state.activeExhibitId !== 'quill') {
-        switchExhibit('quill', false);
-      }
-      state.targetCamPos.set(2.4, 1.8, 5.0);
-      state.targetLookAt.set(0.2, 0.4, 0);
-    } else if (progress < 0.75) {
+      state.targetCamPos.set(0.2, 1.4, 6.2);
+      state.targetLookAt.set(0.1, 0.4, 0);
+      if (chapterEl) chapterEl.textContent = '02 // MEMORIAL CONSTELLATION';
+      if (coordsEl) coordsEl.textContent = '51.5144° N, 0.1165° W (LON)';
+    } else if (progress < 0.72) {
       // Constitution & Showcase Stage: Illuminated Constitution
       if (!state.userManualSelection && state.activeExhibitId !== 'constitution') {
         switchExhibit('constitution', false);
       }
       state.targetCamPos.set(-0.1, 1.5, 4.4);
       state.targetLookAt.set(0, 0.5, 0);
-    } else if (progress < 0.88) {
+      if (chapterEl) chapterEl.textContent = '03 // CONSTITUTIONAL ARCHIVE';
+      if (coordsEl) coordsEl.textContent = '28.6143° N, 77.2088° E (DEL)';
+    } else if (progress < 0.86) {
       // Timeline Ribbon Stage: Mahad Satyagraha Water Pillar
       if (!state.userManualSelection && state.activeExhibitId !== 'mahad') {
         switchExhibit('mahad', false);
       }
       state.targetCamPos.set(-2.5, 1.3, 5.2);
       state.targetLookAt.set(-0.3, 0.3, 0);
+      if (chapterEl) chapterEl.textContent = '04 // HUMAN RIGHTS & MAHAD';
+      if (coordsEl) coordsEl.textContent = '18.1818° N, 73.4215° E (MHD)';
     } else {
       // Philosophy & Vows Stage: High Perspective Golden Halo
+      if (!state.userManualSelection && state.activeExhibitId !== 'quill') {
+        switchExhibit('quill', false);
+      }
       state.targetCamPos.set(0, 2.5, 5.6);
       state.targetLookAt.set(0, 0.2, 0);
+      if (chapterEl) chapterEl.textContent = '05 // DEEKSHABHOOMI & DHAMMA';
+      if (coordsEl) coordsEl.textContent = '21.1278° N, 79.0669° E (NGP)';
     }
   }
 
@@ -768,6 +967,13 @@
 
     const delta = state.clock.getDelta();
     const elapsed = state.clock.getElapsedTime();
+
+    // Natural velocity decay when idle
+    state.scrollVelocity = THREE.MathUtils.lerp(state.scrollVelocity, 0, 0.05);
+    const speedEl = document.getElementById('spatial-hud-speed');
+    if (speedEl && state.scrollVelocity < 0.5) {
+      speedEl.textContent = '00';
+    }
 
     // Mouse interpolation
     state.mouse.x += (state.mouse.targetX - state.mouse.x) * 0.05;
@@ -787,7 +993,7 @@
     );
     state.camera.lookAt(state.currentLookAt);
 
-    // Rotate Particles
+    // Rotate Cosmic Particles
     if (state.particles) {
       state.particles.rotation.y = elapsed * 0.025;
       state.particles.rotation.x = elapsed * 0.012;
@@ -817,6 +1023,17 @@
       // Pulse holographic halo on Constitution
       if (activeExhibit.halo) {
         activeExhibit.halo.rotation.z = elapsed * 0.5;
+      }
+
+      // Animate Globe Rings & Dot Mesh (United Carriers style)
+      if (activeExhibit.name === 'globe') {
+        if (activeExhibit.dots) {
+          activeExhibit.dots.rotation.y = elapsed * 0.04;
+        }
+        if (activeExhibit.rings) {
+          activeExhibit.rings[0].rotation.z = elapsed * 0.15;
+          activeExhibit.rings[1].rotation.z = -elapsed * 0.12;
+        }
       }
     }
 
